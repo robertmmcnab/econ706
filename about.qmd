@@ -1,0 +1,45 @@
+---
+title: "Course Objectives"
+format: html
+editor: visual
+---
+
+## Course Learning Objectives (CLOs)
+
+-   CLO 1: **Derive** the Ordinary Least Squares (OLS) estimators to establish a foundation of econometric techniques.
+
+-   CLO 2: **Identify** critical econometric issues, including omitted variable bias, heteroscedasticity, multicollinearity, and endogeneity, to determine the validity of the linear regression model.
+
+-   CLO 3: **Conduct** hypothesis testing (including t-tests, F-tests, and Wald tests) and interpret regression estimates to investigate economic and social phenomena.
+
+-   CLO 4: **Evaluate** the small sample and asymptotic properties of estimators, specifically focusing on the concepts of unbiasedness, consistency, and efficiency.
+
+-   CLO 5: **Utilize** R and RStudio to implement statistical techniques and effectively communicate results through reproducible code, visualizations, and written analysis.
+
+## Textbooks and Materials
+
+The required textbook is an integral part of the class. Students should expect to read the textbook prior to each module and to be prepared to answer discussion questions from the textbook. The textbook provides the foundation upon which the course is built and students will succeed if they take the time to read and review the material in the textbook.
+
+As this course focuses on the learning and application of statistical techniques, a computer with **R** and **R Studio** installed is necessary. You will need access to a laptop, tablet, or other computing device to complete the assignments and exams.
+
+**You may also use R Studio Cloud instead of a locally installed version of R.**
+
+You can create a free [R-Studio cloud](https://posit.co/download/rstudio-desktop/) if you do not want to use a locally installed version of R and R Studio.
+
+All other course materials are on Canvas or can be accessed through Canvas. You are required to know how to use Canvas to access and submit assignments, quizzes, and examinations. You should also be comfortable using ODU email to communicate.
+
+## Required Texts
+
+William H. Greene. (2018). *Econometric Analysis, 8th Edition*. Available from Pearson.
+
+## Optional Materials
+
+Angrist, J.D. & Pischke, Jorn-Steffen. (2013). *Mostly Harmless Econometrics: An Empiricist’s Companion*. Content Technologies Inc.
+
+Baruffa, O. (2022). [The Big Book of R](https://www.bigbookofr.com). Available for free.
+
+Chan, S. (2021) [Introduction to Probability for Data Science](https://probability4datascience.com). Michigan Publishing. Available for free.
+
+Hanck, C., Arnold, M., Gerber, A., and M. Schmelzer. (2024). [Introduction to Econometrics with R](https://www.econometrics-with-r.org). Available for free.
+
+Kennedy, P. (2003). *A Guide to Econometrics*. MIT Press.

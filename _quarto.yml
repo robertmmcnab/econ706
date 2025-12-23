@@ -1,0 +1,33 @@
+project:
+  type: book
+  output-dir: docs       # HTML files will be placed in docs/ for GitHub Pages
+
+book:
+  title: "ECON 706"
+  author: "Robert M. McNab"
+  chapters:
+    - part: "Introduction"
+      chapters:
+        - index.qmd
+        - mcnab.qmd
+        - about.qmd
+
+execute:
+  webR: true            # enables WebR chunks for interactive R in the browser
+  
+filters:
+  - webr                # activates the webR filter globally
+  
+webr:
+  packages: [dplyr, ggplot2, knitr]
+  show-startup-message: true
+  show-header-message: true
+
+format:
+  html:
+    toc: true
+    toc-location: right
+    self-contained: false   # recommended for WebR to load JS modules correctly
+    link-external-newwindow: true  # open all links in new tabs
+
+

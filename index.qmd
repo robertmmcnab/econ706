@@ -1,0 +1,25 @@
+---
+title: "ECON 706"
+---
+
+## Course Introduction
+
+<ul>
+
+<li><a href="mcnab.qmd">Meet Your Instructor</a></li>
+<li><a href="about.qmd">Course Objectives and Materials</a></li>
+
+</ul>
+
+## Module 01 – Introduction to R and Descriptive Statistics
+
+<ul>
+
+
+</ul>
+
+
+
+------------------------------------------------------------------------
+
+<p>This site provides <strong>interactive and static examples</strong> for economic data analysis using R and WebR. Click on the links above to explore each module.</p>

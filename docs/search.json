@@ -1,0 +1,123 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "ECON 706",
+    "section": "",
+    "text": "0.1 Course Introduction",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#course-introduction",
+    "href": "index.html#course-introduction",
+    "title": "ECON 706",
+    "section": "",
+    "text": "Meet Your Instructor\n\n\nCourse Objectives and Materials",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#module-01-introduction-to-r-and-descriptive-statistics",
+    "href": "index.html#module-01-introduction-to-r-and-descriptive-statistics",
+    "title": "ECON 706",
+    "section": "0.2 Module 01 – Introduction to R and Descriptive Statistics",
+    "text": "0.2 Module 01 – Introduction to R and Descriptive Statistics\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
+    ]
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "3  Course Objectives",
+    "section": "",
+    "text": "3.1 Course Learning Objectives (CLOs)",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Course Objectives</span>"
+    ]
+  },
+  {
+    "objectID": "about.html#course-learning-objectives-clos",
+    "href": "about.html#course-learning-objectives-clos",
+    "title": "3  Course Objectives",
+    "section": "",
+    "text": "CLO 1: Derive the Ordinary Least Squares (OLS) estimators to establish a foundation of econometric techniques.\nCLO 2: Identify critical econometric issues, including omitted variable bias, heteroscedasticity, multicollinearity, and endogeneity, to determine the validity of the linear regression model.\nCLO 3: Conduct hypothesis testing (including t-tests, F-tests, and Wald tests) and interpret regression estimates to investigate economic and social phenomena.\nCLO 4: Evaluate the small sample and asymptotic properties of estimators, specifically focusing on the concepts of unbiasedness, consistency, and efficiency.\nCLO 5: Utilize R and RStudio to implement statistical techniques and effectively communicate results through reproducible code, visualizations, and written analysis.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Course Objectives</span>"
+    ]
+  },
+  {
+    "objectID": "about.html#textbooks-and-materials",
+    "href": "about.html#textbooks-and-materials",
+    "title": "3  Course Objectives",
+    "section": "3.2 Textbooks and Materials",
+    "text": "3.2 Textbooks and Materials\nThe required textbook is an integral part of the class. Students should expect to read the textbook prior to each module and to be prepared to answer discussion questions from the textbook. The textbook provides the foundation upon which the course is built and students will succeed if they take the time to read and review the material in the textbook.\nAs this course focuses on the learning and application of statistical techniques, a computer with R and R Studio installed is necessary. You will need access to a laptop, tablet, or other computing device to complete the assignments and exams.\nYou may also use R Studio Cloud instead of a locally installed version of R.\nYou can create a free R-Studio cloud if you do not want to use a locally installed version of R and R Studio.\nAll other course materials are on Canvas or can be accessed through Canvas. You are required to know how to use Canvas to access and submit assignments, quizzes, and examinations. You should also be comfortable using ODU email to communicate.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Course Objectives</span>"
+    ]
+  },
+  {
+    "objectID": "about.html#required-texts",
+    "href": "about.html#required-texts",
+    "title": "3  Course Objectives",
+    "section": "3.3 Required Texts",
+    "text": "3.3 Required Texts\nWilliam H. Greene. (2018). Econometric Analysis, 8th Edition. Available from Pearson.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Course Objectives</span>"
+    ]
+  },
+  {
+    "objectID": "about.html#optional-materials",
+    "href": "about.html#optional-materials",
+    "title": "3  Course Objectives",
+    "section": "3.4 Optional Materials",
+    "text": "3.4 Optional Materials\nAngrist, J.D. & Pischke, Jorn-Steffen. (2013). Mostly Harmless Econometrics: An Empiricist’s Companion. Content Technologies Inc.\nBaruffa, O. (2022). The Big Book of R. Available for free.\nChan, S. (2021) Introduction to Probability for Data Science. Michigan Publishing. Available for free.\nHanck, C., Arnold, M., Gerber, A., and M. Schmelzer. (2024). Introduction to Econometrics with R. Available for free.\nKennedy, P. (2003). A Guide to Econometrics. MIT Press.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Course Objectives</span>"
+    ]
+  },
+  {
+    "objectID": "mcnab.html",
+    "href": "mcnab.html",
+    "title": "2  Meet Your Instructor",
+    "section": "",
+    "text": "2.1 About\nChair, Department of Economics | rmcnab@odu.edu | 757-683-3153\nProfessor Robert M. McNab currently serves as the Chair of the Department of Economics in the Strome College of Business at Old Dominion University. Dr. McNab is also the Director of the Dragas Center for Economic Analysis and Policy at Old Dominion University. He is a member of the Federal Reserve Bank of Philadelphia’s Survey of Professional Forecasters and, from 2018 to 2022, he was a member of the Joint Advisory Board of Economists for the Commonwealth of Virginia. Professor McNab has published in Applied Economics, Cornell Hospitality Quarterly, Defense and Peace Economics, National Tax Journal, Public Budgeting and Finance, and World Development, among others. He edits the annual State of the Region: Hampton Roads and State of the Commonwealth reports Professor McNab has appeared in the Associated Press, China Global Television Network, CNN, LiveNow from Fox News, Forbes, Newsweek, Wall Street Journal, Washington Post, Welt am Sonntag, Yahoo News, Yahoo Finance, Richmond Times-Dispatch, Virginian Pilot, Virginia Public Media, and Daily Press, among others. Dr. McNab joined the faculty of the Department of Economics in the Strome College of Business of Old Dominion University in July 2016 and previously was a member of the faculty of the Naval Postgraduate School in Monterey, California from 2000 to 2016.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Meet Your Instructor</span>"
+    ]
+  },
+  {
+    "objectID": "mcnab.html#contact-policy",
+    "href": "mcnab.html#contact-policy",
+    "title": "2  Meet Your Instructor",
+    "section": "2.2 Contact Policy",
+    "text": "2.2 Contact Policy\nStudents should feel welcome to contact me via email at rmcnab@odu.edu or drop by Zoom office hours. I strongly encourage students to communicate with me. I will try to answer emails within 48 business hours (often much sooner) for course related topics.\nStudents should take the time to craft complete, professional emails. The more information that you can provide about a question or problem, the more likely that my response will be helpful. Avoid non-professional language and practice communicating in the corporate workplace. Emails that are unprofessional will be returned with no action.\nStudents should proactively address issues with the class and scheduling rather than waiting until an assignment or case study discussion is overdue. In many cases, accommodations can be made for ‘life events,’ however, clear and prompt communication is necessary.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Meet Your Instructor</span>"
+    ]
+  },
+  {
+    "objectID": "mcnab.html#virtual-office-hours",
+    "href": "mcnab.html#virtual-office-hours",
+    "title": "2  Meet Your Instructor",
+    "section": "2.3 Virtual Office Hours",
+    "text": "2.3 Virtual Office Hours\nOffice hours will be held on a rotating schedule and are available by appointment. Check the class announcements for the schedule of office hours, which vary to accommodate students with different schedules.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Meet Your Instructor</span>"
+    ]
+  }
+]
