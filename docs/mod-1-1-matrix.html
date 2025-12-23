@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; Economic Analysis – ECON 706</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./mod-1-0-overview.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d9ea66fcd6c317012447f26e9c021348.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-1-0-overview.html">Linear Regression Model</a></li><li class="breadcrumb-item"><a href="./mod-1-1-matrix.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Economic Analysis</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">ECON 706</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ECON 706</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mcnab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Meet Your Instructor</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Course Objectives</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Linear Regression Model</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mod-1-0-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Module 1 Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mod-1-1-matrix.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Economic Analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#data-and-the-challenge-of-economic-analysis" id="toc-data-and-the-challenge-of-economic-analysis" class="nav-link active" data-scroll-target="#data-and-the-challenge-of-economic-analysis"><span class="header-section-number">5.1</span> Data and the Challenge of Economic Analysis</a></li>
+  <li><a href="#headline-unemployment-rate" id="toc-headline-unemployment-rate" class="nav-link" data-scroll-target="#headline-unemployment-rate"><span class="header-section-number">5.2</span> Headline Unemployment Rate</a></li>
+  <li><a href="#unemployment-by-race" id="toc-unemployment-by-race" class="nav-link" data-scroll-target="#unemployment-by-race"><span class="header-section-number">5.3</span> Unemployment by Race</a></li>
+  <li><a href="#unemployment-rate-for-selected-states" id="toc-unemployment-rate-for-selected-states" class="nav-link" data-scroll-target="#unemployment-rate-for-selected-states"><span class="header-section-number">5.4</span> Unemployment Rate for Selected States</a></li>
+  <li><a href="#statistics-and-data" id="toc-statistics-and-data" class="nav-link" data-scroll-target="#statistics-and-data"><span class="header-section-number">5.5</span> Statistics and Data</a></li>
+  <li><a href="#elements-variables-observations" id="toc-elements-variables-observations" class="nav-link" data-scroll-target="#elements-variables-observations"><span class="header-section-number">5.6</span> Elements, Variables, Observations</a></li>
+  <li><a href="#measurement" id="toc-measurement" class="nav-link" data-scroll-target="#measurement"><span class="header-section-number">5.7</span> Measurement</a></li>
+  <li><a href="#nominal-scale-of-measurement" id="toc-nominal-scale-of-measurement" class="nav-link" data-scroll-target="#nominal-scale-of-measurement"><span class="header-section-number">5.8</span> Nominal Scale of Measurement</a></li>
+  <li><a href="#ordinal-scale-of-measurement" id="toc-ordinal-scale-of-measurement" class="nav-link" data-scroll-target="#ordinal-scale-of-measurement"><span class="header-section-number">5.9</span> Ordinal Scale of Measurement</a></li>
+  <li><a href="#interval-scale-of-measurement" id="toc-interval-scale-of-measurement" class="nav-link" data-scroll-target="#interval-scale-of-measurement"><span class="header-section-number">5.10</span> Interval Scale of Measurement</a></li>
+  <li><a href="#ratio-scale-of-measurement" id="toc-ratio-scale-of-measurement" class="nav-link" data-scroll-target="#ratio-scale-of-measurement"><span class="header-section-number">5.11</span> Ratio Scale of Measurement</a></li>
+  <li><a href="#categorical-measures" id="toc-categorical-measures" class="nav-link" data-scroll-target="#categorical-measures"><span class="header-section-number">5.12</span> Categorical Measures</a></li>
+  <li><a href="#quantitative-versus-qualitative-data" id="toc-quantitative-versus-qualitative-data" class="nav-link" data-scroll-target="#quantitative-versus-qualitative-data"><span class="header-section-number">5.13</span> Quantitative versus Qualitative Data</a></li>
+  <li><a href="#cross-sectional-time-series-and-panel-data" id="toc-cross-sectional-time-series-and-panel-data" class="nav-link" data-scroll-target="#cross-sectional-time-series-and-panel-data"><span class="header-section-number">5.14</span> Cross-Sectional, Time Series, and Panel Data</a></li>
+  <li><a href="#types-of-studies" id="toc-types-of-studies" class="nav-link" data-scroll-target="#types-of-studies"><span class="header-section-number">5.15</span> Types of Studies</a></li>
+  <li><a href="#population-versus-sample-data" id="toc-population-versus-sample-data" class="nav-link" data-scroll-target="#population-versus-sample-data"><span class="header-section-number">5.16</span> Population versus Sample Data</a></li>
+  <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics"><span class="header-section-number">5.17</span> Descriptive Statistics</a></li>
+  <li><a href="#statistical-inference" id="toc-statistical-inference" class="nav-link" data-scroll-target="#statistical-inference"><span class="header-section-number">5.18</span> Statistical Inference</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-1-0-overview.html">Linear Regression Model</a></li><li class="breadcrumb-item"><a href="./mod-1-1-matrix.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Economic Analysis</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Economic Analysis</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="data-and-the-challenge-of-economic-analysis" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="data-and-the-challenge-of-economic-analysis"><span class="header-section-number">5.1</span> Data and the Challenge of Economic Analysis</h2>
+<p>We are awash in data. The challenge is to find the right data at the appropriate time to investigate an empirical question of interest. In some cases, the data are well defined, consistently formatted, readily available, and structured to facilitate analysis. Then there are data that could help answer a question, but are not in an easily accessible format. But, before tackling these problems, we need to ask the simple question:</p>
+<p><strong>What are data?</strong></p>
+<p>The Merriam-Webster dictionary defines data as: “…<em>factual information (such as measurements or statistics) used a basis for reasoning, discussion, or calculation</em>.” Broadly speaking, data can consist of measurements regarding the health of individuals, performance of firms, the income of regions, the inflation rate of a national economy, among other things. Data can also consist of statistics that describe the properties of an underlying set of measurements.</p>
+<p>The Bureau of Labor Statistics (BLS) defines the civilian labor force as “<em>The labor force includes all people age 16 and older who are classified as either <a href="https://www.bls.gov/cps/definitions.htm#employed">employed</a> and <a href="https://www.bls.gov/cps/definitions.htm#unemployed">unemployed</a>. Conceptually, the labor force level is the number of people who are either working or actively looking for work.</em>”</p>
+<p>How many people are in the civilian labor force in the United States? How many in Virginia? Is the labor force larger today than it was at the same time last year? How does the growth in the labor force in Virginia compare to other states? All these questions require obtaining data and, for some, manipulating data to create statistics about the properties of the data.</p>
+</section>
+<section id="headline-unemployment-rate" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="headline-unemployment-rate"><span class="header-section-number">5.2</span> Headline Unemployment Rate</h2>
+<p>The headline unemployment rate is an example of a measure that has different values across time. Collectively, these measures are data on the headline unemployment rate. This rate is equal to the ratio of the number of unemployed persons in the civilian labor force to the number of individuals in the civilian labor force.</p>
+<p>In the following figure, we plot the evolution of the unemployment rate over time.</p>
+<div class="cell" data-layout-align="center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mod-1-1-matrix_files/figure-html/unemp1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="unemployment-by-race" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="unemployment-by-race"><span class="header-section-number">5.3</span> Unemployment by Race</h2>
+<p>Data can consist of measurements of a variable across groups of individuals and time. In the following figure, we present the headline unemployment rate by selected racial groups in the United States. Unlike the national unemployment rate which encompasses all individuals in the civilian labor force, each group represents all individuals by race relative to the civilian labor force by race. We can observe how the responsiveness of the unemployment rate differed by race.</p>
+<div class="cell" data-layout-align="center">
+<pre><code>Warning: In `margin()`, the argument `t` should have length 1, not length 4.
+ℹ Argument get(s) truncated to length 1.</code></pre>
+<pre><code>Warning: Removed 3 rows containing missing values or values outside the scale range
+(`geom_bar()`).</code></pre>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mod-1-1-matrix_files/figure-html/unemp3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="unemployment-rate-for-selected-states" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="unemployment-rate-for-selected-states"><span class="header-section-number">5.4</span> Unemployment Rate for Selected States</h2>
+<p>In the table below, we obtain data on unemployment rates for Virginia, Maryland, North Carolina, West Virginia, and the United States from <a href="https://fred.stlouisfed.org" class="uri">https://fred.stlouisfed.org</a> or ‘FRED’.</p>
+<p>In the table, each row corresponds to a geography (state or nation) while each column represents a variable for that geography. Note that only the last period available is represented in the table.</p>
+<div class="cell" data-layout-align="center">
+<table class="table caption-top table-sm table-striped small">
+<caption>Unemployment Rate for Selected Geographies</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">FRED Symbol</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Date of Observation</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Value</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Value in Decimal Form</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Geography</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">UNRATE</td>
+<td style="text-align: center;">2025-11-01</td>
+<td style="text-align: center;">4.6</td>
+<td style="text-align: center;">0.046</td>
+<td style="text-align: center;">United States</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="statistics-and-data" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="statistics-and-data"><span class="header-section-number">5.5</span> Statistics and Data</h2>
+<p>The term <strong>statistics</strong> can refer to numerical facts such as minimums, maximums, averages, medians, variances, and standard deviations (among others) that describe the properties of data.</p>
+<p>Statistics can also refer to the <strong>art</strong> and <strong>science</strong> of collecting, analyzing, interpreting, and presenting data.</p>
+<p><strong>Data</strong> are the facts collected, analyzed, and summarized for interpretation and presentation. A <strong>data set</strong> refers to all the data collected for a specific study.</p>
+<p><strong>Data</strong> are plural, while a <strong>data set</strong> is singular.</p>
+</section>
+<section id="elements-variables-observations" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="elements-variables-observations"><span class="header-section-number">5.6</span> Elements, Variables, Observations</h2>
+<p>An <strong>element</strong> is the entity or entities on which data are collected.</p>
+<p>A <strong>variable</strong> is a characteristic of interest for the elements.</p>
+<p>An <strong>observation</strong> is the set of measurements for an element.</p>
+<p>A data set consists of 1,200 individuals with data concerning individual income and job tenure.</p>
+<ul>
+<li>1,200 observations (elements)</li>
+<li>2 variables (income and tenure)</li>
+<li>2,400 data values</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<caption>Example Data Set</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Individual</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Income</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Job Tenure</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">23420</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">33239</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">44849</td>
+<td style="text-align: center;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">54829</td>
+<td style="text-align: center;">17</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">75793</td>
+<td style="text-align: center;">39</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="measurement" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="measurement"><span class="header-section-number">5.7</span> Measurement</h2>
+<p>Referring to the unemployment rate table, there are two rows with observations for the selected geographical areas. In other words, the <strong>elements</strong> are the states on which data are collected and presented in the table. There are five variables in the table: the symbol of the variable from FRED, the date of the observation, the value of the observation, the value of the observation in decimal form, and the geography name of the observation.</p>
+<p>The table contains different scales of measurement. The <strong>date</strong> variable contains information on time while the <strong>state</strong> variable is measured on the <strong>nominal scale</strong>. The nominal scale is used to identify the observational data, that is, the data in the table are organized by the geographical area of the observation. The data pertaining to the unemployment rate is <strong>ratio data</strong> in that the measurements contain numeric information.</p>
+<p>Broadly speaking, data can be classified as <strong>categorical</strong> or <strong>quantitative</strong>. In the table, the variable containing the geographical names is categorical. We cannot mathematically manipulate the categorical data (subtracting 1 from Virginia does not produce a meaningful result). We could, however, create a new variable that contains numerical values to represent the categorical data, that is, the new quantitative variable would be a numerical representation of the categorical data.</p>
+</section>
+<section id="nominal-scale-of-measurement" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="nominal-scale-of-measurement"><span class="header-section-number">5.8</span> Nominal Scale of Measurement</h2>
+<p>The scale of measurement determines the amount of information contained in the data. Data are labels or names used to identify an attribute of an element.</p>
+<p>Data may be numeric, non-numeric, or both. Ranking is not implied by the numeric values.</p>
+<p>The individual’s grade can be represented by a character label (“Freshman”) or a numeric value (1).</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<caption>Nominal Example</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Observation</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Name</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Grade</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Numeric Grade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">Bob</td>
+<td style="text-align: center;">Freshman</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">Sally</td>
+<td style="text-align: center;">Sophmore</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">Jim</td>
+<td style="text-align: center;">Junior</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">Tony</td>
+<td style="text-align: center;">Freshman</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">Sarah</td>
+<td style="text-align: center;">Senior</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="ordinal-scale-of-measurement" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="ordinal-scale-of-measurement"><span class="header-section-number">5.9</span> Ordinal Scale of Measurement</h2>
+<ul>
+<li><p>Ordinal scales of measurement have the same properties as nominal scales of measure.</p></li>
+<li><p><strong>The ordering of the ordinal scale is meaningful.</strong></p></li>
+<li><p>Data may be numeric, non-numeric, or both.</p></li>
+<li><p>The class rank variable is numeric and the values represent a ranking, that is, the lower the number, the higher the rank in the class of students.</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<caption>Ordinal Example</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Obs</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Name</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Grade</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Class Rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">Bob</td>
+<td style="text-align: center;">Freshman</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">Sally</td>
+<td style="text-align: center;">Freshman</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">Jim</td>
+<td style="text-align: center;">Freshman</td>
+<td style="text-align: center;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">Tony</td>
+<td style="text-align: center;">Freshman</td>
+<td style="text-align: center;">55</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">Sarah</td>
+<td style="text-align: center;">Freshman</td>
+<td style="text-align: center;">144</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="interval-scale-of-measurement" class="level2" data-number="5.10">
+<h2 data-number="5.10" class="anchored" data-anchor-id="interval-scale-of-measurement"><span class="header-section-number">5.10</span> Interval Scale of Measurement</h2>
+<ul>
+<li><p>Interval scales of measurement have the same properties as ordinal scales of measurement.</p></li>
+<li><p><strong>The ranking of the scale contains information.</strong></p></li>
+<li><p><strong>The intervals between observations contain information.</strong></p></li>
+<li><p>Interval data are always numeric.</p></li>
+<li><p>The SAT score is ordinal while the difference between the highest scoring student and another student is an interval measure.</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<caption>Interval Example</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Obs</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Name</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">SAT Score (Ordinal)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Interval to Bob</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">Bob</td>
+<td style="text-align: center;">1580</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">Sally</td>
+<td style="text-align: center;">1320</td>
+<td style="text-align: center;">260</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">Jim</td>
+<td style="text-align: center;">1110</td>
+<td style="text-align: center;">470</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">Tony</td>
+<td style="text-align: center;">1052</td>
+<td style="text-align: center;">528</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">Sarah</td>
+<td style="text-align: center;">952</td>
+<td style="text-align: center;">628</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="ratio-scale-of-measurement" class="level2" data-number="5.11">
+<h2 data-number="5.11" class="anchored" data-anchor-id="ratio-scale-of-measurement"><span class="header-section-number">5.11</span> Ratio Scale of Measurement</h2>
+<ul>
+<li><p>A ratio scale of measurement has the properties of the interval scale and the ratio of the two values is useful.</p></li>
+<li><p><strong>The ratio is numeric and zero is a possible value.</strong></p></li>
+<li><p>Care must be taken to define and interpret the ratio data.</p></li>
+<li><p>Students take a physical fitness test across three events with a maximum possible score of 300 points.</p></li>
+<li><p>The ratio represents the percentage score of each student relative to the maximum score on the test.</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<caption>Ratio Example</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Obs</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Name</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Raw Score (300 Max)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center; width: 3cm;">Bob</td>
+<td style="text-align: center; width: 3cm;">248</td>
+<td style="text-align: center;">0.83</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center; width: 3cm;">Sally</td>
+<td style="text-align: center; width: 3cm;">232</td>
+<td style="text-align: center;">0.77</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center; width: 3cm;">Jim</td>
+<td style="text-align: center; width: 3cm;">178</td>
+<td style="text-align: center;">0.59</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center; width: 3cm;">Tony</td>
+<td style="text-align: center; width: 3cm;">157</td>
+<td style="text-align: center;">0.52</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center; width: 3cm;">Sarah</td>
+<td style="text-align: center; width: 3cm;">109</td>
+<td style="text-align: center;">0.36</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="categorical-measures" class="level2" data-number="5.12">
+<h2 data-number="5.12" class="anchored" data-anchor-id="categorical-measures"><span class="header-section-number">5.12</span> Categorical Measures</h2>
+<ul>
+<li><p>Categorical variables represent types of data which may be divided into groups.</p></li>
+<li><p>Labels or names identify an attribute of each observation.</p></li>
+<li><p>Categorical and qualitative data may be used synonymous.</p></li>
+<li><p>Can be numeric or non-numeric.</p></li>
+<li><p>Can be nominal or ordinal scale of measurement.</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<caption>Categorical Example</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Obs</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Name</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Race</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Opinion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center; width: 3cm;">Bob</td>
+<td style="text-align: center; width: 3cm;">Black</td>
+<td style="text-align: center;">Agree</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center; width: 3cm;">Sally</td>
+<td style="text-align: center; width: 3cm;">White</td>
+<td style="text-align: center;">Disagree</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center; width: 3cm;">Jim</td>
+<td style="text-align: center; width: 3cm;">Asian</td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center; width: 3cm;">Tony</td>
+<td style="text-align: center; width: 3cm;">White</td>
+<td style="text-align: center;">Agree</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center; width: 3cm;">Sarah</td>
+<td style="text-align: center; width: 3cm;">Black</td>
+<td style="text-align: center;">Strongly Agree</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="quantitative-versus-qualitative-data" class="level2" data-number="5.13">
+<h2 data-number="5.13" class="anchored" data-anchor-id="quantitative-versus-qualitative-data"><span class="header-section-number">5.13</span> Quantitative versus Qualitative Data</h2>
+<ul>
+<li><p>Quantitative data capture <em>how many</em> or <em>how much</em>.</p></li>
+<li><p><strong>Quantitative data are always numeric.</strong></p></li>
+<li><p>Quantitative data may be ordinal, ranked, interval, ratio or a combination of all types of scales.</p></li>
+<li><p>Quantitative data may capture <em>how many</em> or <em>how much</em> but may also capture non-quantitative information.</p></li>
+<li><p>Opinion surveys, for example, may ask respondents to provide a numeric scale from strongly agree (1) to strongly disagree (5).</p></li>
+<li><p>The numeric measure is a proxy for the strength of agreement or disagreement.</p></li>
+<li><p>In many instances, qualitative responses are transformed into numerical representations to allow for quantitative analysis.</p></li>
+</ul>
+</section>
+<section id="cross-sectional-time-series-and-panel-data" class="level2" data-number="5.14">
+<h2 data-number="5.14" class="anchored" data-anchor-id="cross-sectional-time-series-and-panel-data"><span class="header-section-number">5.14</span> Cross-Sectional, Time Series, and Panel Data</h2>
+<p>There are three broad types of data. Let’s establish some terminology. When we discuss data, we often refer to <strong>individuals</strong> and <strong>time</strong>. In this context, individuals can represent people, firms, airlines, cars, or some other characteristic that defines the unique observations.</p>
+<p>For example, if we had data on the average fuel mileage of passenger vehicles in 2019, then individuals would refer to each type of passenger vehicle. If we had randomized data on 100,000 taxpayers in Virginia for 2018, then individuals would refer to unique taxpayers. Lastly, if we collected data on airplane arrivals at Dulles International Airport for each day in 2019, then we would have individual observations across time. We could organize this data by plane registration, airline, or country of origin, or some other category of interest.</p>
+<p><strong>Cross-sectional data</strong> are data collected across individuals at the same point of time. There is no depth to cross-sectional data, that is, the data represent a snapshot at a specific point in time.</p>
+<p><strong>Time series data</strong> are data collected over several time periods. Data for the headline unemployment graph for the United States are time series data. In this context, time series data refers to one variable across time. One can have a collection of time series variables (inflation rate, unemployment rate, and so on). Time series data has depth but not breadth.</p>
+<p><strong>Panel data</strong> are data collected across individuals and time. If we collected data for the unemployment rate across states from 2013 to 2025, then we would have individuals (states) and time (months) as defining characteristics of our data. Panel data has breadth (across individuals) and depth (across time).</p>
+</section>
+<section id="types-of-studies" class="level2" data-number="5.15">
+<h2 data-number="5.15" class="anchored" data-anchor-id="types-of-studies"><span class="header-section-number">5.15</span> Types of Studies</h2>
+<ul>
+<li><strong>Observational</strong>
+<ul>
+<li>Observational studies are <strong>non-experimental</strong> studies.</li>
+<li>No attempt is made (or can be made) to control or influence the variables of interest.</li>
+<li>If we study the impact of smoking on birth weight, we do not control who smokes and who does not smoke during pregnancy.</li>
+<li>If we examine how exports influence economic growth across countries, we do not control export policy.</li>
+</ul></li>
+<li><strong>Convenience</strong>
+<ul>
+<li>A convenience study is the most common method of <strong>non-probability sampling</strong>.</li>
+<li>Observations are obtained because individuals are available to the researcher.</li>
+<li>This type of study is cheaper and easier than other types, hence it’s popularity.</li>
+<li>There is no attempt to control for sampling or to randomly sample the population of interest.</li>
+</ul></li>
+</ul>
+</section>
+<section id="population-versus-sample-data" class="level2" data-number="5.16">
+<h2 data-number="5.16" class="anchored" data-anchor-id="population-versus-sample-data"><span class="header-section-number">5.16</span> Population versus Sample Data</h2>
+<p>When working with data, a question may arise whether it is appropriate to work with the population or a sample.</p>
+<p>The <strong>population</strong> represents all the individuals for a particular study while a <strong>sample</strong> is a subset of the population.</p>
+<p>Let’s say we wanted to calculate the average age of students at Old Dominion University for the Fall 2025 semester. If we had access to student records, this might be a relatively easy exercise. In other words, if we had access to data for the population of students, we could calculate the average age of the student population.</p>
+<p>Now, let’s assume we wanted to calculate the average age for all college students in the United States. The problem has become more difficult. We could try and obtain all the records from all the colleges and universities in the United States but this effort might be costly and complex.</p>
+<p>We could instead sample different colleges and universities and construct an estimate of the average age of college students. The “closer” our sample is to the population, the better our estimate of the average age of all the college students in the United States. If we only selected colleges and universities with undergraduate programs, our sample would likely understate the average age of college students. If we only selected graduate programs at colleges and universities, our sample would likely overstate the average age of college students.</p>
+<p><strong>The process by which we use a sample to estimate the properties of the population is statistical inference.</strong></p>
+</section>
+<section id="descriptive-statistics" class="level2" data-number="5.17">
+<h2 data-number="5.17" class="anchored" data-anchor-id="descriptive-statistics"><span class="header-section-number">5.17</span> Descriptive Statistics</h2>
+<ul>
+<li><p><strong>Descriptive statistics</strong> are a set of tools used to describe the properties of a set of data.</p></li>
+<li><p>Descriptive statistics can be numerical, tabular, or graphical.</p></li>
+<li><p>Descriptive statistics typically <strong>summarize</strong> the properties of the individual observations.</p></li>
+<li><p>We can create a <strong>population</strong> for 10,000 observations that have a mean of 50.5 and a standard deviation of 10.</p></li>
+<li><p>We can then estimate sample averages to describe the mean of the data.</p></li>
+</ul>
+<p>Gathering a sample that is representative of the population is the first step. We then must understand the properties of the sample and how this reflects the properties of the population.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame with 10,000 observations</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mean of the observations is 50.5</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>data_1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x1 =</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean =</span> <span class="fl">50.5</span>, <span class="at">sd =</span> <span class="dv">10</span>))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>data_2 <span class="ot">&lt;-</span> <span class="fu">slice_sample</span>(data_1, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>          <span class="fu">summarize</span>(<span class="at">mean_10 =</span> <span class="fu">mean</span>(x1))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>data_3 <span class="ot">&lt;-</span> <span class="fu">slice_sample</span>(data_1, <span class="at">n =</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">summarize</span>(<span class="at">mean_100 =</span> <span class="fu">mean</span>(x1))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>data_4 <span class="ot">&lt;-</span> <span class="fu">slice_sample</span> (data_1, <span class="at">n =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>          <span class="fu">summarize</span>(<span class="at">mean_1000 =</span> <span class="fu">mean</span>(x1))</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>data_5 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data_2, data_3, data_4)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(data_5,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Sample = 10"</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Sample = 100"</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Sample = 1000"</span>),</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">align     =</span> <span class="fu">c</span>(<span class="st">'c'</span>, <span class="st">'c'</span>, <span class="st">'c'</span>),</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">digits    =</span> <span class="dv">2</span>,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption   =</span> <span class="st">'Sample Averages'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">width =</span> <span class="st">"3cm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>                <span class="at">font_size  =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<caption>Sample Averages</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Sample = 10</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Sample = 100</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Sample = 1000</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">43.97</td>
+<td style="text-align: center; width: 3cm;">53.27</td>
+<td style="text-align: center; width: 3cm;">51.21</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="statistical-inference" class="level2" data-number="5.18">
+<h2 data-number="5.18" class="anchored" data-anchor-id="statistical-inference"><span class="header-section-number">5.18</span> Statistical Inference</h2>
+<ul>
+<li><p>Obtaining data for the <strong>population</strong> of interest may be difficult, complex, and costly.</p></li>
+<li><p>For cost, complexity, and time considerations, we may use a <strong>subset</strong> or <strong>sample</strong> of the population.</p></li>
+<li><p>The decennial Census of the population attempts to count every person in the United States.</p></li>
+<li><p>Every non-Census year, a sample of 1-2 million individuals is taken to estimate the properties of the population.</p></li>
+<li><p><strong>Statistical inference</strong> is the process of using sample data to make estimates and test hypotheses about the characteristics of the population.</p></li>
+<li><p>Since we are using sample data, our estimates are not precise, but come with a measure of error.</p></li>
+<li><p>This course is, at its core, about using sample data to make inferences about the population.</p></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./mod-1-0-overview.html" class="pagination-link" aria-label="Module 1 Overview">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Module 1 Overview</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

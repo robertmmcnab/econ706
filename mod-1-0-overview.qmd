@@ -1,0 +1,56 @@
+---
+title: "Module 1 Overview"
+---
+
+## Introduction
+
+Welcome to **Module 1** of ECON 706.
+
+In this module, we will briefly review matrix operations before introducing the multiple variable linear regression model. We will discuss the assumptions of the multiple variable linear regression model, the assumptions of the model, and consequences associated with the violations of these assumptions. We will then use R to estimate a naive multiple variable linear regression model.
+
+------------------------------------------------------------------------
+
+## Learning Objectives
+
+By the end of this module, you should be able to:
+
+-   MLO 1: **Apply** descriptive statistics for initial data exploration.
+-   MLO 2: **Define** the notation and concepts used to construct the linear regression model.
+-   MLO 3: **Identify** the core assumptions of the classical linear regression model.
+-   MLO 4: **Discuss** the consequences of the violations of the core assumptions of the model.
+-   MLO 5: **Apply** R and R Studio to obtain, clean, and estimate a naive linear regression model.
+
+------------------------------------------------------------------------
+
+## Required Texts
+
+Please select the links provided to access material where applicable.
+
+-   William H. Greene. (2018). *Econometric Analysis, 8th Edition*. Available from Pearson. Chapters 1-2.
+
+-   Rafael Irizarry. (2025). [Introduction to Data Science: Data Wrangling and Visualization with R](https://rafalab.dfci.harvard.edu/dsbook-part-1/). Chapters 1-2.
+
+-   Hadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund. (2025) [R for Data Science](https://r4ds.hadley.nz/). Sections 1-19.
+
+-   [Online R documentation](https://cran.r-project.org/manuals.html)
+
+-   [RStudio Cheat Sheets](https://posit.co/resources/cheatsheets/)
+
+------------------------------------------------------------------------
+
+## Module To Do List
+
+-   Complete the hands-on coding exercises embedded in each lesson (MLO 1, 5)\
+-   Use WebR to experiment directly in your browser (MLO 1, 2, 3, 4, 5)\
+-   Complete the weekly class assignment (MLO 1, 2, 3, 4, 5)\
+-   Take the weekly knowledge quiz (MLO 1, 2, 3, 4, 5)\
+
+------------------------------------------------------------------------
+
+## Lessons in this Module
+
+-   [1.1 – Matrix Operations](mod-1-1-matrix.qmd)\
+
+------------------------------------------------------------------------
+
+Next: Start with [**Matrix Operations**](mod-1-1-matrix.qmd).

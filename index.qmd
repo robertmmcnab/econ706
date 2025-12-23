@@ -11,10 +11,11 @@ title: "ECON 706"
 
 </ul>
 
-## Module 01 – Introduction to R and Descriptive Statistics
+## Module 01 – Introduction to Linear Regression
 
 <ul>
-
+<li><a href="mod-1-0-overview.qmd">Module 1 Overview</a></li>
+<li><a href="mod-1-1-matrix.qmd">Matrix Operations</a></li>
 
 </ul>
 
