@@ -1,5 +1,5 @@
 ---
-title: "Economic Analysis"
+title: "Matrix Operations"
 format:
   html:
     toc: true
@@ -23,484 +23,54 @@ library(tidyquant, quietly = TRUE)
 
 ```
 
-## Data and the Challenge of Economic Analysis
+## Matrix Operations
 
-We are awash in data. The challenge is to find the right data at the appropriate time to investigate an empirical question of interest. In some cases, the data are well defined, consistently formatted, readily available, and structured to facilitate analysis. Then there are data that could help answer a question, but are not in an easily accessible format. But, before tackling these problems, we need to ask the simple question:
+This module covers the essential matrix operations required for econometrics. We begin with basic matrix creation and arithmetic, progressing to more complex operations like inversion and formal multiplication. Understanding these operations is critical as they form the backbone of the Ordinary Least Squares (OLS) estimator, which we will derive and implement both manually and using built-in R functions.
 
-**What are data?**
+## Matrix Creation
 
-The Merriam-Webster dictionary defines data as: "...*factual information (such as measurements or statistics) used a basis for reasoning, discussion, or calculation*." Broadly speaking, data can consist of measurements regarding the health of individuals, performance of firms, the income of regions, the inflation rate of a national economy, among other things. Data can also consist of statistics that describe the properties of an underlying set of measurements.
+In this example, we create two vectors that contain 4 numeric elements and form two matrices that are $(2 \times 2)$ and one matrix that is $(4 \times 1)$.
 
-The Bureau of Labor Statistics (BLS) defines the civilian labor force as "*The labor force includes all people age 16 and older who are classified as either [employed](https://www.bls.gov/cps/definitions.htm#employed) and [unemployed](https://www.bls.gov/cps/definitions.htm#unemployed). Conceptually, the labor force level is the number of people who are either working or actively looking for work.*"
+We can take a transpose of a matrix by using **t()**, so **t(m_1)** would be the transpose of matrix *m_1*.
 
-How many people are in the civilian labor force in the United States? How many in Virginia? Is the labor force larger today than it was at the same time last year? How does the growth in the labor force in Virginia compare to other states? All these questions require obtaining data and, for some, manipulating data to create statistics about the properties of the data.
+We can use the **dim** function to obtain the dimensions of a matrix (and other elements like vectors).
 
-## Headline Unemployment Rate
+The code chunk below does the following:
 
-The headline unemployment rate is an example of a measure that has different values across time. Collectively, these measures are data on the headline unemployment rate. This rate is equal to the ratio of the number of unemployed persons in the civilian labor force to the number of individuals in the civilian labor force.
+1.  Create numeric vectors using the **combine** function and assign to **d_1** and **d_2**
 
-In the following figure, we plot the evolution of the unemployment rate over time.
+2.  Using **d_1**, create a $(2 \times 2)$ matrix
 
-```{r unemp1, echo = FALSE, message = FALSE, results = 'asis', fig.height = 3, fig.width = 5, fig.align = "center"}
+3.  Using **d_2**, create a $(2 \times 2)$ matrix
 
-library(dplyr)
-library(ggplot2)
-library(lubridate)
-library(tidyquant)
+4.  Using **d_1**, create a \$(4 \times 1) matrix
 
-unrate <- tq_get("UNRATE",
-                    get  = "economic.data",
-                    from = "1939-01-01" ) %>%
-          mutate(value = price/100)  %>%
-          filter(year(date) > 2017) 
+5.  Use **kable** to output **m_1**
 
-ggplot(data = unrate,
-       aes(x = date, 
-           y = value)) +
-  geom_line(color = "darkblue") + 
-  scale_y_continuous(labels=scales::percent_format(a=1)) +
-  scale_x_date(date_labels = "%Y", 
-               date_breaks="1 years") +
-  theme_minimal()+
-  theme(legend.position="none",
-        plot.caption=element_text(hjust=0),
-        plot.subtitle=element_text(size=12,face="italic",color="darkgray"),
-        plot.title=element_text(size=12,face="bold",color="black")) +
-  labs(x        = "",
-       y        = "Unemployment Rate",
-       title    = "Headline (U3) Unemployment Rate, United States",
-       caption  = "Source: Bureau of Labor Statistics, seasonally adjusted data.")
+6.  Use the **transpose** function and **kable** to output **t(m_1)**
 
+```{webr-r}
 
+d_1 <- c(2, 4, 6, 8)
+d_2 <- c(5, 15, 2, 12)
 
+m_1 <- matrix(d_1, nrow = 2, ncol = 2)
+m_2 <- matrix(d_2, nrow = 2, ncol = 2)
+
+m_1_a <- matrix(d_1, ncol = 4, nrow = 1)
+
+dims <- tibble(d_m1     = dim(m_1),
+               d_m2     = dim(m_2),
+               d_m1_a   = dim(m_1_a),
+               d_t_m1_a = dim(t(m_1_a)))
+
+kable(m_1,
+      caption = "Matrix M1") 
+
+kable(t(m_1),
+      caption = "Transpose of Matrix M1") 
+
+kable(dims,
+      col.names = c('M1', 'M2', 'M_1_A', 'T(M_1_A)'),
+      full_width = TRUE)
 ```
-
-## Unemployment by Race
-
-Data can consist of measurements of a variable across groups of individuals and time. In the following figure, we present the headline unemployment rate by selected racial groups in the United States. Unlike the national unemployment rate which encompasses all individuals in the civilian labor force, each group represents all individuals by race relative to the civilian labor force by race. We can observe how the responsiveness of the unemployment rate differed by race.
-
-```{r unemp3, echo = FALSE, message = FALSE, results = 'asis', fig.height = 5, fig.width = 6, fig.align = "center"}
-
-UNRATE <- tq_get(c("LNS14000003",
-                   "LNS14000006",
-                   "LNS14000009"),
-                    get  = "economic.data",
-                    from = "1939-01-01" ) %>%
-          mutate(value = price/100)  %>%
-          filter(date > ymd("2023-01-01")) %>%
-  mutate(race = ifelse(symbol == "LNS14000003", "White",
-                ifelse(symbol == "LNS14000006", "Black or African American",
-                ifelse(symbol == "LNS14000009", "Hispanic", "NA"))))
-
-chartdate <- UNRATE %>%
-  mutate(month_mindate = lubridate::month(min(date), label = TRUE, abbr = FALSE),
-         year_mindate  = lubridate::year(min(date)),
-         month_maxdate = lubridate::month(max(date), label = TRUE, abbr = FALSE),
-         year_maxdate  = lubridate::year(max(date))) %>%
-  filter(date == max(date)) %>%
-  mutate(title = paste0("Unemployment Rate, United States, ", month_mindate," ", year_mindate, " - ", month_maxdate," ", year_maxdate))
-
-ggplot(data = UNRATE,
-       aes(x = date, 
-           y = value, 
-           group = symbol, 
-           fill = race)) +
-geom_bar(position="dodge", stat="identity") +
-scale_color_discrete(name = "symbol", 
-                       breaks = c("LNS14000003", "LNS14000006", "LNS14000009"),
-                       labels = c("White", "Black", "Hispanic")) +
-scale_y_continuous(labels=scales::percent_format(a=1),
-                   limits = c(0, 0.1)) +
-facet_wrap(~race) +
-theme_minimal()+
-theme(legend.position="bottom",
-      legend.title = element_blank(),
-      legend.text = element_text(size = 10),
-      legend.box.margin = margin(c(-10,-10,0,-10)),
-      plot.caption=element_text(hjust=0),
-      plot.subtitle=element_text(size=12,face="italic",color="darkgray"),
-      plot.title=element_text(size=12,face="bold",color="black")) +
-guides(colour = guide_legend(override.aes = list(size=3))) +
-labs(x        = "",
-     y        = "Unemployment Rate",
-     title    = chartdate$title,
-     subtitle = "Unemployment rate by Race and Ethnicity",
-     caption  = "Source: Bureau of Labor Statistics, seasonally adjusted data.")
-
-```
-
-## Unemployment Rate for Selected States
-
-In the table below, we obtain data on unemployment rates for Virginia, Maryland, North Carolina, West Virginia, and the United States from <https://fred.stlouisfed.org> or 'FRED'.
-
-In the table, each row corresponds to a geography (state or nation) while each column represents a variable for that geography. Note that only the last period available is represented in the table.
-
-```{r unemp4, echo = FALSE, message = FALSE, results = 'asis', fig.height = 5, fig.width = 8, fig.align = "center"}
-
-UNRATE <- tq_get(c("VAUR",
-                   "NCUR",
-                   "WVUR",
-                   "MDUR",
-                   "UNRATE"),
-                    get  = "economic.data",
-                    from = "1939-01-01" ) %>%
-          mutate(value = price/100)  %>%
-          filter(date > ymd("2020-01-01")) %>%
-  mutate(geography = case_when(symbol == "VAUR" ~ "Virginia",
-                               symbol == "NCUR" ~ "North Carollina",
-                               symbol == "WVUR" ~ "West Virginia",
-                               symbol == "MDUR" ~ "Maryland",
-                               TRUE ~ "United States")) %>% 
-  filter(date == max(date)) 
-
-kable(UNRATE,
-      col.names = c('FRED Symbol', 'Date of Observation', "Value", "Value in Decimal Form", "Geography"),
-      align     = 'c',
-      caption = 'Unemployment Rate for Selected Geographies') %>%
-kable_styling()
-
-```
-
-## Statistics and Data
-
-The term **statistics** can refer to numerical facts such as minimums, maximums, averages, medians, variances, and standard deviations (among others) that describe the properties of data.
-
-Statistics can also refer to the **art** and **science** of collecting, analyzing, interpreting, and presenting data.
-
-**Data** are the facts collected, analyzed, and summarized for interpretation and presentation. A **data set** refers to all the data collected for a specific study.
-
-**Data** are plural, while a **data set** is singular.
-
-## Elements, Variables, Observations
-
-An **element** is the entity or entities on which data are collected.
-
-A **variable** is a characteristic of interest for the elements.
-
-An **observation** is the set of measurements for an element.
-
-A data set consists of 1,200 individuals with data concerning individual income and job tenure.
-
--   1,200 observations (elements)
--   2 variables (income and tenure)
--   2,400 data values
-
-```{r, echo = FALSE}
-
-# Create x and y variables#
-
-income <- tibble(person = c(1,2,3,4,5),
-                     income  = c(23420,33239,44849,54829,75793),
-                     tenure  = c(8,10,14,17,39))
-
-
-# Use kable function to produce a table 
-
-kable(income,
-      col.names = c("Individual", 
-                    "Income", 
-                    "Job Tenure"),
-      align = c('c','c','c'),
-      caption = 'Example Data Set')  %>%
-  kable_styling(full_width = TRUE)
-
-```
-
-## Measurement
-
-Referring to the unemployment rate table, there are two rows with observations for the selected geographical areas. In other words, the **elements** are the states on which data are collected and presented in the table. There are five variables in the table: the symbol of the variable from FRED, the date of the observation, the value of the observation, the value of the observation in decimal form, and the geography name of the observation.
-
-The table contains different scales of measurement. The **date** variable contains information on time while the **state** variable is measured on the **nominal scale**. The nominal scale is used to identify the observational data, that is, the data in the table are organized by the geographical area of the observation. The data pertaining to the unemployment rate is **ratio data** in that the measurements contain numeric information.
-
-Broadly speaking, data can be classified as **categorical** or **quantitative**. In the table, the variable containing the geographical names is categorical. We cannot mathematically manipulate the categorical data (subtracting 1 from Virginia does not produce a meaningful result). We could, however, create a new variable that contains numerical values to represent the categorical data, that is, the new quantitative variable would be a numerical representation of the categorical data.
-
-## Nominal Scale of Measurement
-
-The scale of measurement determines the amount of information contained in the data. Data are labels or names used to identify an attribute of an element.
-
-Data may be numeric, non-numeric, or both. Ranking is not implied by the numeric values.
-
-The individual's grade can be represented by a character label ("Freshman") or a numeric value (1).
-
-```{r, echo = FALSE}
-
-# Create x and y variables#
-
-student <- tibble(person = c(1,2,3,4,5),
-                      name   = c("Bob","Sally","Jim","Tony","Sarah"),
-                      class  = c("Freshman","Sophmore",
-                                "Junior","Freshman","Senior"),
-                      grade  = c(4,3,2,4,1))
-
-
-# Use kable function to produce a table 
-
-kable(student,
-      col.names = c("Observation", 
-                    "Name", 
-                    "Grade",
-                    "Numeric Grade"),
-      align = c('c','c','c','c'),
-      caption = 'Nominal Example') %>%
-  kable_styling(full_width = TRUE)
-
-```
-
-## Ordinal Scale of Measurement
-
--   Ordinal scales of measurement have the same properties as nominal scales of measure.
-
--   **The ordering of the ordinal scale is meaningful.**
-
--   Data may be numeric, non-numeric, or both.
-
--   The class rank variable is numeric and the values represent a ranking, that is, the lower the number, the higher the rank in the class of students.
-
-```{r, echo = FALSE}
-
-# Create x and y variables#
-
-student <- tibble(person = c(1,2,3,4,5),
-                      name   = c("Bob","Sally","Jim","Tony","Sarah"),
-                      class  = c("Freshman","Freshman",
-                                "Freshman","Freshman","Freshman"),
-                      grade  = c(3,5,29,55,144))
-
-
-# Use kable function to produce a table 
-
-kable(student,
-      col.names = c("Obs", 
-                    "Name", 
-                    "Grade",
-                    "Class Rank"),
-      align = c('c','c','c','c'),
-      caption = 'Ordinal Example') %>%
-  kable_styling(full_width = TRUE)
-
-```
-
-## Interval Scale of Measurement
-
--   Interval scales of measurement have the same properties as ordinal scales of measurement.
-
--   **The ranking of the scale contains information.**
-
--   **The intervals between observations contain information.**
-
--   Interval data are always numeric.
-
--   The SAT score is ordinal while the difference between the highest scoring student and another student is an interval measure.
-
-```{r, echo = FALSE}
-
-# Create x and y variables#
-
-student <- tibble(person = c(1,2,3,4,5),
-                      name   = c("Bob","Sally","Jim","Tony","Sarah"),
-                      grade  = c(1580,1320,1110,1052,952)) %>%
-  mutate(interval = grade[name == "Bob"] - grade)
-
-
-# Use kable function to produce a table 
-
-kable(student,
-      col.names = c("Obs", 
-                    "Name", 
-                    "SAT Score (Ordinal)",
-                    "Interval to Bob"),
-      align = c('c','c','c','c'),
-      caption = 'Interval Example') %>%
-  kable_styling(full_width = TRUE)
-
-```
-
-## Ratio Scale of Measurement
-
--   A ratio scale of measurement has the properties of the interval scale and the ratio of the two values is useful.
-
--   **The ratio is numeric and zero is a possible value.**
-
--   Care must be taken to define and interpret the ratio data.
-
--   Students take a physical fitness test across three events with a maximum possible score of 300 points.
-
--   The ratio represents the percentage score of each student relative to the maximum score on the test.
-
-```{r, echo = FALSE}
-
-# Create x and y variables#
-
-student <- tibble(person = c(1,2,3,4,5),
-                      name   = c("Bob","Sally","Jim","Tony","Sarah"),
-                      score  = c(248,232,178,157,109)) %>%
-            mutate(ratio = score / 300)
-
-# Use kable function to produce a table 
-
-kable(student,
-      col.names = c("Obs", 
-                    "Name", 
-                    "Raw Score (300 Max)",
-                    "Ratio"),
-      align   = c('c','c','c','c'),
-      digits  = 2,
-      caption = 'Ratio Example') %>%
-  column_spec(2:3, width = "3cm") %>%
-  kable_styling(full_width = TRUE)
-
-```
-
-## Categorical Measures
-
--   Categorical variables represent types of data which may be divided into groups.
-
--   Labels or names identify an attribute of each observation.
-
--   Categorical and qualitative data may be used synonymous.
-
--   Can be numeric or non-numeric.
-
--   Can be nominal or ordinal scale of measurement.
-
-```{r, echo = FALSE}
-
-# Create x and y variables#
-
-student <- tibble(person = c(1,2,3,4,5),
-                      name   = c("Bob","Sally","Jim","Tony","Sarah"),
-                      race   = c("Black", "White", 
-                                 "Asian", "White", "Black"),
-                      opine  = c("Agree", "Disagree",
-                                 "None", "Agree", "Strongly Agree"))
-
-# Use kable function to produce a table 
-
-kable(student,
-      col.names = c("Obs", 
-                    "Name", 
-                    "Race",
-                    "Opinion"),
-      align = c('c','c','c','c'),
-      caption = 'Categorical Example') %>%
-  column_spec(2:3, width = "3cm") %>%
-  kable_styling(full_width = TRUE)
-
-```
-
-## Quantitative versus Qualitative Data
-
--   Quantitative data capture *how many* or *how much*.
-
--   **Quantitative data are always numeric.**
-
--   Quantitative data may be ordinal, ranked, interval, ratio or a combination of all types of scales.
-
--   Quantitative data may capture *how many* or *how much* but may also capture non-quantitative information.
-
--   Opinion surveys, for example, may ask respondents to provide a numeric scale from strongly agree (1) to strongly disagree (5).
-
--   The numeric measure is a proxy for the strength of agreement or disagreement.
-
--   In many instances, qualitative responses are transformed into numerical representations to allow for quantitative analysis.
-
-## Cross-Sectional, Time Series, and Panel Data
-
-There are three broad types of data. Let's establish some terminology. When we discuss data, we often refer to **individuals** and **time**. In this context, individuals can represent people, firms, airlines, cars, or some other characteristic that defines the unique observations.
-
-For example, if we had data on the average fuel mileage of passenger vehicles in 2019, then individuals would refer to each type of passenger vehicle. If we had randomized data on 100,000 taxpayers in Virginia for 2018, then individuals would refer to unique taxpayers. Lastly, if we collected data on airplane arrivals at Dulles International Airport for each day in 2019, then we would have individual observations across time. We could organize this data by plane registration, airline, or country of origin, or some other category of interest.
-
-**Cross-sectional data** are data collected across individuals at the same point of time. There is no depth to cross-sectional data, that is, the data represent a snapshot at a specific point in time.
-
-**Time series data** are data collected over several time periods. Data for the headline unemployment graph for the United States are time series data. In this context, time series data refers to one variable across time. One can have a collection of time series variables (inflation rate, unemployment rate, and so on). Time series data has depth but not breadth.
-
-**Panel data** are data collected across individuals and time. If we collected data for the unemployment rate across states from 2013 to 2025, then we would have individuals (states) and time (months) as defining characteristics of our data. Panel data has breadth (across individuals) and depth (across time).
-
-## Types of Studies
-
--   **Observational**
-    -   Observational studies are **non-experimental** studies.
-    -   No attempt is made (or can be made) to control or influence the variables of interest.
-    -   If we study the impact of smoking on birth weight, we do not control who smokes and who does not smoke during pregnancy.
-    -   If we examine how exports influence economic growth across countries, we do not control export policy.
--   **Convenience**
-    -   A convenience study is the most common method of **non-probability sampling**.
-    -   Observations are obtained because individuals are available to the researcher.
-    -   This type of study is cheaper and easier than other types, hence it's popularity.
-    -   There is no attempt to control for sampling or to randomly sample the population of interest.
-
-## Population versus Sample Data
-
-When working with data, a question may arise whether it is appropriate to work with the population or a sample.
-
-The **population** represents all the individuals for a particular study while a **sample** is a subset of the population.
-
-Let's say we wanted to calculate the average age of students at Old Dominion University for the Fall 2025 semester. If we had access to student records, this might be a relatively easy exercise. In other words, if we had access to data for the population of students, we could calculate the average age of the student population.
-
-Now, let's assume we wanted to calculate the average age for all college students in the United States. The problem has become more difficult. We could try and obtain all the records from all the colleges and universities in the United States but this effort might be costly and complex.
-
-We could instead sample different colleges and universities and construct an estimate of the average age of college students. The "closer" our sample is to the population, the better our estimate of the average age of all the college students in the United States. If we only selected colleges and universities with undergraduate programs, our sample would likely understate the average age of college students. If we only selected graduate programs at colleges and universities, our sample would likely overstate the average age of college students.
-
-**The process by which we use a sample to estimate the properties of the population is statistical inference.**
-
-## Descriptive Statistics
-
--   **Descriptive statistics** are a set of tools used to describe the properties of a set of data.
-
--   Descriptive statistics can be numerical, tabular, or graphical.
-
--   Descriptive statistics typically **summarize** the properties of the individual observations.
-
--   We can create a **population** for 10,000 observations that have a mean of 50.5 and a standard deviation of 10.
-
--   We can then estimate sample averages to describe the mean of the data.
-
-Gathering a sample that is representative of the population is the first step. We then must understand the properties of the sample and how this reflects the properties of the population.
-
-```{r}
-
-# Create a data frame with 10,000 observations
-# mean of the observations is 50.5
-
-data_1 <- tibble(x1 = rnorm(10000, mean = 50.5, sd = 10))
-
-data_2 <- slice_sample(data_1, n = 10) %>% 
-          summarize(mean_10 = mean(x1))
-
-data_3 <- slice_sample(data_1, n = 100) %>% 
-          summarize(mean_100 = mean(x1))
-
-data_4 <- slice_sample (data_1, n = 1000) %>% 
-          summarize(mean_1000 = mean(x1))
-
-data_5 <- cbind(data_2, data_3, data_4)
-
-kable(data_5,
-      col.names = c("Sample = 10",
-                    "Sample = 100",
-                    "Sample = 1000"),
-      align     = c('c', 'c', 'c'),
-      digits    = 2,
-      caption   = 'Sample Averages') %>% 
-  column_spec(2:3, width = "3cm") %>%
-  kable_styling(full_width = TRUE,
-                font_size  = 10)
-
-
-```
-
-## Statistical Inference
-
--   Obtaining data for the **population** of interest may be difficult, complex, and costly.
-
--   For cost, complexity, and time considerations, we may use a **subset** or **sample** of the population.
-
--   The decennial Census of the population attempts to count every person in the United States.
-
--   Every non-Census year, a sample of 1-2 million individuals is taken to estimate the properties of the population.
-
--   **Statistical inference** is the process of using sample data to make estimates and test hypotheses about the characteristics of the population.
-
--   Since we are using sample data, our estimates are not precise, but come with a measure of error.
-
--   This course is, at its core, about using sample data to make inferences about the population.

@@ -189,12 +189,12 @@
   {
     "objectID": "mod-1-1-matrix.html",
     "href": "mod-1-1-matrix.html",
-    "title": "5  Economic Analysis",
+    "title": "5  Matrix Operations",
     "section": "",
-    "text": "5.1 Data and the Challenge of Economic Analysis\nWe are awash in data. The challenge is to find the right data at the appropriate time to investigate an empirical question of interest. In some cases, the data are well defined, consistently formatted, readily available, and structured to facilitate analysis. Then there are data that could help answer a question, but are not in an easily accessible format. But, before tackling these problems, we need to ask the simple question:\nWhat are data?\nThe Merriam-Webster dictionary defines data as: “…factual information (such as measurements or statistics) used a basis for reasoning, discussion, or calculation.” Broadly speaking, data can consist of measurements regarding the health of individuals, performance of firms, the income of regions, the inflation rate of a national economy, among other things. Data can also consist of statistics that describe the properties of an underlying set of measurements.\nThe Bureau of Labor Statistics (BLS) defines the civilian labor force as “The labor force includes all people age 16 and older who are classified as either employed and unemployed. Conceptually, the labor force level is the number of people who are either working or actively looking for work.”\nHow many people are in the civilian labor force in the United States? How many in Virginia? Is the labor force larger today than it was at the same time last year? How does the growth in the labor force in Virginia compare to other states? All these questions require obtaining data and, for some, manipulating data to create statistics about the properties of the data.",
+    "text": "5.1 Matrix Operations\nThis module covers the essential matrix operations required for econometrics. We begin with basic matrix creation and arithmetic, progressing to more complex operations like inversion and formal multiplication. Understanding these operations is critical as they form the backbone of the Ordinary Least Squares (OLS) estimator, which we will derive and implement both manually and using built-in R functions.",
     "crumbs": [
       "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Matrix Operations</span>"
     ]
   },
   {
@@ -382,6 +382,17 @@
     "crumbs": [
       "Linear Regression Model",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-1-matrix.html#matrix-creation",
+    "href": "mod-1-1-matrix.html#matrix-creation",
+    "title": "5  Matrix Operations",
+    "section": "5.2 Matrix Creation",
+    "text": "5.2 Matrix Creation\nIn this example, we create two vectors that contain 4 numeric elements and form two matrices that are \\((2 \\times 2)\\) and one matrix that is \\((4 \\times 1)\\).\nWe can take a transpose of a matrix by using t(), so t(m_1) would be the transpose of matrix m_1.\nWe can use the dim function to obtain the dimensions of a matrix (and other elements like vectors).\nThe code chunk below does the following:\n\nCreate numeric vectors using the combine function and assign to d_1 and d_2\nUsing d_1, create a \\((2 \\times 2)\\) matrix\nUsing d_2, create a \\((2 \\times 2)\\) matrix\nUsing d_1, create a $(4 ) matrix\nUse kable to output m_1\nUse the transpose function and kable to output t(m_1)\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Matrix Operations</span>"
     ]
   }
 ]
