@@ -369,7 +369,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"d_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\nm_1_a <- matrix(d_1, ncol = 4, nrow = 1)\n\ndims <- tibble(d_m1     = dim(m_1),\n               d_m2     = dim(m_2),\n               d_m1_a   = dim(m_1_a),\n               d_t_m1_a = dim(t(m_1_a)))\n\nkable(m_1,\n      caption = \"Matrix M1\") \n\nkable(t(m_1),\n      caption = \"Transpose of Matrix M1\") \n\nkable(dims,\n      col.names = c('M1', 'M2', 'M_1_A', 'T(M_1_A)'),\n      full_width = TRUE)","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"rm(list = ls())\n\nd_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\nm_1_a <- matrix(d_1, ncol = 4, nrow = 1)\n\ndims <- tibble(d_m1     = dim(m_1),\n               d_m2     = dim(m_2),\n               d_m1_a   = dim(m_1_a),\n               d_t_m1_a = dim(t(m_1_a)))\n\nkable(m_1,\n      caption = \"Matrix M1\") \n\nkable(t(m_1),\n      caption = \"Transpose of Matrix M1\") \n\nkable(dims,\n      col.names = c('M1', 'M2', 'M_1_A', 'T(M_1_A)'),\n      full_width = TRUE)","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())\n\nd_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\n# Matrix Addition\n\nm_plus_1_2 <- m_1 + m_2\n\nkable(m_plus_1_2,\n      caption = \"Element by Element Addition (M1+M2)\")","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())\n\nd_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\n# Matrix Subtraction\n\nm_minus_1_2 <- m_1 - m_2\n\nkable(m_minus_1_2,\n      caption = \"Element by Element Subtraction (M1-M2)\") \n\n# Matrix Subtraction \n\nm_minus_2_1 <- m_2 - m_1\n\nkable(m_minus_2_1,\n      caption = \"Element by Element Subtraction (M2-M1)\") ","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-3","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())\n\nd_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\n# Element by Element Multiplication\n\nm_1_2 <- m_1 * m_2\n\nkable(m_1_2,\n      caption = \"Element by Element Multiplication (M1*M2)\") %>%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-4","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())\n\nd_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\n# Matrix Multiplication\n\nmm_1_2 <- m_1 %*% m_2\n\nkable(mm_1_2,\n      caption = \"Matrix Multiplication (M1 %*% M2\") \n\n\n# Matrix Multiplication\n\nmm_2_1 <- m_2 %*% m_1\n\nkable(mm_2_1,\n      caption = \"Matrix Multiplication (M2 %*% M1\") ","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-5","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -1755,6 +1755,10 @@ window.Quarto = {
   <ul>
   <li><a href="#matrix-operations" id="toc-matrix-operations" class="nav-link active" data-scroll-target="#matrix-operations"><span class="header-section-number">5.1</span> Matrix Operations</a></li>
   <li><a href="#matrix-creation" id="toc-matrix-creation" class="nav-link" data-scroll-target="#matrix-creation"><span class="header-section-number">5.2</span> Matrix Creation</a></li>
+  <li><a href="#matrix-addition" id="toc-matrix-addition" class="nav-link" data-scroll-target="#matrix-addition"><span class="header-section-number">5.3</span> Matrix Addition</a></li>
+  <li><a href="#matrix-subtraction" id="toc-matrix-subtraction" class="nav-link" data-scroll-target="#matrix-subtraction"><span class="header-section-number">5.4</span> Matrix Subtraction</a></li>
+  <li><a href="#hadamard-product" id="toc-hadamard-product" class="nav-link" data-scroll-target="#hadamard-product"><span class="header-section-number">5.5</span> Hadamard Product</a></li>
+  <li><a href="#matrix-multiplication" id="toc-matrix-multiplication" class="nav-link" data-scroll-target="#matrix-multiplication"><span class="header-section-number">5.6</span> Matrix Multiplication</a></li>
   </ul>
 </nav>
     </div>
@@ -2070,8 +2074,25 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </section>
 <section id="matrix-creation" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="matrix-creation"><span class="header-section-number">5.2</span> Matrix Creation</h2>
-<p>In this example, we create two vectors that contain 4 numeric elements and form two matrices that are <span class="math inline">\((2 \times 2)\)</span> and one matrix that is <span class="math inline">\((4 \times 1)\)</span>.</p>
-<p>We can take a transpose of a matrix by using <strong>t()</strong>, so <strong>t(m_1)</strong> would be the transpose of matrix <em>m_1</em>.</p>
+<p>We can create two vectors that contain 4 numeric elements and form two matrices that are <span class="math inline">\((2 \times 2)\)</span> Assume that we have call the two matrices, <span class="math inline">\(m_1\)</span> and <span class="math inline">\(m_2\)</span> and the matrices can be expressed as:</p>
+<p><span class="math display">\[ m_1 = \begin{bmatrix} 2 &amp; 6 \\ 4 &amp; 8 \end{bmatrix} \]</span></p>
+<p><span class="math display">\[ m_2 = \begin{bmatrix} 5 &amp; 2 \\ 15 &amp; 12 \end{bmatrix} \]</span></p>
+<p>We can also create a <span class="math inline">\((4 \times 1)\)</span> matrix from the same elements that form <span class="math inline">\(m_1\)</span> or:</p>
+<p><span class="math display">\[
+m_{1a} = \begin{bmatrix}
+2 \\
+4 \\
+6 \\
+8
+\end{bmatrix}
+\]</span></p>
+<p>We can take a transpose of a matrix by using <strong>t()</strong>, so <strong>t(m_1)</strong> would be the transpose of matrix <em>m_1</em> or</p>
+<p><span class="math display">\[
+m_1^T = \begin{bmatrix}
+2 &amp; 4 \\
+6 &amp; 8
+\end{bmatrix}
+\]</span></p>
 <p>We can use the <strong>dim</strong> function to obtain the dimensions of a matrix (and other elements like vectors).</p>
 <p>The code chunk below does the following:</p>
 <ol type="1">
@@ -2083,6 +2104,173 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <li><p>Use the <strong>transpose</strong> function and <strong>kable</strong> to output <strong>t(m_1)</strong></p></li>
 </ol>
 <div id="qwebr-insertion-location-1"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="matrix-addition" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="matrix-addition"><span class="header-section-number">5.3</span> Matrix Addition</h2>
+<p>In this example, we demonstrate how to add matrices.</p>
+<p>We return to the two <span class="math inline">\((2 \times 2)\)</span> matrices in the previous example and add the matrices together.</p>
+<p><span class="math display">\[ \begin{bmatrix}
+2 &amp; 6 \\ 4 &amp; 8
+\end{bmatrix} +
+\begin{bmatrix}
+5 &amp; 2 \\ 15 &amp; 12
+\end{bmatrix} =
+\begin{bmatrix}
+(2 + 5) &amp; (6 + 2) \\
+(4 + 15) &amp; (8 + 12)
+\end{bmatrix} =
+\begin{bmatrix}
+7 &amp; 8 \\
+19 &amp; 20
+\end{bmatrix}\]</span></p>
+<p>When we add <span class="math inline">\(m_1\)</span> and <span class="math inline">\(m_2\)</span>, we are adding the values in the same position in each matrix.</p>
+<p>For example, for <span class="math inline">\(m_1\)</span>, the value in the first row, first column is equal to 2.</p>
+<p>For <span class="math inline">\(m_2\)</span>, the value in the first row, first column is equal to 5.</p>
+<p>Adding <span class="math inline">\(m_1\)</span> and <span class="math inline">\(m_2\)</span> yields a value of 7 in the first row, first column of the resulting matrix.</p>
+<p><em>The order for matrix addition does not matter, that is,</em> <span class="math inline">\(m_1 + m_2 = m_2 + m_1\)</span>.</p>
+<div id="qwebr-insertion-location-2"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="matrix-subtraction" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="matrix-subtraction"><span class="header-section-number">5.4</span> Matrix Subtraction</h2>
+<p>Using a similar process, we can subtract one matrix from another. While order does not matter for addition, order does matter for subtraction.</p>
+<p>If we subtract <span class="math inline">\(m_2\)</span> from <span class="math inline">\(m_1\)</span>, that is <span class="math inline">\(m_1 - m_2\)</span>, then, we are subtracting the value of each element in <span class="math inline">\(m_2\)</span> from the corresponding element in <span class="math inline">\(m_1\)</span>.</p>
+<p><span class="math display">\[ \begin{bmatrix}
+2 &amp; 6 \\ 4 &amp; 8
+\end{bmatrix} -
+\begin{bmatrix}
+5 &amp; 2 \\ 15 &amp; 12
+\end{bmatrix} =
+\begin{bmatrix}
+(2 - 5) &amp; (6 - 2) \\
+(4 - 15) &amp; (8 - 12)
+\end{bmatrix} =
+\begin{bmatrix}
+-3 &amp; 4 \\
+-11 &amp; -4
+\end{bmatrix}\]</span></p>
+<p>The value in the first row, first column of <span class="math inline">\(m_1\)</span> is equal to 5. When we subtract <span class="math inline">\(m_2\)</span> from <span class="math inline">\(m_1\)</span>, we would subtract 2 (first row, first column of <span class="math inline">\(m_2\)</span>) from 5 (first row, first column of <span class="math inline">\(m_1\)</span>), that is, the resulting value is equal to <span class="math inline">\(2-5 = -3\)</span>.</p>
+<p>On the other hand, if we subtract <span class="math inline">\(m_1\)</span> from <span class="math inline">\(m_2\)</span>, then the same position yields <span class="math inline">\(5-2 = 3\)</span>.</p>
+<p><span class="math display">\[ \begin{bmatrix}
+5 &amp; 2 \\ 15 &amp; 12
+\end{bmatrix} -
+\begin{bmatrix}
+2 &amp; 6 \\ 4 &amp; 8
+\end{bmatrix} -
+=
+\begin{bmatrix}
+(5 - 2) &amp; (2 - 6) \\
+(15 - 4) &amp; (12 - 8)
+\end{bmatrix} =
+\begin{bmatrix}
+3 &amp; -4 \\
+11 &amp; 4
+\end{bmatrix}\]</span></p>
+<div id="qwebr-insertion-location-3"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="hadamard-product" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="hadamard-product"><span class="header-section-number">5.5</span> Hadamard Product</h2>
+<p>Element-by-element matrix multiplication is straightforward but is not typically used in this class. Element-by-element matrix multiplication is known as the <em>Hadamard Product</em>.</p>
+<p>The order of multiplication does not matter, however, the two matrices must have <strong>identical dimensions</strong>.</p>
+<p>Returning to the two matrices, <span class="math inline">\(m_1\)</span> and <span class="math inline">\(m_2\)</span>, we can conduct element-by-element multiplication by multiplying each element by its corresponding element in the other matrix.</p>
+<p><span class="math display">\[
+m1 \times m2 =
+\begin{bmatrix}
+2 &amp; 6 \\
+4 &amp; 8
+\end{bmatrix} \times
+\begin{bmatrix}
+5 &amp; 2 \\
+15 &amp; 12
+\end{bmatrix} =
+\begin{bmatrix}
+(2 \times 5) &amp; (6 \times 2) \\
+(4 \times 15) &amp; (8 \times 12)
+\end{bmatrix} =
+\begin{bmatrix}
+10 &amp; 12 \\
+60 &amp; 96
+\end{bmatrix}
+\]</span></p>
+<p>As an exercise, you can use the <strong>webr</strong> code chunk below to calculate the product of the two matrices and observe whether the Hadamard Product depends on the order of multiplication.</p>
+<div id="qwebr-insertion-location-4"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="matrix-multiplication" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="matrix-multiplication"><span class="header-section-number">5.6</span> Matrix Multiplication</h2>
+<p>If <strong>A</strong> is a <span class="math inline">\((m \times n)\)</span> matrix and <strong>B</strong> is a <span class="math inline">\((n \times p)\)</span> matrix, then we can form the matrix product <strong>C</strong> by <strong>AB</strong>, if and only if the two matrices are compatible.</p>
+<p>The first step is to ensure the matrices are compatible, that is, the inner dimensions of the matrices must match. In this case, the columns in <strong>A</strong> are equal to the rows in <strong>B</strong>, so the matrices are compatible.</p>
+<p>The resulting matrix will have the dimensions of the ‘outer’ numbers. If we examine this from a dimensional perspective then:</p>
+<p><span class="math display">\[
+A \times B = (m \times n) \times (n \times p) = (m \times p)
+\]</span></p>
+<p>For example, assume that <strong>A</strong> is <span class="math inline">\((5 \times 5)\)</span> and <strong>B</strong> is <span class="math inline">\((5 \times 8)\)</span>. We can form the matrix product <strong>AB</strong> since the as the number of columns in <strong>A</strong> is equal to the number of rows in <strong>B.<br>
+<br>
+<em>We cannot, however, form the matrix product BA since the number of columns in B is not equal to the number of rows in A</em></strong><em>.</em></p>
+<p><em>In general, the only time we are assured that we can multiply AB and BA is when A and B are square matrices with the same dimensions.</em></p>
+<p>Recall that we have previously defined two matrices as:</p>
+<p><span class="math display">\[
+m_1 = \begin{bmatrix}
+2 &amp; 6 \\
+4 &amp; 8
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[m_2 = \begin{bmatrix}
+5 &amp; 2 \\
+15 &amp; 12
+\end{bmatrix}
+\]</span></p>
+<p>Step 1: <strong>Top-Left element</strong>: Take the first row of <span class="math inline">\(m_1\)</span> and multiply it by the first column of <span class="math inline">\(m_2\)</span>.</p>
+<p><span class="math display">\[
+(2 \times 5) + (6 \times 15) = 10 + 90 = 100
+\]</span></p>
+<p>Step 2: <strong>Top-Right Element</strong>: Take the first row of <span class="math inline">\(m_1\)</span> and multiply it by the second column of <span class="math inline">\(m_2\)</span>.</p>
+<p><span class="math display">\[
+(2 \times 2) + (6 \times 12) = 4 + 72 = 76
+\]</span></p>
+<p>Step 3: <strong>Bottom-Left element</strong>: Take the second row of <span class="math inline">\(m_1\)</span> and multiply it by the first column of <span class="math inline">\(m_2\)</span>.</p>
+<p><span class="math display">\[
+(4 \times 5) + (8 \times 15) = 20 + 120 = 140
+\]</span></p>
+<p>Step 4: <strong>Bottom-right element</strong>: Take the second row of <span class="math inline">\(m_1\)</span> and multiply it by the second column of <span class="math inline">\(m_2\)</span>.</p>
+<p><span class="math display">\[
+(4 \times 2) + (8 \times 12) = 8 + 96 = 104
+\]</span></p>
+<p>When we multiply <span class="math inline">\(m_1\)</span> by <span class="math inline">\(m_2\)</span> we obtain a new matrix that is the matrix product or</p>
+<p><span class="math display">\[
+m_1m_2 = \begin{bmatrix}
+2 &amp; 6 \\
+4 &amp; 8
+\end{bmatrix}
+\begin{bmatrix}
+5 &amp; 2 \\
+15 &amp; 12
+\end{bmatrix}
+=
+\begin{bmatrix}
+(2 \times 5) + (6 \times 15) &amp; (2 \times 2) + (6 \times 12) \\
+(4 \times 5) + (8 \times 15) &amp; (4 \times 2) + (8 \times 12)
+\end{bmatrix}
+=
+\begin{bmatrix}
+100 &amp; 76 \\
+140 &amp; 104
+\end{bmatrix}
+\]</span></p>
+<p>To illustrate the point that, in general, matrix multiplication depends on the order of the matrices, we can calculate the product of <span class="math inline">\(m_2 m_1\)</span>.</p>
+<p>Step 1: <strong>Top-Left element</strong>: Take the first row of <span class="math inline">\(m_2\)</span> and multiply it by the first column of <span class="math inline">\(m_1\)</span>.</p>
+<p><span class="math display">\[ (5 \times 2) + (2 \times 4) = 10 + 8 = 18 \]</span></p>
+<p>Step 2: <strong>Top-Right Element</strong>: Take the first row of <span class="math inline">\(m_2\)</span> and multiply it by the second column of <span class="math inline">\(m_1\)</span>.</p>
+<p><span class="math display">\[ (5 \times 6) + (2 \times 8) = 30 + 16 = 46 \]</span></p>
+<p>Step 3: <strong>Bottom-Left element</strong>: Take the second row of <span class="math inline">\(m_2\)</span> and multiply it by the first column of <span class="math inline">\(m_1\)</span>.</p>
+<p><span class="math display">\[ (15 \times 2) + (12 \times 4) = 30 + 48 = 78 \]</span></p>
+<p>Step 4: <strong>Bottom-right element</strong>: Take the second row of <span class="math inline">\(m_1\)</span> and multiply it by the second column of <span class="math inline">\(m_2\)</span>.</p>
+<p><span class="math display">\[ (15 \times 6) + (12 \times 8) = 186 \]</span></p>
+<p>When we multiply <span class="math inline">\(m_1\)</span> by <span class="math inline">\(m_2\)</span> we obtain a new matrix that is the matrix product or</p>
+<p><span class="math display">\[ m_2 m_1 = \begin{bmatrix} 5 &amp; 2 \\ 15 &amp; 12  \end{bmatrix} \begin{bmatrix} 2 &amp; 6 \\ 4 &amp; 8  \end{bmatrix} = \begin{bmatrix} (5 \times 2) + (2 \times 4) &amp; (5 \times 6) + (2 \times 8) \\ (15 \times 2) + (12 \times 4) &amp; (15 \times 6) + (12 \times 8) \end{bmatrix} = \begin{bmatrix} 18 &amp; 46 \\ 78 &amp; 186 \end{bmatrix} \]</span></p>
+<p>This illustrates the point: matrix multiplication is non-communicative. Comparability and order of operations matter. Change the order, obtain a different result.</p>
+<div id="qwebr-insertion-location-5"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 
 

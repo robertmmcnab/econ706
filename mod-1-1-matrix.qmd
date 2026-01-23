@@ -29,9 +29,31 @@ This module covers the essential matrix operations required for econometrics. We
 
 ## Matrix Creation
 
-In this example, we create two vectors that contain 4 numeric elements and form two matrices that are $(2 \times 2)$ and one matrix that is $(4 \times 1)$.
+We can create two vectors that contain 4 numeric elements and form two matrices that are $(2 \times 2)$ Assume that we have call the two matrices, $m_1$ and $m_2$ and the matrices can be expressed as:
 
-We can take a transpose of a matrix by using **t()**, so **t(m_1)** would be the transpose of matrix *m_1*.
+$$ m_1 = \begin{bmatrix} 2 & 6 \\ 4 & 8 \end{bmatrix} $$
+
+$$ m_2 = \begin{bmatrix} 5 & 2 \\ 15 & 12 \end{bmatrix} $$
+
+We can also create a $(4 \times 1)$ matrix from the same elements that form $m_1$ or:
+
+$$
+m_{1a} = \begin{bmatrix}
+2 \\
+4 \\ 
+6 \\ 
+8
+\end{bmatrix}
+$$
+
+We can take a transpose of a matrix by using **t()**, so **t(m_1)** would be the transpose of matrix *m_1* or
+
+$$
+m_1^T = \begin{bmatrix}
+2 & 4 \\
+6 & 8
+\end{bmatrix}
+$$
 
 We can use the **dim** function to obtain the dimensions of a matrix (and other elements like vectors).
 
@@ -50,6 +72,8 @@ The code chunk below does the following:
 6.  Use the **transpose** function and **kable** to output **t(m_1)**
 
 ```{webr-r}
+
+rm(list = ls())
 
 d_1 <- c(2, 4, 6, 8)
 d_2 <- c(5, 15, 2, 12)
@@ -73,4 +97,302 @@ kable(t(m_1),
 kable(dims,
       col.names = c('M1', 'M2', 'M_1_A', 'T(M_1_A)'),
       full_width = TRUE)
+```
+
+## Matrix Addition
+
+In this example, we demonstrate how to add matrices.
+
+We return to the two $(2 \times 2)$ matrices in the previous example and add the matrices together.
+
+$$ \begin{bmatrix} 
+2 & 6 \\ 4 & 8 
+\end{bmatrix} + 
+\begin{bmatrix}
+5 & 2 \\ 15 & 12
+\end{bmatrix} =
+\begin{bmatrix}
+(2 + 5) & (6 + 2) \\
+(4 + 15) & (8 + 12)
+\end{bmatrix} = 
+\begin{bmatrix}
+7 & 8 \\
+19 & 20 
+\end{bmatrix}$$
+
+When we add $m_1$ and $m_2$, we are adding the values in the same position in each matrix.
+
+For example, for $m_1$, the value in the first row, first column is equal to 2.
+
+For $m_2$, the value in the first row, first column is equal to 5.
+
+Adding $m_1$ and $m_2$ yields a value of 7 in the first row, first column of the resulting matrix.
+
+*The order for matrix addition does not matter, that is,* $m_1 + m_2 = m_2 + m_1$.
+
+```{webr-r}
+
+rm(list = ls())
+
+d_1 <- c(2, 4, 6, 8)
+d_2 <- c(5, 15, 2, 12)
+
+m_1 <- matrix(d_1, nrow = 2, ncol = 2)
+m_2 <- matrix(d_2, nrow = 2, ncol = 2)
+
+# Matrix Addition
+
+m_plus_1_2 <- m_1 + m_2
+
+kable(m_plus_1_2,
+      caption = "Element by Element Addition (M1+M2)")
+
+```
+
+## Matrix Subtraction
+
+Using a similar process, we can subtract one matrix from another. While order does not matter for addition, order does matter for subtraction.
+
+If we subtract $m_2$ from $m_1$, that is $m_1 - m_2$, then, we are subtracting the value of each element in $m_2$ from the corresponding element in $m_1$.
+
+$$ \begin{bmatrix} 
+2 & 6 \\ 4 & 8 
+\end{bmatrix} - 
+\begin{bmatrix}
+5 & 2 \\ 15 & 12
+\end{bmatrix} =
+\begin{bmatrix}
+(2 - 5) & (6 - 2) \\
+(4 - 15) & (8 - 12)
+\end{bmatrix} = 
+\begin{bmatrix}
+-3 & 4 \\
+-11 & -4 
+\end{bmatrix}$$
+
+The value in the first row, first column of $m_1$ is equal to 5. When we subtract $m_2$ from $m_1$, we would subtract 2 (first row, first column of $m_2$) from 5 (first row, first column of $m_1$), that is, the resulting value is equal to $2-5 = -3$.
+
+On the other hand, if we subtract $m_1$ from $m_2$, then the same position yields $5-2 = 3$.
+
+$$ \begin{bmatrix}
+5 & 2 \\ 15 & 12
+\end{bmatrix} -
+\begin{bmatrix} 
+2 & 6 \\ 4 & 8 
+\end{bmatrix} - 
+ =
+\begin{bmatrix}
+(5 - 2) & (2 - 6) \\
+(15 - 4) & (12 - 8)
+\end{bmatrix} = 
+\begin{bmatrix}
+3 & -4 \\
+11 & 4 
+\end{bmatrix}$$
+
+```{webr-r}
+
+rm(list = ls())
+
+d_1 <- c(2, 4, 6, 8)
+d_2 <- c(5, 15, 2, 12)
+
+m_1 <- matrix(d_1, nrow = 2, ncol = 2)
+m_2 <- matrix(d_2, nrow = 2, ncol = 2)
+
+# Matrix Subtraction
+
+m_minus_1_2 <- m_1 - m_2
+
+kable(m_minus_1_2,
+      caption = "Element by Element Subtraction (M1-M2)") 
+
+# Matrix Subtraction 
+
+m_minus_2_1 <- m_2 - m_1
+
+kable(m_minus_2_1,
+      caption = "Element by Element Subtraction (M2-M1)") 
+```
+
+## Hadamard Product
+
+Element-by-element matrix multiplication is straightforward but is not typically used in this class. Element-by-element matrix multiplication is known as the *Hadamard Product*.
+
+The order of multiplication does not matter, however, the two matrices must have **identical dimensions**.
+
+Returning to the two matrices, $m_1$ and $m_2$, we can conduct element-by-element multiplication by multiplying each element by its corresponding element in the other matrix.
+
+$$
+m1 \times m2 = 
+\begin{bmatrix}
+2 & 6 \\
+4 & 8
+\end{bmatrix} \times
+\begin{bmatrix}
+5 & 2 \\
+15 & 12 
+\end{bmatrix} =
+\begin{bmatrix}
+(2 \times 5) & (6 \times 2) \\
+(4 \times 15) & (8 \times 12)
+\end{bmatrix} =
+\begin{bmatrix}
+10 & 12 \\
+60 & 96
+\end{bmatrix}
+$$
+
+As an exercise, you can use the **webr** code chunk below to calculate the product of the two matrices and observe whether the Hadamard Product depends on the order of multiplication.
+
+```{webr-r}
+
+rm(list = ls())
+
+d_1 <- c(2, 4, 6, 8)
+d_2 <- c(5, 15, 2, 12)
+
+m_1 <- matrix(d_1, nrow = 2, ncol = 2)
+m_2 <- matrix(d_2, nrow = 2, ncol = 2)
+
+# Element by Element Multiplication
+
+m_1_2 <- m_1 * m_2
+
+kable(m_1_2,
+      caption = "Element by Element Multiplication (M1*M2)") %>%
+kable_styling(font_size = 12,
+              position  = "center",
+              full_width = FALSE)
+
+```
+
+## Matrix Multiplication
+
+If **A** is a $(m \times n)$ matrix and **B** is a $(n \times p)$ matrix, then we can form the matrix product **C** by **AB**, if and only if the two matrices are compatible.
+
+The first step is to ensure the matrices are compatible, that is, the inner dimensions of the matrices must match. In this case, the columns in **A** are equal to the rows in **B**, so the matrices are compatible.
+
+The resulting matrix will have the dimensions of the 'outer' numbers. If we examine this from a dimensional perspective then:
+
+$$
+A \times B = (m \times n) \times (n \times p) = (m \times p)
+$$
+
+For example, assume that **A** is $(5 \times 5)$ and **B** is $(5 \times 8)$. We can form the matrix product **AB** since the as the number of columns in **A** is equal to the number of rows in **B.\
+\
+*We cannot, however, form the matrix product BA since the number of columns in B is not equal to the number of rows in A****.*
+
+*In general, the only time we are assured that we can multiply AB and BA is when A and B are square matrices with the same dimensions.*
+
+Recall that we have previously defined two matrices as:
+
+$$
+m_1 = \begin{bmatrix}
+2 & 6 \\
+4 & 8 
+\end{bmatrix}$$
+
+$$m_2 = \begin{bmatrix}
+5 & 2 \\
+15 & 12 
+\end{bmatrix}
+$$
+
+Step 1: **Top-Left element**: Take the first row of $m_1$ and multiply it by the first column of $m_2$.
+
+$$
+(2 \times 5) + (6 \times 15) = 10 + 90 = 100
+$$
+
+Step 2: **Top-Right Element**: Take the first row of $m_1$ and multiply it by the second column of $m_2$.
+
+$$
+(2 \times 2) + (6 \times 12) = 4 + 72 = 76
+$$
+
+Step 3: **Bottom-Left element**: Take the second row of $m_1$ and multiply it by the first column of $m_2$.
+
+$$
+(4 \times 5) + (8 \times 15) = 20 + 120 = 140
+$$
+
+Step 4: **Bottom-right element**: Take the second row of $m_1$ and multiply it by the second column of $m_2$.
+
+$$
+(4 \times 2) + (8 \times 12) = 8 + 96 = 104
+$$
+
+When we multiply $m_1$ by $m_2$ we obtain a new matrix that is the matrix product or
+
+$$
+m_1m_2 = \begin{bmatrix}
+2 & 6 \\
+4 & 8 
+\end{bmatrix}
+\begin{bmatrix}
+5 & 2 \\
+15 & 12 
+\end{bmatrix}
+=
+\begin{bmatrix}
+(2 \times 5) + (6 \times 15) & (2 \times 2) + (6 \times 12) \\
+(4 \times 5) + (8 \times 15) & (4 \times 2) + (8 \times 12)
+\end{bmatrix}
+=
+\begin{bmatrix}
+100 & 76 \\
+140 & 104
+\end{bmatrix}
+$$
+
+To illustrate the point that, in general, matrix multiplication depends on the order of the matrices, we can calculate the product of $m_2 m_1$.
+
+Step 1: **Top-Left element**: Take the first row of $m_2$ and multiply it by the first column of $m_1$.
+
+$$ (5 \times 2) + (2 \times 4) = 10 + 8 = 18 $$
+
+Step 2: **Top-Right Element**: Take the first row of $m_2$ and multiply it by the second column of $m_1$.
+
+$$ (5 \times 6) + (2 \times 8) = 30 + 16 = 46 $$
+
+Step 3: **Bottom-Left element**: Take the second row of $m_2$ and multiply it by the first column of $m_1$.
+
+$$ (15 \times 2) + (12 \times 4) = 30 + 48 = 78 $$
+
+Step 4: **Bottom-right element**: Take the second row of $m_1$ and multiply it by the second column of $m_2$.
+
+$$ (15 \times 6) + (12 \times 8) = 186 $$
+
+When we multiply $m_1$ by $m_2$ we obtain a new matrix that is the matrix product or
+
+$$ m_2 m_1 = \begin{bmatrix} 5 & 2 \\ 15 & 12  \end{bmatrix} \begin{bmatrix} 2 & 6 \\ 4 & 8  \end{bmatrix} = \begin{bmatrix} (5 \times 2) + (2 \times 4) & (5 \times 6) + (2 \times 8) \\ (15 \times 2) + (12 \times 4) & (15 \times 6) + (12 \times 8) \end{bmatrix} = \begin{bmatrix} 18 & 46 \\ 78 & 186 \end{bmatrix} $$
+
+This illustrates the point: matrix multiplication is non-communicative. Comparability and order of operations matter. Change the order, obtain a different result.
+
+```{webr-r}
+
+rm(list = ls())
+
+d_1 <- c(2, 4, 6, 8)
+d_2 <- c(5, 15, 2, 12)
+
+m_1 <- matrix(d_1, nrow = 2, ncol = 2)
+m_2 <- matrix(d_2, nrow = 2, ncol = 2)
+
+# Matrix Multiplication
+
+mm_1_2 <- m_1 %*% m_2
+
+kable(mm_1_2,
+      caption = "Matrix Multiplication (M1 %*% M2") 
+
+
+# Matrix Multiplication
+
+mm_2_1 <- m_2 %*% m_1
+
+kable(mm_2_1,
+      caption = "Matrix Multiplication (M2 %*% M1") 
+
 ```

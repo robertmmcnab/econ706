@@ -22,14 +22,47 @@
     ]
   },
   {
-    "objectID": "index.html#module-01-introduction-to-r-and-descriptive-statistics",
-    "href": "index.html#module-01-introduction-to-r-and-descriptive-statistics",
+    "objectID": "index.html#module-01-introduction-to-linear-regression",
+    "href": "index.html#module-01-introduction-to-linear-regression",
     "title": "ECON 706",
-    "section": "0.2 Module 01 – Introduction to R and Descriptive Statistics",
-    "text": "0.2 Module 01 – Introduction to R and Descriptive Statistics\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
+    "section": "0.2 Module 01 – Introduction to Linear Regression",
+    "text": "0.2 Module 01 – Introduction to Linear Regression\n\n\nModule 1 Overview\n\n\nMatrix Operations\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
     "crumbs": [
       "Introduction",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
+    ]
+  },
+  {
+    "objectID": "mcnab.html",
+    "href": "mcnab.html",
+    "title": "2  Meet Your Instructor",
+    "section": "",
+    "text": "2.1 About\nChair, Department of Economics | rmcnab@odu.edu | 757-683-3153\nProfessor Robert M. McNab currently serves as the Chair of the Department of Economics in the Strome College of Business at Old Dominion University. Dr. McNab is also the Director of the Dragas Center for Economic Analysis and Policy at Old Dominion University. He is a member of the Federal Reserve Bank of Philadelphia’s Survey of Professional Forecasters and, from 2018 to 2022, he was a member of the Joint Advisory Board of Economists for the Commonwealth of Virginia. Professor McNab has published in Applied Economics, Cornell Hospitality Quarterly, Defense and Peace Economics, National Tax Journal, Public Budgeting and Finance, and World Development, among others. He edits the annual State of the Region: Hampton Roads and State of the Commonwealth reports Professor McNab has appeared in the Associated Press, China Global Television Network, CNN, LiveNow from Fox News, Forbes, Newsweek, Wall Street Journal, Washington Post, Welt am Sonntag, Yahoo News, Yahoo Finance, Richmond Times-Dispatch, Virginian Pilot, Virginia Public Media, and Daily Press, among others. Dr. McNab joined the faculty of the Department of Economics in the Strome College of Business of Old Dominion University in July 2016 and previously was a member of the faculty of the Naval Postgraduate School in Monterey, California from 2000 to 2016.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Meet Your Instructor</span>"
+    ]
+  },
+  {
+    "objectID": "mcnab.html#contact-policy",
+    "href": "mcnab.html#contact-policy",
+    "title": "2  Meet Your Instructor",
+    "section": "2.2 Contact Policy",
+    "text": "2.2 Contact Policy\nStudents should feel welcome to contact me via email at rmcnab@odu.edu or drop by Zoom office hours. I strongly encourage students to communicate with me. I will try to answer emails within 48 business hours (often much sooner) for course related topics.\nStudents should take the time to craft complete, professional emails. The more information that you can provide about a question or problem, the more likely that my response will be helpful. Avoid non-professional language and practice communicating in the corporate workplace. Emails that are unprofessional will be returned with no action.\nStudents should proactively address issues with the class and scheduling rather than waiting until an assignment or case study discussion is overdue. In many cases, accommodations can be made for ‘life events,’ however, clear and prompt communication is necessary.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Meet Your Instructor</span>"
+    ]
+  },
+  {
+    "objectID": "mcnab.html#virtual-office-hours",
+    "href": "mcnab.html#virtual-office-hours",
+    "title": "2  Meet Your Instructor",
+    "section": "2.3 Virtual Office Hours",
+    "text": "2.3 Virtual Office Hours\nOffice hours will be held on a rotating schedule and are available by appointment. Check the class announcements for the schedule of office hours, which vary to accommodate students with different schedules.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Meet Your Instructor</span>"
     ]
   },
   {
@@ -88,39 +121,6 @@
     ]
   },
   {
-    "objectID": "mcnab.html",
-    "href": "mcnab.html",
-    "title": "2  Meet Your Instructor",
-    "section": "",
-    "text": "2.1 About\nChair, Department of Economics | rmcnab@odu.edu | 757-683-3153\nProfessor Robert M. McNab currently serves as the Chair of the Department of Economics in the Strome College of Business at Old Dominion University. Dr. McNab is also the Director of the Dragas Center for Economic Analysis and Policy at Old Dominion University. He is a member of the Federal Reserve Bank of Philadelphia’s Survey of Professional Forecasters and, from 2018 to 2022, he was a member of the Joint Advisory Board of Economists for the Commonwealth of Virginia. Professor McNab has published in Applied Economics, Cornell Hospitality Quarterly, Defense and Peace Economics, National Tax Journal, Public Budgeting and Finance, and World Development, among others. He edits the annual State of the Region: Hampton Roads and State of the Commonwealth reports Professor McNab has appeared in the Associated Press, China Global Television Network, CNN, LiveNow from Fox News, Forbes, Newsweek, Wall Street Journal, Washington Post, Welt am Sonntag, Yahoo News, Yahoo Finance, Richmond Times-Dispatch, Virginian Pilot, Virginia Public Media, and Daily Press, among others. Dr. McNab joined the faculty of the Department of Economics in the Strome College of Business of Old Dominion University in July 2016 and previously was a member of the faculty of the Naval Postgraduate School in Monterey, California from 2000 to 2016.",
-    "crumbs": [
-      "Introduction",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Meet Your Instructor</span>"
-    ]
-  },
-  {
-    "objectID": "mcnab.html#contact-policy",
-    "href": "mcnab.html#contact-policy",
-    "title": "2  Meet Your Instructor",
-    "section": "2.2 Contact Policy",
-    "text": "2.2 Contact Policy\nStudents should feel welcome to contact me via email at rmcnab@odu.edu or drop by Zoom office hours. I strongly encourage students to communicate with me. I will try to answer emails within 48 business hours (often much sooner) for course related topics.\nStudents should take the time to craft complete, professional emails. The more information that you can provide about a question or problem, the more likely that my response will be helpful. Avoid non-professional language and practice communicating in the corporate workplace. Emails that are unprofessional will be returned with no action.\nStudents should proactively address issues with the class and scheduling rather than waiting until an assignment or case study discussion is overdue. In many cases, accommodations can be made for ‘life events,’ however, clear and prompt communication is necessary.",
-    "crumbs": [
-      "Introduction",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Meet Your Instructor</span>"
-    ]
-  },
-  {
-    "objectID": "mcnab.html#virtual-office-hours",
-    "href": "mcnab.html#virtual-office-hours",
-    "title": "2  Meet Your Instructor",
-    "section": "2.3 Virtual Office Hours",
-    "text": "2.3 Virtual Office Hours\nOffice hours will be held on a rotating schedule and are available by appointment. Check the class announcements for the schedule of office hours, which vary to accommodate students with different schedules.",
-    "crumbs": [
-      "Introduction",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Meet Your Instructor</span>"
-    ]
-  },
-  {
     "objectID": "mod-1-0-overview.html",
     "href": "mod-1-0-overview.html",
     "title": "4  Module 1 Overview",
@@ -176,17 +176,6 @@
     ]
   },
   {
-    "objectID": "index.html#module-01-introduction-to-linear-regression",
-    "href": "index.html#module-01-introduction-to-linear-regression",
-    "title": "ECON 706",
-    "section": "0.2 Module 01 – Introduction to Linear Regression",
-    "text": "0.2 Module 01 – Introduction to Linear Regression\n\n\nModule 1 Overview\n\n\nMatrix Operations\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
-    "crumbs": [
-      "Introduction",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
-    ]
-  },
-  {
     "objectID": "mod-1-1-matrix.html",
     "href": "mod-1-1-matrix.html",
     "title": "5  Matrix Operations",
@@ -198,198 +187,55 @@
     ]
   },
   {
-    "objectID": "mod-1-1-matrix.html#headline-unemployment-rate",
-    "href": "mod-1-1-matrix.html#headline-unemployment-rate",
-    "title": "5  Economic Analysis",
-    "section": "5.2 Headline Unemployment Rate",
-    "text": "5.2 Headline Unemployment Rate\nThe headline unemployment rate is an example of a measure that has different values across time. Collectively, these measures are data on the headline unemployment rate. This rate is equal to the ratio of the number of unemployed persons in the civilian labor force to the number of individuals in the civilian labor force.\nIn the following figure, we plot the evolution of the unemployment rate over time.",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#unemployment-by-race",
-    "href": "mod-1-1-matrix.html#unemployment-by-race",
-    "title": "5  Economic Analysis",
-    "section": "5.3 Unemployment by Race",
-    "text": "5.3 Unemployment by Race\nData can consist of measurements of a variable across groups of individuals and time. In the following figure, we present the headline unemployment rate by selected racial groups in the United States. Unlike the national unemployment rate which encompasses all individuals in the civilian labor force, each group represents all individuals by race relative to the civilian labor force by race. We can observe how the responsiveness of the unemployment rate differed by race.\n\nWarning: In `margin()`, the argument `t` should have length 1, not length 4.\nℹ Argument get(s) truncated to length 1.\nWarning: Removed 3 rows containing missing values or values outside the scale range\n(`geom_bar()`).",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#unemployment-rate-for-selected-states",
-    "href": "mod-1-1-matrix.html#unemployment-rate-for-selected-states",
-    "title": "5  Economic Analysis",
-    "section": "5.4 Unemployment Rate for Selected States",
-    "text": "5.4 Unemployment Rate for Selected States\nIn the table below, we obtain data on unemployment rates for Virginia, Maryland, North Carolina, West Virginia, and the United States from https://fred.stlouisfed.org or ‘FRED’.\nIn the table, each row corresponds to a geography (state or nation) while each column represents a variable for that geography. Note that only the last period available is represented in the table.\n\n\nUnemployment Rate for Selected Geographies\n\n\nFRED Symbol\nDate of Observation\nValue\nValue in Decimal Form\nGeography\n\n\n\n\nUNRATE\n2025-11-01\n4.6\n0.046\nUnited States",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#statistics-and-data",
-    "href": "mod-1-1-matrix.html#statistics-and-data",
-    "title": "5  Economic Analysis",
-    "section": "5.5 Statistics and Data",
-    "text": "5.5 Statistics and Data\nThe term statistics can refer to numerical facts such as minimums, maximums, averages, medians, variances, and standard deviations (among others) that describe the properties of data.\nStatistics can also refer to the art and science of collecting, analyzing, interpreting, and presenting data.\nData are the facts collected, analyzed, and summarized for interpretation and presentation. A data set refers to all the data collected for a specific study.\nData are plural, while a data set is singular.",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#elements-variables-observations",
-    "href": "mod-1-1-matrix.html#elements-variables-observations",
-    "title": "5  Economic Analysis",
-    "section": "5.6 Elements, Variables, Observations",
-    "text": "5.6 Elements, Variables, Observations\nAn element is the entity or entities on which data are collected.\nA variable is a characteristic of interest for the elements.\nAn observation is the set of measurements for an element.\nA data set consists of 1,200 individuals with data concerning individual income and job tenure.\n\n1,200 observations (elements)\n2 variables (income and tenure)\n2,400 data values\n\n\n\n\nExample Data Set\n\n\nIndividual\nIncome\nJob Tenure\n\n\n\n\n1\n23420\n8\n\n\n2\n33239\n10\n\n\n3\n44849\n14\n\n\n4\n54829\n17\n\n\n5\n75793\n39",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#measurement",
-    "href": "mod-1-1-matrix.html#measurement",
-    "title": "5  Economic Analysis",
-    "section": "5.7 Measurement",
-    "text": "5.7 Measurement\nReferring to the unemployment rate table, there are two rows with observations for the selected geographical areas. In other words, the elements are the states on which data are collected and presented in the table. There are five variables in the table: the symbol of the variable from FRED, the date of the observation, the value of the observation, the value of the observation in decimal form, and the geography name of the observation.\nThe table contains different scales of measurement. The date variable contains information on time while the state variable is measured on the nominal scale. The nominal scale is used to identify the observational data, that is, the data in the table are organized by the geographical area of the observation. The data pertaining to the unemployment rate is ratio data in that the measurements contain numeric information.\nBroadly speaking, data can be classified as categorical or quantitative. In the table, the variable containing the geographical names is categorical. We cannot mathematically manipulate the categorical data (subtracting 1 from Virginia does not produce a meaningful result). We could, however, create a new variable that contains numerical values to represent the categorical data, that is, the new quantitative variable would be a numerical representation of the categorical data.",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#nominal-scale-of-measurement",
-    "href": "mod-1-1-matrix.html#nominal-scale-of-measurement",
-    "title": "5  Economic Analysis",
-    "section": "5.8 Nominal Scale of Measurement",
-    "text": "5.8 Nominal Scale of Measurement\nThe scale of measurement determines the amount of information contained in the data. Data are labels or names used to identify an attribute of an element.\nData may be numeric, non-numeric, or both. Ranking is not implied by the numeric values.\nThe individual’s grade can be represented by a character label (“Freshman”) or a numeric value (1).\n\n\n\nNominal Example\n\n\nObservation\nName\nGrade\nNumeric Grade\n\n\n\n\n1\nBob\nFreshman\n4\n\n\n2\nSally\nSophmore\n3\n\n\n3\nJim\nJunior\n2\n\n\n4\nTony\nFreshman\n4\n\n\n5\nSarah\nSenior\n1",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#ordinal-scale-of-measurement",
-    "href": "mod-1-1-matrix.html#ordinal-scale-of-measurement",
-    "title": "5  Economic Analysis",
-    "section": "5.9 Ordinal Scale of Measurement",
-    "text": "5.9 Ordinal Scale of Measurement\n\nOrdinal scales of measurement have the same properties as nominal scales of measure.\nThe ordering of the ordinal scale is meaningful.\nData may be numeric, non-numeric, or both.\nThe class rank variable is numeric and the values represent a ranking, that is, the lower the number, the higher the rank in the class of students.\n\n\n\n\nOrdinal Example\n\n\nObs\nName\nGrade\nClass Rank\n\n\n\n\n1\nBob\nFreshman\n3\n\n\n2\nSally\nFreshman\n5\n\n\n3\nJim\nFreshman\n29\n\n\n4\nTony\nFreshman\n55\n\n\n5\nSarah\nFreshman\n144",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#interval-scale-of-measurement",
-    "href": "mod-1-1-matrix.html#interval-scale-of-measurement",
-    "title": "5  Economic Analysis",
-    "section": "5.10 Interval Scale of Measurement",
-    "text": "5.10 Interval Scale of Measurement\n\nInterval scales of measurement have the same properties as ordinal scales of measurement.\nThe ranking of the scale contains information.\nThe intervals between observations contain information.\nInterval data are always numeric.\nThe SAT score is ordinal while the difference between the highest scoring student and another student is an interval measure.\n\n\n\n\nInterval Example\n\n\nObs\nName\nSAT Score (Ordinal)\nInterval to Bob\n\n\n\n\n1\nBob\n1580\n0\n\n\n2\nSally\n1320\n260\n\n\n3\nJim\n1110\n470\n\n\n4\nTony\n1052\n528\n\n\n5\nSarah\n952\n628",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#ratio-scale-of-measurement",
-    "href": "mod-1-1-matrix.html#ratio-scale-of-measurement",
-    "title": "5  Economic Analysis",
-    "section": "5.11 Ratio Scale of Measurement",
-    "text": "5.11 Ratio Scale of Measurement\n\nA ratio scale of measurement has the properties of the interval scale and the ratio of the two values is useful.\nThe ratio is numeric and zero is a possible value.\nCare must be taken to define and interpret the ratio data.\nStudents take a physical fitness test across three events with a maximum possible score of 300 points.\nThe ratio represents the percentage score of each student relative to the maximum score on the test.\n\n\n\n\nRatio Example\n\n\nObs\nName\nRaw Score (300 Max)\nRatio\n\n\n\n\n1\nBob\n248\n0.83\n\n\n2\nSally\n232\n0.77\n\n\n3\nJim\n178\n0.59\n\n\n4\nTony\n157\n0.52\n\n\n5\nSarah\n109\n0.36",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#categorical-measures",
-    "href": "mod-1-1-matrix.html#categorical-measures",
-    "title": "5  Economic Analysis",
-    "section": "5.12 Categorical Measures",
-    "text": "5.12 Categorical Measures\n\nCategorical variables represent types of data which may be divided into groups.\nLabels or names identify an attribute of each observation.\nCategorical and qualitative data may be used synonymous.\nCan be numeric or non-numeric.\nCan be nominal or ordinal scale of measurement.\n\n\n\n\nCategorical Example\n\n\nObs\nName\nRace\nOpinion\n\n\n\n\n1\nBob\nBlack\nAgree\n\n\n2\nSally\nWhite\nDisagree\n\n\n3\nJim\nAsian\nNone\n\n\n4\nTony\nWhite\nAgree\n\n\n5\nSarah\nBlack\nStrongly Agree",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#quantitative-versus-qualitative-data",
-    "href": "mod-1-1-matrix.html#quantitative-versus-qualitative-data",
-    "title": "5  Economic Analysis",
-    "section": "5.13 Quantitative versus Qualitative Data",
-    "text": "5.13 Quantitative versus Qualitative Data\n\nQuantitative data capture how many or how much.\nQuantitative data are always numeric.\nQuantitative data may be ordinal, ranked, interval, ratio or a combination of all types of scales.\nQuantitative data may capture how many or how much but may also capture non-quantitative information.\nOpinion surveys, for example, may ask respondents to provide a numeric scale from strongly agree (1) to strongly disagree (5).\nThe numeric measure is a proxy for the strength of agreement or disagreement.\nIn many instances, qualitative responses are transformed into numerical representations to allow for quantitative analysis.",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#cross-sectional-time-series-and-panel-data",
-    "href": "mod-1-1-matrix.html#cross-sectional-time-series-and-panel-data",
-    "title": "5  Economic Analysis",
-    "section": "5.14 Cross-Sectional, Time Series, and Panel Data",
-    "text": "5.14 Cross-Sectional, Time Series, and Panel Data\nThere are three broad types of data. Let’s establish some terminology. When we discuss data, we often refer to individuals and time. In this context, individuals can represent people, firms, airlines, cars, or some other characteristic that defines the unique observations.\nFor example, if we had data on the average fuel mileage of passenger vehicles in 2019, then individuals would refer to each type of passenger vehicle. If we had randomized data on 100,000 taxpayers in Virginia for 2018, then individuals would refer to unique taxpayers. Lastly, if we collected data on airplane arrivals at Dulles International Airport for each day in 2019, then we would have individual observations across time. We could organize this data by plane registration, airline, or country of origin, or some other category of interest.\nCross-sectional data are data collected across individuals at the same point of time. There is no depth to cross-sectional data, that is, the data represent a snapshot at a specific point in time.\nTime series data are data collected over several time periods. Data for the headline unemployment graph for the United States are time series data. In this context, time series data refers to one variable across time. One can have a collection of time series variables (inflation rate, unemployment rate, and so on). Time series data has depth but not breadth.\nPanel data are data collected across individuals and time. If we collected data for the unemployment rate across states from 2013 to 2025, then we would have individuals (states) and time (months) as defining characteristics of our data. Panel data has breadth (across individuals) and depth (across time).",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#types-of-studies",
-    "href": "mod-1-1-matrix.html#types-of-studies",
-    "title": "5  Economic Analysis",
-    "section": "5.15 Types of Studies",
-    "text": "5.15 Types of Studies\n\nObservational\n\nObservational studies are non-experimental studies.\nNo attempt is made (or can be made) to control or influence the variables of interest.\nIf we study the impact of smoking on birth weight, we do not control who smokes and who does not smoke during pregnancy.\nIf we examine how exports influence economic growth across countries, we do not control export policy.\n\nConvenience\n\nA convenience study is the most common method of non-probability sampling.\nObservations are obtained because individuals are available to the researcher.\nThis type of study is cheaper and easier than other types, hence it’s popularity.\nThere is no attempt to control for sampling or to randomly sample the population of interest.",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#population-versus-sample-data",
-    "href": "mod-1-1-matrix.html#population-versus-sample-data",
-    "title": "5  Economic Analysis",
-    "section": "5.16 Population versus Sample Data",
-    "text": "5.16 Population versus Sample Data\nWhen working with data, a question may arise whether it is appropriate to work with the population or a sample.\nThe population represents all the individuals for a particular study while a sample is a subset of the population.\nLet’s say we wanted to calculate the average age of students at Old Dominion University for the Fall 2025 semester. If we had access to student records, this might be a relatively easy exercise. In other words, if we had access to data for the population of students, we could calculate the average age of the student population.\nNow, let’s assume we wanted to calculate the average age for all college students in the United States. The problem has become more difficult. We could try and obtain all the records from all the colleges and universities in the United States but this effort might be costly and complex.\nWe could instead sample different colleges and universities and construct an estimate of the average age of college students. The “closer” our sample is to the population, the better our estimate of the average age of all the college students in the United States. If we only selected colleges and universities with undergraduate programs, our sample would likely understate the average age of college students. If we only selected graduate programs at colleges and universities, our sample would likely overstate the average age of college students.\nThe process by which we use a sample to estimate the properties of the population is statistical inference.",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#descriptive-statistics",
-    "href": "mod-1-1-matrix.html#descriptive-statistics",
-    "title": "5  Economic Analysis",
-    "section": "5.17 Descriptive Statistics",
-    "text": "5.17 Descriptive Statistics\n\nDescriptive statistics are a set of tools used to describe the properties of a set of data.\nDescriptive statistics can be numerical, tabular, or graphical.\nDescriptive statistics typically summarize the properties of the individual observations.\nWe can create a population for 10,000 observations that have a mean of 50.5 and a standard deviation of 10.\nWe can then estimate sample averages to describe the mean of the data.\n\nGathering a sample that is representative of the population is the first step. We then must understand the properties of the sample and how this reflects the properties of the population.\n\n# Create a data frame with 10,000 observations\n# mean of the observations is 50.5\n\ndata_1 &lt;- tibble(x1 = rnorm(10000, mean = 50.5, sd = 10))\n\ndata_2 &lt;- slice_sample(data_1, n = 10) %&gt;% \n          summarize(mean_10 = mean(x1))\n\ndata_3 &lt;- slice_sample(data_1, n = 100) %&gt;% \n          summarize(mean_100 = mean(x1))\n\ndata_4 &lt;- slice_sample (data_1, n = 1000) %&gt;% \n          summarize(mean_1000 = mean(x1))\n\ndata_5 &lt;- cbind(data_2, data_3, data_4)\n\nkable(data_5,\n      col.names = c(\"Sample = 10\",\n                    \"Sample = 100\",\n                    \"Sample = 1000\"),\n      align     = c('c', 'c', 'c'),\n      digits    = 2,\n      caption   = 'Sample Averages') %&gt;% \n  column_spec(2:3, width = \"3cm\") %&gt;%\n  kable_styling(full_width = TRUE,\n                font_size  = 10)\n\n\nSample Averages\n\n\nSample = 10\nSample = 100\nSample = 1000\n\n\n\n\n43.97\n53.27\n51.21",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
-    "objectID": "mod-1-1-matrix.html#statistical-inference",
-    "href": "mod-1-1-matrix.html#statistical-inference",
-    "title": "5  Economic Analysis",
-    "section": "5.18 Statistical Inference",
-    "text": "5.18 Statistical Inference\n\nObtaining data for the population of interest may be difficult, complex, and costly.\nFor cost, complexity, and time considerations, we may use a subset or sample of the population.\nThe decennial Census of the population attempts to count every person in the United States.\nEvery non-Census year, a sample of 1-2 million individuals is taken to estimate the properties of the population.\nStatistical inference is the process of using sample data to make estimates and test hypotheses about the characteristics of the population.\nSince we are using sample data, our estimates are not precise, but come with a measure of error.\nThis course is, at its core, about using sample data to make inferences about the population.",
-    "crumbs": [
-      "Linear Regression Model",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Economic Analysis</span>"
-    ]
-  },
-  {
     "objectID": "mod-1-1-matrix.html#matrix-creation",
     "href": "mod-1-1-matrix.html#matrix-creation",
     "title": "5  Matrix Operations",
     "section": "5.2 Matrix Creation",
-    "text": "5.2 Matrix Creation\nIn this example, we create two vectors that contain 4 numeric elements and form two matrices that are \\((2 \\times 2)\\) and one matrix that is \\((4 \\times 1)\\).\nWe can take a transpose of a matrix by using t(), so t(m_1) would be the transpose of matrix m_1.\nWe can use the dim function to obtain the dimensions of a matrix (and other elements like vectors).\nThe code chunk below does the following:\n\nCreate numeric vectors using the combine function and assign to d_1 and d_2\nUsing d_1, create a \\((2 \\times 2)\\) matrix\nUsing d_2, create a \\((2 \\times 2)\\) matrix\nUsing d_1, create a $(4 ) matrix\nUse kable to output m_1\nUse the transpose function and kable to output t(m_1)\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "text": "5.2 Matrix Creation\nWe can create two vectors that contain 4 numeric elements and form two matrices that are \\((2 \\times 2)\\) Assume that we have call the two matrices, \\(m_1\\) and \\(m_2\\) and the matrices can be expressed as:\n\\[ m_1 = \\begin{bmatrix} 2 & 6 \\\\ 4 & 8 \\end{bmatrix} \\]\n\\[ m_2 = \\begin{bmatrix} 5 & 2 \\\\ 15 & 12 \\end{bmatrix} \\]\nWe can also create a \\((4 \\times 1)\\) matrix from the same elements that form \\(m_1\\) or:\n\\[\nm_{1a} = \\begin{bmatrix}\n2 \\\\\n4 \\\\\n6 \\\\\n8\n\\end{bmatrix}\n\\]\nWe can take a transpose of a matrix by using t(), so t(m_1) would be the transpose of matrix m_1 or\n\\[\nm_1^T = \\begin{bmatrix}\n2 & 4 \\\\\n6 & 8\n\\end{bmatrix}\n\\]\nWe can use the dim function to obtain the dimensions of a matrix (and other elements like vectors).\nThe code chunk below does the following:\n\nCreate numeric vectors using the combine function and assign to d_1 and d_2\nUsing d_1, create a \\((2 \\times 2)\\) matrix\nUsing d_2, create a \\((2 \\times 2)\\) matrix\nUsing d_1, create a $(4 ) matrix\nUse kable to output m_1\nUse the transpose function and kable to output t(m_1)\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-1-matrix.html#matrix-addition",
+    "href": "mod-1-1-matrix.html#matrix-addition",
+    "title": "5  Matrix Operations",
+    "section": "5.3 Matrix Addition",
+    "text": "5.3 Matrix Addition\nIn this example, we demonstrate how to add matrices.\nWe return to the two \\((2 \\times 2)\\) matrices in the previous example and add the matrices together.\n\\[ \\begin{bmatrix}\n2 & 6 \\\\ 4 & 8\n\\end{bmatrix} +\n\\begin{bmatrix}\n5 & 2 \\\\ 15 & 12\n\\end{bmatrix} =\n\\begin{bmatrix}\n(2 + 5) & (6 + 2) \\\\\n(4 + 15) & (8 + 12)\n\\end{bmatrix} =\n\\begin{bmatrix}\n7 & 8 \\\\\n19 & 20\n\\end{bmatrix}\\]\nWhen we add \\(m_1\\) and \\(m_2\\), we are adding the values in the same position in each matrix.\nFor example, for \\(m_1\\), the value in the first row, first column is equal to 2.\nFor \\(m_2\\), the value in the first row, first column is equal to 5.\nAdding \\(m_1\\) and \\(m_2\\) yields a value of 7 in the first row, first column of the resulting matrix.\nThe order for matrix addition does not matter, that is, \\(m_1 + m_2 = m_2 + m_1\\).\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-1-matrix.html#matrix-subtraction",
+    "href": "mod-1-1-matrix.html#matrix-subtraction",
+    "title": "5  Matrix Operations",
+    "section": "5.4 Matrix Subtraction",
+    "text": "5.4 Matrix Subtraction\nUsing a similar process, we can subtract one matrix from another. While order does not matter for addition, order does matter for subtraction.\nIf we subtract \\(m_2\\) from \\(m_1\\), that is \\(m_1 - m_2\\), then, we are subtracting the value of each element in \\(m_2\\) from the corresponding element in \\(m_1\\).\n\\[ \\begin{bmatrix}\n2 & 6 \\\\ 4 & 8\n\\end{bmatrix} -\n\\begin{bmatrix}\n5 & 2 \\\\ 15 & 12\n\\end{bmatrix} =\n\\begin{bmatrix}\n(2 - 5) & (6 - 2) \\\\\n(4 - 15) & (8 - 12)\n\\end{bmatrix} =\n\\begin{bmatrix}\n-3 & 4 \\\\\n-11 & -4\n\\end{bmatrix}\\]\nThe value in the first row, first column of \\(m_1\\) is equal to 5. When we subtract \\(m_2\\) from \\(m_1\\), we would subtract 2 (first row, first column of \\(m_2\\)) from 5 (first row, first column of \\(m_1\\)), that is, the resulting value is equal to \\(2-5 = -3\\).\nOn the other hand, if we subtract \\(m_1\\) from \\(m_2\\), then the same position yields \\(5-2 = 3\\).\n\\[ \\begin{bmatrix}\n5 & 2 \\\\ 15 & 12\n\\end{bmatrix} -\n\\begin{bmatrix}\n2 & 6 \\\\ 4 & 8\n\\end{bmatrix} -\n=\n\\begin{bmatrix}\n(5 - 2) & (2 - 6) \\\\\n(15 - 4) & (12 - 8)\n\\end{bmatrix} =\n\\begin{bmatrix}\n3 & -4 \\\\\n11 & 4\n\\end{bmatrix}\\]\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-1-matrix.html#hadamard-product",
+    "href": "mod-1-1-matrix.html#hadamard-product",
+    "title": "5  Matrix Operations",
+    "section": "5.5 Hadamard Product",
+    "text": "5.5 Hadamard Product\nElement-by-element matrix multiplication is straightforward but is not typically used in this class. Element-by-element matrix multiplication is known as the Hadamard Product.\nThe order of multiplication does not matter, however, the two matrices must have identical dimensions.\nReturning to the two matrices, \\(m_1\\) and \\(m_2\\), we can conduct element-by-element multiplication by multiplying each element by its corresponding element in the other matrix.\n\\[\nm1 \\times m2 =\n\\begin{bmatrix}\n2 & 6 \\\\\n4 & 8\n\\end{bmatrix} \\times\n\\begin{bmatrix}\n5 & 2 \\\\\n15 & 12\n\\end{bmatrix} =\n\\begin{bmatrix}\n(2 \\times 5) & (6 \\times 2) \\\\\n(4 \\times 15) & (8 \\times 12)\n\\end{bmatrix} =\n\\begin{bmatrix}\n10 & 12 \\\\\n60 & 96\n\\end{bmatrix}\n\\]\nAs an exercise, you can use the webr code chunk below to calculate the product of the two matrices and observe whether the Hadamard Product depends on the order of multiplication.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-1-matrix.html#matrix-multiplication",
+    "href": "mod-1-1-matrix.html#matrix-multiplication",
+    "title": "5  Matrix Operations",
+    "section": "5.6 Matrix Multiplication",
+    "text": "5.6 Matrix Multiplication\nIf A is a \\((m \\times n)\\) matrix and B is a \\((n \\times p)\\) matrix, then we can form the matrix product C by AB, if and only if the two matrices are compatible.\nThe first step is to ensure the matrices are compatible, that is, the inner dimensions of the matrices must match. In this case, the columns in A are equal to the rows in B, so the matrices are compatible.\nThe resulting matrix will have the dimensions of the ‘outer’ numbers. If we examine this from a dimensional perspective then:\n\\[\nA \\times B = (m \\times n) \\times (n \\times p) = (m \\times p)\n\\]\nFor example, assume that A is \\((5 \\times 5)\\) and B is \\((5 \\times 8)\\). We can form the matrix product AB since the as the number of columns in A is equal to the number of rows in B.\n\nWe cannot, however, form the matrix product BA since the number of columns in B is not equal to the number of rows in A.\nIn general, the only time we are assured that we can multiply AB and BA is when A and B are square matrices with the same dimensions.\nRecall that we have previously defined two matrices as:\n\\[\nm_1 = \\begin{bmatrix}\n2 & 6 \\\\\n4 & 8\n\\end{bmatrix}\\]\n\\[m_2 = \\begin{bmatrix}\n5 & 2 \\\\\n15 & 12\n\\end{bmatrix}\n\\]\nStep 1: Top-Left element: Take the first row of \\(m_1\\) and multiply it by the first column of \\(m_2\\).\n\\[\n(2 \\times 5) + (6 \\times 15) = 10 + 90 = 100\n\\]\nStep 2: Top-Right Element: Take the first row of \\(m_1\\) and multiply it by the second column of \\(m_2\\).\n\\[\n(2 \\times 2) + (6 \\times 12) = 4 + 72 = 76\n\\]\nStep 3: Bottom-Left element: Take the second row of \\(m_1\\) and multiply it by the first column of \\(m_2\\).\n\\[\n(4 \\times 5) + (8 \\times 15) = 20 + 120 = 140\n\\]\nStep 4: Bottom-right element: Take the second row of \\(m_1\\) and multiply it by the second column of \\(m_2\\).\n\\[\n(4 \\times 2) + (8 \\times 12) = 8 + 96 = 104\n\\]\nWhen we multiply \\(m_1\\) by \\(m_2\\) we obtain a new matrix that is the matrix product or\n\\[\nm_1m_2 = \\begin{bmatrix}\n2 & 6 \\\\\n4 & 8\n\\end{bmatrix}\n\\begin{bmatrix}\n5 & 2 \\\\\n15 & 12\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n(2 \\times 5) + (6 \\times 15) & (2 \\times 2) + (6 \\times 12) \\\\\n(4 \\times 5) + (8 \\times 15) & (4 \\times 2) + (8 \\times 12)\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n100 & 76 \\\\\n140 & 104\n\\end{bmatrix}\n\\]\nTo illustrate the point that, in general, matrix multiplication depends on the order of the matrices, we can calculate the product of \\(m_2 m_1\\).\nStep 1: Top-Left element: Take the first row of \\(m_2\\) and multiply it by the first column of \\(m_1\\).\n\\[ (5 \\times 2) + (2 \\times 4) = 10 + 8 = 18 \\]\nStep 2: Top-Right Element: Take the first row of \\(m_2\\) and multiply it by the second column of \\(m_1\\).\n\\[ (5 \\times 6) + (2 \\times 8) = 30 + 16 = 46 \\]\nStep 3: Bottom-Left element: Take the second row of \\(m_2\\) and multiply it by the first column of \\(m_1\\).\n\\[ (15 \\times 2) + (12 \\times 4) = 30 + 48 = 78 \\]\nStep 4: Bottom-right element: Take the second row of \\(m_1\\) and multiply it by the second column of \\(m_2\\).\n\\[ (15 \\times 6) + (12 \\times 8) = 186 \\]\nWhen we multiply \\(m_1\\) by \\(m_2\\) we obtain a new matrix that is the matrix product or\n\\[ m_2 m_1 = \\begin{bmatrix} 5 & 2 \\\\ 15 & 12  \\end{bmatrix} \\begin{bmatrix} 2 & 6 \\\\ 4 & 8  \\end{bmatrix} = \\begin{bmatrix} (5 \\times 2) + (2 \\times 4) & (5 \\times 6) + (2 \\times 8) \\\\ (15 \\times 2) + (12 \\times 4) & (15 \\times 6) + (12 \\times 8) \\end{bmatrix} = \\begin{bmatrix} 18 & 46 \\\\ 78 & 186 \\end{bmatrix} \\]\nThis illustrates the point: matrix multiplication is non-communicative. Comparability and order of operations matter. Change the order, obtain a different result.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
     "crumbs": [
       "Linear Regression Model",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Matrix Operations</span>"
