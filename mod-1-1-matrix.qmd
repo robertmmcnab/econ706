@@ -368,7 +368,7 @@ When we multiply $m_1$ by $m_2$ we obtain a new matrix that is the matrix produc
 
 $$ m_2 m_1 = \begin{bmatrix} 5 & 2 \\ 15 & 12  \end{bmatrix} \begin{bmatrix} 2 & 6 \\ 4 & 8  \end{bmatrix} = \begin{bmatrix} (5 \times 2) + (2 \times 4) & (5 \times 6) + (2 \times 8) \\ (15 \times 2) + (12 \times 4) & (15 \times 6) + (12 \times 8) \end{bmatrix} = \begin{bmatrix} 18 & 46 \\ 78 & 186 \end{bmatrix} $$
 
-This illustrates the point: matrix multiplication is non-communicative. Comparability and order of operations matter. Change the order, obtain a different result.
+**This illustrates the point: matrix multiplication is non-communicative. Comparability and order of operations matter. Change the order, obtain a different result.**
 
 ```{webr-r}
 
@@ -394,5 +394,138 @@ mm_2_1 <- m_2 %*% m_1
 
 kable(mm_2_1,
       caption = "Matrix Multiplication (M2 %*% M1") 
+
+```
+
+## Matrix Inversion
+
+To understand the inverse of a matrix, let's start with an example where have an equation and we want to solve for the unknown value of $x$.
+
+$$
+5x = 10
+$$
+
+We can divide both sides by the reciprocal of 5 to solve for $x$. $$
+\frac{1}{5} \times 5x = 10 \times \frac{1}{5} 
+$$In other words, if we multiply 5 by it's inverse, we obtain
+
+$$
+5 \times \frac{1}{5} = 1
+$$
+
+When we multiply a matrix by its inverse, we obtain the **identify matrix (I)** which is the matrix equivalent of the number 1 where the identify matrix has 1's along the diagonal and 0's off the diagonal or:
+
+$$
+A A^{-1} = I = 
+\begin{bmatrix}1 & 0 & \ldots & 0 \\ 
+0 & 1 & \dots & 0 \\
+\vdots & & \ddots & \vdots \\
+0 & \ldots & \dots & 1
+\end{bmatrix}
+$$
+
+Not every matrix, however, has an inverse. A matrix must meet two criteria to have an inverse:
+
+-   The matrix must be square, that is, the number of rows and columns are equal
+
+-   The **determinant** cannot be zero.
+
+Define a $(2 \times 2)$ matrix as:
+
+$$X = \begin{bmatrix}
+A & B \\
+C & D
+\end{bmatrix}$$
+
+The inverse of the $X$ matrix is denoted as $X^{-1}$ and is equal to:
+
+$$X^{-1} = \frac{1}{AD - BC} \begin{bmatrix}
+D & -B \\
+-C & A
+\end{bmatrix}$$
+
+We should note that $(AD - BC)$ is the **determinant**.
+
+Now define $X$ as:
+
+$$X = \begin{bmatrix}
+4 & 8 \\
+2 & 6
+\end{bmatrix}$$
+
+The inverse of $X$ or $X^{-1}$ is equal to:
+
+$$X^{-1} = \frac{1}{4*6 - 8*2} \begin{bmatrix}
+6 & -8\\
+-2 & 4
+\end{bmatrix}$$
+
+$$X^{-1} = \frac{1}{8} \begin{bmatrix}
+6 & -8\\
+-2 & 4
+\end{bmatrix}$$
+
+$$X^{-1} = \begin{bmatrix}
+3/4 & -1\\
+-1/4 & 1/2
+\end{bmatrix}$$
+
+And if we multiply $X$ by $X^{-1}$, we would obtain:
+
+$$X X^{-1} = \begin{bmatrix}
+4 & 8 \\
+2 & 6
+\end{bmatrix} 
+\begin{bmatrix}
+3/4 & -1\\
+-1/4 & 1/2
+\end{bmatrix} = 
+\begin{bmatrix}
+(4*3/4 + -1/4*8) & (4*-1 + 8*1/2) \\ 
+(2*3/4 + 6*-1/4) & (2*-1 + 6*1/2)
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}=
+I$$
+
+```{r c4, message = FALSE}
+
+# Create Matrix M3
+
+m_3 <- matrix(c(4,2,8,6), nrow = 2, ncol = 2)
+
+kable(m_3,
+      caption = "Matrix M3") %>%
+kable_styling(font_size = 12,
+              position  = "center",
+              full_width = FALSE)
+
+# Create the inverse of M3
+
+inv_m3 <- solve(m_3)
+
+kable(inv_m3,
+      caption = "Inverse of Matrix M3") %>%
+kable_styling(font_size = 12,
+              position  = "center",
+              full_width = FALSE)
+
+
+# Matrix Multiplication M3 * inverse M3
+# Yields Identity Matrix
+
+m_3_inv_m3 <- m_3 %*% solve(m_3)
+
+inv_m3_m3 <- solve(m_3) %*% m_3
+
+kable(m_3_inv_m3,
+      caption = "M3 times Inverse M3") %>%
+kable_styling(font_size = 12,
+              position  = "center",
+              full_width = FALSE)
+
 
 ```
