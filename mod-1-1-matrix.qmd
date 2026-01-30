@@ -397,6 +397,131 @@ kable(mm_2_1,
 
 ```
 
+## Symmetric Matrix
+
+A symmetric matrix is a square matrix, that is, it has the same number of rows as it has columns.
+
+A symmetric matrix is equal to its transpose, that is, $A = A^T$.
+
+For example, the matrix below is equal to its transpose, thus it is a symmetric matrix.
+
+The code below illustrates this by creating the matrix and producing its transpose.
+
+$$X = \begin{bmatrix} 4 & 5 & -3 \\ 5 & 7 & 2 \\ -3 & 2 & 10 \end{bmatrix}$$
+
+```{webr-r}
+
+rm(list = ls())  
+
+d_5 <- c(4, 5, -3, 5, 7, 2, -3, 2, 10)  
+
+m_5 <- matrix(d_5, nrow = 3, ncol = 3)  
+
+t_m_5 <- t(m_5)  
+
+kable(m_5,       caption = "Matrix M5")   
+
+kable(t_m_5,       caption = "Transpose of Matrix M5") 
+```
+
+## Idempotent Matrix
+
+An idempotent matrix is one which, when multiplied by itself, yields itself.
+
+If a matrix $A$ is idempotent, then $A \times A = A$.
+
+$$M = \begin{bmatrix}
+3 & -6 \\
+1 & -2
+\end{bmatrix}$$
+
+$$
+MM = \begin{bmatrix}
+3 & -6 \\
+1 & -2
+\end{bmatrix}
+\begin{bmatrix}
+3 & -6 \\
+1 & -2
+\end{bmatrix} =
+\begin{bmatrix}
+(3*3)+(1*-6) & (3*1)+(1*-2)\\
+(1*3)+(-2*1) & (1*-6)+(-2*-2)
+\end{bmatrix}$$
+
+$$MM = \begin{bmatrix}
+3 & -6 \\
+1 & -2
+\end{bmatrix}
+\begin{bmatrix}
+3 & -6 \\
+1 & -2
+\end{bmatrix} =
+\begin{bmatrix}
+3 & -6 \\
+1 & -2
+\end{bmatrix}$$
+
+```{webr-r}
+
+rm(list = ls())
+
+d_6 <- c(3, -6, 1, -2)
+
+m_6 <- matrix(d_6, nrow = 2, ncol = 2)
+
+m_6_m_6 <- m_6 %*% m_6
+
+kable(m_6,
+      caption = "Matrix M6") 
+
+kable(m_6_m_6,
+      caption = "Matrix 6 Squared") 
+
+```
+
+## Identity Matrix
+
+The identity matrix has 1's along the diagonal and 0's on the off-diagonal positions.
+
+**An identity matrix is symmetric and idempotent.**
+
+We can create an identity matrix in R by using the **diag** function, that is, **diag(5)** creates a 5 x 5 identity matrix.
+
+$$M = \begin{bmatrix}
+1 & 0 & \dots & 0 \\
+0 & 1 & \dots & 0 \\
+\vdots & 0 & \ddots & \vdots \\
+0 & 0 & \dots & 1
+\end{bmatrix}$$
+
+$$M = t(M) = MM = M$$
+
+```{webr-r}
+
+rm(list = ls())
+
+# Create a (5 x 5) identity matrix
+
+m_8 <- diag(5)
+
+# Take the transpose of the identity matrix
+
+t_m_8 <- t(m_8)
+
+m8_m8 <- m_8 %*% m_8
+
+kable(m_8,
+      caption = "Identity Matrix") 
+
+kable(t_m_8,
+      caption = "Transpose of Identity Matrix") 
+
+kable(m8_m8,
+      caption = "Square of Identity Matrix") 
+
+```
+
 ## Matrix Inversion
 
 To understand the inverse of a matrix, let's start with an example where have an equation and we want to solve for the unknown value of $x$.
@@ -426,9 +551,9 @@ $$
 
 Not every matrix, however, has an inverse. A matrix must meet two criteria to have an inverse:
 
--   The matrix must be square, that is, the number of rows and columns are equal
+-   **The matrix must be square, that is, the number of rows and columns are equal**
 
--   The **determinant** cannot be zero.
+-   **The determinant cannot be zero.**
 
 Define a $(2 \times 2)$ matrix as:
 
@@ -455,7 +580,7 @@ $$X = \begin{bmatrix}
 
 The inverse of $X$ or $X^{-1}$ is equal to:
 
-$$X^{-1} = \frac{1}{4*6 - 8*2} \begin{bmatrix}
+$$X^{-1} = \frac{1}{(4*6) - (8*2)} \begin{bmatrix}
 6 & -8\\
 -2 & 4
 \end{bmatrix}$$
@@ -491,27 +616,25 @@ $$X X^{-1} = \begin{bmatrix}
 \end{bmatrix}=
 I$$
 
-```{r c4, message = FALSE}
+In the code below, we create a $(2 \times 2)$ matrix and use the **solve** function in R to calculate the inverse of the square matrix. We then multiply the matrix by its inverse to obtain the **identity matrix**.
+
+```{webr-r}
+
+rm(list = ls())
 
 # Create Matrix M3
 
 m_3 <- matrix(c(4,2,8,6), nrow = 2, ncol = 2)
 
 kable(m_3,
-      caption = "Matrix M3") %>%
-kable_styling(font_size = 12,
-              position  = "center",
-              full_width = FALSE)
+      caption = "Matrix M3") 
 
 # Create the inverse of M3
 
 inv_m3 <- solve(m_3)
 
 kable(inv_m3,
-      caption = "Inverse of Matrix M3") %>%
-kable_styling(font_size = 12,
-              position  = "center",
-              full_width = FALSE)
+      caption = "Inverse of Matrix M3") 
 
 
 # Matrix Multiplication M3 * inverse M3
@@ -522,10 +645,69 @@ m_3_inv_m3 <- m_3 %*% solve(m_3)
 inv_m3_m3 <- solve(m_3) %*% m_3
 
 kable(m_3_inv_m3,
-      caption = "M3 times Inverse M3") %>%
+      caption = "M3 times Inverse M3") 
+
+
+```
+
+## Regression Example
+
+In the code below, we create a matrix filled with zeros that has 6,000 rows and 6 columns.
+
+The first column of the **X** matrix will be filled with the value 1.
+
+In columns 2 through 6, we fill a random number from a standard normal distribution.
+
+The **gc()** is a garbage collection command to return memory from R. It is optional to run this code.
+
+The vector of $\beta$ coefficients is $\beta \in \{1,2,3,4,5,6\}$.
+
+We know define $y$ as equal to a linear equation of $X\beta$ plus a disturbance term $\epsilon$ or:
+
+$$y = X\beta + \epsilon$$
+
+$\epsilon$ is drawn from a standard normal distribution with zero mean and constant variance.
+
+Estimate the least squares coefficients, predicted values for the dependent variable and residuals.
+
+```{r example1}
+
+rm(list = ls())
+
+set.seed(1234)
+ 
+x <- matrix(0,6000,6)
+      x[,1] <- 1
+      for (l in 2:6) {
+        x[,l] <- rnorm(6000)
+        gc()
+      }
+
+# let beta = (1,2,3,4,5,6)
+
+beta <- seq(1,6)
+
+# y is equal to X*beta + random disturbance
+
+y <- x %*% beta + rnorm(6000)
+
+# Solve for b =  (X^T X)^(-1) X^T y
+
+bhat <- solve(t(x) %*% x) %*% t(x) %*% y
+
+yhat <- x %*% bhat
+
+e <- y - yhat
+
+b_names <- c("b1", "b2", "b3", "b4", "b5", "b6")
+
+bhat_named <- cbind(b_names, round(bhat,3))
+
+kable(bhat_named,
+      col.names = c("Coefficient",
+                    "Estimate")) %>%
 kable_styling(font_size = 12,
               position  = "center",
               full_width = FALSE)
-
 
 ```

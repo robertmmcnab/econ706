@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -69,6 +104,10 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs/editor/editor.main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   
@@ -369,7 +408,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"rm(list = ls())\n\nd_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\nm_1_a <- matrix(d_1, ncol = 4, nrow = 1)\n\ndims <- tibble(d_m1     = dim(m_1),\n               d_m2     = dim(m_2),\n               d_m1_a   = dim(m_1_a),\n               d_t_m1_a = dim(t(m_1_a)))\n\nkable(m_1,\n      caption = \"Matrix M1\") \n\nkable(t(m_1),\n      caption = \"Transpose of Matrix M1\") \n\nkable(dims,\n      col.names = c('M1', 'M2', 'M_1_A', 'T(M_1_A)'),\n      full_width = TRUE)","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())\n\nd_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\n# Matrix Addition\n\nm_plus_1_2 <- m_1 + m_2\n\nkable(m_plus_1_2,\n      caption = \"Element by Element Addition (M1+M2)\")","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())\n\nd_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\n# Matrix Subtraction\n\nm_minus_1_2 <- m_1 - m_2\n\nkable(m_minus_1_2,\n      caption = \"Element by Element Subtraction (M1-M2)\") \n\n# Matrix Subtraction \n\nm_minus_2_1 <- m_2 - m_1\n\nkable(m_minus_2_1,\n      caption = \"Element by Element Subtraction (M2-M1)\") ","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-3","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())\n\nd_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\n# Element by Element Multiplication\n\nm_1_2 <- m_1 * m_2\n\nkable(m_1_2,\n      caption = \"Element by Element Multiplication (M1*M2)\") %>%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-4","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())\n\nd_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\n# Matrix Multiplication\n\nmm_1_2 <- m_1 %*% m_2\n\nkable(mm_1_2,\n      caption = \"Matrix Multiplication (M1 %*% M2\") \n\n\n# Matrix Multiplication\n\nmm_2_1 <- m_2 %*% m_1\n\nkable(mm_2_1,\n      caption = \"Matrix Multiplication (M2 %*% M1\") ","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-5","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"rm(list = ls())\n\nd_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\nm_1_a <- matrix(d_1, ncol = 4, nrow = 1)\n\ndims <- tibble(d_m1     = dim(m_1),\n               d_m2     = dim(m_2),\n               d_m1_a   = dim(m_1_a),\n               d_t_m1_a = dim(t(m_1_a)))\n\nkable(m_1,\n      caption = \"Matrix M1\") \n\nkable(t(m_1),\n      caption = \"Transpose of Matrix M1\") \n\nkable(dims,\n      col.names = c('M1', 'M2', 'M_1_A', 'T(M_1_A)'),\n      full_width = TRUE)","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())\n\nd_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\n# Matrix Addition\n\nm_plus_1_2 <- m_1 + m_2\n\nkable(m_plus_1_2,\n      caption = \"Element by Element Addition (M1+M2)\")","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())\n\nd_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\n# Matrix Subtraction\n\nm_minus_1_2 <- m_1 - m_2\n\nkable(m_minus_1_2,\n      caption = \"Element by Element Subtraction (M1-M2)\") \n\n# Matrix Subtraction \n\nm_minus_2_1 <- m_2 - m_1\n\nkable(m_minus_2_1,\n      caption = \"Element by Element Subtraction (M2-M1)\") ","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-3","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())\n\nd_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\n# Element by Element Multiplication\n\nm_1_2 <- m_1 * m_2\n\nkable(m_1_2,\n      caption = \"Element by Element Multiplication (M1*M2)\") %>%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-4","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())\n\nd_1 <- c(2, 4, 6, 8)\nd_2 <- c(5, 15, 2, 12)\n\nm_1 <- matrix(d_1, nrow = 2, ncol = 2)\nm_2 <- matrix(d_2, nrow = 2, ncol = 2)\n\n# Matrix Multiplication\n\nmm_1_2 <- m_1 %*% m_2\n\nkable(mm_1_2,\n      caption = \"Matrix Multiplication (M1 %*% M2\") \n\n\n# Matrix Multiplication\n\nmm_2_1 <- m_2 %*% m_1\n\nkable(mm_2_1,\n      caption = \"Matrix Multiplication (M2 %*% M1\") ","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-5","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())  \n\nd_5 <- c(4, 5, -3, 5, 7, 2, -3, 2, 10)  \n\nm_5 <- matrix(d_5, nrow = 3, ncol = 3)  \n\nt_m_5 <- t(m_5)  \n\nkable(m_5,       caption = \"Matrix M5\")   \n\nkable(t_m_5,       caption = \"Transpose of Matrix M5\") ","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-6","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())\n\nd_6 <- c(3, -6, 1, -2)\n\nm_6 <- matrix(d_6, nrow = 2, ncol = 2)\n\nm_6_m_6 <- m_6 %*% m_6\n\nkable(m_6,\n      caption = \"Matrix M6\") \n\nkable(m_6_m_6,\n      caption = \"Matrix 6 Squared\") ","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-7","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())\n\n# Create a (5 x 5) identity matrix\n\nm_8 <- diag(5)\n\n# Take the transpose of the identity matrix\n\nt_m_8 <- t(m_8)\n\nm8_m8 <- m_8 %*% m_8\n\nkable(m_8,\n      caption = \"Identity Matrix\") \n\nkable(t_m_8,\n      caption = \"Transpose of Identity Matrix\") \n\nkable(m8_m8,\n      caption = \"Square of Identity Matrix\") ","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-8","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"rm(list = ls())\n\n# Create Matrix M3\n\nm_3 <- matrix(c(4,2,8,6), nrow = 2, ncol = 2)\n\nkable(m_3,\n      caption = \"Matrix M3\") \n\n# Create the inverse of M3\n\ninv_m3 <- solve(m_3)\n\nkable(inv_m3,\n      caption = \"Inverse of Matrix M3\") \n\n\n# Matrix Multiplication M3 * inverse M3\n# Yields Identity Matrix\n\nm_3_inv_m3 <- m_3 %*% solve(m_3)\n\ninv_m3_m3 <- solve(m_3) %*% m_3\n\nkable(m_3_inv_m3,\n      caption = \"M3 times Inverse M3\") \n","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-9","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -1759,6 +1798,11 @@ window.Quarto = {
   <li><a href="#matrix-subtraction" id="toc-matrix-subtraction" class="nav-link" data-scroll-target="#matrix-subtraction"><span class="header-section-number">5.4</span> Matrix Subtraction</a></li>
   <li><a href="#hadamard-product" id="toc-hadamard-product" class="nav-link" data-scroll-target="#hadamard-product"><span class="header-section-number">5.5</span> Hadamard Product</a></li>
   <li><a href="#matrix-multiplication" id="toc-matrix-multiplication" class="nav-link" data-scroll-target="#matrix-multiplication"><span class="header-section-number">5.6</span> Matrix Multiplication</a></li>
+  <li><a href="#symmetric-matrix" id="toc-symmetric-matrix" class="nav-link" data-scroll-target="#symmetric-matrix"><span class="header-section-number">5.7</span> Symmetric Matrix</a></li>
+  <li><a href="#idempotent-matrix" id="toc-idempotent-matrix" class="nav-link" data-scroll-target="#idempotent-matrix"><span class="header-section-number">5.8</span> Idempotent Matrix</a></li>
+  <li><a href="#identity-matrix" id="toc-identity-matrix" class="nav-link" data-scroll-target="#identity-matrix"><span class="header-section-number">5.9</span> Identity Matrix</a></li>
+  <li><a href="#matrix-inversion" id="toc-matrix-inversion" class="nav-link" data-scroll-target="#matrix-inversion"><span class="header-section-number">5.10</span> Matrix Inversion</a></li>
+  <li><a href="#regression-example" id="toc-regression-example" class="nav-link" data-scroll-target="#regression-example"><span class="header-section-number">5.11</span> Regression Example</a></li>
   </ul>
 </nav>
     </div>
@@ -2269,9 +2313,235 @@ m_1m_2 = \begin{bmatrix}
 <p><span class="math display">\[ (15 \times 6) + (12 \times 8) = 186 \]</span></p>
 <p>When we multiply <span class="math inline">\(m_1\)</span> by <span class="math inline">\(m_2\)</span> we obtain a new matrix that is the matrix product or</p>
 <p><span class="math display">\[ m_2 m_1 = \begin{bmatrix} 5 &amp; 2 \\ 15 &amp; 12  \end{bmatrix} \begin{bmatrix} 2 &amp; 6 \\ 4 &amp; 8  \end{bmatrix} = \begin{bmatrix} (5 \times 2) + (2 \times 4) &amp; (5 \times 6) + (2 \times 8) \\ (15 \times 2) + (12 \times 4) &amp; (15 \times 6) + (12 \times 8) \end{bmatrix} = \begin{bmatrix} 18 &amp; 46 \\ 78 &amp; 186 \end{bmatrix} \]</span></p>
-<p>This illustrates the point: matrix multiplication is non-communicative. Comparability and order of operations matter. Change the order, obtain a different result.</p>
+<p><strong>This illustrates the point: matrix multiplication is non-communicative. Comparability and order of operations matter. Change the order, obtain a different result.</strong></p>
 <div id="qwebr-insertion-location-5"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="symmetric-matrix" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="symmetric-matrix"><span class="header-section-number">5.7</span> Symmetric Matrix</h2>
+<p>A symmetric matrix is a square matrix, that is, it has the same number of rows as it has columns.</p>
+<p>A symmetric matrix is equal to its transpose, that is, <span class="math inline">\(A = A^T\)</span>.</p>
+<p>For example, the matrix below is equal to its transpose, thus it is a symmetric matrix.</p>
+<p>The code below illustrates this by creating the matrix and producing its transpose.</p>
+<p><span class="math display">\[X = \begin{bmatrix} 4 &amp; 5 &amp; -3 \\ 5 &amp; 7 &amp; 2 \\ -3 &amp; 2 &amp; 10 \end{bmatrix}\]</span></p>
+<div id="qwebr-insertion-location-6"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="idempotent-matrix" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="idempotent-matrix"><span class="header-section-number">5.8</span> Idempotent Matrix</h2>
+<p>An idempotent matrix is one which, when multiplied by itself, yields itself.</p>
+<p>If a matrix <span class="math inline">\(A\)</span> is idempotent, then <span class="math inline">\(A \times A = A\)</span>.</p>
+<p><span class="math display">\[M = \begin{bmatrix}
+3 &amp; -6 \\
+1 &amp; -2
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[
+MM = \begin{bmatrix}
+3 &amp; -6 \\
+1 &amp; -2
+\end{bmatrix}
+\begin{bmatrix}
+3 &amp; -6 \\
+1 &amp; -2
+\end{bmatrix} =
+\begin{bmatrix}
+(3*3)+(1*-6) &amp; (3*1)+(1*-2)\\
+(1*3)+(-2*1) &amp; (1*-6)+(-2*-2)
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[MM = \begin{bmatrix}
+3 &amp; -6 \\
+1 &amp; -2
+\end{bmatrix}
+\begin{bmatrix}
+3 &amp; -6 \\
+1 &amp; -2
+\end{bmatrix} =
+\begin{bmatrix}
+3 &amp; -6 \\
+1 &amp; -2
+\end{bmatrix}\]</span></p>
+<div id="qwebr-insertion-location-7"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="identity-matrix" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="identity-matrix"><span class="header-section-number">5.9</span> Identity Matrix</h2>
+<p>The identity matrix has 1’s along the diagonal and 0’s on the off-diagonal positions.</p>
+<p><strong>An identity matrix is symmetric and idempotent.</strong></p>
+<p>We can create an identity matrix in R by using the <strong>diag</strong> function, that is, <strong>diag(5)</strong> creates a 5 x 5 identity matrix.</p>
+<p><span class="math display">\[M = \begin{bmatrix}
+1 &amp; 0 &amp; \dots &amp; 0 \\
+0 &amp; 1 &amp; \dots &amp; 0 \\
+\vdots &amp; 0 &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \dots &amp; 1
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[M = t(M) = MM = M\]</span></p>
+<div id="qwebr-insertion-location-8"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="matrix-inversion" class="level2" data-number="5.10">
+<h2 data-number="5.10" class="anchored" data-anchor-id="matrix-inversion"><span class="header-section-number">5.10</span> Matrix Inversion</h2>
+<p>To understand the inverse of a matrix, let’s start with an example where have an equation and we want to solve for the unknown value of <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[
+5x = 10
+\]</span></p>
+<p>We can divide both sides by the reciprocal of 5 to solve for <span class="math inline">\(x\)</span>. <span class="math display">\[
+\frac{1}{5} \times 5x = 10 \times \frac{1}{5}
+\]</span>In other words, if we multiply 5 by it’s inverse, we obtain</p>
+<p><span class="math display">\[
+5 \times \frac{1}{5} = 1
+\]</span></p>
+<p>When we multiply a matrix by its inverse, we obtain the <strong>identify matrix (I)</strong> which is the matrix equivalent of the number 1 where the identify matrix has 1’s along the diagonal and 0’s off the diagonal or:</p>
+<p><span class="math display">\[
+A A^{-1} = I =
+\begin{bmatrix}1 &amp; 0 &amp; \ldots &amp; 0 \\
+0 &amp; 1 &amp; \dots &amp; 0 \\
+\vdots &amp; &amp; \ddots &amp; \vdots \\
+0 &amp; \ldots &amp; \dots &amp; 1
+\end{bmatrix}
+\]</span></p>
+<p>Not every matrix, however, has an inverse. A matrix must meet two criteria to have an inverse:</p>
+<ul>
+<li><p><strong>The matrix must be square, that is, the number of rows and columns are equal</strong></p></li>
+<li><p><strong>The determinant cannot be zero.</strong></p></li>
+</ul>
+<p>Define a <span class="math inline">\((2 \times 2)\)</span> matrix as:</p>
+<p><span class="math display">\[X = \begin{bmatrix}
+A &amp; B \\
+C &amp; D
+\end{bmatrix}\]</span></p>
+<p>The inverse of the <span class="math inline">\(X\)</span> matrix is denoted as <span class="math inline">\(X^{-1}\)</span> and is equal to:</p>
+<p><span class="math display">\[X^{-1} = \frac{1}{AD - BC} \begin{bmatrix}
+D &amp; -B \\
+-C &amp; A
+\end{bmatrix}\]</span></p>
+<p>We should note that <span class="math inline">\((AD - BC)\)</span> is the <strong>determinant</strong>.</p>
+<p>Now define <span class="math inline">\(X\)</span> as:</p>
+<p><span class="math display">\[X = \begin{bmatrix}
+4 &amp; 8 \\
+2 &amp; 6
+\end{bmatrix}\]</span></p>
+<p>The inverse of <span class="math inline">\(X\)</span> or <span class="math inline">\(X^{-1}\)</span> is equal to:</p>
+<p><span class="math display">\[X^{-1} = \frac{1}{(4*6) - (8*2)} \begin{bmatrix}
+6 &amp; -8\\
+-2 &amp; 4
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[X^{-1} = \frac{1}{8} \begin{bmatrix}
+6 &amp; -8\\
+-2 &amp; 4
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[X^{-1} = \begin{bmatrix}
+3/4 &amp; -1\\
+-1/4 &amp; 1/2
+\end{bmatrix}\]</span></p>
+<p>And if we multiply <span class="math inline">\(X\)</span> by <span class="math inline">\(X^{-1}\)</span>, we would obtain:</p>
+<p><span class="math display">\[X X^{-1} = \begin{bmatrix}
+4 &amp; 8 \\
+2 &amp; 6
+\end{bmatrix}
+\begin{bmatrix}
+3/4 &amp; -1\\
+-1/4 &amp; 1/2
+\end{bmatrix} =
+\begin{bmatrix}
+(4*3/4 + -1/4*8) &amp; (4*-1 + 8*1/2) \\
+(2*3/4 + 6*-1/4) &amp; (2*-1 + 6*1/2)
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{bmatrix}=
+I\]</span></p>
+<p>In the code below, we create a <span class="math inline">\((2 \times 2)\)</span> matrix and use the <strong>solve</strong> function in R to calculate the inverse of the square matrix. We then multiply the matrix by its inverse to obtain the <strong>identity matrix</strong>.</p>
+<div id="qwebr-insertion-location-9"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="regression-example" class="level2" data-number="5.11">
+<h2 data-number="5.11" class="anchored" data-anchor-id="regression-example"><span class="header-section-number">5.11</span> Regression Example</h2>
+<p>In the code below, we create a matrix filled with zeros that has 6,000 rows and 6 columns.</p>
+<p>The first column of the <strong>X</strong> matrix will be filled with the value 1.</p>
+<p>In columns 2 through 6, we fill a random number from a standard normal distribution.</p>
+<p>The <strong>gc()</strong> is a garbage collection command to return memory from R. It is optional to run this code.</p>
+<p>The vector of <span class="math inline">\(\beta\)</span> coefficients is <span class="math inline">\(\beta \in \{1,2,3,4,5,6\}\)</span>.</p>
+<p>We know define <span class="math inline">\(y\)</span> as equal to a linear equation of <span class="math inline">\(X\beta\)</span> plus a disturbance term <span class="math inline">\(\epsilon\)</span> or:</p>
+<p><span class="math display">\[y = X\beta + \epsilon\]</span></p>
+<p><span class="math inline">\(\epsilon\)</span> is drawn from a standard normal distribution with zero mean and constant variance.</p>
+<p>Estimate the least squares coefficients, predicted values for the dependent variable and residuals.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,<span class="dv">6000</span>,<span class="dv">6</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      x[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>) {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        x[,l] <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">6000</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">gc</span>()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># let beta = (1,2,3,4,5,6)</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">6</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># y is equal to X*beta + random disturbance</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">%*%</span> beta <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">6000</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for b =  (X^T X)^(-1) X^T y</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>bhat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> x <span class="sc">%*%</span> bhat</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> y <span class="sc">-</span> yhat</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>b_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"b1"</span>, <span class="st">"b2"</span>, <span class="st">"b3"</span>, <span class="st">"b4"</span>, <span class="st">"b5"</span>, <span class="st">"b6"</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>bhat_named <span class="ot">&lt;-</span> <span class="fu">cbind</span>(b_names, <span class="fu">round</span>(bhat,<span class="dv">3</span>))</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(bhat_named,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Coefficient"</span>,</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Estimate"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>,</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>              <span class="at">position  =</span> <span class="st">"center"</span>,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>              <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Coefficient</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">b1</td>
+<td style="text-align: left;">1.015</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">b2</td>
+<td style="text-align: left;">1.995</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">b3</td>
+<td style="text-align: left;">3.003</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">b4</td>
+<td style="text-align: left;">3.986</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">b5</td>
+<td style="text-align: left;">4.988</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">b6</td>
+<td style="text-align: left;">5.999</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
 
 </section>

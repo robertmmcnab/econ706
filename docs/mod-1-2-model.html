@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; Linear Regression Models – ECON 706</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./mod-1-1-matrix.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d9ea66fcd6c317012447f26e9c021348.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-1-0-overview.html">Linear Regression Model</a></li><li class="breadcrumb-item"><a href="./mod-1-2-model.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Linear Regression Models</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">ECON 706</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ECON 706</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mcnab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Meet Your Instructor</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Course Objectives</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Linear Regression Model</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mod-1-0-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Module 1 Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mod-1-1-matrix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Matrix Operations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mod-1-2-model.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Linear Regression Models</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">6.1</span> Introduction</a></li>
+  <li><a href="#useful-notation" id="toc-useful-notation" class="nav-link" data-scroll-target="#useful-notation"><span class="header-section-number">6.2</span> Useful Notation</a></li>
+  <li><a href="#expectations" id="toc-expectations" class="nav-link" data-scroll-target="#expectations"><span class="header-section-number">6.3</span> Expectations</a></li>
+  <li><a href="#assumption-1-linearity" id="toc-assumption-1-linearity" class="nav-link" data-scroll-target="#assumption-1-linearity"><span class="header-section-number">6.4</span> Assumption 1: Linearity</a></li>
+  <li><a href="#assumption-2-full-rank" id="toc-assumption-2-full-rank" class="nav-link" data-scroll-target="#assumption-2-full-rank"><span class="header-section-number">6.5</span> Assumption 2: Full Rank</a></li>
+  <li><a href="#assumption-3-zero-conditional-mean" id="toc-assumption-3-zero-conditional-mean" class="nav-link" data-scroll-target="#assumption-3-zero-conditional-mean"><span class="header-section-number">6.6</span> Assumption 3: Zero Conditional Mean</a></li>
+  <li><a href="#linear-regression-model" id="toc-linear-regression-model" class="nav-link" data-scroll-target="#linear-regression-model"><span class="header-section-number">6.7</span> Linear Regression Model</a></li>
+  <li><a href="#assumption-4-homosecdasticity" id="toc-assumption-4-homosecdasticity" class="nav-link" data-scroll-target="#assumption-4-homosecdasticity"><span class="header-section-number">6.8</span> Assumption 4: Homosecdasticity</a></li>
+  <li><a href="#assumption-5-data-generation" id="toc-assumption-5-data-generation" class="nav-link" data-scroll-target="#assumption-5-data-generation"><span class="header-section-number">6.9</span> Assumption 5: Data Generation</a></li>
+  <li><a href="#assumption-6-normal-disturbances" id="toc-assumption-6-normal-disturbances" class="nav-link" data-scroll-target="#assumption-6-normal-disturbances"><span class="header-section-number">6.10</span> Assumption 6: Normal Disturbances</a></li>
+  <li><a href="#linear-regression-model-1" id="toc-linear-regression-model-1" class="nav-link" data-scroll-target="#linear-regression-model-1"><span class="header-section-number">6.11</span> Linear Regression Model</a></li>
+  <li><a href="#violating-the-asssumptions" id="toc-violating-the-asssumptions" class="nav-link" data-scroll-target="#violating-the-asssumptions"><span class="header-section-number">6.12</span> Violating the Asssumptions</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps"><span class="header-section-number">6.13</span> Next Steps</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-1-0-overview.html">Linear Regression Model</a></li><li class="breadcrumb-item"><a href="./mod-1-2-model.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Linear Regression Models</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Linear Regression Models</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">6.1</span> Introduction</h2>
+<p>A linear regression model provides a methodology for examining how the variation in one or more variables may cause variation in a variable of interest.</p>
+<p>The variable of interest is the <strong>dependent variable</strong> and is denoted as <span class="math inline">\(y\)</span>.</p>
+<p>The variables that may cause variation in the dependent variable are called the <strong>independent variables</strong> and are denoted as <strong>X</strong>.</p>
+<p>We hypothesize that the dependent variable is a function of the independent variables or</p>
+<p><span class="math display">\[
+y = f(X)
+\]</span></p>
+<p>A linear regression model assumes the relationship between the dependent variable and independent variables can be models as a linear relationship.</p>
+<p>The <strong>population regression function</strong> can be expressed as:</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_k x_k + \epsilon
+\]</span></p>
+<p>Where <span class="math inline">\(\beta_0\)</span> represents the intercept, that is, the value of <span class="math inline">\(y\)</span> when the independent variables are 0.</p>
+<p>Where <span class="math inline">\(\beta_1\)</span> through <span class="math inline">\(\beta_k\)</span> represent the coefficients on the independent variables, that is, the coefficients measure the responsiveness of the dependent variable to a one-unit change in the independent variables.</p>
+<p>Where <span class="math inline">\(\epsilon\)</span> represents the disturbance term or ‘noise’ in our model, that is, the variation in the dependent variable that is not explained by the independent variables.</p>
+<p>A <strong>linear regression</strong> uses data to estimate the coefficients for the independent variables. Why do we need to estimate the coefficients? We do not observe the true values for the coefficients, that is, we do not observe the population parameters in the model.</p>
+<p>We use data and linear regression to construct estimates of the population coefficients. If the coefficients are statistically significant, then we interpret the coefficients as representative of the population coefficients.</p>
+<p><em>Unlike physics, it is difficult to replicate experiments in economics. We cannot, for example, restart countries at 1950 to obtain new data. Uncertainty arises from human behavior, measurement error, and a host of other issues.</em></p>
+</section>
+<section id="useful-notation" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="useful-notation"><span class="header-section-number">6.2</span> Useful Notation</h2>
+<p>A scalar variable is a <span class="math inline">\((1 \times 1)\)</span> matrix. If <span class="math inline">\(z = 5\)</span>, then <span class="math inline">\(z\)</span> is a scalar variable.</p>
+<p>A column vector is a <span class="math inline">\((n \times 1)\)</span> matrix, consisting of a single column of <span class="math inline">\(n\)</span> elements. In most textbooks and linear algebra, the default vector is a column vector.</p>
+<p>Assume that our dependent variable, <span class="math inline">\(y\)</span>, has five observations. The dependent variable is a column vector that has 5 rows and 1 column, that is, <span class="math inline">\(y \sim (5 \times 1)\)</span> or:</p>
+<p><span class="math display">\[\boldsymbol{y} = \begin{bmatrix} y_1 \\ y_2 \\ y_3 \\ y_4 \\ y_5 \end{bmatrix}\]</span></p>
+<p>A row vector is a <span class="math inline">\((1 \times k)\)</span> matrix, consisting of a single row of <span class="math inline">\(k\)</span> elements.</p>
+<p>Assumes that we have data on a single individual’s age, height, weight, income, and education. The row vector containing this data might look like:</p>
+<p><span class="math display">\[\begin{bmatrix}
+32 \, years &amp; 72 \, inches &amp; 190 \, pounds &amp; 75,000 &amp; 18 \, years
+\end{bmatrix}
+\]</span></p>
+<p>Note that we can transform a column vector into a row vector using the <strong>transpose operation</strong>. Returning to our column vector <span class="math inline">\(y\)</span>, we can take the transpose of <span class="math inline">\(y\)</span> to obtain a <span class="math inline">\(1 \times 5\)</span> row vector or:</p>
+<p><span class="math display">\[y^T =\begin{bmatrix}
+y_1 &amp; y_2 &amp; y_3 &amp; y_4 &amp; y_5
+\end{bmatrix}
+\]</span></p>
+<p>A matrix, <span class="math inline">\(\boldsymbol{X}\)</span> with dimensions <span class="math inline">\((n \times K)\)</span> is</p>
+<p><span class="math display">\[\boldsymbol{X} = \begin{bmatrix}
+x_{11} &amp; x_{12} &amp; \dots &amp; x_{1K} \\
+x_{21} &amp; x_{22} &amp; \dots &amp; x_{2K} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+x_{n1} &amp; x_{n2} &amp; \dots &amp; x_{nK}
+\end{bmatrix}\]</span></p>
+<p>The first subscript of an element gives the row position while the second subscript of the element gives the column position.</p>
+</section>
+<section id="expectations" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="expectations"><span class="header-section-number">6.3</span> Expectations</h2>
+<p>The <strong>expected value</strong> of a random variable is the arithmetic mean of the variable, that is,</p>
+<p><span class="math display">\[E[X] = \mu_x\]</span></p>
+<p>In the discrete case, the expected value of a random variable <span class="math inline">\(X\)</span> is found by multiplying each <span class="math inline">\(x\)</span> by its probability and then summing over the random variable or:</p>
+<p><span class="math display">\[E[X] = \sum x \, p(x) = \mu_x\]</span></p>
+<p>In the continuous case, the expectation is defined by:</p>
+<p><span class="math display">\[E[X] = \int_{-\infty}^{\infty} x \, f(x) \, dx = \mu_x\]</span></p>
+<p>We can show that the variance of <span class="math inline">\(X\)</span> is equal to</p>
+<p><span class="math display">\[\sigma_X^2 = E[(X-\mu)^2] = E(X^2) - (E[X])^2\]</span></p>
+<p><span class="math display">\[\sigma_X^2 = E\bigg[(X-\mu)^2 \bigg] = E \bigg[(X-\mu) \, (X-\mu) \bigg]\]</span> <span class="math display">\[\sigma_X^2 = E\bigg[(X^2 - \mu\,X - X \mu + \mu^2) \bigg]\]</span> Since <span class="math inline">\(\mu\)</span> is a scalar, we know that <span class="math inline">\(E[\mu X] = \mu E[X]\)</span></p>
+<p><span class="math display">\[\sigma_X^2 = E\bigg[(X^2 - 2\mu X + \mu^2) \bigg]\]</span> <span class="math display">\[\sigma_X^2 = E[X^2] - 2 \mu E[X] + \mu^2\]</span> <span class="math display">\[\sigma_X^2 = E[X^2] - 2 \mu^2 + \mu^2 = E[X^2] - \mu^2 = E[X^2] - (E[X])^2\]</span></p>
+</section>
+<section id="assumption-1-linearity" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="assumption-1-linearity"><span class="header-section-number">6.4</span> Assumption 1: Linearity</h2>
+<p>If the assumptions of the linear regression model hold, then the linear regression model will produce useful estimates of the unknown population parameters.</p>
+<p>Let the column vector <span class="math inline">\(\boldsymbol{x}_k\)</span> be the <span class="math inline">\(n\)</span> observations on variable <span class="math inline">\(x_k\)</span> where <span class="math inline">\(k = 1, 2, ..., K\)</span> in a random sample of <span class="math inline">\(n\)</span> observations.</p>
+<p>Assemble the <span class="math inline">\(k\)</span> column vectors over <span class="math inline">\(n\)</span> observations to obtain an <span class="math inline">\((n \times K)\)</span> matrix <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
+<p>The first column of <span class="math inline">\(\boldsymbol{X}\)</span> or <span class="math inline">\(\boldsymbol{x}_1\)</span> is a column of 1s so that <span class="math inline">\(\beta_1\)</span> the constant term in the linear regression model.</p>
+<p>Let <span class="math inline">\(\boldsymbol{y}\)</span> be <span class="math inline">\((n \times 1)\)</span> column vector containing the <span class="math inline">\(n\)</span> observations <span class="math inline">\(y_1, y_2, ..., y_n\)</span>.</p>
+<p>Let <span class="math inline">\(\boldsymbol{\epsilon}\)</span> be <span class="math inline">\((n \times 1)\)</span> column vector containing the <span class="math inline">\(n\)</span> observations <span class="math inline">\(\epsilon_1, \epsilon_2, ..., \epsilon_n\)</span>.</p>
+<p>Let <span class="math inline">\(\boldsymbol{\beta}\)</span> be the <span class="math inline">\((k \times 1)\)</span> parameter vector containing the <span class="math inline">\(k\)</span> population parameters <span class="math inline">\(\beta_1, \beta_2, ..., \beta_k\)</span>.</p>
+<p>The linear regression model can be written as:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+y_1 \\ y_2 \\ \vdots \\ y_n
+\end{bmatrix} =
+\begin{bmatrix}
+1 &amp; x_{12} &amp;\dots &amp; x_{1K} \\
+1 &amp; x_{22} &amp;\dots &amp; x_{2K} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+1 &amp; x_{n2} &amp;\dots &amp; x_{nK}
+\end{bmatrix}
+\begin{bmatrix}
+\beta_1 \\ \beta_2 \\ \vdots \\ \beta_K
+\end{bmatrix} +
+\begin{bmatrix}
+\epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_n
+\end{bmatrix}
+\]</span></p>
+<p>The linear regression model can also be written as:</p>
+<p><span class="math display">\[\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}\]</span></p>
+</section>
+<section id="assumption-2-full-rank" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="assumption-2-full-rank"><span class="header-section-number">6.5</span> Assumption 2: Full Rank</h2>
+<p>The assumption of <strong>full rank</strong> or <strong>no perfect colinearity</strong> is that there are no exact linear relationships among the independent variables.</p>
+<p>The assumption of full rank implies that <span class="math inline">\(\boldsymbol{X}\)</span> has full column rank, that is, there is no <span class="math inline">\(\boldsymbol{x}_k\)</span> that is an exact linear combination of one or more other <span class="math inline">\(\boldsymbol{x}_k\)</span> in <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
+<p>The assumption of full rank also implies that are at least <span class="math inline">\(K\)</span> observations in <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
+<p>The assumptions of full column rank and <span class="math inline">\(K\)</span> observations are known as the <strong>identification condition</strong>.</p>
+<p>If a model is non-identifiable, the true population parameters cannot be ascertained.</p>
+<p>Assume <strong>X</strong> is <span class="math inline">\((5 x 5)\)</span> can be expressed as:</p>
+<p><span class="math display">\[\boldsymbol{X} = \begin{bmatrix}
+x_{11} &amp; x_{12} &amp; x_{13} &amp; x_{14} &amp; x_{15} \\
+x_{21} &amp; x_{22} &amp; x_{23} &amp; x_{24} &amp; x_{25} \\
+x_{31} &amp; x_{32} &amp; x_{33} &amp; x_{34} &amp; x_{35} \\
+x_{41} &amp; x_{42} &amp; x_{43} &amp; x_{44} &amp; x_{45} \\
+x_{51} &amp; x_{52} &amp; x_{53} &amp; x_{54} &amp; x_{55} \end{bmatrix}\]</span></p>
+<p>What would happen if</p>
+<p><span class="math display">\[
+x_2 = x_3 + x_4
+\]</span></p>
+<p>First, <span class="math inline">\(x_2\)</span> is a perfect linear combination of <span class="math inline">\(x_3\)</span> and <span class="math inline">\(x_4\)</span> and, because of this, <span class="math inline">\(X\)</span> is <strong>short rank</strong>.</p>
+<p>Because <span class="math inline">\(X\)</span> is <strong>short rank</strong>, no unique solution exists for the linear regression parameter estimates.</p>
+<p>In the code example below, we create two <span class="math inline">\((4 \times 4)\)</span> matrices.</p>
+<p>In the first matrix, the third column is equal to the square of the second column.</p>
+<p><span class="math display">\[
+x_{3} = x_2^{2}
+\]</span></p>
+<p>Even though <span class="math inline">\(x_3\)</span> is equal to the square of <span class="math inline">\(x_2\)</span>, you cannot create <span class="math inline">\(x_3\)</span> by multiplying <span class="math inline">\(x_2\)</span> by a single scalar value, unless <span class="math inline">\(x_2\)</span> is all 1’s or 0’s. The columns of <strong>X</strong> are linearly independent and the matrix is <strong>full rank</strong>.</p>
+<p>In the second matrix, the third column is equal to the sum of the first two columns or:</p>
+<p><span class="math display">\[
+x_3 = x_1 + x_2
+\]</span></p>
+<p>In this case, <span class="math inline">\(x_3\)</span> is a perfect linear combination of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>. The <strong>X</strong> matrix is <strong>short rank</strong>.</p>
+<p>Let <strong>X</strong> be a <span class="math inline">\((n \times K)\)</span> matrix of independent variables. A key element of a linear regression model is:</p>
+<p><span class="math display">\[
+(X^T X)^{-1}
+\]</span></p>
+<p>For this inverse to exist, the <strong>determinant</strong> must be non-zero.</p>
+<p>We can use the <strong>det</strong> function in R to calculate the determinant of each matrix.</p>
+<p>We find that the determinant of the first matrix, <span class="math inline">\(X_1\)</span>, is non-zero, while the determinant of the second matrix, <span class="math inline">\(X_2\)</span>, is equal to zero.</p>
+<p>Because the determinant of <span class="math inline">\(X_2\)</span> is equal to zero, the inverse of <span class="math inline">\(X_2\)</span> does not exist.</p>
+<p>What about</p>
+<p><span class="math display">\[
+(X_1^T X_1) \\
+(X_2^T X_2)
+\]</span></p>
+<p>We can use the <strong>det</strong> function to find that the determinant of <span class="math inline">\(X_1^T X_1\)</span> is non-zero while the determinant of <span class="math inline">\(X_2^T X_2\)</span> is equal to zero.</p>
+<p>In other words, because <span class="math inline">\(X_2\)</span> is short rank, <span class="math inline">\(X_2^T X_2\)</span> is also short rank, and the inverse does not exist.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span> ,<span class="dv">1</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">16</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span> ,<span class="dv">1</span>),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>x_1t_x_1 <span class="ot">&lt;-</span> <span class="fu">t</span>(x1) <span class="sc">%*%</span> x1</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>x_2t_x_1 <span class="ot">&lt;-</span> <span class="fu">t</span>(x2) <span class="sc">%*%</span> x2</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>dets <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x1_det =</span> <span class="fu">det</span>(x1),</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">x2_det =</span> <span class="fu">det</span>(x2),</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>               <span class="at">x1t_x_1 =</span> <span class="fu">det</span>(x_1t_x_1),</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>               <span class="at">x2t_x_2 =</span> <span class="fu">det</span>(x_2t_x_1))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(dets,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">'X1 Determinant'</span>, <span class="st">'X2 Determinant'</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'X1^T X1 Determinant'</span>, <span class="st">'X2^T X2 Determinant'</span>),</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">align     =</span> <span class="st">'c'</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">digits    =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 28%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">X1 Determinant</th>
+<th style="text-align: center;">X2 Determinant</th>
+<th style="text-align: center;">X1^T X1 Determinant</th>
+<th style="text-align: center;">X2^T X2 Determinant</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">-2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="assumption-3-zero-conditional-mean" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="assumption-3-zero-conditional-mean"><span class="header-section-number">6.6</span> Assumption 3: Zero Conditional Mean</h2>
+<p>Recall that the linear regression model is written as:</p>
+<p><span class="math display">\[\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}\]</span></p>
+<p>Where the <span class="math inline">\(\epsilon\)</span> represents the <strong>disturbance term</strong> in the linear regression model.</p>
+<p>The assumption of <strong>Zero Conditional Mean</strong> is that the expected value of the disturbance in the linear regression model is not a function of the independent variables, that is, the independent variables contain no useful information regarding the prediction of <span class="math inline">\(\epsilon\)</span>.</p>
+<p>The assumption of Zero Conditional Mean is</p>
+<p><span class="math display">\[
+E[\epsilon_i \, | \, \boldsymbol{X}] = 0 \quad \forall \, i
+\]</span></p>
+<p>and implies that the mean of each <span class="math inline">\(\epsilon_i\)</span> conditional on all <span class="math inline">\(\boldsymbol{x_j}\)</span> is zero. In other words, no independent variable conveys information about the disturbances.</p>
+<p>The assumption that there is no information in <span class="math inline">\(\boldsymbol{X}\)</span> about any <span class="math inline">\(\epsilon_i\)</span> is the <strong>strict exogeneity assumption</strong>.</p>
+<p>The <strong>mean independence</strong> of the disturbances implies that the mean of the disturbances is zero or</p>
+<p><span class="math display">\[
+E[\epsilon] =  E[E[\epsilon_i | \boldsymbol{X}]] = E[0 | X] = 0
+\]</span></p>
+<p>Zero Conditional Mean also implies that no disturbance contains information about other disturbances, that is, the disturbances are independent of each other or:</p>
+<p><span class="math display">\[
+E[\epsilon_i | \epsilon_j] = 0 \quad \forall i \ne j
+\]</span></p>
+<p>Zero conditional mean implies that <span class="math inline">\(cov(\epsilon_i |\boldsymbol{X}) = 0\)</span>. This will be important later.</p>
+</section>
+<section id="linear-regression-model" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="linear-regression-model"><span class="header-section-number">6.7</span> Linear Regression Model</h2>
+<p>The assumptions of linearity, full rank, and zero conditional mean comprise the linear regression model.</p>
+<p>The regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X}\)</span> is the conditional mean or:</p>
+<p><span class="math display">\[E[\boldsymbol{y}|\boldsymbol{X}]\]</span></p>
+<p>Assume that linearity, full rank, and zero conditional mean hold and the linear regression model is: <span class="math display">\[\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}\]</span></p>
+<p>Then <span class="math display">\[E[\boldsymbol{y}|\boldsymbol{X}] = E[(\boldsymbol{X \beta} + \boldsymbol{\epsilon})|\boldsymbol{X}] = E[(\boldsymbol{X \beta})|\boldsymbol{X}] + E[\boldsymbol{\epsilon}|\boldsymbol{X}] = \boldsymbol{X \beta}\]</span></p>
+<p>Without the Zero Conditional Mean assumption, however,</p>
+<p><span class="math display">\[\boldsymbol{X \beta}\]</span></p>
+<p>is not the conditional mean function.</p>
+<p>If the zero conditional mean assumption does not hold, then</p>
+<p><span class="math display">\[E[\boldsymbol{\epsilon}|\boldsymbol{X}] \ne 0\]</span> which means that</p>
+<p><span class="math display">\[E[\boldsymbol{y}|\boldsymbol{X}] = \boldsymbol{X \beta} + E[\boldsymbol{\epsilon}|\boldsymbol{X}]\]</span></p>
+<p>As we will see, as the covariance between <span class="math inline">\(\epsilon\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span> increases, that is, as <span class="math inline">\(\boldsymbol{X}\)</span> contains more information about <span class="math inline">\(\epsilon\)</span>, the linear regression model will not produce ‘reliable’ estimates of the population parameters of interest.</p>
+</section>
+<section id="assumption-4-homosecdasticity" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="assumption-4-homosecdasticity"><span class="header-section-number">6.8</span> Assumption 4: Homosecdasticity</h2>
+<p>The variance of the disturbances conditional on the independent variables is constant and the covariance among the disturbances conditional on the independent variables is equal to zero.</p>
+<p>The assumption of <strong>homoscedasticity</strong> is:</p>
+<p><span class="math display">\[var[\epsilon_i |\boldsymbol{X}] = \sigma^2 \quad \forall i\]</span></p>
+<p>The assumption of <strong>no autocorrelation</strong> is</p>
+<p><span class="math display">\[cov[\epsilon_i, \epsilon_j | \boldsymbol{X}] = 0 \quad \forall i,j\]</span></p>
+<p>Homoscedasticity implies that the variance of the disturbances is independent of <span class="math inline">\(\boldsymbol{X}\)</span> and constant, that is, the independent variables contain no information about the dispersion of the disturbances.</p>
+<p>The assumption of no autocorrelation implies that the covariance of the disturbances, conditional on the independent variables, is equal to zero, that is, no disturbance contains information about any other disturbance.</p>
+<p>Together, the assumptions imply that the diagonal of the variance-covariance matrix for the disturbances consists of <span class="math inline">\(\sigma^2\)</span> and the off-diagonal terms are 0.</p>
+<p>Let the variance of the disturbance be <span class="math inline">\(E[\epsilon \epsilon^T |\boldsymbol{X} ] =\)</span></p>
+<p><span class="math display">\[\begin{bmatrix}
+E[\epsilon_1^2|X] &amp; E[\epsilon_1 \epsilon_2|X] &amp; \dots  &amp; E[\epsilon_1 \epsilon_n|X]  \\
+E[\epsilon_2 \epsilon_1|X] &amp; E[\epsilon_2^2|X] &amp; \dots  &amp; E[\epsilon_2 \epsilon_n|X]  \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots                                                     \\
+E[\epsilon_n \epsilon_1|X] &amp; E[\epsilon_n \epsilon_2|X] &amp; \dots  &amp; E[\epsilon_n^2|X]  
+\end{bmatrix}\]</span></p>
+<p>Using the assumptions of homoscedasticity and no autocorrelation yields:</p>
+<p><span class="math display">\[\begin{bmatrix}
+\sigma^2 &amp; 0 &amp; \ddots &amp; 0  \\
+0 &amp; \sigma^2 &amp; \ddots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots                                                     \\
+0 &amp; 0 &amp; \ddots &amp; \sigma^2
+\end{bmatrix}\]</span></p>
+<p>What does this mean?</p>
+<p><span class="math display">\[E[\epsilon \epsilon^T | \boldsymbol{X}] = \sigma^2 \boldsymbol{I}\]</span></p>
+<p>where <span class="math inline">\(\boldsymbol{I}\)</span> is an <span class="math inline">\((n \times k)\)</span> identity matrix consisting of 1’s on the diagonal and 0’s off the diagonal.</p>
+<p>In other words, the variance-covariance matrix for the disturbances is, under the assumption of homoscedasticity, equal to a constant, <span class="math inline">\(\sigma^2\)</span> times an identity matrix.</p>
+</section>
+<section id="assumption-5-data-generation" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="assumption-5-data-generation"><span class="header-section-number">6.9</span> Assumption 5: Data Generation</h2>
+<p>Social scientists cannot, in many circumstances, create and run experiments. If we could, then regressors would be nonrandom. Instead, we often rely on observational data the results from a stochastic process.</p>
+<p>We also use dummy variables to capture specific events or characteristics. A constant may be used to capture a starting or ending point of a process. In other words, we may also use non-stochastic data.</p>
+<p>In macroeconomics, the date of colonial independence is often used in regressions of Gross Domestic Product on determinants of economic development as a control variable. These regressions mix stochastic (investment, exports, democracy) and non-stochastic (colonial independence, legal system dummy) data.</p>
+<p>Assumption 5 is that the regressors may be fixed or random, that is, the matrix of independent variables may contain stochastic (random) and non-stochastic (non-random) variables.</p>
+</section>
+<section id="assumption-6-normal-disturbances" class="level2" data-number="6.10">
+<h2 data-number="6.10" class="anchored" data-anchor-id="assumption-6-normal-disturbances"><span class="header-section-number">6.10</span> Assumption 6: Normal Disturbances</h2>
+<p>Assumption 3 (Zero Conditional Mean) implies that that the conditional mean of the disturbances is zero</p>
+<p><span class="math display">\[
+E[\epsilon_i | \boldsymbol{X}] = 0
+\]</span></p>
+<p>Assumption 4 implies that the conditional variance of the disturbances is equal to <span class="math inline">\(\sigma^2 I\)</span> or</p>
+<p><span class="math display">\[
+E[\epsilon^T \epsilon | \boldsymbol{X}] = E[\epsilon^T \epsilon] = \sigma^2 I
+\]</span></p>
+<p>Assumption 6 is that the disturbances are normally distributed or</p>
+<p><span class="math display">\[
+\epsilon \sim N(0, \sigma^2I)
+\]</span></p>
+<p>This assumption is useful for inference, however, it is also restrictive.</p>
+<p>For our purposes, the normality of the disturbances is a useful starting point.</p>
+</section>
+<section id="linear-regression-model-1" class="level2" data-number="6.11">
+<h2 data-number="6.11" class="anchored" data-anchor-id="linear-regression-model-1"><span class="header-section-number">6.11</span> Linear Regression Model</h2>
+<p>If the assumptions of the linear regression model hold, we can show that the model produces reasonable estimates of the unknown population parameters.</p>
+<p>The assumptions of linearity, full rank, the exogeneity of the independent variables (Zero Conditional Mean) pertain to the process of generating estimates of the unknown parameters.</p>
+<p>The assumptions of homoscedasticity, data generating (stochastic and non-stochastic regressors), and normality of the disturbances pertain to the behavior of the disturbances in the model.</p>
+<p>Let the two-variable linear regression model be</p>
+<p><span class="math display">\[y = \beta_0 + \beta_1 \boldsymbol{x} + \epsilon\]</span></p>
+<p>If the assumptions hold, then <span class="math display">\[E[y] = \beta_0 + \beta_1 \boldsymbol{x}\]</span></p>
+<p>Different textbooks have different conventions. Sometimes the intercept is <span class="math inline">\(\beta_0\)</span>, sometimes <span class="math inline">\(\beta_1\)</span>. There is no significant impact on derivation.</p>
+</section>
+<section id="violating-the-asssumptions" class="level2" data-number="6.12">
+<h2 data-number="6.12" class="anchored" data-anchor-id="violating-the-asssumptions"><span class="header-section-number">6.12</span> Violating the Asssumptions</h2>
+<p>In this course, we will focus on violations of the assumptions of the exogeneity of the regressors and homoscedasticity.</p>
+<p>If the regressors and the disturbances are independent but the variance of the disturbances is a function of the regressors, then the variance of the disturbances is no longer constant.</p>
+<p>If this occurs, the estimates of the standard errors of the parameter estimates are not reliable and we cannot make inferences about the statistical significance of the parameter estimates.</p>
+<p>We will show that if one or more regressors are <strong>endogenous</strong> that the parameter estimates do not, on average equal the population parameters.</p>
+<p>We will also show that if one or more regressors are endogenous that the parameter estimates do not converge to the population parameters.</p>
+<p>We will need to modify our approach to account for endogeneity, heteroscedasticity, or both.</p>
+</section>
+<section id="next-steps" class="level2" data-number="6.13">
+<h2 data-number="6.13" class="anchored" data-anchor-id="next-steps"><span class="header-section-number">6.13</span> Next Steps</h2>
+<p>Assume our linear regression model of interest is:</p>
+<p><span class="math display">\[salary = \alpha + \beta\ education + \epsilon\]</span></p>
+<p>The question is how do we estimate the unknown parameters of interest?</p>
+<p>We can specify a population regression function</p>
+<p><span class="math display">\[\boldsymbol{y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\epsilon}\]</span></p>
+<p>In this model, the <em>ith</em> observation</p>
+<p><span class="math display">\[y_i = \boldsymbol{x_i}^T \boldsymbol{\beta} + \epsilon_i\]</span></p>
+<p>The population regression is</p>
+<p><span class="math display">\[E[y_i | \boldsymbol{x_i}] = \boldsymbol{x_i^T\ \beta}\]</span></p>
+<p>The disturbance for the <em>ith</em> observation is <span class="math display">\[\epsilon_i = y_i - \boldsymbol{x_i^T\ \beta}\]</span></p>
+<p>We observe <span class="math inline">\(y_i\)</span> and <span class="math inline">\(\boldsymbol{x_i}\)</span> but we do not observe <span class="math inline">\(\boldsymbol{\beta}\)</span> or <span class="math inline">\(\epsilon\)</span>.</p>
+<p>The sample estimate of <span class="math inline">\(\boldsymbol{\beta}\)</span> is <span class="math inline">\(\boldsymbol{b}\)</span> while the sample estimate of <span class="math inline">\(\epsilon_i\)</span> is <span class="math inline">\(e_i\)</span>.</p>
+<p>The sample estimate of <span class="math display">\[E[y_i | \boldsymbol{x_i}] = \hat{y_i} = \boldsymbol{x_i^T\ b}\]</span></p>
+<p><span class="math display">\[e_i = y_i - \hat{y_i} = y_i - \boldsymbol{x_i^T\ b}\]</span></p>
+<p><span class="math display">\[y_i = \boldsymbol{x_i^T\ \beta} + \epsilon = \boldsymbol{x_i^T\ b} + e_i\]</span></p>
+<p>It is important to note that we can <strong>decompose</strong> the dependent variable into two components: <strong>explained variation</strong> and <strong>unexplained variation</strong>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./mod-1-1-matrix.html" class="pagination-link" aria-label="Matrix Operations">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Matrix Operations</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

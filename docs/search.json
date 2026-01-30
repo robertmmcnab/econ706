@@ -26,7 +26,7 @@
     "href": "index.html#module-01-introduction-to-linear-regression",
     "title": "ECON 706",
     "section": "0.2 Module 01 – Introduction to Linear Regression",
-    "text": "0.2 Module 01 – Introduction to Linear Regression\n\n\nModule 1 Overview\n\n\nMatrix Operations\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
+    "text": "0.2 Module 01 – Introduction to Linear Regression\n\n\nModule 1 Overview\n\n\nMatrix Operations\n\n\nLinear Regression Models\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
     "crumbs": [
       "Introduction",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
@@ -239,6 +239,215 @@
     "crumbs": [
       "Linear Regression Model",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-1-matrix.html#matrix-inversion",
+    "href": "mod-1-1-matrix.html#matrix-inversion",
+    "title": "5  Matrix Operations",
+    "section": "5.10 Matrix Inversion",
+    "text": "5.10 Matrix Inversion\nTo understand the inverse of a matrix, let’s start with an example where have an equation and we want to solve for the unknown value of \\(x\\).\n\\[\n5x = 10\n\\]\nWe can divide both sides by the reciprocal of 5 to solve for \\(x\\). \\[\n\\frac{1}{5} \\times 5x = 10 \\times \\frac{1}{5}\n\\]In other words, if we multiply 5 by it’s inverse, we obtain\n\\[\n5 \\times \\frac{1}{5} = 1\n\\]\nWhen we multiply a matrix by its inverse, we obtain the identify matrix (I) which is the matrix equivalent of the number 1 where the identify matrix has 1’s along the diagonal and 0’s off the diagonal or:\n\\[\nA A^{-1} = I =\n\\begin{bmatrix}1 & 0 & \\ldots & 0 \\\\\n0 & 1 & \\dots & 0 \\\\\n\\vdots & & \\ddots & \\vdots \\\\\n0 & \\ldots & \\dots & 1\n\\end{bmatrix}\n\\]\nNot every matrix, however, has an inverse. A matrix must meet two criteria to have an inverse:\n\nThe matrix must be square, that is, the number of rows and columns are equal\nThe determinant cannot be zero.\n\nDefine a \\((2 \\times 2)\\) matrix as:\n\\[X = \\begin{bmatrix}\nA & B \\\\\nC & D\n\\end{bmatrix}\\]\nThe inverse of the \\(X\\) matrix is denoted as \\(X^{-1}\\) and is equal to:\n\\[X^{-1} = \\frac{1}{AD - BC} \\begin{bmatrix}\nD & -B \\\\\n-C & A\n\\end{bmatrix}\\]\nWe should note that \\((AD - BC)\\) is the determinant.\nNow define \\(X\\) as:\n\\[X = \\begin{bmatrix}\n4 & 8 \\\\\n2 & 6\n\\end{bmatrix}\\]\nThe inverse of \\(X\\) or \\(X^{-1}\\) is equal to:\n\\[X^{-1} = \\frac{1}{(4*6) - (8*2)} \\begin{bmatrix}\n6 & -8\\\\\n-2 & 4\n\\end{bmatrix}\\]\n\\[X^{-1} = \\frac{1}{8} \\begin{bmatrix}\n6 & -8\\\\\n-2 & 4\n\\end{bmatrix}\\]\n\\[X^{-1} = \\begin{bmatrix}\n3/4 & -1\\\\\n-1/4 & 1/2\n\\end{bmatrix}\\]\nAnd if we multiply \\(X\\) by \\(X^{-1}\\), we would obtain:\n\\[X X^{-1} = \\begin{bmatrix}\n4 & 8 \\\\\n2 & 6\n\\end{bmatrix}\n\\begin{bmatrix}\n3/4 & -1\\\\\n-1/4 & 1/2\n\\end{bmatrix} =\n\\begin{bmatrix}\n(4*3/4 + -1/4*8) & (4*-1 + 8*1/2) \\\\\n(2*3/4 + 6*-1/4) & (2*-1 + 6*1/2)\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n1 & 0 \\\\\n0 & 1\n\\end{bmatrix}=\nI\\]\nIn the code below, we create a \\((2 \\times 2)\\) matrix and use the solve function in R to calculate the inverse of the square matrix. We then multiply the matrix by its inverse to obtain the identity matrix.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-1-matrix.html#symmetric-matrix",
+    "href": "mod-1-1-matrix.html#symmetric-matrix",
+    "title": "5  Matrix Operations",
+    "section": "5.7 Symmetric Matrix",
+    "text": "5.7 Symmetric Matrix\nA symmetric matrix is a square matrix, that is, it has the same number of rows as it has columns.\nA symmetric matrix is equal to its transpose, that is, \\(A = A^T\\).\nFor example, the matrix below is equal to its transpose, thus it is a symmetric matrix.\nThe code below illustrates this by creating the matrix and producing its transpose.\n\\[X = \\begin{bmatrix} 4 & 5 & -3 \\\\ 5 & 7 & 2 \\\\ -3 & 2 & 10 \\end{bmatrix}\\]\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-1-matrix.html#idempotent-matrix",
+    "href": "mod-1-1-matrix.html#idempotent-matrix",
+    "title": "5  Matrix Operations",
+    "section": "5.8 Idempotent Matrix",
+    "text": "5.8 Idempotent Matrix\nAn idempotent matrix is one which, when multiplied by itself, yields itself.\nIf a matrix \\(A\\) is idempotent, then \\(A \\times A = A\\).\n\\[M = \\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix}\\]\n\\[\nMM = \\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix}\n\\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix} =\n\\begin{bmatrix}\n(3*3)+(1*-6) & (3*1)+(1*-2)\\\\\n(1*3)+(-2*1) & (1*-6)+(-2*-2)\n\\end{bmatrix}\\]\n\\[MM = \\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix}\n\\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix} =\n\\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix}\\]\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-1-matrix.html#identity-matrix",
+    "href": "mod-1-1-matrix.html#identity-matrix",
+    "title": "5  Matrix Operations",
+    "section": "5.9 Identity Matrix",
+    "text": "5.9 Identity Matrix\nThe identity matrix has 1’s along the diagonal and 0’s on the off-diagonal positions.\nAn identity matrix is symmetric and idempotent.\nWe can create an identity matrix in R by using the diag function, that is, diag(5) creates a 5 x 5 identity matrix.\n\\[M = \\begin{bmatrix}\n1 & 0 & \\dots & 0 \\\\\n0 & 1 & \\dots & 0 \\\\\n\\vdots & 0 & \\ddots & \\vdots \\\\\n0 & 0 & \\dots & 1\n\\end{bmatrix}\\]\n\\[M = t(M) = MM = M\\]\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-1-matrix.html#regression-example",
+    "href": "mod-1-1-matrix.html#regression-example",
+    "title": "5  Matrix Operations",
+    "section": "5.11 Regression Example",
+    "text": "5.11 Regression Example\nIn the code below, we create a matrix filled with zeros that has 6,000 rows and 6 columns.\nThe first column of the X matrix will be filled with the value 1.\nIn columns 2 through 6, we fill a random number from a standard normal distribution.\nThe gc() is a garbage collection command to return memory from R. It is optional to run this code.\nThe vector of \\(\\beta\\) coefficients is \\(\\beta \\in \\{1,2,3,4,5,6\\}\\).\nWe know define \\(y\\) as equal to a linear equation of \\(X\\beta\\) plus a disturbance term \\(\\epsilon\\) or:\n\\[y = X\\beta + \\epsilon\\]\n\\(\\epsilon\\) is drawn from a standard normal distribution with zero mean and constant variance.\nEstimate the least squares coefficients, predicted values for the dependent variable and residuals.\n\nrm(list = ls())\n\nset.seed(1234)\n \nx &lt;- matrix(0,6000,6)\n      x[,1] &lt;- 1\n      for (l in 2:6) {\n        x[,l] &lt;- rnorm(6000)\n        gc()\n      }\n\n# let beta = (1,2,3,4,5,6)\n\nbeta &lt;- seq(1,6)\n\n# y is equal to X*beta + random disturbance\n\ny &lt;- x %*% beta + rnorm(6000)\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\ne &lt;- y - yhat\n\nb_names &lt;- c(\"b1\", \"b2\", \"b3\", \"b4\", \"b5\", \"b6\")\n\nbhat_named &lt;- cbind(b_names, round(bhat,3))\n\nkable(bhat_named,\n      col.names = c(\"Coefficient\",\n                    \"Estimate\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nCoefficient\nEstimate\n\n\n\n\nb1\n1.015\n\n\nb2\n1.995\n\n\nb3\n3.003\n\n\nb4\n3.986\n\n\nb5\n4.988\n\n\nb6\n5.999",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html",
+    "href": "mod-1-2-model.html",
+    "title": "6  Linear Regression Models",
+    "section": "",
+    "text": "6.1 Introduction\nA linear regression model provides a methodology for examining how the variation in one or more variables may cause variation in a variable of interest.\nThe variable of interest is the dependent variable and is denoted as \\(y\\).\nThe variables that may cause variation in the dependent variable are called the independent variables and are denoted as X.\nWe hypothesize that the dependent variable is a function of the independent variables or\n\\[\ny = f(X)\n\\]\nA linear regression model assumes the relationship between the dependent variable and independent variables can be models as a linear relationship.\nThe population regression function can be expressed as:\n\\[\ny = \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\dots + \\beta_k x_k + \\epsilon\n\\]\nWhere \\(\\beta_0\\) represents the intercept, that is, the value of \\(y\\) when the independent variables are 0.\nWhere \\(\\beta_1\\) through \\(\\beta_k\\) represent the coefficients on the independent variables, that is, the coefficients measure the responsiveness of the dependent variable to a one-unit change in the independent variables.\nWhere \\(\\epsilon\\) represents the disturbance term or ‘noise’ in our model, that is, the variation in the dependent variable that is not explained by the independent variables.\nA linear regression uses data to estimate the coefficients for the independent variables. Why do we need to estimate the coefficients? We do not observe the true values for the coefficients, that is, we do not observe the population parameters in the model.\nWe use data and linear regression to construct estimates of the population coefficients. If the coefficients are statistically significant, then we interpret the coefficients as representative of the population coefficients.\nUnlike physics, it is difficult to replicate experiments in economics. We cannot, for example, restart countries at 1950 to obtain new data. Uncertainty arises from human behavior, measurement error, and a host of other issues.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#notation",
+    "href": "mod-1-2-model.html#notation",
+    "title": "6  Linear Regression Models",
+    "section": "6.2 Notation",
+    "text": "6.2 Notation\nA scalar variable is a \\((1 \\times 1)\\) matrix. If \\(z = 5\\), then \\(z\\) is a scalar variable.\nA column vector is a \\((n \\times 1)\\) matrix, consisting of a single column of \\(n\\) elements. In most textbooks and linear algebra, the default vector is a column vector.\nAssume that our dependent variable, \\(y\\), has five observations. The dependent variable is a column vector that has 5 rows and 1 column, that is, \\(y \\sim (5 \\times 1)\\) or:\n\\[\\boldsymbol{y} = \\begin{bmatrix} y_1 \\\\ y_2 \\\\ y_3 \\\\ y_4 \\\\ y_5 \\end{bmatrix}\\]\nA row vector is a \\((1 \\times k)\\) matrix, consisting of a single row of \\(k\\) elements.\nAssumes that we have data on a single individual’s age, height, weight, income, and education. The row vector containing this data might look like:\n\\[\\begin{bmatrix}\n32 \\, years & 72 \\, inches & 190 \\, pounds & 75,000 & 18 \\, years\n\\end{bmatrix}\n\\] Note that we can transform a column vector into a row vector using the transpose operation. Returning to our column vector \\(y\\), we can take the transpose of \\(y\\) to obtain a \\(1 \\times 5\\) row vector or:\n\\[y^T =\\begin{bmatrix}\ny_1 & y_2 & y_3 & y_4 & y_5\n\\end{bmatrix}\n\\]\nA matrix, \\(\\boldsymbol{X}\\) with dimensions \\((n \\times K)\\) is\n\\[\\boldsymbol{X} = \\begin{bmatrix}\nx_{11} & x_{12} & \\dots & x_{1K} \\\\\nx_{21} & x_{22} & \\dots & x_{2K} \\\\\n\\vdots & \\vdots & \\ddots & \\vdots \\\\\nx_{n1} & x_{n2} & \\dots & x_{nK}\n\\end{bmatrix}\\]\nThe first subscript of an element gives the row position while the second subscript of the element gives the column position.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#expectations",
+    "href": "mod-1-2-model.html#expectations",
+    "title": "6  Linear Regression Models",
+    "section": "6.3 Expectations",
+    "text": "6.3 Expectations\nThe expected value of a random variable is the arithmetic mean of the variable, that is,\n\\[E[X] = \\mu_x\\]\nIn the discrete case, the expected value of a random variable \\(X\\) is found by multiplying each \\(x\\) by its probability and then summing over the random variable or:\n\\[E[X] = \\sum x \\, p(x) = \\mu_x\\]\nIn the continuous case, the expectation is defined by:\n\\[E[X] = \\int_{-\\infty}^{\\infty} x \\, f(x) \\, dx = \\mu_x\\]\nWe can show that the variance of \\(X\\) is equal to\n\\[\\sigma_X^2 = E[(X-\\mu)^2] = E(X^2) - (E[X])^2\\]\n\\[\\sigma_X^2 = E\\bigg[(X-\\mu)^2 \\bigg] = E \\bigg[(X-\\mu) \\, (X-\\mu) \\bigg]\\] \\[\\sigma_X^2 = E\\bigg[(X^2 - \\mu\\,X - X \\mu + \\mu^2) \\bigg]\\] Since \\(\\mu\\) is a scalar, we know that \\(E[\\mu X] = \\mu E[X]\\)\n\\[\\sigma_X^2 = E\\bigg[(X^2 - 2\\mu X + \\mu^2) \\bigg]\\] \\[\\sigma_X^2 = E[X^2] - 2 \\mu E[X] + \\mu^2\\] \\[\\sigma_X^2 = E[X^2] - 2 \\mu^2 + \\mu^2 = E[X^2] - \\mu^2 = E[X^2] - (E[X])^2\\]",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#linear-regression-model",
+    "href": "mod-1-2-model.html#linear-regression-model",
+    "title": "6  Linear Regression Models",
+    "section": "6.7 Linear Regression Model",
+    "text": "6.7 Linear Regression Model\nThe assumptions of linearity, full rank, and zero conditional mean comprise the linear regression model.\nThe regression of \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X}\\) is the conditional mean or:\n\\[E[\\boldsymbol{y}|\\boldsymbol{X}]\\]\nAssume that linearity, full rank, and zero conditional mean hold and the linear regression model is: \\[\\boldsymbol{y} = \\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon}\\]\nThen \\[E[\\boldsymbol{y}|\\boldsymbol{X}] = E[(\\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon})|\\boldsymbol{X}] = E[(\\boldsymbol{X \\beta})|\\boldsymbol{X}] + E[\\boldsymbol{\\epsilon}|\\boldsymbol{X}] = \\boldsymbol{X \\beta}\\]\nWithout the Zero Conditional Mean assumption, however,\n\\[\\boldsymbol{X \\beta}\\]\nis not the conditional mean function.\nIf the zero conditional mean assumption does not hold, then\n\\[E[\\boldsymbol{\\epsilon}|\\boldsymbol{X}] \\ne 0\\] which means that\n\\[E[\\boldsymbol{y}|\\boldsymbol{X}] = \\boldsymbol{X \\beta} + E[\\boldsymbol{\\epsilon}|\\boldsymbol{X}]\\]\nAs we will see, as the covariance between \\(\\epsilon\\) and \\(\\boldsymbol{X}\\) increases, that is, as \\(\\boldsymbol{X}\\) contains more information about \\(\\epsilon\\), the linear regression model will not produce ‘reliable’ estimates of the population parameters of interest.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#assumption-1-linearity",
+    "href": "mod-1-2-model.html#assumption-1-linearity",
+    "title": "6  Linear Regression Models",
+    "section": "6.4 Assumption 1: Linearity",
+    "text": "6.4 Assumption 1: Linearity\nIf the assumptions of the linear regression model hold, then the linear regression model will produce useful estimates of the unknown population parameters.\nLet the column vector \\(\\boldsymbol{x}_k\\) be the \\(n\\) observations on variable \\(x_k\\) where \\(k = 1, 2, ..., K\\) in a random sample of \\(n\\) observations.\nAssemble the \\(k\\) column vectors over \\(n\\) observations to obtain an \\((n \\times K)\\) matrix \\(\\boldsymbol{X}\\).\nThe first column of \\(\\boldsymbol{X}\\) or \\(\\boldsymbol{x}_1\\) is a column of 1s so that \\(\\beta_1\\) the constant term in the linear regression model.\nLet \\(\\boldsymbol{y}\\) be \\((n \\times 1)\\) column vector containing the \\(n\\) observations \\(y_1, y_2, ..., y_n\\).\nLet \\(\\boldsymbol{\\epsilon}\\) be \\((n \\times 1)\\) column vector containing the \\(n\\) observations \\(\\epsilon_1, \\epsilon_2, ..., \\epsilon_n\\).\nLet \\(\\boldsymbol{\\beta}\\) be the \\((k \\times 1)\\) parameter vector containing the \\(k\\) population parameters \\(\\beta_1, \\beta_2, ..., \\beta_k\\).\nThe linear regression model can be written as:\n\\[\n\\begin{bmatrix}\ny_1 \\\\ y_2 \\\\ \\vdots \\\\ y_n\n\\end{bmatrix} =\n\\begin{bmatrix}\n1 & x_{12} &\\dots & x_{1K} \\\\\n1 & x_{22} &\\dots & x_{2K} \\\\\n\\vdots & \\vdots & \\ddots & \\vdots \\\\\n1 & x_{n2} &\\dots & x_{nK}\n\\end{bmatrix}\n\\begin{bmatrix}\n\\beta_1 \\\\ \\beta_2 \\\\ \\vdots \\\\ \\beta_K\n\\end{bmatrix} +\n\\begin{bmatrix}\n\\epsilon_1 \\\\ \\epsilon_2 \\\\ \\vdots \\\\ \\epsilon_n\n\\end{bmatrix}\n\\]\nThe linear regression model can also be written as:\n\\[\\boldsymbol{y} = \\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon}\\]",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#useful-notation",
+    "href": "mod-1-2-model.html#useful-notation",
+    "title": "6  Linear Regression Models",
+    "section": "6.2 Useful Notation",
+    "text": "6.2 Useful Notation\nA scalar variable is a \\((1 \\times 1)\\) matrix. If \\(z = 5\\), then \\(z\\) is a scalar variable.\nA column vector is a \\((n \\times 1)\\) matrix, consisting of a single column of \\(n\\) elements. In most textbooks and linear algebra, the default vector is a column vector.\nAssume that our dependent variable, \\(y\\), has five observations. The dependent variable is a column vector that has 5 rows and 1 column, that is, \\(y \\sim (5 \\times 1)\\) or:\n\\[\\boldsymbol{y} = \\begin{bmatrix} y_1 \\\\ y_2 \\\\ y_3 \\\\ y_4 \\\\ y_5 \\end{bmatrix}\\]\nA row vector is a \\((1 \\times k)\\) matrix, consisting of a single row of \\(k\\) elements.\nAssumes that we have data on a single individual’s age, height, weight, income, and education. The row vector containing this data might look like:\n\\[\\begin{bmatrix}\n32 \\, years & 72 \\, inches & 190 \\, pounds & 75,000 & 18 \\, years\n\\end{bmatrix}\n\\]\nNote that we can transform a column vector into a row vector using the transpose operation. Returning to our column vector \\(y\\), we can take the transpose of \\(y\\) to obtain a \\(1 \\times 5\\) row vector or:\n\\[y^T =\\begin{bmatrix}\ny_1 & y_2 & y_3 & y_4 & y_5\n\\end{bmatrix}\n\\]\nA matrix, \\(\\boldsymbol{X}\\) with dimensions \\((n \\times K)\\) is\n\\[\\boldsymbol{X} = \\begin{bmatrix}\nx_{11} & x_{12} & \\dots & x_{1K} \\\\\nx_{21} & x_{22} & \\dots & x_{2K} \\\\\n\\vdots & \\vdots & \\ddots & \\vdots \\\\\nx_{n1} & x_{n2} & \\dots & x_{nK}\n\\end{bmatrix}\\]\nThe first subscript of an element gives the row position while the second subscript of the element gives the column position.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#assumption-2-full-rank",
+    "href": "mod-1-2-model.html#assumption-2-full-rank",
+    "title": "6  Linear Regression Models",
+    "section": "6.5 Assumption 2: Full Rank",
+    "text": "6.5 Assumption 2: Full Rank\nThe assumption of full rank or no perfect colinearity is that there are no exact linear relationships among the independent variables.\nThe assumption of full rank implies that \\(\\boldsymbol{X}\\) has full column rank, that is, there is no \\(\\boldsymbol{x}_k\\) that is an exact linear combination of one or more other \\(\\boldsymbol{x}_k\\) in \\(\\boldsymbol{X}\\).\nThe assumption of full rank also implies that are at least \\(K\\) observations in \\(\\boldsymbol{X}\\).\nThe assumptions of full column rank and \\(K\\) observations are known as the identification condition.\nIf a model is non-identifiable, the true population parameters cannot be ascertained.\nAssume X is \\((5 x 5)\\) can be expressed as:\n\\[\\boldsymbol{X} = \\begin{bmatrix}\nx_{11} & x_{12} & x_{13} & x_{14} & x_{15} \\\\\nx_{21} & x_{22} & x_{23} & x_{24} & x_{25} \\\\\nx_{31} & x_{32} & x_{33} & x_{34} & x_{35} \\\\\nx_{41} & x_{42} & x_{43} & x_{44} & x_{45} \\\\\nx_{51} & x_{52} & x_{53} & x_{54} & x_{55} \\end{bmatrix}\\]\nWhat would happen if\n\\[\nx_2 = x_3 + x_4\n\\]\nFirst, \\(x_2\\) is a perfect linear combination of \\(x_3\\) and \\(x_4\\) and, because of this, \\(X\\) is short rank.\nBecause \\(X\\) is short rank, no unique solution exists for the linear regression parameter estimates.\nIn the code example below, we create two \\((4 \\times 4)\\) matrices.\nIn the first matrix, the third column is equal to the square of the second column.\n\\[\nx_{3} = x_2^{2}\n\\]\nEven though \\(x_3\\) is equal to the square of \\(x_2\\), you cannot create \\(x_3\\) by multiplying \\(x_2\\) by a single scalar value, unless \\(x_2\\) is all 1’s or 0’s. The columns of X are linearly independent and the matrix is full rank.\nIn the second matrix, the third column is equal to the sum of the first two columns or:\n\\[\nx_3 = x_1 + x_2\n\\]\nIn this case, \\(x_3\\) is a perfect linear combination of \\(x_1\\) and \\(x_2\\). The X matrix is short rank.\nLet X be a \\((n \\times K)\\) matrix of independent variables. A key element of a linear regression model is:\n\\[\n(X^T X)^{-1}\n\\]\nFor this inverse to exist, the determinant must be non-zero.\nWe can use the det function in R to calculate the determinant of each matrix.\nWe find that the determinant of the first matrix, \\(X_1\\), is non-zero, while the determinant of the second matrix, \\(X_2\\), is equal to zero.\nBecause the determinant of \\(X_2\\) is equal to zero, the inverse of \\(X_2\\) does not exist.\nWhat about\n\\[\n(X_1^T X_1) \\\\\n(X_2^T X_2)\n\\]\nWe can use the det function to find that the determinant of \\(X_1^T X_1\\) is non-zero while the determinant of \\(X_2^T X_2\\) is equal to zero.\nIn other words, because \\(X_2\\) is short rank, \\(X_2^T X_2\\) is also short rank, and the inverse does not exist.\n\nrm(list = ls())\n\nx1 &lt;- cbind(c(1, 1, 1 ,1),\n            c(1, 2, 3, 4),\n            c(2, 4, 9, 16),\n            c(0, 1, 3, 5))\n\nx2 &lt;- cbind(c(1, 1, 1 ,1),\n            c(1, 2, 3, 4),\n            c(2, 3, 4, 5),\n            c(0, 1, 3, 5))\n\nx_1t_x_1 &lt;- t(x1) %*% x1\nx_2t_x_1 &lt;- t(x2) %*% x2\n\ndets &lt;- tibble(x1_det = det(x1),\n               x2_det = det(x2),\n               x1t_x_1 = det(x_1t_x_1),\n               x2t_x_2 = det(x_2t_x_1))\n\nkable(dets,\n      col.names = c('X1 Determinant', 'X2 Determinant',\n                    'X1^T X1 Determinant', 'X2^T X2 Determinant'),\n      align     = 'c',\n      digits    = 2)\n\n\n\n\n\n\n\n\n\n\nX1 Determinant\nX2 Determinant\nX1^T X1 Determinant\nX2^T X2 Determinant\n\n\n\n\n-2\n0\n4\n0",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#assumption-3-zero-conditional-mean",
+    "href": "mod-1-2-model.html#assumption-3-zero-conditional-mean",
+    "title": "6  Linear Regression Models",
+    "section": "6.6 Assumption 3: Zero Conditional Mean",
+    "text": "6.6 Assumption 3: Zero Conditional Mean\nRecall that the linear regression model is written as:\n\\[\\boldsymbol{y} = \\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon}\\]\nWhere the \\(\\epsilon\\) represents the disturbance term in the linear regression model.\nThe assumption of Zero Conditional Mean is that the expected value of the disturbance in the linear regression model is not a function of the independent variables, that is, the independent variables contain no useful information regarding the prediction of \\(\\epsilon\\).\nThe assumption of Zero Conditional Mean is\n\\[\nE[\\epsilon_i \\, | \\, \\boldsymbol{X}] = 0 \\quad \\forall \\, i\n\\]\nand implies that the mean of each \\(\\epsilon_i\\) conditional on all \\(\\boldsymbol{x_j}\\) is zero. In other words, no independent variable conveys information about the disturbances.\nThe assumption that there is no information in \\(\\boldsymbol{X}\\) about any \\(\\epsilon_i\\) is the strict exogeneity assumption.\nThe mean independence of the disturbances implies that the mean of the disturbances is zero or\n\\[\nE[\\epsilon] =  E[E[\\epsilon_i | \\boldsymbol{X}]] = E[0 | X] = 0\n\\]\nZero Conditional Mean also implies that no disturbance contains information about other disturbances, that is, the disturbances are independent of each other or:\n\\[\nE[\\epsilon_i | \\epsilon_j] = 0 \\quad \\forall i \\ne j\n\\]\nZero conditional mean implies that \\(cov(\\epsilon_i |\\boldsymbol{X}) = 0\\). This will be important later.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#assumption-4-homosecdasticity",
+    "href": "mod-1-2-model.html#assumption-4-homosecdasticity",
+    "title": "6  Linear Regression Models",
+    "section": "6.8 Assumption 4: Homosecdasticity",
+    "text": "6.8 Assumption 4: Homosecdasticity\nThe variance of the disturbances conditional on the independent variables is constant and the covariance among the disturbances conditional on the independent variables is equal to zero.\nThe assumption of homoscedasticity is:\n\\[var[\\epsilon_i |\\boldsymbol{X}] = \\sigma^2 \\quad \\forall i\\]\nThe assumption of no autocorrelation is\n\\[cov[\\epsilon_i, \\epsilon_j | \\boldsymbol{X}] = 0 \\quad \\forall i,j\\]\nHomoscedasticity implies that the variance of the disturbances is independent of \\(\\boldsymbol{X}\\) and constant, that is, the independent variables contain no information about the dispersion of the disturbances.\nThe assumption of no autocorrelation implies that the covariance of the disturbances, conditional on the independent variables, is equal to zero, that is, no disturbance contains information about any other disturbance.\nTogether, the assumptions imply that the diagonal of the variance-covariance matrix for the disturbances consists of \\(\\sigma^2\\) and the off-diagonal terms are 0.\nLet the variance of the disturbance be \\(E[\\epsilon \\epsilon^T |\\boldsymbol{X} ] =\\)\n\\[\\begin{bmatrix}\nE[\\epsilon_1^2|X] & E[\\epsilon_1 \\epsilon_2|X] & \\dots  & E[\\epsilon_1 \\epsilon_n|X]  \\\\\nE[\\epsilon_2 \\epsilon_1|X] & E[\\epsilon_2^2|X] & \\dots  & E[\\epsilon_2 \\epsilon_n|X]  \\\\\n\\vdots & \\vdots & \\ddots & \\vdots                                                     \\\\\nE[\\epsilon_n \\epsilon_1|X] & E[\\epsilon_n \\epsilon_2|X] & \\dots  & E[\\epsilon_n^2|X]  \n\\end{bmatrix}\\]\nUsing the assumptions of homoscedasticity and no autocorrelation yields:\n\\[\\begin{bmatrix}\n\\sigma^2 & 0 & \\ddots & 0  \\\\\n0 & \\sigma^2 & \\ddots & 0 \\\\\n\\vdots & \\vdots & \\ddots & \\vdots                                                     \\\\\n0 & 0 & \\ddots & \\sigma^2\n\\end{bmatrix}\\]\nWhat does this mean?\n\\[E[\\epsilon \\epsilon^T | \\boldsymbol{X}] = \\sigma^2 \\boldsymbol{I}\\]\nwhere \\(\\boldsymbol{I}\\) is an \\((n \\times k)\\) identity matrix consisting of 1’s on the diagonal and 0’s off the diagonal.\nIn other words, the variance-covariance matrix for the disturbances is, under the assumption of homoscedasticity, equal to a constant, \\(\\sigma^2\\) times an identity matrix.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#assumption-5-data-generation",
+    "href": "mod-1-2-model.html#assumption-5-data-generation",
+    "title": "6  Linear Regression Models",
+    "section": "6.9 Assumption 5: Data Generation",
+    "text": "6.9 Assumption 5: Data Generation\nSocial scientists cannot, in many circumstances, create and run experiments. If we could, then regressors would be nonrandom. Instead, we often rely on observational data the results from a stochastic process.\nWe also use dummy variables to capture specific events or characteristics. A constant may be used to capture a starting or ending point of a process. In other words, we may also use non-stochastic data.\nIn macroeconomics, the date of colonial independence is often used in regressions of Gross Domestic Product on determinants of economic development as a control variable. These regressions mix stochastic (investment, exports, democracy) and non-stochastic (colonial independence, legal system dummy) data.\nAssumption 5 is that the regressors may be fixed or random, that is, the matrix of independent variables may contain stochastic (random) and non-stochastic (non-random) variables.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#assumption-6-normal-disturbances",
+    "href": "mod-1-2-model.html#assumption-6-normal-disturbances",
+    "title": "6  Linear Regression Models",
+    "section": "6.10 Assumption 6: Normal Disturbances",
+    "text": "6.10 Assumption 6: Normal Disturbances\nAssumption 3 (Zero Conditional Mean) implies that that the conditional mean of the disturbances is zero\n\\[\nE[\\epsilon_i | \\boldsymbol{X}] = 0\n\\]\nAssumption 4 implies that the conditional variance of the disturbances is equal to \\(\\sigma^2 I\\) or\n\\[\nE[\\epsilon^T \\epsilon | \\boldsymbol{X}] = E[\\epsilon^T \\epsilon] = \\sigma^2 I\n\\]\nAssumption 6 is that the disturbances are normally distributed or\n\\[\n\\epsilon \\sim N(0, \\sigma^2I)\n\\]\nThis assumption is useful for inference, however, it is also restrictive.\nFor our purposes, the normality of the disturbances is a useful starting point.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#linear-regression-model-1",
+    "href": "mod-1-2-model.html#linear-regression-model-1",
+    "title": "6  Linear Regression Models",
+    "section": "6.11 Linear Regression Model",
+    "text": "6.11 Linear Regression Model\nIf the assumptions of the linear regression model hold, we can show that the model produces reasonable estimates of the unknown population parameters.\nThe assumptions of linearity, full rank, the exogeneity of the independent variables (Zero Conditional Mean) pertain to the process of generating estimates of the unknown parameters.\nThe assumptions of homoscedasticity, data generating (stochastic and non-stochastic regressors), and normality of the disturbances pertain to the behavior of the disturbances in the model.\nLet the two-variable linear regression model be\n\\[y = \\beta_0 + \\beta_1 \\boldsymbol{x} + \\epsilon\\]\nIf the assumptions hold, then \\[E[y] = \\beta_0 + \\beta_1 \\boldsymbol{x}\\]\nDifferent textbooks have different conventions. Sometimes the intercept is \\(\\beta_0\\), sometimes \\(\\beta_1\\). There is no significant impact on derivation.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#violating-the-asssumptions",
+    "href": "mod-1-2-model.html#violating-the-asssumptions",
+    "title": "6  Linear Regression Models",
+    "section": "6.12 Violating the Asssumptions",
+    "text": "6.12 Violating the Asssumptions\nIn this course, we will focus on violations of the assumptions of the exogeneity of the regressors and homoscedasticity.\nIf the regressors and the disturbances are independent but the variance of the disturbances is a function of the regressors, then the variance of the disturbances is no longer constant.\nIf this occurs, the estimates of the standard errors of the parameter estimates are not reliable and we cannot make inferences about the statistical significance of the parameter estimates.\nWe will show that if one or more regressors are endogenous that the parameter estimates do not, on average equal the population parameters.\nWe will also show that if one or more regressors are endogenous that the parameter estimates do not converge to the population parameters.\nWe will need to modify our approach to account for endogeneity, heteroscedasticity, or both.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#next-steps",
+    "href": "mod-1-2-model.html#next-steps",
+    "title": "6  Linear Regression Models",
+    "section": "6.13 Next Steps",
+    "text": "6.13 Next Steps\nAssume our linear regression model of interest is:\n\\[salary = \\alpha + \\beta\\ education + \\epsilon\\]\nThe question is how do we estimate the unknown parameters of interest?\nWe can specify a population regression function\n\\[\\boldsymbol{y} = \\boldsymbol{X}\\boldsymbol{\\beta} + \\boldsymbol{\\epsilon}\\]\nIn this model, the ith observation\n\\[y_i = \\boldsymbol{x_i}^T \\boldsymbol{\\beta} + \\epsilon_i\\]\nThe population regression is\n\\[E[y_i | \\boldsymbol{x_i}] = \\boldsymbol{x_i^T\\ \\beta}\\]\nThe disturbance for the ith observation is \\[\\epsilon_i = y_i - \\boldsymbol{x_i^T\\ \\beta}\\]\nWe observe \\(y_i\\) and \\(\\boldsymbol{x_i}\\) but we do not observe \\(\\boldsymbol{\\beta}\\) or \\(\\epsilon\\).\nThe sample estimate of \\(\\boldsymbol{\\beta}\\) is \\(\\boldsymbol{b}\\) while the sample estimate of \\(\\epsilon_i\\) is \\(e_i\\).\nThe sample estimate of \\[E[y_i | \\boldsymbol{x_i}] = \\hat{y_i} = \\boldsymbol{x_i^T\\ b}\\]\n\\[e_i = y_i - \\hat{y_i} = y_i - \\boldsymbol{x_i^T\\ b}\\]\n\\[y_i = \\boldsymbol{x_i^T\\ \\beta} + \\epsilon = \\boldsymbol{x_i^T\\ b} + e_i\\]\nIt is important to note that we can decompose the dependent variable into two components: explained variation and unexplained variation.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
     ]
   }
 ]

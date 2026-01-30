@@ -1,0 +1,463 @@
+---
+title: "Linear Regression Models"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    self-contained: false     # must be false when using webr
+urlcolor: blue
+filters:
+  - webr
+execute:
+  webR: true
+---
+
+```{r setup, echo = FALSE, message = FALSE}
+
+library(dplyr, quietly = TRUE)
+library(ggplot2, quietly = TRUE)
+library(kableExtra, quietly = TRUE)
+library(lubridate, quietly = TRUE)
+library(tidyquant, quietly = TRUE)
+
+```
+
+## Introduction
+
+A linear regression model provides a methodology for examining how the variation in one or more variables may cause variation in a variable of interest.
+
+The variable of interest is the **dependent variable** and is denoted as $y$.
+
+The variables that may cause variation in the dependent variable are called the **independent variables** and are denoted as **X**.
+
+We hypothesize that the dependent variable is a function of the independent variables or
+
+$$
+y = f(X)
+$$
+
+A linear regression model assumes the relationship between the dependent variable and independent variables can be models as a linear relationship.
+
+The **population regression function** can be expressed as:
+
+$$
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_k x_k + \epsilon
+$$
+
+Where $\beta_0$ represents the intercept, that is, the value of $y$ when the independent variables are 0.
+
+Where $\beta_1$ through $\beta_k$ represent the coefficients on the independent variables, that is, the coefficients measure the responsiveness of the dependent variable to a one-unit change in the independent variables.
+
+Where $\epsilon$ represents the disturbance term or 'noise' in our model, that is, the variation in the dependent variable that is not explained by the independent variables.
+
+A **linear regression** uses data to estimate the coefficients for the independent variables. Why do we need to estimate the coefficients? We do not observe the true values for the coefficients, that is, we do not observe the population parameters in the model.
+
+We use data and linear regression to construct estimates of the population coefficients. If the coefficients are statistically significant, then we interpret the coefficients as representative of the population coefficients.
+
+*Unlike physics, it is difficult to replicate experiments in economics. We cannot, for example, restart countries at 1950 to obtain new data. Uncertainty arises from human behavior, measurement error, and a host of other issues.*
+
+## Useful Notation
+
+A scalar variable is a $(1 \times 1)$ matrix. If $z = 5$, then $z$ is a scalar variable.
+
+A column vector is a $(n \times 1)$ matrix, consisting of a single column of $n$ elements. In most textbooks and linear algebra, the default vector is a column vector.
+
+Assume that our dependent variable, $y$, has five observations. The dependent variable is a column vector that has 5 rows and 1 column, that is, $y \sim (5 \times 1)$ or:
+
+$$\boldsymbol{y} = \begin{bmatrix} y_1 \\ y_2 \\ y_3 \\ y_4 \\ y_5 \end{bmatrix}$$
+
+A row vector is a $(1 \times k)$ matrix, consisting of a single row of $k$ elements.
+
+Assumes that we have data on a single individual's age, height, weight, income, and education. The row vector containing this data might look like:
+
+$$\begin{bmatrix}
+32 \, years & 72 \, inches & 190 \, pounds & 75,000 & 18 \, years
+\end{bmatrix}
+$$
+
+Note that we can transform a column vector into a row vector using the **transpose operation**. Returning to our column vector $y$, we can take the transpose of $y$ to obtain a $1 \times 5$ row vector or:
+
+$$y^T =\begin{bmatrix}
+y_1 & y_2 & y_3 & y_4 & y_5
+\end{bmatrix}
+$$
+
+A matrix, $\boldsymbol{X}$ with dimensions $(n \times K)$ is
+
+$$\boldsymbol{X} = \begin{bmatrix}
+x_{11} & x_{12} & \dots & x_{1K} \\
+x_{21} & x_{22} & \dots & x_{2K} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n1} & x_{n2} & \dots & x_{nK}
+\end{bmatrix}$$
+
+The first subscript of an element gives the row position while the second subscript of the element gives the column position.
+
+## Expectations
+
+The **expected value** of a random variable is the arithmetic mean of the variable, that is,
+
+$$E[X] = \mu_x$$
+
+In the discrete case, the expected value of a random variable $X$ is found by multiplying each $x$ by its probability and then summing over the random variable or:
+
+$$E[X] = \sum x \, p(x) = \mu_x$$
+
+In the continuous case, the expectation is defined by:
+
+$$E[X] = \int_{-\infty}^{\infty} x \, f(x) \, dx = \mu_x$$
+
+We can show that the variance of $X$ is equal to
+
+$$\sigma_X^2 = E[(X-\mu)^2] = E(X^2) - (E[X])^2$$
+
+$$\sigma_X^2 = E\bigg[(X-\mu)^2 \bigg] = E \bigg[(X-\mu) \, (X-\mu) \bigg]$$ $$\sigma_X^2 = E\bigg[(X^2 - \mu\,X - X \mu + \mu^2) \bigg]$$ Since $\mu$ is a scalar, we know that $E[\mu X] = \mu E[X]$
+
+$$\sigma_X^2 = E\bigg[(X^2 - 2\mu X + \mu^2) \bigg]$$ $$\sigma_X^2 = E[X^2] - 2 \mu E[X] + \mu^2$$ $$\sigma_X^2 = E[X^2] - 2 \mu^2 + \mu^2 = E[X^2] - \mu^2 = E[X^2] - (E[X])^2$$
+
+## Assumption 1: Linearity
+
+If the assumptions of the linear regression model hold, then the linear regression model will produce useful estimates of the unknown population parameters.
+
+Let the column vector $\boldsymbol{x}_k$ be the $n$ observations on variable $x_k$ where $k = 1, 2, ..., K$ in a random sample of $n$ observations.
+
+Assemble the $k$ column vectors over $n$ observations to obtain an $(n \times K)$ matrix $\boldsymbol{X}$.
+
+The first column of $\boldsymbol{X}$ or $\boldsymbol{x}_1$ is a column of 1s so that $\beta_1$ the constant term in the linear regression model.
+
+Let $\boldsymbol{y}$ be $(n \times 1)$ column vector containing the $n$ observations $y_1, y_2, ..., y_n$.
+
+Let $\boldsymbol{\epsilon}$ be $(n \times 1)$ column vector containing the $n$ observations $\epsilon_1, \epsilon_2, ..., \epsilon_n$.
+
+Let $\boldsymbol{\beta}$ be the $(k \times 1)$ parameter vector containing the $k$ population parameters $\beta_1, \beta_2, ..., \beta_k$.
+
+The linear regression model can be written as:
+
+$$
+\begin{bmatrix}
+y_1 \\ y_2 \\ \vdots \\ y_n
+\end{bmatrix} = 
+\begin{bmatrix}
+1 & x_{12} &\dots & x_{1K} \\
+1 & x_{22} &\dots & x_{2K} \\
+\vdots & \vdots & \ddots & \vdots \\
+1 & x_{n2} &\dots & x_{nK}
+\end{bmatrix}
+\begin{bmatrix}
+\beta_1 \\ \beta_2 \\ \vdots \\ \beta_K
+\end{bmatrix} +
+\begin{bmatrix}
+\epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_n
+\end{bmatrix}
+$$
+
+The linear regression model can also be written as:
+
+$$\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}$$
+
+## Assumption 2: Full Rank
+
+The assumption of **full rank** or **no perfect colinearity** is that there are no exact linear relationships among the independent variables.
+
+The assumption of full rank implies that $\boldsymbol{X}$ has full column rank, that is, there is no $\boldsymbol{x}_k$ that is an exact linear combination of one or more other $\boldsymbol{x}_k$ in $\boldsymbol{X}$.
+
+The assumption of full rank also implies that are at least $K$ observations in $\boldsymbol{X}$.
+
+The assumptions of full column rank and $K$ observations are known as the **identification condition**.
+
+If a model is non-identifiable, the true population parameters cannot be ascertained.
+
+Assume **X** is $(5 x 5)$ can be expressed as:
+
+$$\boldsymbol{X} = \begin{bmatrix} 
+x_{11} & x_{12} & x_{13} & x_{14} & x_{15} \\ 
+x_{21} & x_{22} & x_{23} & x_{24} & x_{25} \\ 
+x_{31} & x_{32} & x_{33} & x_{34} & x_{35} \\
+x_{41} & x_{42} & x_{43} & x_{44} & x_{45} \\
+x_{51} & x_{52} & x_{53} & x_{54} & x_{55} \end{bmatrix}$$
+
+What would happen if
+
+$$
+x_2 = x_3 + x_4
+$$
+
+First, $x_2$ is a perfect linear combination of $x_3$ and $x_4$ and, because of this, $X$ is **short rank**.
+
+Because $X$ is **short rank**, no unique solution exists for the linear regression parameter estimates.
+
+In the code example below, we create two $(4 \times 4)$ matrices.
+
+In the first matrix, the third column is equal to the square of the second column.
+
+$$
+x_{3} = x_2^{2}
+$$
+
+Even though $x_3$ is equal to the square of $x_2$, you cannot create $x_3$ by multiplying $x_2$ by a single scalar value, unless $x_2$ is all 1's or 0's. The columns of **X** are linearly independent and the matrix is **full rank**.
+
+In the second matrix, the third column is equal to the sum of the first two columns or:
+
+$$
+x_3 = x_1 + x_2
+$$
+
+In this case, $x_3$ is a perfect linear combination of $x_1$ and $x_2$. The **X** matrix is **short rank**.
+
+Let **X** be a $(n \times K)$ matrix of independent variables. A key element of a linear regression model is:
+
+$$
+(X^T X)^{-1}
+$$
+
+For this inverse to exist, the **determinant** must be non-zero.
+
+We can use the **det** function in R to calculate the determinant of each matrix.
+
+We find that the determinant of the first matrix, $X_1$, is non-zero, while the determinant of the second matrix, $X_2$, is equal to zero.
+
+Because the determinant of $X_2$ is equal to zero, the inverse of $X_2$ does not exist.
+
+What about
+
+$$
+(X_1^T X_1) \\
+(X_2^T X_2)
+$$
+
+We can use the **det** function to find that the determinant of $X_1^T X_1$ is non-zero while the determinant of $X_2^T X_2$ is equal to zero.
+
+In other words, because $X_2$ is short rank, $X_2^T X_2$ is also short rank, and the inverse does not exist.
+
+```{r}
+
+rm(list = ls())
+
+x1 <- cbind(c(1, 1, 1 ,1),
+            c(1, 2, 3, 4),
+            c(2, 4, 9, 16),
+            c(0, 1, 3, 5))
+
+x2 <- cbind(c(1, 1, 1 ,1),
+            c(1, 2, 3, 4),
+            c(2, 3, 4, 5),
+            c(0, 1, 3, 5))
+
+x_1t_x_1 <- t(x1) %*% x1
+x_2t_x_1 <- t(x2) %*% x2
+
+dets <- tibble(x1_det = det(x1),
+               x2_det = det(x2),
+               x1t_x_1 = det(x_1t_x_1),
+               x2t_x_2 = det(x_2t_x_1))
+
+kable(dets,
+      col.names = c('X1 Determinant', 'X2 Determinant',
+                    'X1^T X1 Determinant', 'X2^T X2 Determinant'),
+      align     = 'c',
+      digits    = 2)
+
+```
+
+## Assumption 3: Zero Conditional Mean
+
+Recall that the linear regression model is written as:
+
+$$\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}$$
+
+Where the $\epsilon$ represents the **disturbance term** in the linear regression model.
+
+The assumption of **Zero Conditional Mean** is that the expected value of the disturbance in the linear regression model is not a function of the independent variables, that is, the independent variables contain no useful information regarding the prediction of $\epsilon$.
+
+The assumption of Zero Conditional Mean is
+
+$$
+E[\epsilon_i \, | \, \boldsymbol{X}] = 0 \quad \forall \, i
+$$
+
+and implies that the mean of each $\epsilon_i$ conditional on all $\boldsymbol{x_j}$ is zero. In other words, no independent variable conveys information about the disturbances.
+
+The assumption that there is no information in $\boldsymbol{X}$ about any $\epsilon_i$ is the **strict exogeneity assumption**.
+
+The **mean independence** of the disturbances implies that the mean of the disturbances is zero or
+
+$$
+E[\epsilon] =  E[E[\epsilon_i | \boldsymbol{X}]] = E[0 | X] = 0
+$$
+
+Zero Conditional Mean also implies that no disturbance contains information about other disturbances, that is, the disturbances are independent of each other or:
+
+$$
+E[\epsilon_i | \epsilon_j] = 0 \quad \forall i \ne j
+$$
+
+Zero conditional mean implies that $cov(\epsilon_i |\boldsymbol{X}) = 0$. This will be important later.
+
+## Linear Regression Model
+
+The assumptions of linearity, full rank, and zero conditional mean comprise the linear regression model.
+
+The regression of $\boldsymbol{y}$ on $\boldsymbol{X}$ is the conditional mean or:
+
+$$E[\boldsymbol{y}|\boldsymbol{X}]$$
+
+Assume that linearity, full rank, and zero conditional mean hold and the linear regression model is: $$\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}$$
+
+Then $$E[\boldsymbol{y}|\boldsymbol{X}] = E[(\boldsymbol{X \beta} + \boldsymbol{\epsilon})|\boldsymbol{X}] = E[(\boldsymbol{X \beta})|\boldsymbol{X}] + E[\boldsymbol{\epsilon}|\boldsymbol{X}] = \boldsymbol{X \beta}$$
+
+Without the Zero Conditional Mean assumption, however,
+
+$$\boldsymbol{X \beta}$$
+
+is not the conditional mean function.
+
+If the zero conditional mean assumption does not hold, then
+
+$$E[\boldsymbol{\epsilon}|\boldsymbol{X}] \ne 0$$ which means that
+
+$$E[\boldsymbol{y}|\boldsymbol{X}] = \boldsymbol{X \beta} + E[\boldsymbol{\epsilon}|\boldsymbol{X}]$$
+
+As we will see, as the covariance between $\epsilon$ and $\boldsymbol{X}$ increases, that is, as $\boldsymbol{X}$ contains more information about $\epsilon$, the linear regression model will not produce 'reliable' estimates of the population parameters of interest.
+
+## Assumption 4: Homosecdasticity
+
+The variance of the disturbances conditional on the independent variables is constant and the covariance among the disturbances conditional on the independent variables is equal to zero.
+
+The assumption of **homoscedasticity** is:
+
+$$var[\epsilon_i |\boldsymbol{X}] = \sigma^2 \quad \forall i$$
+
+The assumption of **no autocorrelation** is
+
+$$cov[\epsilon_i, \epsilon_j | \boldsymbol{X}] = 0 \quad \forall i,j$$
+
+Homoscedasticity implies that the variance of the disturbances is independent of $\boldsymbol{X}$ and constant, that is, the independent variables contain no information about the dispersion of the disturbances.
+
+The assumption of no autocorrelation implies that the covariance of the disturbances, conditional on the independent variables, is equal to zero, that is, no disturbance contains information about any other disturbance.
+
+Together, the assumptions imply that the diagonal of the variance-covariance matrix for the disturbances consists of $\sigma^2$ and the off-diagonal terms are 0.
+
+Let the variance of the disturbance be $E[\epsilon \epsilon^T |\boldsymbol{X} ] =$
+
+$$\begin{bmatrix}
+E[\epsilon_1^2|X] & E[\epsilon_1 \epsilon_2|X] & \dots  & E[\epsilon_1 \epsilon_n|X]  \\
+E[\epsilon_2 \epsilon_1|X] & E[\epsilon_2^2|X] & \dots  & E[\epsilon_2 \epsilon_n|X]  \\
+\vdots & \vdots & \ddots & \vdots                                                     \\
+E[\epsilon_n \epsilon_1|X] & E[\epsilon_n \epsilon_2|X] & \dots  & E[\epsilon_n^2|X]  
+\end{bmatrix}$$
+
+Using the assumptions of homoscedasticity and no autocorrelation yields:
+
+$$\begin{bmatrix}
+\sigma^2 & 0 & \ddots & 0  \\
+0 & \sigma^2 & \ddots & 0 \\
+\vdots & \vdots & \ddots & \vdots                                                     \\
+0 & 0 & \ddots & \sigma^2 
+\end{bmatrix}$$
+
+What does this mean?
+
+$$E[\epsilon \epsilon^T | \boldsymbol{X}] = \sigma^2 \boldsymbol{I}$$
+
+where $\boldsymbol{I}$ is an $(n \times k)$ identity matrix consisting of 1's on the diagonal and 0's off the diagonal.
+
+In other words, the variance-covariance matrix for the disturbances is, under the assumption of homoscedasticity, equal to a constant, $\sigma^2$ times an identity matrix.
+
+## Assumption 5: Data Generation
+
+Social scientists cannot, in many circumstances, create and run experiments. If we could, then regressors would be nonrandom. Instead, we often rely on observational data the results from a stochastic process.
+
+We also use dummy variables to capture specific events or characteristics. A constant may be used to capture a starting or ending point of a process. In other words, we may also use non-stochastic data.
+
+In macroeconomics, the date of colonial independence is often used in regressions of Gross Domestic Product on determinants of economic development as a control variable. These regressions mix stochastic (investment, exports, democracy) and non-stochastic (colonial independence, legal system dummy) data.
+
+Assumption 5 is that the regressors may be fixed or random, that is, the matrix of independent variables may contain stochastic (random) and non-stochastic (non-random) variables.
+
+## Assumption 6: Normal Disturbances
+
+Assumption 3 (Zero Conditional Mean) implies that that the conditional mean of the disturbances is zero
+
+$$
+E[\epsilon_i | \boldsymbol{X}] = 0
+$$
+
+Assumption 4 implies that the conditional variance of the disturbances is equal to $\sigma^2 I$ or
+
+$$
+E[\epsilon^T \epsilon | \boldsymbol{X}] = E[\epsilon^T \epsilon] = \sigma^2 I
+$$
+
+Assumption 6 is that the disturbances are normally distributed or
+
+$$
+\epsilon \sim N(0, \sigma^2I)
+$$
+
+This assumption is useful for inference, however, it is also restrictive.
+
+For our purposes, the normality of the disturbances is a useful starting point.
+
+## Linear Regression Model
+
+If the assumptions of the linear regression model hold, we can show that the model produces reasonable estimates of the unknown population parameters.
+
+The assumptions of linearity, full rank, the exogeneity of the independent variables (Zero Conditional Mean) pertain to the process of generating estimates of the unknown parameters.
+
+The assumptions of homoscedasticity, data generating (stochastic and non-stochastic regressors), and normality of the disturbances pertain to the behavior of the disturbances in the model.
+
+Let the two-variable linear regression model be
+
+$$y = \beta_0 + \beta_1 \boldsymbol{x} + \epsilon$$
+
+If the assumptions hold, then $$E[y] = \beta_0 + \beta_1 \boldsymbol{x}$$
+
+Different textbooks have different conventions. Sometimes the intercept is $\beta_0$, sometimes $\beta_1$. There is no significant impact on derivation.
+
+## Violating the Asssumptions
+
+In this course, we will focus on violations of the assumptions of the exogeneity of the regressors and homoscedasticity.
+
+If the regressors and the disturbances are independent but the variance of the disturbances is a function of the regressors, then the variance of the disturbances is no longer constant.
+
+If this occurs, the estimates of the standard errors of the parameter estimates are not reliable and we cannot make inferences about the statistical significance of the parameter estimates.
+
+We will show that if one or more regressors are **endogenous** that the parameter estimates do not, on average equal the population parameters.
+
+We will also show that if one or more regressors are endogenous that the parameter estimates do not converge to the population parameters.
+
+We will need to modify our approach to account for endogeneity, heteroscedasticity, or both.
+
+## Next Steps
+
+Assume our linear regression model of interest is:
+
+$$salary = \alpha + \beta\ education + \epsilon$$
+
+The question is how do we estimate the unknown parameters of interest?
+
+We can specify a population regression function
+
+$$\boldsymbol{y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\epsilon}$$
+
+In this model, the *ith* observation
+
+$$y_i = \boldsymbol{x_i}^T \boldsymbol{\beta} + \epsilon_i$$
+
+The population regression is
+
+$$E[y_i | \boldsymbol{x_i}] = \boldsymbol{x_i^T\ \beta}$$
+
+The disturbance for the *ith* observation is $$\epsilon_i = y_i - \boldsymbol{x_i^T\ \beta}$$
+
+We observe $y_i$ and $\boldsymbol{x_i}$ but we do not observe $\boldsymbol{\beta}$ or $\epsilon$.
+
+The sample estimate of $\boldsymbol{\beta}$ is $\boldsymbol{b}$ while the sample estimate of $\epsilon_i$ is $e_i$.
+
+The sample estimate of $$E[y_i | \boldsymbol{x_i}] = \hat{y_i} = \boldsymbol{x_i^T\ b}$$
+
+$$e_i = y_i - \hat{y_i} = y_i - \boldsymbol{x_i^T\ b}$$
+
+$$y_i = \boldsymbol{x_i^T\ \beta} + \epsilon = \boldsymbol{x_i^T\ b} + e_i$$
+
+It is important to note that we can **decompose** the dependent variable into two components: **explained variation** and **unexplained variation**.
