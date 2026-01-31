@@ -244,15 +244,15 @@ window.Quarto = {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">6.1</span> Introduction</a></li>
   <li><a href="#useful-notation" id="toc-useful-notation" class="nav-link" data-scroll-target="#useful-notation"><span class="header-section-number">6.2</span> Useful Notation</a></li>
   <li><a href="#expectations" id="toc-expectations" class="nav-link" data-scroll-target="#expectations"><span class="header-section-number">6.3</span> Expectations</a></li>
-  <li><a href="#assumption-1-linearity" id="toc-assumption-1-linearity" class="nav-link" data-scroll-target="#assumption-1-linearity"><span class="header-section-number">6.4</span> Assumption 1: Linearity</a></li>
-  <li><a href="#assumption-2-full-rank" id="toc-assumption-2-full-rank" class="nav-link" data-scroll-target="#assumption-2-full-rank"><span class="header-section-number">6.5</span> Assumption 2: Full Rank</a></li>
-  <li><a href="#assumption-3-zero-conditional-mean" id="toc-assumption-3-zero-conditional-mean" class="nav-link" data-scroll-target="#assumption-3-zero-conditional-mean"><span class="header-section-number">6.6</span> Assumption 3: Zero Conditional Mean</a></li>
-  <li><a href="#linear-regression-model" id="toc-linear-regression-model" class="nav-link" data-scroll-target="#linear-regression-model"><span class="header-section-number">6.7</span> Linear Regression Model</a></li>
-  <li><a href="#assumption-4-homosecdasticity" id="toc-assumption-4-homosecdasticity" class="nav-link" data-scroll-target="#assumption-4-homosecdasticity"><span class="header-section-number">6.8</span> Assumption 4: Homosecdasticity</a></li>
-  <li><a href="#assumption-5-data-generation" id="toc-assumption-5-data-generation" class="nav-link" data-scroll-target="#assumption-5-data-generation"><span class="header-section-number">6.9</span> Assumption 5: Data Generation</a></li>
-  <li><a href="#assumption-6-normal-disturbances" id="toc-assumption-6-normal-disturbances" class="nav-link" data-scroll-target="#assumption-6-normal-disturbances"><span class="header-section-number">6.10</span> Assumption 6: Normal Disturbances</a></li>
-  <li><a href="#linear-regression-model-1" id="toc-linear-regression-model-1" class="nav-link" data-scroll-target="#linear-regression-model-1"><span class="header-section-number">6.11</span> Linear Regression Model</a></li>
-  <li><a href="#violating-the-asssumptions" id="toc-violating-the-asssumptions" class="nav-link" data-scroll-target="#violating-the-asssumptions"><span class="header-section-number">6.12</span> Violating the Asssumptions</a></li>
+  <li><a href="#linearity" id="toc-linearity" class="nav-link" data-scroll-target="#linearity"><span class="header-section-number">6.4</span> Linearity</a></li>
+  <li><a href="#full-rank" id="toc-full-rank" class="nav-link" data-scroll-target="#full-rank"><span class="header-section-number">6.5</span> Full Rank</a></li>
+  <li><a href="#zero-conditional-mean" id="toc-zero-conditional-mean" class="nav-link" data-scroll-target="#zero-conditional-mean"><span class="header-section-number">6.6</span> Zero Conditional Mean</a></li>
+  <li><a href="#unbiasedness" id="toc-unbiasedness" class="nav-link" data-scroll-target="#unbiasedness"><span class="header-section-number">6.7</span> Unbiasedness</a></li>
+  <li><a href="#homosecdasticity" id="toc-homosecdasticity" class="nav-link" data-scroll-target="#homosecdasticity"><span class="header-section-number">6.8</span> Homosecdasticity</a></li>
+  <li><a href="#data-generation" id="toc-data-generation" class="nav-link" data-scroll-target="#data-generation"><span class="header-section-number">6.9</span> Data Generation</a></li>
+  <li><a href="#normal-disturbances" id="toc-normal-disturbances" class="nav-link" data-scroll-target="#normal-disturbances"><span class="header-section-number">6.10</span> Normal Disturbances</a></li>
+  <li><a href="#linear-regression-model" id="toc-linear-regression-model" class="nav-link" data-scroll-target="#linear-regression-model"><span class="header-section-number">6.11</span> Linear Regression Model</a></li>
+  <li><a href="#violating-the-assumptions" id="toc-violating-the-assumptions" class="nav-link" data-scroll-target="#violating-the-assumptions"><span class="header-section-number">6.12</span> Violating the Assumptions</a></li>
   <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps"><span class="header-section-number">6.13</span> Next Steps</a></li>
   </ul>
 </nav>
@@ -339,8 +339,8 @@ x_{n1} &amp; x_{n2} &amp; \dots &amp; x_{nK}
 <p><span class="math display">\[\sigma_X^2 = E\bigg[(X-\mu)^2 \bigg] = E \bigg[(X-\mu) \, (X-\mu) \bigg]\]</span> <span class="math display">\[\sigma_X^2 = E\bigg[(X^2 - \mu\,X - X \mu + \mu^2) \bigg]\]</span> Since <span class="math inline">\(\mu\)</span> is a scalar, we know that <span class="math inline">\(E[\mu X] = \mu E[X]\)</span></p>
 <p><span class="math display">\[\sigma_X^2 = E\bigg[(X^2 - 2\mu X + \mu^2) \bigg]\]</span> <span class="math display">\[\sigma_X^2 = E[X^2] - 2 \mu E[X] + \mu^2\]</span> <span class="math display">\[\sigma_X^2 = E[X^2] - 2 \mu^2 + \mu^2 = E[X^2] - \mu^2 = E[X^2] - (E[X])^2\]</span></p>
 </section>
-<section id="assumption-1-linearity" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="assumption-1-linearity"><span class="header-section-number">6.4</span> Assumption 1: Linearity</h2>
+<section id="linearity" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="linearity"><span class="header-section-number">6.4</span> Linearity</h2>
 <p>If the assumptions of the linear regression model hold, then the linear regression model will produce useful estimates of the unknown population parameters.</p>
 <p>Let the column vector <span class="math inline">\(\boldsymbol{x}_k\)</span> be the <span class="math inline">\(n\)</span> observations on variable <span class="math inline">\(x_k\)</span> where <span class="math inline">\(k = 1, 2, ..., K\)</span> in a random sample of <span class="math inline">\(n\)</span> observations.</p>
 <p>Assemble the <span class="math inline">\(k\)</span> column vectors over <span class="math inline">\(n\)</span> observations to obtain an <span class="math inline">\((n \times K)\)</span> matrix <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
@@ -369,8 +369,8 @@ y_1 \\ y_2 \\ \vdots \\ y_n
 <p>The linear regression model can also be written as:</p>
 <p><span class="math display">\[\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}\]</span></p>
 </section>
-<section id="assumption-2-full-rank" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="assumption-2-full-rank"><span class="header-section-number">6.5</span> Assumption 2: Full Rank</h2>
+<section id="full-rank" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="full-rank"><span class="header-section-number">6.5</span> Full Rank</h2>
 <p>The assumption of <strong>full rank</strong> or <strong>no perfect colinearity</strong> is that there are no exact linear relationships among the independent variables.</p>
 <p>The assumption of full rank implies that <span class="math inline">\(\boldsymbol{X}\)</span> has full column rank, that is, there is no <span class="math inline">\(\boldsymbol{x}_k\)</span> that is an exact linear combination of one or more other <span class="math inline">\(\boldsymbol{x}_k\)</span> in <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
 <p>The assumption of full rank also implies that are at least <span class="math inline">\(K\)</span> observations in <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
@@ -469,8 +469,8 @@ x_3 = x_1 + x_2
 </div>
 </div>
 </section>
-<section id="assumption-3-zero-conditional-mean" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="assumption-3-zero-conditional-mean"><span class="header-section-number">6.6</span> Assumption 3: Zero Conditional Mean</h2>
+<section id="zero-conditional-mean" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="zero-conditional-mean"><span class="header-section-number">6.6</span> Zero Conditional Mean</h2>
 <p>Recall that the linear regression model is written as:</p>
 <p><span class="math display">\[\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}\]</span></p>
 <p>Where the <span class="math inline">\(\epsilon\)</span> represents the <strong>disturbance term</strong> in the linear regression model.</p>
@@ -491,23 +491,22 @@ E[\epsilon_i | \epsilon_j] = 0 \quad \forall i \ne j
 \]</span></p>
 <p>Zero conditional mean implies that <span class="math inline">\(cov(\epsilon_i |\boldsymbol{X}) = 0\)</span>. This will be important later.</p>
 </section>
-<section id="linear-regression-model" class="level2" data-number="6.7">
-<h2 data-number="6.7" class="anchored" data-anchor-id="linear-regression-model"><span class="header-section-number">6.7</span> Linear Regression Model</h2>
-<p>The assumptions of linearity, full rank, and zero conditional mean comprise the linear regression model.</p>
+<section id="unbiasedness" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="unbiasedness"><span class="header-section-number">6.7</span> Unbiasedness</h2>
+<p>The assumptions of linearity, full rank, and zero conditional mean allow us to form the linear regression model and obtain estimates of the population parameters.</p>
+<p>The question remains, however, are the estimates representative for the population parameters?</p>
 <p>The regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X}\)</span> is the conditional mean or:</p>
 <p><span class="math display">\[E[\boldsymbol{y}|\boldsymbol{X}]\]</span></p>
-<p>Assume that linearity, full rank, and zero conditional mean hold and the linear regression model is: <span class="math display">\[\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}\]</span></p>
-<p>Then <span class="math display">\[E[\boldsymbol{y}|\boldsymbol{X}] = E[(\boldsymbol{X \beta} + \boldsymbol{\epsilon})|\boldsymbol{X}] = E[(\boldsymbol{X \beta})|\boldsymbol{X}] + E[\boldsymbol{\epsilon}|\boldsymbol{X}] = \boldsymbol{X \beta}\]</span></p>
-<p>Without the Zero Conditional Mean assumption, however,</p>
-<p><span class="math display">\[\boldsymbol{X \beta}\]</span></p>
-<p>is not the conditional mean function.</p>
+<p>Assume that linearity, full rank, and zero conditional mean hold and the linear regression model is: <span class="math display">\[\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}\]</span><br>
+<span class="math display">\[E[\boldsymbol{y}|\boldsymbol{X}] = E[(\boldsymbol{X \beta} + \boldsymbol{\epsilon})|\boldsymbol{X}] = E[(\boldsymbol{X \beta})|\boldsymbol{X}] + E[\boldsymbol{\epsilon}|\boldsymbol{X}] = \boldsymbol{X \beta}\]</span></p>
 <p>If the zero conditional mean assumption does not hold, then</p>
-<p><span class="math display">\[E[\boldsymbol{\epsilon}|\boldsymbol{X}] \ne 0\]</span> which means that</p>
+<p><span class="math display">\[E[\boldsymbol{\epsilon}|\boldsymbol{X}] \ne 0\]</span></p>
 <p><span class="math display">\[E[\boldsymbol{y}|\boldsymbol{X}] = \boldsymbol{X \beta} + E[\boldsymbol{\epsilon}|\boldsymbol{X}]\]</span></p>
-<p>As we will see, as the covariance between <span class="math inline">\(\epsilon\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span> increases, that is, as <span class="math inline">\(\boldsymbol{X}\)</span> contains more information about <span class="math inline">\(\epsilon\)</span>, the linear regression model will not produce ‘reliable’ estimates of the population parameters of interest.</p>
+<p>As the covariance between <span class="math inline">\(\epsilon\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span> increases, that is, as <span class="math inline">\(\boldsymbol{X}\)</span> contains more information about <span class="math inline">\(\epsilon\)</span>, the linear regression model will not produce ‘reliable’ estimates of the population parameters of interest.</p>
+<p>Simply put, if Zero Conditional Mean fails, the linear regression model produces <strong>biased estimates</strong> of the population parameters.</p>
 </section>
-<section id="assumption-4-homosecdasticity" class="level2" data-number="6.8">
-<h2 data-number="6.8" class="anchored" data-anchor-id="assumption-4-homosecdasticity"><span class="header-section-number">6.8</span> Assumption 4: Homosecdasticity</h2>
+<section id="homosecdasticity" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="homosecdasticity"><span class="header-section-number">6.8</span> Homosecdasticity</h2>
 <p>The variance of the disturbances conditional on the independent variables is constant and the covariance among the disturbances conditional on the independent variables is equal to zero.</p>
 <p>The assumption of <strong>homoscedasticity</strong> is:</p>
 <p><span class="math display">\[var[\epsilon_i |\boldsymbol{X}] = \sigma^2 \quad \forall i\]</span></p>
@@ -535,15 +534,15 @@ E[\epsilon_n \epsilon_1|X] &amp; E[\epsilon_n \epsilon_2|X] &amp; \dots  &amp; E
 <p>where <span class="math inline">\(\boldsymbol{I}\)</span> is an <span class="math inline">\((n \times k)\)</span> identity matrix consisting of 1’s on the diagonal and 0’s off the diagonal.</p>
 <p>In other words, the variance-covariance matrix for the disturbances is, under the assumption of homoscedasticity, equal to a constant, <span class="math inline">\(\sigma^2\)</span> times an identity matrix.</p>
 </section>
-<section id="assumption-5-data-generation" class="level2" data-number="6.9">
-<h2 data-number="6.9" class="anchored" data-anchor-id="assumption-5-data-generation"><span class="header-section-number">6.9</span> Assumption 5: Data Generation</h2>
+<section id="data-generation" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="data-generation"><span class="header-section-number">6.9</span> Data Generation</h2>
 <p>Social scientists cannot, in many circumstances, create and run experiments. If we could, then regressors would be nonrandom. Instead, we often rely on observational data the results from a stochastic process.</p>
 <p>We also use dummy variables to capture specific events or characteristics. A constant may be used to capture a starting or ending point of a process. In other words, we may also use non-stochastic data.</p>
 <p>In macroeconomics, the date of colonial independence is often used in regressions of Gross Domestic Product on determinants of economic development as a control variable. These regressions mix stochastic (investment, exports, democracy) and non-stochastic (colonial independence, legal system dummy) data.</p>
 <p>Assumption 5 is that the regressors may be fixed or random, that is, the matrix of independent variables may contain stochastic (random) and non-stochastic (non-random) variables.</p>
 </section>
-<section id="assumption-6-normal-disturbances" class="level2" data-number="6.10">
-<h2 data-number="6.10" class="anchored" data-anchor-id="assumption-6-normal-disturbances"><span class="header-section-number">6.10</span> Assumption 6: Normal Disturbances</h2>
+<section id="normal-disturbances" class="level2" data-number="6.10">
+<h2 data-number="6.10" class="anchored" data-anchor-id="normal-disturbances"><span class="header-section-number">6.10</span> Normal Disturbances</h2>
 <p>Assumption 3 (Zero Conditional Mean) implies that that the conditional mean of the disturbances is zero</p>
 <p><span class="math display">\[
 E[\epsilon_i | \boldsymbol{X}] = 0
@@ -559,43 +558,41 @@ E[\epsilon^T \epsilon | \boldsymbol{X}] = E[\epsilon^T \epsilon] = \sigma^2 I
 <p>This assumption is useful for inference, however, it is also restrictive.</p>
 <p>For our purposes, the normality of the disturbances is a useful starting point.</p>
 </section>
-<section id="linear-regression-model-1" class="level2" data-number="6.11">
-<h2 data-number="6.11" class="anchored" data-anchor-id="linear-regression-model-1"><span class="header-section-number">6.11</span> Linear Regression Model</h2>
+<section id="linear-regression-model" class="level2" data-number="6.11">
+<h2 data-number="6.11" class="anchored" data-anchor-id="linear-regression-model"><span class="header-section-number">6.11</span> Linear Regression Model</h2>
 <p>If the assumptions of the linear regression model hold, we can show that the model produces reasonable estimates of the unknown population parameters.</p>
-<p>The assumptions of linearity, full rank, the exogeneity of the independent variables (Zero Conditional Mean) pertain to the process of generating estimates of the unknown parameters.</p>
-<p>The assumptions of homoscedasticity, data generating (stochastic and non-stochastic regressors), and normality of the disturbances pertain to the behavior of the disturbances in the model.</p>
+<p>The first three assumptions are:</p>
+<ul>
+<li><p>Linearity</p></li>
+<li><p>Full Rank</p></li>
+<li><p>Zero Conditional Mean</p></li>
+</ul>
+<p>If these assumptions hold, the linear regression model will produce <strong>unbiased estimates</strong>.</p>
+<p>The second three assumptions are:</p>
+<ul>
+<li><p>Homoscedasticity</p></li>
+<li><p>Data generation</p></li>
+<li><p>Normality of the disturbances</p></li>
+</ul>
 <p>Let the two-variable linear regression model be</p>
 <p><span class="math display">\[y = \beta_0 + \beta_1 \boldsymbol{x} + \epsilon\]</span></p>
 <p>If the assumptions hold, then <span class="math display">\[E[y] = \beta_0 + \beta_1 \boldsymbol{x}\]</span></p>
 <p>Different textbooks have different conventions. Sometimes the intercept is <span class="math inline">\(\beta_0\)</span>, sometimes <span class="math inline">\(\beta_1\)</span>. There is no significant impact on derivation.</p>
 </section>
-<section id="violating-the-asssumptions" class="level2" data-number="6.12">
-<h2 data-number="6.12" class="anchored" data-anchor-id="violating-the-asssumptions"><span class="header-section-number">6.12</span> Violating the Asssumptions</h2>
+<section id="violating-the-assumptions" class="level2" data-number="6.12">
+<h2 data-number="6.12" class="anchored" data-anchor-id="violating-the-assumptions"><span class="header-section-number">6.12</span> Violating the Assumptions</h2>
 <p>In this course, we will focus on violations of the assumptions of the exogeneity of the regressors and homoscedasticity.</p>
 <p>If the regressors and the disturbances are independent but the variance of the disturbances is a function of the regressors, then the variance of the disturbances is no longer constant.</p>
 <p>If this occurs, the estimates of the standard errors of the parameter estimates are not reliable and we cannot make inferences about the statistical significance of the parameter estimates.</p>
-<p>We will show that if one or more regressors are <strong>endogenous</strong> that the parameter estimates do not, on average equal the population parameters.</p>
+<p>We will show that if one or more regressors are <strong>endogenous</strong> then the parameter estimates do not, on average equal the population parameters.</p>
 <p>We will also show that if one or more regressors are endogenous that the parameter estimates do not converge to the population parameters.</p>
 <p>We will need to modify our approach to account for endogeneity, heteroscedasticity, or both.</p>
 </section>
 <section id="next-steps" class="level2" data-number="6.13">
 <h2 data-number="6.13" class="anchored" data-anchor-id="next-steps"><span class="header-section-number">6.13</span> Next Steps</h2>
-<p>Assume our linear regression model of interest is:</p>
-<p><span class="math display">\[salary = \alpha + \beta\ education + \epsilon\]</span></p>
-<p>The question is how do we estimate the unknown parameters of interest?</p>
-<p>We can specify a population regression function</p>
-<p><span class="math display">\[\boldsymbol{y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\epsilon}\]</span></p>
-<p>In this model, the <em>ith</em> observation</p>
-<p><span class="math display">\[y_i = \boldsymbol{x_i}^T \boldsymbol{\beta} + \epsilon_i\]</span></p>
-<p>The population regression is</p>
-<p><span class="math display">\[E[y_i | \boldsymbol{x_i}] = \boldsymbol{x_i^T\ \beta}\]</span></p>
-<p>The disturbance for the <em>ith</em> observation is <span class="math display">\[\epsilon_i = y_i - \boldsymbol{x_i^T\ \beta}\]</span></p>
-<p>We observe <span class="math inline">\(y_i\)</span> and <span class="math inline">\(\boldsymbol{x_i}\)</span> but we do not observe <span class="math inline">\(\boldsymbol{\beta}\)</span> or <span class="math inline">\(\epsilon\)</span>.</p>
-<p>The sample estimate of <span class="math inline">\(\boldsymbol{\beta}\)</span> is <span class="math inline">\(\boldsymbol{b}\)</span> while the sample estimate of <span class="math inline">\(\epsilon_i\)</span> is <span class="math inline">\(e_i\)</span>.</p>
-<p>The sample estimate of <span class="math display">\[E[y_i | \boldsymbol{x_i}] = \hat{y_i} = \boldsymbol{x_i^T\ b}\]</span></p>
-<p><span class="math display">\[e_i = y_i - \hat{y_i} = y_i - \boldsymbol{x_i^T\ b}\]</span></p>
-<p><span class="math display">\[y_i = \boldsymbol{x_i^T\ \beta} + \epsilon = \boldsymbol{x_i^T\ b} + e_i\]</span></p>
-<p>It is important to note that we can <strong>decompose</strong> the dependent variable into two components: <strong>explained variation</strong> and <strong>unexplained variation</strong>.</p>
+<p>We have discussed the six assumptions underlying the <strong>Classical Linear Regression Model</strong>.</p>
+<p>In the next module, we will derive the <strong>least squares estimator</strong>.</p>
+<p>We will discuss the properties of the estimator and explore how violations of the assumptions impact the estimator and the estimates produced by the estimator.</p>
 
 
 </section>

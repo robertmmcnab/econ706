@@ -333,8 +333,8 @@
     "objectID": "mod-1-2-model.html#linear-regression-model",
     "href": "mod-1-2-model.html#linear-regression-model",
     "title": "6  Linear Regression Models",
-    "section": "6.7 Linear Regression Model",
-    "text": "6.7 Linear Regression Model\nThe assumptions of linearity, full rank, and zero conditional mean comprise the linear regression model.\nThe regression of \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X}\\) is the conditional mean or:\n\\[E[\\boldsymbol{y}|\\boldsymbol{X}]\\]\nAssume that linearity, full rank, and zero conditional mean hold and the linear regression model is: \\[\\boldsymbol{y} = \\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon}\\]\nThen \\[E[\\boldsymbol{y}|\\boldsymbol{X}] = E[(\\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon})|\\boldsymbol{X}] = E[(\\boldsymbol{X \\beta})|\\boldsymbol{X}] + E[\\boldsymbol{\\epsilon}|\\boldsymbol{X}] = \\boldsymbol{X \\beta}\\]\nWithout the Zero Conditional Mean assumption, however,\n\\[\\boldsymbol{X \\beta}\\]\nis not the conditional mean function.\nIf the zero conditional mean assumption does not hold, then\n\\[E[\\boldsymbol{\\epsilon}|\\boldsymbol{X}] \\ne 0\\] which means that\n\\[E[\\boldsymbol{y}|\\boldsymbol{X}] = \\boldsymbol{X \\beta} + E[\\boldsymbol{\\epsilon}|\\boldsymbol{X}]\\]\nAs we will see, as the covariance between \\(\\epsilon\\) and \\(\\boldsymbol{X}\\) increases, that is, as \\(\\boldsymbol{X}\\) contains more information about \\(\\epsilon\\), the linear regression model will not produce ‘reliable’ estimates of the population parameters of interest.",
+    "section": "6.11 Linear Regression Model",
+    "text": "6.11 Linear Regression Model\nIf the assumptions of the linear regression model hold, we can show that the model produces reasonable estimates of the unknown population parameters.\nThe first three assumptions are:\n\nLinearity\nFull Rank\nZero Conditional Mean\n\nIf these assumptions hold, the linear regression model will produce unbiased estimates.\nThe second three assumptions are:\n\nHomoscedasticity\nData generation\nNormality of the disturbances\n\nLet the two-variable linear regression model be\n\\[y = \\beta_0 + \\beta_1 \\boldsymbol{x} + \\epsilon\\]\nIf the assumptions hold, then \\[E[y] = \\beta_0 + \\beta_1 \\boldsymbol{x}\\]\nDifferent textbooks have different conventions. Sometimes the intercept is \\(\\beta_0\\), sometimes \\(\\beta_1\\). There is no significant impact on derivation.",
     "crumbs": [
       "Linear Regression Model",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
@@ -444,7 +444,95 @@
     "href": "mod-1-2-model.html#next-steps",
     "title": "6  Linear Regression Models",
     "section": "6.13 Next Steps",
-    "text": "6.13 Next Steps\nAssume our linear regression model of interest is:\n\\[salary = \\alpha + \\beta\\ education + \\epsilon\\]\nThe question is how do we estimate the unknown parameters of interest?\nWe can specify a population regression function\n\\[\\boldsymbol{y} = \\boldsymbol{X}\\boldsymbol{\\beta} + \\boldsymbol{\\epsilon}\\]\nIn this model, the ith observation\n\\[y_i = \\boldsymbol{x_i}^T \\boldsymbol{\\beta} + \\epsilon_i\\]\nThe population regression is\n\\[E[y_i | \\boldsymbol{x_i}] = \\boldsymbol{x_i^T\\ \\beta}\\]\nThe disturbance for the ith observation is \\[\\epsilon_i = y_i - \\boldsymbol{x_i^T\\ \\beta}\\]\nWe observe \\(y_i\\) and \\(\\boldsymbol{x_i}\\) but we do not observe \\(\\boldsymbol{\\beta}\\) or \\(\\epsilon\\).\nThe sample estimate of \\(\\boldsymbol{\\beta}\\) is \\(\\boldsymbol{b}\\) while the sample estimate of \\(\\epsilon_i\\) is \\(e_i\\).\nThe sample estimate of \\[E[y_i | \\boldsymbol{x_i}] = \\hat{y_i} = \\boldsymbol{x_i^T\\ b}\\]\n\\[e_i = y_i - \\hat{y_i} = y_i - \\boldsymbol{x_i^T\\ b}\\]\n\\[y_i = \\boldsymbol{x_i^T\\ \\beta} + \\epsilon = \\boldsymbol{x_i^T\\ b} + e_i\\]\nIt is important to note that we can decompose the dependent variable into two components: explained variation and unexplained variation.",
+    "text": "6.13 Next Steps\nWe have discussed the six assumptions underlying the Classical Linear Regression Model.\nIn the next module, we will derive the least squares estimator.\nWe will discuss the properties of the estimator and explore how violations of the assumptions impact the estimator and the estimates produced by the estimator.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#linearity",
+    "href": "mod-1-2-model.html#linearity",
+    "title": "6  Linear Regression Models",
+    "section": "6.4 Linearity",
+    "text": "6.4 Linearity\nIf the assumptions of the linear regression model hold, then the linear regression model will produce useful estimates of the unknown population parameters.\nLet the column vector \\(\\boldsymbol{x}_k\\) be the \\(n\\) observations on variable \\(x_k\\) where \\(k = 1, 2, ..., K\\) in a random sample of \\(n\\) observations.\nAssemble the \\(k\\) column vectors over \\(n\\) observations to obtain an \\((n \\times K)\\) matrix \\(\\boldsymbol{X}\\).\nThe first column of \\(\\boldsymbol{X}\\) or \\(\\boldsymbol{x}_1\\) is a column of 1s so that \\(\\beta_1\\) the constant term in the linear regression model.\nLet \\(\\boldsymbol{y}\\) be \\((n \\times 1)\\) column vector containing the \\(n\\) observations \\(y_1, y_2, ..., y_n\\).\nLet \\(\\boldsymbol{\\epsilon}\\) be \\((n \\times 1)\\) column vector containing the \\(n\\) observations \\(\\epsilon_1, \\epsilon_2, ..., \\epsilon_n\\).\nLet \\(\\boldsymbol{\\beta}\\) be the \\((k \\times 1)\\) parameter vector containing the \\(k\\) population parameters \\(\\beta_1, \\beta_2, ..., \\beta_k\\).\nThe linear regression model can be written as:\n\\[\n\\begin{bmatrix}\ny_1 \\\\ y_2 \\\\ \\vdots \\\\ y_n\n\\end{bmatrix} =\n\\begin{bmatrix}\n1 & x_{12} &\\dots & x_{1K} \\\\\n1 & x_{22} &\\dots & x_{2K} \\\\\n\\vdots & \\vdots & \\ddots & \\vdots \\\\\n1 & x_{n2} &\\dots & x_{nK}\n\\end{bmatrix}\n\\begin{bmatrix}\n\\beta_1 \\\\ \\beta_2 \\\\ \\vdots \\\\ \\beta_K\n\\end{bmatrix} +\n\\begin{bmatrix}\n\\epsilon_1 \\\\ \\epsilon_2 \\\\ \\vdots \\\\ \\epsilon_n\n\\end{bmatrix}\n\\]\nThe linear regression model can also be written as:\n\\[\\boldsymbol{y} = \\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon}\\]",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#full-rank",
+    "href": "mod-1-2-model.html#full-rank",
+    "title": "6  Linear Regression Models",
+    "section": "6.5 Full Rank",
+    "text": "6.5 Full Rank\nThe assumption of full rank or no perfect colinearity is that there are no exact linear relationships among the independent variables.\nThe assumption of full rank implies that \\(\\boldsymbol{X}\\) has full column rank, that is, there is no \\(\\boldsymbol{x}_k\\) that is an exact linear combination of one or more other \\(\\boldsymbol{x}_k\\) in \\(\\boldsymbol{X}\\).\nThe assumption of full rank also implies that are at least \\(K\\) observations in \\(\\boldsymbol{X}\\).\nThe assumptions of full column rank and \\(K\\) observations are known as the identification condition.\nIf a model is non-identifiable, the true population parameters cannot be ascertained.\nAssume X is \\((5 x 5)\\) can be expressed as:\n\\[\\boldsymbol{X} = \\begin{bmatrix}\nx_{11} & x_{12} & x_{13} & x_{14} & x_{15} \\\\\nx_{21} & x_{22} & x_{23} & x_{24} & x_{25} \\\\\nx_{31} & x_{32} & x_{33} & x_{34} & x_{35} \\\\\nx_{41} & x_{42} & x_{43} & x_{44} & x_{45} \\\\\nx_{51} & x_{52} & x_{53} & x_{54} & x_{55} \\end{bmatrix}\\]\nWhat would happen if\n\\[\nx_2 = x_3 + x_4\n\\]\nFirst, \\(x_2\\) is a perfect linear combination of \\(x_3\\) and \\(x_4\\) and, because of this, \\(X\\) is short rank.\nBecause \\(X\\) is short rank, no unique solution exists for the linear regression parameter estimates.\nIn the code example below, we create two \\((4 \\times 4)\\) matrices.\nIn the first matrix, the third column is equal to the square of the second column.\n\\[\nx_{3} = x_2^{2}\n\\]\nEven though \\(x_3\\) is equal to the square of \\(x_2\\), you cannot create \\(x_3\\) by multiplying \\(x_2\\) by a single scalar value, unless \\(x_2\\) is all 1’s or 0’s. The columns of X are linearly independent and the matrix is full rank.\nIn the second matrix, the third column is equal to the sum of the first two columns or:\n\\[\nx_3 = x_1 + x_2\n\\]\nIn this case, \\(x_3\\) is a perfect linear combination of \\(x_1\\) and \\(x_2\\). The X matrix is short rank.\nLet X be a \\((n \\times K)\\) matrix of independent variables. A key element of a linear regression model is:\n\\[\n(X^T X)^{-1}\n\\]\nFor this inverse to exist, the determinant must be non-zero.\nWe can use the det function in R to calculate the determinant of each matrix.\nWe find that the determinant of the first matrix, \\(X_1\\), is non-zero, while the determinant of the second matrix, \\(X_2\\), is equal to zero.\nBecause the determinant of \\(X_2\\) is equal to zero, the inverse of \\(X_2\\) does not exist.\nWhat about\n\\[\n(X_1^T X_1) \\\\\n(X_2^T X_2)\n\\]\nWe can use the det function to find that the determinant of \\(X_1^T X_1\\) is non-zero while the determinant of \\(X_2^T X_2\\) is equal to zero.\nIn other words, because \\(X_2\\) is short rank, \\(X_2^T X_2\\) is also short rank, and the inverse does not exist.\n\nrm(list = ls())\n\nx1 &lt;- cbind(c(1, 1, 1 ,1),\n            c(1, 2, 3, 4),\n            c(2, 4, 9, 16),\n            c(0, 1, 3, 5))\n\nx2 &lt;- cbind(c(1, 1, 1 ,1),\n            c(1, 2, 3, 4),\n            c(2, 3, 4, 5),\n            c(0, 1, 3, 5))\n\nx_1t_x_1 &lt;- t(x1) %*% x1\nx_2t_x_1 &lt;- t(x2) %*% x2\n\ndets &lt;- tibble(x1_det = det(x1),\n               x2_det = det(x2),\n               x1t_x_1 = det(x_1t_x_1),\n               x2t_x_2 = det(x_2t_x_1))\n\nkable(dets,\n      col.names = c('X1 Determinant', 'X2 Determinant',\n                    'X1^T X1 Determinant', 'X2^T X2 Determinant'),\n      align     = 'c',\n      digits    = 2)\n\n\n\n\n\n\n\n\n\n\nX1 Determinant\nX2 Determinant\nX1^T X1 Determinant\nX2^T X2 Determinant\n\n\n\n\n-2\n0\n4\n0",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#zero-conditional-mean",
+    "href": "mod-1-2-model.html#zero-conditional-mean",
+    "title": "6  Linear Regression Models",
+    "section": "6.6 Zero Conditional Mean",
+    "text": "6.6 Zero Conditional Mean\nRecall that the linear regression model is written as:\n\\[\\boldsymbol{y} = \\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon}\\]\nWhere the \\(\\epsilon\\) represents the disturbance term in the linear regression model.\nThe assumption of Zero Conditional Mean is that the expected value of the disturbance in the linear regression model is not a function of the independent variables, that is, the independent variables contain no useful information regarding the prediction of \\(\\epsilon\\).\nThe assumption of Zero Conditional Mean is\n\\[\nE[\\epsilon_i \\, | \\, \\boldsymbol{X}] = 0 \\quad \\forall \\, i\n\\]\nand implies that the mean of each \\(\\epsilon_i\\) conditional on all \\(\\boldsymbol{x_j}\\) is zero. In other words, no independent variable conveys information about the disturbances.\nThe assumption that there is no information in \\(\\boldsymbol{X}\\) about any \\(\\epsilon_i\\) is the strict exogeneity assumption.\nThe mean independence of the disturbances implies that the mean of the disturbances is zero or\n\\[\nE[\\epsilon] =  E[E[\\epsilon_i | \\boldsymbol{X}]] = E[0 | X] = 0\n\\]\nZero Conditional Mean also implies that no disturbance contains information about other disturbances, that is, the disturbances are independent of each other or:\n\\[\nE[\\epsilon_i | \\epsilon_j] = 0 \\quad \\forall i \\ne j\n\\]\nZero conditional mean implies that \\(cov(\\epsilon_i |\\boldsymbol{X}) = 0\\). This will be important later.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#unbiasedness",
+    "href": "mod-1-2-model.html#unbiasedness",
+    "title": "6  Linear Regression Models",
+    "section": "6.7 Unbiasedness",
+    "text": "6.7 Unbiasedness\nThe assumptions of linearity, full rank, and zero conditional mean allow us to form the linear regression model and obtain estimates of the population parameters.\nThe question remains, however, are the estimates representative for the population parameters?\nThe regression of \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X}\\) is the conditional mean or:\n\\[E[\\boldsymbol{y}|\\boldsymbol{X}]\\]\nAssume that linearity, full rank, and zero conditional mean hold and the linear regression model is: \\[\\boldsymbol{y} = \\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon}\\]\n\\[E[\\boldsymbol{y}|\\boldsymbol{X}] = E[(\\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon})|\\boldsymbol{X}] = E[(\\boldsymbol{X \\beta})|\\boldsymbol{X}] + E[\\boldsymbol{\\epsilon}|\\boldsymbol{X}] = \\boldsymbol{X \\beta}\\]\nIf the zero conditional mean assumption does not hold, then\n\\[E[\\boldsymbol{\\epsilon}|\\boldsymbol{X}] \\ne 0\\]\n\\[E[\\boldsymbol{y}|\\boldsymbol{X}] = \\boldsymbol{X \\beta} + E[\\boldsymbol{\\epsilon}|\\boldsymbol{X}]\\]\nAs the covariance between \\(\\epsilon\\) and \\(\\boldsymbol{X}\\) increases, that is, as \\(\\boldsymbol{X}\\) contains more information about \\(\\epsilon\\), the linear regression model will not produce ‘reliable’ estimates of the population parameters of interest.\nSimply put, if Zero Conditional Mean fails, the linear regression model produces biased estimates of the population parameters.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#homosecdasticity",
+    "href": "mod-1-2-model.html#homosecdasticity",
+    "title": "6  Linear Regression Models",
+    "section": "6.8 Homosecdasticity",
+    "text": "6.8 Homosecdasticity\nThe variance of the disturbances conditional on the independent variables is constant and the covariance among the disturbances conditional on the independent variables is equal to zero.\nThe assumption of homoscedasticity is:\n\\[var[\\epsilon_i |\\boldsymbol{X}] = \\sigma^2 \\quad \\forall i\\]\nThe assumption of no autocorrelation is\n\\[cov[\\epsilon_i, \\epsilon_j | \\boldsymbol{X}] = 0 \\quad \\forall i,j\\]\nHomoscedasticity implies that the variance of the disturbances is independent of \\(\\boldsymbol{X}\\) and constant, that is, the independent variables contain no information about the dispersion of the disturbances.\nThe assumption of no autocorrelation implies that the covariance of the disturbances, conditional on the independent variables, is equal to zero, that is, no disturbance contains information about any other disturbance.\nTogether, the assumptions imply that the diagonal of the variance-covariance matrix for the disturbances consists of \\(\\sigma^2\\) and the off-diagonal terms are 0.\nLet the variance of the disturbance be \\(E[\\epsilon \\epsilon^T |\\boldsymbol{X} ] =\\)\n\\[\\begin{bmatrix}\nE[\\epsilon_1^2|X] & E[\\epsilon_1 \\epsilon_2|X] & \\dots  & E[\\epsilon_1 \\epsilon_n|X]  \\\\\nE[\\epsilon_2 \\epsilon_1|X] & E[\\epsilon_2^2|X] & \\dots  & E[\\epsilon_2 \\epsilon_n|X]  \\\\\n\\vdots & \\vdots & \\ddots & \\vdots                                                     \\\\\nE[\\epsilon_n \\epsilon_1|X] & E[\\epsilon_n \\epsilon_2|X] & \\dots  & E[\\epsilon_n^2|X]  \n\\end{bmatrix}\\]\nUsing the assumptions of homoscedasticity and no autocorrelation yields:\n\\[\\begin{bmatrix}\n\\sigma^2 & 0 & \\ddots & 0  \\\\\n0 & \\sigma^2 & \\ddots & 0 \\\\\n\\vdots & \\vdots & \\ddots & \\vdots                                                     \\\\\n0 & 0 & \\ddots & \\sigma^2\n\\end{bmatrix}\\]\nWhat does this mean?\n\\[E[\\epsilon \\epsilon^T | \\boldsymbol{X}] = \\sigma^2 \\boldsymbol{I}\\]\nwhere \\(\\boldsymbol{I}\\) is an \\((n \\times k)\\) identity matrix consisting of 1’s on the diagonal and 0’s off the diagonal.\nIn other words, the variance-covariance matrix for the disturbances is, under the assumption of homoscedasticity, equal to a constant, \\(\\sigma^2\\) times an identity matrix.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#data-generation",
+    "href": "mod-1-2-model.html#data-generation",
+    "title": "6  Linear Regression Models",
+    "section": "6.9 Data Generation",
+    "text": "6.9 Data Generation\nSocial scientists cannot, in many circumstances, create and run experiments. If we could, then regressors would be nonrandom. Instead, we often rely on observational data the results from a stochastic process.\nWe also use dummy variables to capture specific events or characteristics. A constant may be used to capture a starting or ending point of a process. In other words, we may also use non-stochastic data.\nIn macroeconomics, the date of colonial independence is often used in regressions of Gross Domestic Product on determinants of economic development as a control variable. These regressions mix stochastic (investment, exports, democracy) and non-stochastic (colonial independence, legal system dummy) data.\nAssumption 5 is that the regressors may be fixed or random, that is, the matrix of independent variables may contain stochastic (random) and non-stochastic (non-random) variables.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#normal-disturbances",
+    "href": "mod-1-2-model.html#normal-disturbances",
+    "title": "6  Linear Regression Models",
+    "section": "6.10 Normal Disturbances",
+    "text": "6.10 Normal Disturbances\nAssumption 3 (Zero Conditional Mean) implies that that the conditional mean of the disturbances is zero\n\\[\nE[\\epsilon_i | \\boldsymbol{X}] = 0\n\\]\nAssumption 4 implies that the conditional variance of the disturbances is equal to \\(\\sigma^2 I\\) or\n\\[\nE[\\epsilon^T \\epsilon | \\boldsymbol{X}] = E[\\epsilon^T \\epsilon] = \\sigma^2 I\n\\]\nAssumption 6 is that the disturbances are normally distributed or\n\\[\n\\epsilon \\sim N(0, \\sigma^2I)\n\\]\nThis assumption is useful for inference, however, it is also restrictive.\nFor our purposes, the normality of the disturbances is a useful starting point.",
+    "crumbs": [
+      "Linear Regression Model",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-1-2-model.html#violating-the-assumptions",
+    "href": "mod-1-2-model.html#violating-the-assumptions",
+    "title": "6  Linear Regression Models",
+    "section": "6.12 Violating the Assumptions",
+    "text": "6.12 Violating the Assumptions\nIn this course, we will focus on violations of the assumptions of the exogeneity of the regressors and homoscedasticity.\nIf the regressors and the disturbances are independent but the variance of the disturbances is a function of the regressors, then the variance of the disturbances is no longer constant.\nIf this occurs, the estimates of the standard errors of the parameter estimates are not reliable and we cannot make inferences about the statistical significance of the parameter estimates.\nWe will show that if one or more regressors are endogenous then the parameter estimates do not, on average equal the population parameters.\nWe will also show that if one or more regressors are endogenous that the parameter estimates do not converge to the population parameters.\nWe will need to modify our approach to account for endogeneity, heteroscedasticity, or both.",
     "crumbs": [
       "Linear Regression Model",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
