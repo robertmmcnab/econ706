@@ -153,7 +153,15 @@ kable_styling(font_size = 12,
 
 We can also compare the least squares estimates using matrix algebra with those obtained using the **lm** function (which uses matrix algebra behind the scenes).
 
-  
+In the example below, we replicate the methodology above to obtain the least squares estimates using matrix algebra. Note that we have changed the number of observations to 10,000.
+
+To use the **lm** function and obtain results comparable to those using matrix algebra, we only need to include the independent variables. This means we must exclude the intercept variable (**X1**) from the data that will be used by the **lm** function.
+
+Why?
+
+The **lm** function, by default, estimates an intercept. If we included the intercept variable (which is a column of 1's in the **X** matrix), then our results would not be comparable.
+
+We find that the estimates are the same, regardless if we use matrix algebra or the **lm** function.
 
 ```{r example2, message=FALSE}
 
@@ -180,11 +188,10 @@ y <- x %*% beta + epsilon
 
 bhat <- solve(t(x) %*% x) %*% t(x) %*% y
 
-yhat <- x %*% bhat
-
-e <- y - yhat
-
 b_names <- c("b1", "b2", "b3", "b4", "b5", "b6")
+
+# Create dataframe for LM function
+# Include Y and independent variables 
 
 data <- tibble(y = y[,1],
                x2 = x[,2],
@@ -193,14 +200,15 @@ data <- tibble(y = y[,1],
                x5 = x[,5],
                x6 = x[,6])
 
+# Generate least squares estimates using LM function
+
 lm_mod <- lm(y ~ x2 + x3 + x4 + x5 + x6, data = data)$coefficients
 
+# Bind population parameters and estimates together
 bhat_named <- cbind(b_names, 
-                    beta, 
-                    round(bhat,3),
-                    round(lm_mod,3))
-                    
-
+                     beta, 
+                     round(bhat,3),
+                     round(lm_mod,3))
 kable(bhat_named,
       align     = 'c',
       col.names = c("Coefficient",
@@ -210,4 +218,302 @@ kable(bhat_named,
 kable_styling(font_size = 12,
               position  = "center",
               full_width = FALSE)
+```
+
+## Matrix Properties
+
+In the table below, vectors are lowercase letters while capital letters represent matrices.
+
+For much more information, see "The Matrix Cookbook" at <http://matrixcookbook.com>
+
+```{r matrix1, echo = FALSE}
+
+text_tbl <- data.frame(
+    'Rule' = c("$(AB)^T = B^T A^T$",
+               "$(a^T B c)^T = c^T B^T a$",
+               "$a^T b = b^T A$",
+               "$(A+B)C = AC + BC$",
+               "$(a+b)^T C = a^T C + b^T C$",
+               "$AB \\ne BA$"),
+    'Comment'= c('Order is reversed and every element is transposed',
+                 'Order is reversed, every element transposed, the transpose of a transpose is itself',
+                 'The result is a scalar and the transpose of a scalar is itself',
+                 '(A+B) premultiplies C and this multiplication can be distributed',
+                 'The vectors (a+b) premultiply C and this multipcation can be distributed',
+                 'Matrix Multiplication is not communicative'))
+
+kable(text_tbl,
+  booktabs=T, escape = F, 
+  caption = 'Matrix Rules') %>%
+  kable_styling(latex_options = "hold_position", full_width = F) %>%
+  column_spec(1, bold = T) %>%
+  column_spec(2, width = '14cm')
+
+```
+
+## Common Derivative Properties
+
+The following rules are often quite useful
+
+It is assumed that the basic assumptions can be written as
+
+$$\frac{\partial X_{kl}}{\partial X_{ij}}$$
+
+```{r matrix2, echo = FALSE}
+
+text_tbl <- data.frame(
+    'Scalar' = c("$\\frac{\\partial bx}{\\partial x} \\rightarrow b$",
+               "$\\frac{\\partial bx}{\\partial x} \\rightarrow b$",
+               "$\\frac{\\partial x^2}{\\partial x} \\rightarrow 2x$",
+               "$\\frac{\\partial b x^2}{\\partial x} \\rightarrow 2bx$"),
+    'Vector'= c('$\\frac{\\partial x^T B}{\\partial x} \\rightarrow B$',
+                '$\\frac{\\partial x^T b}{\\partial x} \\rightarrow b$',
+                '$\\frac{\\partial x^T x}{\\partial x} \\rightarrow 2x$',
+                '$\\frac{\\partial x^T B x}{\\partial x} \\rightarrow 2Bx$'))
+
+kable(text_tbl,
+  booktabs=T, escape = F, 
+  caption = 'Scalar and Matrix Derivative Rules') %>%
+  kable_styling(latex_options = "hold_position", full_width = F) %>%
+  column_spec(1, bold = T) %>%
+  column_spec(2, width = '14cm')
+
+```
+
+## Properties of M
+
+$M$ is a $(n \times n)$ symmetric, idempotent matrix where
+
+$$M = I - X(X^T X)^{-1}X^T$$
+
+$M$ is the **residual maker** when $y$ is premulitplied by $M$ it produces the vector of least squares residuals.
+
+Note that $MX = 0$ since the regression of $X$ on $X$ is a "perfect fit" and there is no unexplained variation.
+
+```{r c6, message = FALSE}
+
+nrows <- 7000
+ncols <- 9
+ 
+x <- matrix(0, nrows, ncols)
+      x[,1] <- 1
+      for (l in 2: ncols) {
+        x[,l] <- rnorm(nrows)
+        gc()
+      }
+
+# let beta = (1,2,3,4,5,6,7,8,9)
+
+beta <- seq(1,ncols)
+
+# y is equal to X*beta + random disturbance
+
+y <- x %*% beta + rnorm(nrows)
+
+# Solve for b =  (X^T X)^(-1) X^T y
+
+bhat <- solve(t(x) %*% x) %*% t(x) %*% y
+
+yhat <- x %*% bhat
+
+# Solve for residuals
+
+e <- y - yhat
+
+# Create Identity Matrix
+
+I <- diag(nrows)
+
+# Create Residual Maker
+
+M <- I - x %*% solve(t(x) %*% x) %*% t(x)
+
+# Residuals = My
+
+e1 <- M %*% y
+
+df_e <- data.frame(e, e1)
+
+kable(df_e[1:10,],
+      col.names = c("e (y - yhat)",
+                    "e (My)")) %>%
+kable_styling(font_size = 12,
+              position  = "center",
+              full_width = FALSE)
+```
+
+## M Properties
+
+```{r c7, message = FALSE}
+
+nrows <- 500
+ncols <- 5
+ 
+x <- matrix(0, nrows, ncols)
+      x[,1] <- 1
+      for (l in 2: ncols) {
+        x[,l] <- rnorm(nrows)
+        gc()
+      }
+
+beta <- seq(1,ncols)
+
+y <- x %*% beta + rnorm(nrows)
+
+bhat <- solve(t(x) %*% x) %*% t(x) %*% y
+
+yhat <- x %*% bhat
+
+I <- diag(nrows)
+
+M <- I - x %*% solve(t(x) %*% x) %*% t(x)
+
+e1 <- y - yhat
+
+e2 <- M %*% y
+
+resids <- as.data.frame(cbind(e1,e2))
+
+kable(resids[1:10,],
+      col.names = c("e (y - yhat)",
+                    "e (My)")) %>%
+kable_styling(font_size = 12,
+              position  = "center",
+              full_width = FALSE)
+
+```
+
+## M is Symmetric
+
+1.  Recall that $M$ is symmetric, so $M$ and $M^T$ are the same.
+
+```{r c8}
+
+# M Properties
+
+MTrans <- t(M)
+
+kable(data.frame(M)[1:5,1:5]) %>%
+kable_styling(font_size = 12,
+              position  = "center",
+              full_width = FALSE)
+
+kable(data.frame(MTrans)[1:5,1:5]) %>%
+kable_styling(font_size = 12,
+              position  = "center",
+              full_width = FALSE)
+
+```
+
+## M is Idempotent
+
+1.  Recall that $M$ is also idempotent, that is, it is a matrix that, when multiplied by itself, yields itself.
+
+```{r c9}
+
+MM <- M %*% M
+
+kable(data.frame(M)[1:5,1:5]) %>%
+kable_styling(font_size = 12,
+              position  = "center",
+              full_width = FALSE)
+
+kable(data.frame(MM)[1:5,1:5]) %>%
+kable_styling(font_size = 12,
+              position  = "center",
+              full_width = FALSE)
+
+```
+
+## MX is Zero
+
+Recall that $MX$ will be equal to zero.
+
+```{r c10, message = FALSE}
+
+MX <- M %*% x
+
+kable(data.frame(MX)[1:5,1:5]) %>%
+kable_styling(font_size = 12,
+              position  = "center",
+              full_width = FALSE)
+
+```
+
+## Projection Matrix
+
+While $My$ captures the **unexplained variation** in $y$, $Py$ captured the explained variation in $y$ or:
+
+$$M = I - X(X^T X)^{-1}X^T$$ $$P = X(X^T X)^{-1}X^T$$
+
+The projection matrix $P$ is symmetric and idempotent.
+
+$PM$ and $MP$ are equivalent and equal to zero and $P$ and $M$ are orthogonal.
+
+Given the orthogonality, we can **partition** y into two parts:
+
+$$y = Py + My$$ $$y = X(X^T X)^{-1} X^T y + (I-X(X^T X)^{-1}X^T)y$$
+
+Recall that $b = (X^T X)^{-1} X^T y$ and substitute:
+
+$$y = Xb + (I-X(X^T X)^{-1}X^T)y$$ 
+
+Now multiply $y$ through the second term:
+
+$$y = X b + (y - X(X^T X)^{-1} X^T y)$$
+
+Substitute again for $b$
+
+$$y = X b + (y - X b)$$
+
+Recognize that $Xb = \hat{y}$
+
+$$y = Xb + (y - \hat{y})$$ $$y = Xb + e$$
+
+```{r c11}
+
+P <- x %*% solve(t(x) %*% x) %*% t(x)
+
+Py <- P %*% y
+
+df_yhat <- data.frame(yhat, Py)
+
+kable(df_yhat[1:10,]) %>%
+kable_styling(font_size = 12,
+              position  = "center",
+              full_width = FALSE)
+
+```
+
+## Partitioned Y
+
+```{r c12}
+
+ypart <- P %*% y + M %*% y
+
+df_y <- data.frame(y, ypart)
+
+kable(df_y[1:10,]) %>%
+kable_styling(font_size = 12,
+              position  = "center",
+              full_width = FALSE)
+```
+
+## Sum of Squares
+
+The sum of squares is equal to $y^T y$ and should not be confused with the total sum of squares which is the sum of squared deviations of $y$ from $\mu_y$.
+
+```{r c13}
+
+sum_sq <- t(y) %*% y 
+
+sum_sq2 <- t(y) %*% t(P) %*% P %*% y + t(y) %*% t(M) %*% M %*% y
+
+sum_square <- data.frame(sum_sq, sum_sq2)
+
+kable(sum_square) %>%
+kable_styling(font_size = 12,
+              position  = "center",
+              full_width = FALSE)
+
 ```

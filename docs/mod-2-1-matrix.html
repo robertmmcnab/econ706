@@ -272,6 +272,16 @@ window.Quarto = {
   <li><a href="#simulating-data" id="toc-simulating-data" class="nav-link" data-scroll-target="#simulating-data"><span class="header-section-number">8.2</span> Simulating Data</a></li>
   <li><a href="#estimating-coefficients" id="toc-estimating-coefficients" class="nav-link" data-scroll-target="#estimating-coefficients"><span class="header-section-number">8.3</span> Estimating Coefficients</a></li>
   <li><a href="#estimating-using-lm-function" id="toc-estimating-using-lm-function" class="nav-link" data-scroll-target="#estimating-using-lm-function"><span class="header-section-number">8.4</span> Estimating Using LM Function</a></li>
+  <li><a href="#matrix-properties" id="toc-matrix-properties" class="nav-link" data-scroll-target="#matrix-properties"><span class="header-section-number">8.5</span> Matrix Properties</a></li>
+  <li><a href="#common-derivative-properties" id="toc-common-derivative-properties" class="nav-link" data-scroll-target="#common-derivative-properties"><span class="header-section-number">8.6</span> Common Derivative Properties</a></li>
+  <li><a href="#properties-of-m" id="toc-properties-of-m" class="nav-link" data-scroll-target="#properties-of-m"><span class="header-section-number">8.7</span> Properties of M</a></li>
+  <li><a href="#m-properties" id="toc-m-properties" class="nav-link" data-scroll-target="#m-properties"><span class="header-section-number">8.8</span> M Properties</a></li>
+  <li><a href="#m-is-symmetric" id="toc-m-is-symmetric" class="nav-link" data-scroll-target="#m-is-symmetric"><span class="header-section-number">8.9</span> M is Symmetric</a></li>
+  <li><a href="#m-is-idempotent" id="toc-m-is-idempotent" class="nav-link" data-scroll-target="#m-is-idempotent"><span class="header-section-number">8.10</span> M is Idempotent</a></li>
+  <li><a href="#mx-is-zero" id="toc-mx-is-zero" class="nav-link" data-scroll-target="#mx-is-zero"><span class="header-section-number">8.11</span> MX is Zero</a></li>
+  <li><a href="#projection-matrix" id="toc-projection-matrix" class="nav-link" data-scroll-target="#projection-matrix"><span class="header-section-number">8.12</span> Projection Matrix</a></li>
+  <li><a href="#partitioned-y" id="toc-partitioned-y" class="nav-link" data-scroll-target="#partitioned-y"><span class="header-section-number">8.13</span> Partitioned Y</a></li>
+  <li><a href="#sum-of-squares" id="toc-sum-of-squares" class="nav-link" data-scroll-target="#sum-of-squares"><span class="header-section-number">8.14</span> Sum of Squares</a></li>
   </ul>
 </nav>
     </div>
@@ -487,6 +497,11 @@ b = (X^T X)^{-1} X^T y
 <section id="estimating-using-lm-function" class="level2" data-number="8.4">
 <h2 data-number="8.4" class="anchored" data-anchor-id="estimating-using-lm-function"><span class="header-section-number">8.4</span> Estimating Using LM Function</h2>
 <p>We can also compare the least squares estimates using matrix algebra with those obtained using the <strong>lm</strong> function (which uses matrix algebra behind the scenes).</p>
+<p>In the example below, we replicate the methodology above to obtain the least squares estimates using matrix algebra. Note that we have changed the number of observations to 10,000.</p>
+<p>To use the <strong>lm</strong> function and obtain results comparable to those using matrix algebra, we only need to include the independent variables. This means we must exclude the intercept variable (<strong>X1</strong>) from the data that will be used by the <strong>lm</strong> function.</p>
+<p>Why?</p>
+<p>The <strong>lm</strong> function, by default, estimates an intercept. If we included the intercept variable (which is a column of 1’s in the <strong>X</strong> matrix), then our results would not be comparable.</p>
+<p>We find that the estimates are the same, regardless if we use matrix algebra or the <strong>lm</strong> function.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -511,27 +526,27 @@ b = (X^T X)^{-1} X^T y
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>bhat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> x <span class="sc">%*%</span> bhat</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>b_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"b1"</span>, <span class="st">"b2"</span>, <span class="st">"b3"</span>, <span class="st">"b4"</span>, <span class="st">"b5"</span>, <span class="st">"b6"</span>)</span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> y <span class="sc">-</span> yhat</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>b_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"b1"</span>, <span class="st">"b2"</span>, <span class="st">"b3"</span>, <span class="st">"b4"</span>, <span class="st">"b5"</span>, <span class="st">"b6"</span>)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">y =</span> y[,<span class="dv">1</span>],</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>               <span class="at">x2 =</span> x[,<span class="dv">2</span>],</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>               <span class="at">x3 =</span> x[,<span class="dv">3</span>],</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>               <span class="at">x4 =</span> x[,<span class="dv">4</span>],</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>               <span class="at">x5 =</span> x[,<span class="dv">5</span>],</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>               <span class="at">x6 =</span> x[,<span class="dv">6</span>])</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>lm_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5 <span class="sc">+</span> x6, <span class="at">data =</span> data)<span class="sc">$</span>coefficients</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>bhat_named <span class="ot">&lt;-</span> <span class="fu">cbind</span>(b_names, </span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>                    beta, </span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">round</span>(bhat,<span class="dv">3</span>),</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">round</span>(lm_mod,<span class="dv">3</span>))</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>                    </span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataframe for LM function</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Include Y and independent variables </span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">y =</span> y[,<span class="dv">1</span>],</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>               <span class="at">x2 =</span> x[,<span class="dv">2</span>],</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>               <span class="at">x3 =</span> x[,<span class="dv">3</span>],</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>               <span class="at">x4 =</span> x[,<span class="dv">4</span>],</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>               <span class="at">x5 =</span> x[,<span class="dv">5</span>],</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>               <span class="at">x6 =</span> x[,<span class="dv">6</span>])</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate least squares estimates using LM function</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>lm_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5 <span class="sc">+</span> x6, <span class="at">data =</span> data)<span class="sc">$</span>coefficients</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind population parameters and estimates together</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>bhat_named <span class="ot">&lt;-</span> <span class="fu">cbind</span>(b_names, </span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>                     beta, </span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">round</span>(bhat,<span class="dv">3</span>),</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">round</span>(lm_mod,<span class="dv">3</span>))</span>
 <span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(bhat_named,</span>
 <span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>      <span class="at">align     =</span> <span class="st">'c'</span>,</span>
 <span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Coefficient"</span>,</span>
@@ -594,6 +609,765 @@ b = (X^T X)^{-1} X^T y
 <td style="text-align: center;">12</td>
 <td style="text-align: center;">12.025</td>
 <td style="text-align: center;">12.025</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="matrix-properties" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="matrix-properties"><span class="header-section-number">8.5</span> Matrix Properties</h2>
+<p>In the table below, vectors are lowercase letters while capital letters represent matrices.</p>
+<p>For much more information, see “The Matrix Cookbook” at <a href="http://matrixcookbook.com" class="uri">http://matrixcookbook.com</a></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<caption>Matrix Rules</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Rule</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">$(AB)^T = B^T A^T$</td>
+<td style="text-align: left; width: 14cm;">Order is reversed and every element is transposed</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">$(a^T B c)^T = c^T B^T a$</td>
+<td style="text-align: left; width: 14cm;">Order is reversed, every element transposed, the transpose of a transpose is itself</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">$a^T b = b^T A$</td>
+<td style="text-align: left; width: 14cm;">The result is a scalar and the transpose of a scalar is itself</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">$(A+B)C = AC + BC$</td>
+<td style="text-align: left; width: 14cm;">(A+B) premultiplies C and this multiplication can be distributed</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">$(a+b)^T C = a^T C + b^T C$</td>
+<td style="text-align: left; width: 14cm;">The vectors (a+b) premultiply C and this multipcation can be distributed</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">$AB \ne BA$</td>
+<td style="text-align: left; width: 14cm;">Matrix Multiplication is not communicative</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="common-derivative-properties" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="common-derivative-properties"><span class="header-section-number">8.6</span> Common Derivative Properties</h2>
+<p>The following rules are often quite useful</p>
+<p>It is assumed that the basic assumptions can be written as</p>
+<p><span class="math display">\[\frac{\partial X_{kl}}{\partial X_{ij}}\]</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<caption>Scalar and Matrix Derivative Rules</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Scalar</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Vector</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">$\frac{\partial bx}{\partial x} \rightarrow b$</td>
+<td style="text-align: left; width: 14cm;">$\frac{\partial x^T B}{\partial x} \rightarrow B$</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">$\frac{\partial bx}{\partial x} \rightarrow b$</td>
+<td style="text-align: left; width: 14cm;">$\frac{\partial x^T b}{\partial x} \rightarrow b$</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">$\frac{\partial x^2}{\partial x} \rightarrow 2x$</td>
+<td style="text-align: left; width: 14cm;">$\frac{\partial x^T x}{\partial x} \rightarrow 2x$</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">$\frac{\partial b x^2}{\partial x} \rightarrow 2bx$</td>
+<td style="text-align: left; width: 14cm;">$\frac{\partial x^T B x}{\partial x} \rightarrow 2Bx$</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="properties-of-m" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="properties-of-m"><span class="header-section-number">8.7</span> Properties of M</h2>
+<p><span class="math inline">\(M\)</span> is a <span class="math inline">\((n \times n)\)</span> symmetric, idempotent matrix where</p>
+<p><span class="math display">\[M = I - X(X^T X)^{-1}X^T\]</span></p>
+<p><span class="math inline">\(M\)</span> is the <strong>residual maker</strong> when <span class="math inline">\(y\)</span> is premulitplied by <span class="math inline">\(M\)</span> it produces the vector of least squares residuals.</p>
+<p>Note that <span class="math inline">\(MX = 0\)</span> since the regression of <span class="math inline">\(X\)</span> on <span class="math inline">\(X\)</span> is a “perfect fit” and there is no unexplained variation.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nrows <span class="ot">&lt;-</span> <span class="dv">7000</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ncols <span class="ot">&lt;-</span> <span class="dv">9</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, nrows, ncols)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>      x[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span> ncols) {</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        x[,l] <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(nrows)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">gc</span>()</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># let beta = (1,2,3,4,5,6,7,8,9)</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>,ncols)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># y is equal to X*beta + random disturbance</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">%*%</span> beta <span class="sc">+</span> <span class="fu">rnorm</span>(nrows)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for b =  (X^T X)^(-1) X^T y</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>bhat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> x <span class="sc">%*%</span> bhat</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for residuals</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> y <span class="sc">-</span> yhat</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Identity Matrix</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(nrows)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Residual Maker</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> I <span class="sc">-</span> x <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Residuals = My</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>e1 <span class="ot">&lt;-</span> M <span class="sc">%*%</span> y</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>df_e <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(e, e1)</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df_e[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,],</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"e (y - yhat)"</span>,</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"e (My)"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>,</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>              <span class="at">position  =</span> <span class="st">"center"</span>,</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>              <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">e (y - yhat)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">e (My)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.7044752</td>
+<td style="text-align: right;">0.7044752</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.5357223</td>
+<td style="text-align: right;">0.5357223</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-1.3074348</td>
+<td style="text-align: right;">-1.3074348</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.6846867</td>
+<td style="text-align: right;">-0.6846867</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.8841051</td>
+<td style="text-align: right;">0.8841051</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.8214250</td>
+<td style="text-align: right;">1.8214250</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.2356265</td>
+<td style="text-align: right;">1.2356265</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-1.0181093</td>
+<td style="text-align: right;">-1.0181093</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.3338123</td>
+<td style="text-align: right;">-0.3338123</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.2873728</td>
+<td style="text-align: right;">0.2873728</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="m-properties" class="level2" data-number="8.8">
+<h2 data-number="8.8" class="anchored" data-anchor-id="m-properties"><span class="header-section-number">8.8</span> M Properties</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nrows <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ncols <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, nrows, ncols)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      x[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span> ncols) {</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        x[,l] <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(nrows)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">gc</span>()</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>,ncols)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">%*%</span> beta <span class="sc">+</span> <span class="fu">rnorm</span>(nrows)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>bhat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> x <span class="sc">%*%</span> bhat</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(nrows)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> I <span class="sc">-</span> x <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>e1 <span class="ot">&lt;-</span> y <span class="sc">-</span> yhat</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>e2 <span class="ot">&lt;-</span> M <span class="sc">%*%</span> y</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>resids <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(e1,e2))</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(resids[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,],</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"e (y - yhat)"</span>,</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"e (My)"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>,</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>              <span class="at">position  =</span> <span class="st">"center"</span>,</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>              <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">e (y - yhat)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">e (My)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.7689276</td>
+<td style="text-align: right;">0.7689276</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.2706183</td>
+<td style="text-align: right;">-0.2706183</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.7808239</td>
+<td style="text-align: right;">-0.7808239</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.3798104</td>
+<td style="text-align: right;">0.3798104</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.5806918</td>
+<td style="text-align: right;">0.5806918</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.9877439</td>
+<td style="text-align: right;">0.9877439</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.6722584</td>
+<td style="text-align: right;">-0.6722584</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.9176326</td>
+<td style="text-align: right;">-0.9176326</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.6932500</td>
+<td style="text-align: right;">-0.6932500</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.8988364</td>
+<td style="text-align: right;">0.8988364</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="m-is-symmetric" class="level2" data-number="8.9">
+<h2 data-number="8.9" class="anchored" data-anchor-id="m-is-symmetric"><span class="header-section-number">8.9</span> M is Symmetric</h2>
+<ol type="1">
+<li>Recall that <span class="math inline">\(M\)</span> is symmetric, so <span class="math inline">\(M\)</span> and <span class="math inline">\(M^T\)</span> are the same.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># M Properties</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>MTrans <span class="ot">&lt;-</span> <span class="fu">t</span>(M)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(M)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">position  =</span> <span class="st">"center"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">X1</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X2</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X3</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X4</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.9893591</td>
+<td style="text-align: right;">-0.0021836</td>
+<td style="text-align: right;">-0.0037710</td>
+<td style="text-align: right;">-0.0018619</td>
+<td style="text-align: right;">-0.0054623</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.0021836</td>
+<td style="text-align: right;">0.9935236</td>
+<td style="text-align: right;">-0.0006019</td>
+<td style="text-align: right;">-0.0056201</td>
+<td style="text-align: right;">-0.0048438</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.0037710</td>
+<td style="text-align: right;">-0.0006019</td>
+<td style="text-align: right;">0.9931596</td>
+<td style="text-align: right;">0.0065197</td>
+<td style="text-align: right;">-0.0045882</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.0018619</td>
+<td style="text-align: right;">-0.0056201</td>
+<td style="text-align: right;">0.0065197</td>
+<td style="text-align: right;">0.9810812</td>
+<td style="text-align: right;">0.0011177</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.0054623</td>
+<td style="text-align: right;">-0.0048438</td>
+<td style="text-align: right;">-0.0045882</td>
+<td style="text-align: right;">0.0011177</td>
+<td style="text-align: right;">0.9928817</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(MTrans)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">position  =</span> <span class="st">"center"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">X1</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X2</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X3</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X4</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.9893591</td>
+<td style="text-align: right;">-0.0021836</td>
+<td style="text-align: right;">-0.0037710</td>
+<td style="text-align: right;">-0.0018619</td>
+<td style="text-align: right;">-0.0054623</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.0021836</td>
+<td style="text-align: right;">0.9935236</td>
+<td style="text-align: right;">-0.0006019</td>
+<td style="text-align: right;">-0.0056201</td>
+<td style="text-align: right;">-0.0048438</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.0037710</td>
+<td style="text-align: right;">-0.0006019</td>
+<td style="text-align: right;">0.9931596</td>
+<td style="text-align: right;">0.0065197</td>
+<td style="text-align: right;">-0.0045882</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.0018619</td>
+<td style="text-align: right;">-0.0056201</td>
+<td style="text-align: right;">0.0065197</td>
+<td style="text-align: right;">0.9810812</td>
+<td style="text-align: right;">0.0011177</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.0054623</td>
+<td style="text-align: right;">-0.0048438</td>
+<td style="text-align: right;">-0.0045882</td>
+<td style="text-align: right;">0.0011177</td>
+<td style="text-align: right;">0.9928817</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="m-is-idempotent" class="level2" data-number="8.10">
+<h2 data-number="8.10" class="anchored" data-anchor-id="m-is-idempotent"><span class="header-section-number">8.10</span> M is Idempotent</h2>
+<ol type="1">
+<li>Recall that <span class="math inline">\(M\)</span> is also idempotent, that is, it is a matrix that, when multiplied by itself, yields itself.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>MM <span class="ot">&lt;-</span> M <span class="sc">%*%</span> M</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(M)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">position  =</span> <span class="st">"center"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">X1</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X2</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X3</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X4</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.9893591</td>
+<td style="text-align: right;">-0.0021836</td>
+<td style="text-align: right;">-0.0037710</td>
+<td style="text-align: right;">-0.0018619</td>
+<td style="text-align: right;">-0.0054623</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.0021836</td>
+<td style="text-align: right;">0.9935236</td>
+<td style="text-align: right;">-0.0006019</td>
+<td style="text-align: right;">-0.0056201</td>
+<td style="text-align: right;">-0.0048438</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.0037710</td>
+<td style="text-align: right;">-0.0006019</td>
+<td style="text-align: right;">0.9931596</td>
+<td style="text-align: right;">0.0065197</td>
+<td style="text-align: right;">-0.0045882</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.0018619</td>
+<td style="text-align: right;">-0.0056201</td>
+<td style="text-align: right;">0.0065197</td>
+<td style="text-align: right;">0.9810812</td>
+<td style="text-align: right;">0.0011177</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.0054623</td>
+<td style="text-align: right;">-0.0048438</td>
+<td style="text-align: right;">-0.0045882</td>
+<td style="text-align: right;">0.0011177</td>
+<td style="text-align: right;">0.9928817</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(MM)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">position  =</span> <span class="st">"center"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">X1</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X2</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X3</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X4</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.9893591</td>
+<td style="text-align: right;">-0.0021836</td>
+<td style="text-align: right;">-0.0037710</td>
+<td style="text-align: right;">-0.0018619</td>
+<td style="text-align: right;">-0.0054623</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.0021836</td>
+<td style="text-align: right;">0.9935236</td>
+<td style="text-align: right;">-0.0006019</td>
+<td style="text-align: right;">-0.0056201</td>
+<td style="text-align: right;">-0.0048438</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.0037710</td>
+<td style="text-align: right;">-0.0006019</td>
+<td style="text-align: right;">0.9931596</td>
+<td style="text-align: right;">0.0065197</td>
+<td style="text-align: right;">-0.0045882</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.0018619</td>
+<td style="text-align: right;">-0.0056201</td>
+<td style="text-align: right;">0.0065197</td>
+<td style="text-align: right;">0.9810812</td>
+<td style="text-align: right;">0.0011177</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.0054623</td>
+<td style="text-align: right;">-0.0048438</td>
+<td style="text-align: right;">-0.0045882</td>
+<td style="text-align: right;">0.0011177</td>
+<td style="text-align: right;">0.9928817</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="mx-is-zero" class="level2" data-number="8.11">
+<h2 data-number="8.11" class="anchored" data-anchor-id="mx-is-zero"><span class="header-section-number">8.11</span> MX is Zero</h2>
+<p>Recall that <span class="math inline">\(MX\)</span> will be equal to zero.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>MX <span class="ot">&lt;-</span> M <span class="sc">%*%</span> x</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(MX)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">position  =</span> <span class="st">"center"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">X1</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X2</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X3</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X4</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="projection-matrix" class="level2" data-number="8.12">
+<h2 data-number="8.12" class="anchored" data-anchor-id="projection-matrix"><span class="header-section-number">8.12</span> Projection Matrix</h2>
+<p>While <span class="math inline">\(My\)</span> captures the <strong>unexplained variation</strong> in <span class="math inline">\(y\)</span>, <span class="math inline">\(Py\)</span> captured the explained variation in <span class="math inline">\(y\)</span> or:</p>
+<p><span class="math display">\[M = I - X(X^T X)^{-1}X^T\]</span> <span class="math display">\[P = X(X^T X)^{-1}X^T\]</span></p>
+<p>The projection matrix <span class="math inline">\(P\)</span> is symmetric and idempotent.</p>
+<p><span class="math inline">\(PM\)</span> and <span class="math inline">\(MP\)</span> are equivalent and equal to zero and <span class="math inline">\(P\)</span> and <span class="math inline">\(M\)</span> are orthogonal.</p>
+<p>Given the orthogonality, we can <strong>partition</strong> y into two parts:</p>
+<p><span class="math display">\[y = Py + My\]</span> <span class="math display">\[y = X(X^T X)^{-1} X^T y + (I-X(X^T X)^{-1}X^T)y\]</span></p>
+<p>Recall that <span class="math inline">\(b = (X^T X)^{-1} X^T y\)</span> and substitute:</p>
+<p><span class="math display">\[y = Xb + (I-X(X^T X)^{-1}X^T)y\]</span></p>
+<p>Now multiply <span class="math inline">\(y\)</span> through the second term:</p>
+<p><span class="math display">\[y = X b + (y - X(X^T X)^{-1} X^T y)\]</span></p>
+<p>Substitute again for <span class="math inline">\(b\)</span></p>
+<p><span class="math display">\[y = X b + (y - X b)\]</span></p>
+<p>Recognize that <span class="math inline">\(Xb = \hat{y}\)</span></p>
+<p><span class="math display">\[y = Xb + (y - \hat{y})\]</span> <span class="math display">\[y = Xb + e\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> x <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Py <span class="ot">&lt;-</span> P <span class="sc">%*%</span> y</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>df_yhat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(yhat, Py)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df_yhat[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]) <span class="sc">%&gt;%</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">position  =</span> <span class="st">"center"</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">yhat</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Py</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">-0.5748282</td>
+<td style="text-align: right;">-0.5748282</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.9799871</td>
+<td style="text-align: right;">4.9799871</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-7.3985563</td>
+<td style="text-align: right;">-7.3985563</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18.1247846</td>
+<td style="text-align: right;">18.1247846</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-2.5546478</td>
+<td style="text-align: right;">-2.5546478</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.9113020</td>
+<td style="text-align: right;">8.9113020</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6.0186411</td>
+<td style="text-align: right;">6.0186411</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.2031494</td>
+<td style="text-align: right;">1.2031494</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7.1425961</td>
+<td style="text-align: right;">7.1425961</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-3.3954989</td>
+<td style="text-align: right;">-3.3954989</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="partitioned-y" class="level2" data-number="8.13">
+<h2 data-number="8.13" class="anchored" data-anchor-id="partitioned-y"><span class="header-section-number">8.13</span> Partitioned Y</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ypart <span class="ot">&lt;-</span> P <span class="sc">%*%</span> y <span class="sc">+</span> M <span class="sc">%*%</span> y</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>df_y <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, ypart)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df_y[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]) <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">position  =</span> <span class="st">"center"</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">y</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">ypart</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.1940994</td>
+<td style="text-align: right;">0.1940994</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.7093688</td>
+<td style="text-align: right;">4.7093688</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-8.1793802</td>
+<td style="text-align: right;">-8.1793802</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18.5045950</td>
+<td style="text-align: right;">18.5045950</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-1.9739559</td>
+<td style="text-align: right;">-1.9739559</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9.8990459</td>
+<td style="text-align: right;">9.8990459</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5.3463828</td>
+<td style="text-align: right;">5.3463828</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.2855168</td>
+<td style="text-align: right;">0.2855168</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6.4493461</td>
+<td style="text-align: right;">6.4493461</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-2.4966625</td>
+<td style="text-align: right;">-2.4966625</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="sum-of-squares" class="level2" data-number="8.14">
+<h2 data-number="8.14" class="anchored" data-anchor-id="sum-of-squares"><span class="header-section-number">8.14</span> Sum of Squares</h2>
+<p>The sum of squares is equal to <span class="math inline">\(y^T y\)</span> and should not be confused with the total sum of squares which is the sum of squared deviations of <span class="math inline">\(y\)</span> from <span class="math inline">\(\mu_y\)</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sum_sq <span class="ot">&lt;-</span> <span class="fu">t</span>(y) <span class="sc">%*%</span> y </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>sum_sq2 <span class="ot">&lt;-</span> <span class="fu">t</span>(y) <span class="sc">%*%</span> <span class="fu">t</span>(P) <span class="sc">%*%</span> P <span class="sc">%*%</span> y <span class="sc">+</span> <span class="fu">t</span>(y) <span class="sc">%*%</span> <span class="fu">t</span>(M) <span class="sc">%*%</span> M <span class="sc">%*%</span> y</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>sum_square <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(sum_sq, sum_sq2)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(sum_square) <span class="sc">%&gt;%</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">position  =</span> <span class="st">"center"</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">sum_sq</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">sum_sq2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">29253.82</td>
+<td style="text-align: right;">29253.82</td>
 </tr>
 </tbody>
 </table>

@@ -664,7 +664,117 @@
     "href": "mod-2-1-matrix.html#estimating-using-lm-function",
     "title": "8  Matrix Operations",
     "section": "8.4 Estimating Using LM Function",
-    "text": "8.4 Estimating Using LM Function\nWe can also compare the least squares estimates using matrix algebra with those obtained using the lm function (which uses matrix algebra behind the scenes).\n\nrm(list = ls())\n\nset.seed(1234)\n\nx &lt;- matrix(0,10000,6)\n      x[,1] &lt;- 1\n      for (l in 2:6) {\n        x[,l] &lt;- rnorm(10000)\n        gc()\n      }\n\nbeta &lt;- c(7,8,9,10,11,12)\n\nepsilon &lt;- rnorm(10000, 0, 1)\n\n# y is equal to X*beta + random disturbance\n\ny &lt;- x %*% beta + epsilon\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\ne &lt;- y - yhat\n\nb_names &lt;- c(\"b1\", \"b2\", \"b3\", \"b4\", \"b5\", \"b6\")\n\ndata &lt;- tibble(y = y[,1],\n               x2 = x[,2],\n               x3 = x[,3],\n               x4 = x[,4],\n               x5 = x[,5],\n               x6 = x[,6])\n\nlm_mod &lt;- lm(y ~ x2 + x3 + x4 + x5 + x6, data = data)$coefficients\n\nbhat_named &lt;- cbind(b_names, \n                    beta, \n                    round(bhat,3),\n                    round(lm_mod,3))\n                    \n\nkable(bhat_named,\n      align     = 'c',\n      col.names = c(\"Coefficient\",\n                    \"Population Parameter\",\n                    \"LS Estimates\",\n                    \"LM Estimates\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\n\nCoefficient\nPopulation Parameter\nLS Estimates\nLM Estimates\n\n\n\n\n(Intercept)\nb1\n7\n6.992\n6.992\n\n\nx2\nb2\n8\n7.991\n7.991\n\n\nx3\nb3\n9\n8.995\n8.995\n\n\nx4\nb4\n10\n10.032\n10.032\n\n\nx5\nb5\n11\n11.001\n11.001\n\n\nx6\nb6\n12\n12.025\n12.025",
+    "text": "8.4 Estimating Using LM Function\nWe can also compare the least squares estimates using matrix algebra with those obtained using the lm function (which uses matrix algebra behind the scenes).\nIn the example below, we replicate the methodology above to obtain the least squares estimates using matrix algebra. Note that we have changed the number of observations to 10,000.\nTo use the lm function and obtain results comparable to those using matrix algebra, we only need to include the independent variables. This means we must exclude the intercept variable (X1) from the data that will be used by the lm function.\nWhy?\nThe lm function, by default, estimates an intercept. If we included the intercept variable (which is a column of 1’s in the X matrix), then our results would not be comparable.\nWe find that the estimates are the same, regardless if we use matrix algebra or the lm function.\n\nrm(list = ls())\n\nset.seed(1234)\n\nx &lt;- matrix(0,10000,6)\n      x[,1] &lt;- 1\n      for (l in 2:6) {\n        x[,l] &lt;- rnorm(10000)\n        gc()\n      }\n\nbeta &lt;- c(7,8,9,10,11,12)\n\nepsilon &lt;- rnorm(10000, 0, 1)\n\n# y is equal to X*beta + random disturbance\n\ny &lt;- x %*% beta + epsilon\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nb_names &lt;- c(\"b1\", \"b2\", \"b3\", \"b4\", \"b5\", \"b6\")\n\n# Create dataframe for LM function\n# Include Y and independent variables \n\ndata &lt;- tibble(y = y[,1],\n               x2 = x[,2],\n               x3 = x[,3],\n               x4 = x[,4],\n               x5 = x[,5],\n               x6 = x[,6])\n\n# Generate least squares estimates using LM function\n\nlm_mod &lt;- lm(y ~ x2 + x3 + x4 + x5 + x6, data = data)$coefficients\n\n# Bind population parameters and estimates together\nbhat_named &lt;- cbind(b_names, \n                     beta, \n                     round(bhat,3),\n                     round(lm_mod,3))\nkable(bhat_named,\n      align     = 'c',\n      col.names = c(\"Coefficient\",\n                    \"Population Parameter\",\n                    \"LS Estimates\",\n                    \"LM Estimates\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\n\nCoefficient\nPopulation Parameter\nLS Estimates\nLM Estimates\n\n\n\n\n(Intercept)\nb1\n7\n6.992\n6.992\n\n\nx2\nb2\n8\n7.991\n7.991\n\n\nx3\nb3\n9\n8.995\n8.995\n\n\nx4\nb4\n10\n10.032\n10.032\n\n\nx5\nb5\n11\n11.001\n11.001\n\n\nx6\nb6\n12\n12.025\n12.025",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#matrix-properties",
+    "href": "mod-2-1-matrix.html#matrix-properties",
+    "title": "8  Matrix Operations",
+    "section": "8.5 Matrix Properties",
+    "text": "8.5 Matrix Properties\nIn the table below, vectors are lowercase letters while capital letters represent matrices.\nFor much more information, see “The Matrix Cookbook” at http://matrixcookbook.com\n\n\n\nMatrix Rules\n\n\nRule\nComment\n\n\n\n\n$(AB)^T = B^T A^T$\nOrder is reversed and every element is transposed\n\n\n$(a^T B c)^T = c^T B^T a$\nOrder is reversed, every element transposed, the transpose of a transpose is itself\n\n\n$a^T b = b^T A$\nThe result is a scalar and the transpose of a scalar is itself\n\n\n$(A+B)C = AC + BC$\n(A+B) premultiplies C and this multiplication can be distributed\n\n\n$(a+b)^T C = a^T C + b^T C$\nThe vectors (a+b) premultiply C and this multipcation can be distributed\n\n\n$AB \\ne BA$\nMatrix Multiplication is not communicative",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#common-derivative-properties",
+    "href": "mod-2-1-matrix.html#common-derivative-properties",
+    "title": "8  Matrix Operations",
+    "section": "8.6 Common Derivative Properties",
+    "text": "8.6 Common Derivative Properties\nThe following rules are often quite useful\nIt is assumed that the basic assumptions can be written as\n\\[\\frac{\\partial X_{kl}}{\\partial X_{ij}}\\]\n\n\n\nScalar and Matrix Derivative Rules\n\n\nScalar\nVector\n\n\n\n\n$\\frac{\\partial bx}{\\partial x} \\rightarrow b$\n$\\frac{\\partial x^T B}{\\partial x} \\rightarrow B$\n\n\n$\\frac{\\partial bx}{\\partial x} \\rightarrow b$\n$\\frac{\\partial x^T b}{\\partial x} \\rightarrow b$\n\n\n$\\frac{\\partial x^2}{\\partial x} \\rightarrow 2x$\n$\\frac{\\partial x^T x}{\\partial x} \\rightarrow 2x$\n\n\n$\\frac{\\partial b x^2}{\\partial x} \\rightarrow 2bx$\n$\\frac{\\partial x^T B x}{\\partial x} \\rightarrow 2Bx$",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#properties-of-m",
+    "href": "mod-2-1-matrix.html#properties-of-m",
+    "title": "8  Matrix Operations",
+    "section": "8.7 Properties of M",
+    "text": "8.7 Properties of M\n\\(M\\) is a \\((n \\times n)\\) symmetric, idempotent matrix where\n\\[M = I - X(X^T X)^{-1}X^T\\]\n\\(M\\) is the residual maker when \\(y\\) is premulitplied by \\(M\\) it produces the vector of least squares residuals.\nNote that \\(MX = 0\\) since the regression of \\(X\\) on \\(X\\) is a “perfect fit” and there is no unexplained variation.\n\nnrows &lt;- 7000\nncols &lt;- 9\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\n# let beta = (1,2,3,4,5,6,7,8,9)\n\nbeta &lt;- seq(1,ncols)\n\n# y is equal to X*beta + random disturbance\n\ny &lt;- x %*% beta + rnorm(nrows)\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\n# Solve for residuals\n\ne &lt;- y - yhat\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\n# Create Residual Maker\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\n# Residuals = My\n\ne1 &lt;- M %*% y\n\ndf_e &lt;- data.frame(e, e1)\n\nkable(df_e[1:10,],\n      col.names = c(\"e (y - yhat)\",\n                    \"e (My)\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\ne (y - yhat)\ne (My)\n\n\n\n\n0.7044752\n0.7044752\n\n\n0.5357223\n0.5357223\n\n\n-1.3074348\n-1.3074348\n\n\n-0.6846867\n-0.6846867\n\n\n0.8841051\n0.8841051\n\n\n1.8214250\n1.8214250\n\n\n1.2356265\n1.2356265\n\n\n-1.0181093\n-1.0181093\n\n\n-0.3338123\n-0.3338123\n\n\n0.2873728\n0.2873728",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#m-properties",
+    "href": "mod-2-1-matrix.html#m-properties",
+    "title": "8  Matrix Operations",
+    "section": "8.8 M Properties",
+    "text": "8.8 M Properties\n\nnrows &lt;- 500\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ne1 &lt;- y - yhat\n\ne2 &lt;- M %*% y\n\nresids &lt;- as.data.frame(cbind(e1,e2))\n\nkable(resids[1:10,],\n      col.names = c(\"e (y - yhat)\",\n                    \"e (My)\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\ne (y - yhat)\ne (My)\n\n\n\n\n0.7689276\n0.7689276\n\n\n-0.2706183\n-0.2706183\n\n\n-0.7808239\n-0.7808239\n\n\n0.3798104\n0.3798104\n\n\n0.5806918\n0.5806918\n\n\n0.9877439\n0.9877439\n\n\n-0.6722584\n-0.6722584\n\n\n-0.9176326\n-0.9176326\n\n\n-0.6932500\n-0.6932500\n\n\n0.8988364\n0.8988364",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#m-is-symmetric",
+    "href": "mod-2-1-matrix.html#m-is-symmetric",
+    "title": "8  Matrix Operations",
+    "section": "8.9 M is Symmetric",
+    "text": "8.9 M is Symmetric\n\nRecall that \\(M\\) is symmetric, so \\(M\\) and \\(M^T\\) are the same.\n\n\n# M Properties\n\nMTrans &lt;- t(M)\n\nkable(data.frame(M)[1:5,1:5]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\n\n\n\n\n0.9893591\n-0.0021836\n-0.0037710\n-0.0018619\n-0.0054623\n\n\n-0.0021836\n0.9935236\n-0.0006019\n-0.0056201\n-0.0048438\n\n\n-0.0037710\n-0.0006019\n0.9931596\n0.0065197\n-0.0045882\n\n\n-0.0018619\n-0.0056201\n0.0065197\n0.9810812\n0.0011177\n\n\n-0.0054623\n-0.0048438\n-0.0045882\n0.0011177\n0.9928817\n\n\n\n\nkable(data.frame(MTrans)[1:5,1:5]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\n\n\n\n\n0.9893591\n-0.0021836\n-0.0037710\n-0.0018619\n-0.0054623\n\n\n-0.0021836\n0.9935236\n-0.0006019\n-0.0056201\n-0.0048438\n\n\n-0.0037710\n-0.0006019\n0.9931596\n0.0065197\n-0.0045882\n\n\n-0.0018619\n-0.0056201\n0.0065197\n0.9810812\n0.0011177\n\n\n-0.0054623\n-0.0048438\n-0.0045882\n0.0011177\n0.9928817",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#m-is-idempotent",
+    "href": "mod-2-1-matrix.html#m-is-idempotent",
+    "title": "8  Matrix Operations",
+    "section": "8.10 M is Idempotent",
+    "text": "8.10 M is Idempotent\n\nRecall that \\(M\\) is also idempotent, that is, it is a matrix that, when multiplied by itself, yields itself.\n\n\nMM &lt;- M %*% M\n\nkable(data.frame(M)[1:5,1:5]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\n\n\n\n\n0.9893591\n-0.0021836\n-0.0037710\n-0.0018619\n-0.0054623\n\n\n-0.0021836\n0.9935236\n-0.0006019\n-0.0056201\n-0.0048438\n\n\n-0.0037710\n-0.0006019\n0.9931596\n0.0065197\n-0.0045882\n\n\n-0.0018619\n-0.0056201\n0.0065197\n0.9810812\n0.0011177\n\n\n-0.0054623\n-0.0048438\n-0.0045882\n0.0011177\n0.9928817\n\n\n\n\nkable(data.frame(MM)[1:5,1:5]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\n\n\n\n\n0.9893591\n-0.0021836\n-0.0037710\n-0.0018619\n-0.0054623\n\n\n-0.0021836\n0.9935236\n-0.0006019\n-0.0056201\n-0.0048438\n\n\n-0.0037710\n-0.0006019\n0.9931596\n0.0065197\n-0.0045882\n\n\n-0.0018619\n-0.0056201\n0.0065197\n0.9810812\n0.0011177\n\n\n-0.0054623\n-0.0048438\n-0.0045882\n0.0011177\n0.9928817",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#mx-is-zero",
+    "href": "mod-2-1-matrix.html#mx-is-zero",
+    "title": "8  Matrix Operations",
+    "section": "8.11 MX is Zero",
+    "text": "8.11 MX is Zero\nRecall that \\(MX\\) will be equal to zero.\n\nMX &lt;- M %*% x\n\nkable(data.frame(MX)[1:5,1:5]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\n\n\n\n\n0\n0\n0\n0\n0\n\n\n0\n0\n0\n0\n0\n\n\n0\n0\n0\n0\n0\n\n\n0\n0\n0\n0\n0\n\n\n0\n0\n0\n0\n0",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#projection-matrix",
+    "href": "mod-2-1-matrix.html#projection-matrix",
+    "title": "8  Matrix Operations",
+    "section": "8.12 Projection Matrix",
+    "text": "8.12 Projection Matrix\nWhile \\(My\\) captures the unexplained variation in \\(y\\), \\(Py\\) captured the explained variation in \\(y\\) or:\n\\[M = I - X(X^T X)^{-1}X^T\\] \\[P = X(X^T X)^{-1}X^T\\]\nThe projection matrix \\(P\\) is symmetric and idempotent.\n\\(PM\\) and \\(MP\\) are equivalent and equal to zero and \\(P\\) and \\(M\\) are orthogonal.\nGiven the orthogonality, we can partition y into two parts:\n\\[y = Py + My\\] \\[y = X(X^T X)^{-1} X^T y + (I-X(X^T X)^{-1}X^T)y\\]\nRecall that \\(b = (X^T X)^{-1} X^T y\\) and substitute:\n\\[y = Xb + (I-X(X^T X)^{-1}X^T)y\\]\nNow multiply \\(y\\) through the second term:\n\\[y = X b + (y - X(X^T X)^{-1} X^T y)\\]\nSubstitute again for \\(b\\)\n\\[y = X b + (y - X b)\\]\nRecognize that \\(Xb = \\hat{y}\\)\n\\[y = Xb + (y - \\hat{y})\\] \\[y = Xb + e\\]\n\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\n\nPy &lt;- P %*% y\n\ndf_yhat &lt;- data.frame(yhat, Py)\n\nkable(df_yhat[1:10,]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nyhat\nPy\n\n\n\n\n-0.5748282\n-0.5748282\n\n\n4.9799871\n4.9799871\n\n\n-7.3985563\n-7.3985563\n\n\n18.1247846\n18.1247846\n\n\n-2.5546478\n-2.5546478\n\n\n8.9113020\n8.9113020\n\n\n6.0186411\n6.0186411\n\n\n1.2031494\n1.2031494\n\n\n7.1425961\n7.1425961\n\n\n-3.3954989\n-3.3954989",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#partitioned-y",
+    "href": "mod-2-1-matrix.html#partitioned-y",
+    "title": "8  Matrix Operations",
+    "section": "8.13 Partitioned Y",
+    "text": "8.13 Partitioned Y\n\nypart &lt;- P %*% y + M %*% y\n\ndf_y &lt;- data.frame(y, ypart)\n\nkable(df_y[1:10,]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\ny\nypart\n\n\n\n\n0.1940994\n0.1940994\n\n\n4.7093688\n4.7093688\n\n\n-8.1793802\n-8.1793802\n\n\n18.5045950\n18.5045950\n\n\n-1.9739559\n-1.9739559\n\n\n9.8990459\n9.8990459\n\n\n5.3463828\n5.3463828\n\n\n0.2855168\n0.2855168\n\n\n6.4493461\n6.4493461\n\n\n-2.4966625\n-2.4966625",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#sum-of-squares",
+    "href": "mod-2-1-matrix.html#sum-of-squares",
+    "title": "8  Matrix Operations",
+    "section": "8.14 Sum of Squares",
+    "text": "8.14 Sum of Squares\nThe sum of squares is equal to \\(y^T y\\) and should not be confused with the total sum of squares which is the sum of squared deviations of \\(y\\) from \\(\\mu_y\\).\n\nsum_sq &lt;- t(y) %*% y \n\nsum_sq2 &lt;- t(y) %*% t(P) %*% P %*% y + t(y) %*% t(M) %*% M %*% y\n\nsum_square &lt;- data.frame(sum_sq, sum_sq2)\n\nkable(sum_square) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nsum_sq\nsum_sq2\n\n\n\n\n29253.82\n29253.82",
     "crumbs": [
       "Least Squares Estimator",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
