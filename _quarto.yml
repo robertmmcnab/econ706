@@ -16,7 +16,10 @@ book:
         - mod-1-0-overview.qmd
         - mod-1-1-matrix.qmd
         - mod-1-2-model.qmd
-
+    - part: "Least Squares Estimator"
+      chapters:
+        - mod-2-0-overview.qmd
+        - mod-2-1-matrix.qmd
 execute:
   webR: true            # enables WebR chunks for interactive R in the browser
   

@@ -1,12 +1,12 @@
 ---
-title: "Module 1 Overview"
+title: "Module 2 Overview"
 ---
 
 ## Introduction
 
-Welcome to **Module 1** of ECON 706.
+Welcome to **Module 2** of ECON 706.
 
-In this module, we will briefly review matrix operations before introducing the multiple variable linear regression model. We will discuss the assumptions of the multiple variable linear regression model, the assumptions of the model, and consequences associated with the violations of these assumptions. Throughout the module, we will explore how to use R to manipulate matricies.
+In this module, we will continue our discussion of matrix operations. We will then discuss the intuition behind the least squares estimator before deriving the least squares estimator. We will explore projection and how projection helps us understand the least squares estimator. 
 
 ------------------------------------------------------------------------
 
@@ -14,11 +14,11 @@ In this module, we will briefly review matrix operations before introducing the 
 
 By the end of this module, you should be able to:
 
--   MLO 1: **Apply** descriptive statistics for initial data exploration.
--   MLO 2: **Define** the notation and concepts used to construct the linear regression model.
--   MLO 3: **Identify** the core assumptions of the classical linear regression model.
--   MLO 4: **Discuss** the consequences of the violations of the core assumptions of the model.
--   MLO 5: **Use** R and RStudio to create and manipulate matricies.
+-   MLO 1: **Define** the notation and concepts used to construct the linear regression estimator.
+-   MLO 2: **Derive** the least squares estimator.
+-   MLO 3: **Identify** the core assumptions of the least squares estimator.
+-   MLO 4: **Discuss** projection and the derivation of the least squares estimator.
+-   MLO 5: **Apply** R and R Studio in the derivation of the least squares estimator.
 
 ------------------------------------------------------------------------
 
@@ -26,7 +26,7 @@ By the end of this module, you should be able to:
 
 Please select the links provided to access material where applicable.
 
--   William H. Greene. (2018). *Econometric Analysis, 8th Edition*. Available from Pearson. Chapters 1-2.
+-   William H. Greene. (2018). *Econometric Analysis, 8th Edition*. Available from Pearson. Chapters 2-3.
 
 -   Rafael Irizarry. (2025). [Introduction to Data Science: Data Wrangling and Visualization with R](https://rafalab.dfci.harvard.edu/dsbook-part-1/). Chapters 1-2.
 
@@ -49,9 +49,8 @@ Please select the links provided to access material where applicable.
 
 ## Lessons in this Module
 
--   [1.1 – Matrix Operations](mod-1-1-matrix.qmd)\
--   [1.2 - Linear Regression Models](mod-1-2-model.qmd)
+-   [2.1 – Matrix Operations](mod-2-1-matrix.qmd)\
 
 ------------------------------------------------------------------------
 
-Next: Start with [**Matrix Operations**](mod-1-1-matrix.qmd).
+Next: Start with [**Matrix Operations**](mod-2-1-matrix.qmd).

@@ -125,7 +125,7 @@
     "href": "mod-1-0-overview.html",
     "title": "4  Module 1 Overview",
     "section": "",
-    "text": "4.1 Introduction\nWelcome to Module 1 of ECON 706.\nIn this module, we will briefly review matrix operations before introducing the multiple variable linear regression model. We will discuss the assumptions of the multiple variable linear regression model, the assumptions of the model, and consequences associated with the violations of these assumptions. We will then use R to estimate a naive multiple variable linear regression model.",
+    "text": "4.1 Introduction\nWelcome to Module 1 of ECON 706.\nIn this module, we will briefly review matrix operations before introducing the multiple variable linear regression model. We will discuss the assumptions of the multiple variable linear regression model, the assumptions of the model, and consequences associated with the violations of these assumptions. Throughout the module, we will explore how to use R to manipulate matricies.",
     "crumbs": [
       "Linear Regression Model",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Module 1 Overview</span>"
@@ -136,7 +136,7 @@
     "href": "mod-1-0-overview.html#learning-objectives",
     "title": "4  Module 1 Overview",
     "section": "4.2 Learning Objectives",
-    "text": "4.2 Learning Objectives\nBy the end of this module, you should be able to:\n\nMLO 1: Apply descriptive statistics for initial data exploration.\nMLO 2: Define the notation and concepts used to construct the linear regression model.\nMLO 3: Identify the core assumptions of the classical linear regression model.\nMLO 4: Discuss the consequences of the violations of the core assumptions of the model.\nMLO 5: Apply R and R Studio to obtain, clean, and estimate a naive linear regression model.",
+    "text": "4.2 Learning Objectives\nBy the end of this module, you should be able to:\n\nMLO 1: Apply descriptive statistics for initial data exploration.\nMLO 2: Define the notation and concepts used to construct the linear regression model.\nMLO 3: Identify the core assumptions of the classical linear regression model.\nMLO 4: Discuss the consequences of the violations of the core assumptions of the model.\nMLO 5: Use R and RStudio to create and manipulate matricies.",
     "crumbs": [
       "Linear Regression Model",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Module 1 Overview</span>"
@@ -437,6 +437,182 @@
     "crumbs": [
       "Linear Regression Model",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Regression Models</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-0-overview.html",
+    "href": "mod-2-0-overview.html",
+    "title": "7  Module 2 Overview",
+    "section": "",
+    "text": "7.1 Introduction\nWelcome to Module 2 of ECON 706.\nIn this module, we will continue our discussion of matrix operations. We will then discuss the intuition behind the least squares estimator before deriving the least squares estimator. We will explore projection and how projection helps us understand the least squares estimator.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Module 2 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-0-overview.html#learning-objectives",
+    "href": "mod-2-0-overview.html#learning-objectives",
+    "title": "7  Module 2 Overview",
+    "section": "7.2 Learning Objectives",
+    "text": "7.2 Learning Objectives\nBy the end of this module, you should be able to:\n\nMLO 1: Define the notation and concepts used to construct the linear regression estimator.\nMLO 2: Derive the least squares estimator.\nMLO 3: Identify the core assumptions of the least squares estimator.\nMLO 4: Discuss projection and the derivation of the least squares estimator.\nMLO 5: Apply R and R Studio in the derivation of the least squares estimator.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Module 2 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-0-overview.html#required-texts",
+    "href": "mod-2-0-overview.html#required-texts",
+    "title": "7  Module 2 Overview",
+    "section": "7.3 Required Texts",
+    "text": "7.3 Required Texts\nPlease select the links provided to access material where applicable.\n\nWilliam H. Greene. (2018). Econometric Analysis, 8th Edition. Available from Pearson. Chapters 2-3.\nRafael Irizarry. (2025). Introduction to Data Science: Data Wrangling and Visualization with R. Chapters 1-2.\nHadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund. (2025) R for Data Science. Sections 1-19.\nOnline R documentation\nRStudio Cheat Sheets",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Module 2 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-0-overview.html#module-to-do-list",
+    "href": "mod-2-0-overview.html#module-to-do-list",
+    "title": "7  Module 2 Overview",
+    "section": "7.4 Module To Do List",
+    "text": "7.4 Module To Do List\n\nComplete the hands-on coding exercises embedded in each lesson (MLO 1, 5)\n\nUse WebR to experiment directly in your browser (MLO 1, 2, 3, 4, 5)\n\nComplete the weekly class assignment (MLO 1, 2, 3, 4, 5)\n\nTake the weekly knowledge quiz (MLO 1, 2, 3, 4, 5)",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Module 2 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-0-overview.html#lessons-in-this-module",
+    "href": "mod-2-0-overview.html#lessons-in-this-module",
+    "title": "7  Module 2 Overview",
+    "section": "7.5 Lessons in this Module",
+    "text": "7.5 Lessons in this Module\n\n2.1 – Matrix Operations\n\n\n\nNext: Start with Matrix Operations.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Module 2 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html",
+    "href": "mod-2-1-matrix.html",
+    "title": "8  Matrix Operations",
+    "section": "",
+    "text": "8.1 Matrix Operations\nThis module covers the essential matrix operations required for econometrics. We begin with basic matrix creation and arithmetic, progressing to more complex operations like inversion and formal multiplication. Understanding these operations is critical as they form the backbone of the Ordinary Least Squares (OLS) estimator, which we will derive and implement both manually and using built-in R functions.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#matrix-creation",
+    "href": "mod-2-1-matrix.html#matrix-creation",
+    "title": "8  Matrix Operations",
+    "section": "8.2 Matrix Creation",
+    "text": "8.2 Matrix Creation\nWe can create two vectors that contain 4 numeric elements and form two matrices that are \\((2 \\times 2)\\) Assume that we have call the two matrices, \\(m_1\\) and \\(m_2\\) and the matrices can be expressed as:\n\\[ m_1 = \\begin{bmatrix} 2 & 6 \\\\ 4 & 8 \\end{bmatrix} \\]\n\\[ m_2 = \\begin{bmatrix} 5 & 2 \\\\ 15 & 12 \\end{bmatrix} \\]\nWe can also create a \\((4 \\times 1)\\) matrix from the same elements that form \\(m_1\\) or:\n\\[\nm_{1a} = \\begin{bmatrix}\n2 \\\\\n4 \\\\\n6 \\\\\n8\n\\end{bmatrix}\n\\]\nWe can take a transpose of a matrix by using t(), so t(m_1) would be the transpose of matrix m_1 or\n\\[\nm_1^T = \\begin{bmatrix}\n2 & 4 \\\\\n6 & 8\n\\end{bmatrix}\n\\]\nWe can use the dim function to obtain the dimensions of a matrix (and other elements like vectors).\nThe code chunk below does the following:\n\nCreate numeric vectors using the combine function and assign to d_1 and d_2\nUsing d_1, create a \\((2 \\times 2)\\) matrix\nUsing d_2, create a \\((2 \\times 2)\\) matrix\nUsing d_1, create a $(4 ) matrix\nUse kable to output m_1\nUse the transpose function and kable to output t(m_1)\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#matrix-addition",
+    "href": "mod-2-1-matrix.html#matrix-addition",
+    "title": "8  Matrix Operations",
+    "section": "8.3 Matrix Addition",
+    "text": "8.3 Matrix Addition\nIn this example, we demonstrate how to add matrices.\nWe return to the two \\((2 \\times 2)\\) matrices in the previous example and add the matrices together.\n\\[ \\begin{bmatrix}\n2 & 6 \\\\ 4 & 8\n\\end{bmatrix} +\n\\begin{bmatrix}\n5 & 2 \\\\ 15 & 12\n\\end{bmatrix} =\n\\begin{bmatrix}\n(2 + 5) & (6 + 2) \\\\\n(4 + 15) & (8 + 12)\n\\end{bmatrix} =\n\\begin{bmatrix}\n7 & 8 \\\\\n19 & 20\n\\end{bmatrix}\\]\nWhen we add \\(m_1\\) and \\(m_2\\), we are adding the values in the same position in each matrix.\nFor example, for \\(m_1\\), the value in the first row, first column is equal to 2.\nFor \\(m_2\\), the value in the first row, first column is equal to 5.\nAdding \\(m_1\\) and \\(m_2\\) yields a value of 7 in the first row, first column of the resulting matrix.\nThe order for matrix addition does not matter, that is, \\(m_1 + m_2 = m_2 + m_1\\).\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#matrix-subtraction",
+    "href": "mod-2-1-matrix.html#matrix-subtraction",
+    "title": "8  Matrix Operations",
+    "section": "8.4 Matrix Subtraction",
+    "text": "8.4 Matrix Subtraction\nUsing a similar process, we can subtract one matrix from another. While order does not matter for addition, order does matter for subtraction.\nIf we subtract \\(m_2\\) from \\(m_1\\), that is \\(m_1 - m_2\\), then, we are subtracting the value of each element in \\(m_2\\) from the corresponding element in \\(m_1\\).\n\\[ \\begin{bmatrix}\n2 & 6 \\\\ 4 & 8\n\\end{bmatrix} -\n\\begin{bmatrix}\n5 & 2 \\\\ 15 & 12\n\\end{bmatrix} =\n\\begin{bmatrix}\n(2 - 5) & (6 - 2) \\\\\n(4 - 15) & (8 - 12)\n\\end{bmatrix} =\n\\begin{bmatrix}\n-3 & 4 \\\\\n-11 & -4\n\\end{bmatrix}\\]\nThe value in the first row, first column of \\(m_1\\) is equal to 5. When we subtract \\(m_2\\) from \\(m_1\\), we would subtract 2 (first row, first column of \\(m_2\\)) from 5 (first row, first column of \\(m_1\\)), that is, the resulting value is equal to \\(2-5 = -3\\).\nOn the other hand, if we subtract \\(m_1\\) from \\(m_2\\), then the same position yields \\(5-2 = 3\\).\n\\[ \\begin{bmatrix}\n5 & 2 \\\\ 15 & 12\n\\end{bmatrix} -\n\\begin{bmatrix}\n2 & 6 \\\\ 4 & 8\n\\end{bmatrix} -\n=\n\\begin{bmatrix}\n(5 - 2) & (2 - 6) \\\\\n(15 - 4) & (12 - 8)\n\\end{bmatrix} =\n\\begin{bmatrix}\n3 & -4 \\\\\n11 & 4\n\\end{bmatrix}\\]\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#hadamard-product",
+    "href": "mod-2-1-matrix.html#hadamard-product",
+    "title": "8  Matrix Operations",
+    "section": "8.5 Hadamard Product",
+    "text": "8.5 Hadamard Product\nElement-by-element matrix multiplication is straightforward but is not typically used in this class. Element-by-element matrix multiplication is known as the Hadamard Product.\nThe order of multiplication does not matter, however, the two matrices must have identical dimensions.\nReturning to the two matrices, \\(m_1\\) and \\(m_2\\), we can conduct element-by-element multiplication by multiplying each element by its corresponding element in the other matrix.\n\\[\nm1 \\times m2 =\n\\begin{bmatrix}\n2 & 6 \\\\\n4 & 8\n\\end{bmatrix} \\times\n\\begin{bmatrix}\n5 & 2 \\\\\n15 & 12\n\\end{bmatrix} =\n\\begin{bmatrix}\n(2 \\times 5) & (6 \\times 2) \\\\\n(4 \\times 15) & (8 \\times 12)\n\\end{bmatrix} =\n\\begin{bmatrix}\n10 & 12 \\\\\n60 & 96\n\\end{bmatrix}\n\\]\nAs an exercise, you can use the webr code chunk below to calculate the product of the two matrices and observe whether the Hadamard Product depends on the order of multiplication.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#matrix-multiplication",
+    "href": "mod-2-1-matrix.html#matrix-multiplication",
+    "title": "8  Matrix Operations",
+    "section": "8.6 Matrix Multiplication",
+    "text": "8.6 Matrix Multiplication\nIf A is a \\((m \\times n)\\) matrix and B is a \\((n \\times p)\\) matrix, then we can form the matrix product C by AB, if and only if the two matrices are compatible.\nThe first step is to ensure the matrices are compatible, that is, the inner dimensions of the matrices must match. In this case, the columns in A are equal to the rows in B, so the matrices are compatible.\nThe resulting matrix will have the dimensions of the ‘outer’ numbers. If we examine this from a dimensional perspective then:\n\\[\nA \\times B = (m \\times n) \\times (n \\times p) = (m \\times p)\n\\]\nFor example, assume that A is \\((5 \\times 5)\\) and B is \\((5 \\times 8)\\). We can form the matrix product AB since the as the number of columns in A is equal to the number of rows in B.\n\nWe cannot, however, form the matrix product BA since the number of columns in B is not equal to the number of rows in A.\nIn general, the only time we are assured that we can multiply AB and BA is when A and B are square matrices with the same dimensions.\nRecall that we have previously defined two matrices as:\n\\[\nm_1 = \\begin{bmatrix}\n2 & 6 \\\\\n4 & 8\n\\end{bmatrix}\\]\n\\[m_2 = \\begin{bmatrix}\n5 & 2 \\\\\n15 & 12\n\\end{bmatrix}\n\\]\nStep 1: Top-Left element: Take the first row of \\(m_1\\) and multiply it by the first column of \\(m_2\\).\n\\[\n(2 \\times 5) + (6 \\times 15) = 10 + 90 = 100\n\\]\nStep 2: Top-Right Element: Take the first row of \\(m_1\\) and multiply it by the second column of \\(m_2\\).\n\\[\n(2 \\times 2) + (6 \\times 12) = 4 + 72 = 76\n\\]\nStep 3: Bottom-Left element: Take the second row of \\(m_1\\) and multiply it by the first column of \\(m_2\\).\n\\[\n(4 \\times 5) + (8 \\times 15) = 20 + 120 = 140\n\\]\nStep 4: Bottom-right element: Take the second row of \\(m_1\\) and multiply it by the second column of \\(m_2\\).\n\\[\n(4 \\times 2) + (8 \\times 12) = 8 + 96 = 104\n\\]\nWhen we multiply \\(m_1\\) by \\(m_2\\) we obtain a new matrix that is the matrix product or\n\\[\nm_1m_2 = \\begin{bmatrix}\n2 & 6 \\\\\n4 & 8\n\\end{bmatrix}\n\\begin{bmatrix}\n5 & 2 \\\\\n15 & 12\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n(2 \\times 5) + (6 \\times 15) & (2 \\times 2) + (6 \\times 12) \\\\\n(4 \\times 5) + (8 \\times 15) & (4 \\times 2) + (8 \\times 12)\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n100 & 76 \\\\\n140 & 104\n\\end{bmatrix}\n\\]\nTo illustrate the point that, in general, matrix multiplication depends on the order of the matrices, we can calculate the product of \\(m_2 m_1\\).\nStep 1: Top-Left element: Take the first row of \\(m_2\\) and multiply it by the first column of \\(m_1\\).\n\\[ (5 \\times 2) + (2 \\times 4) = 10 + 8 = 18 \\]\nStep 2: Top-Right Element: Take the first row of \\(m_2\\) and multiply it by the second column of \\(m_1\\).\n\\[ (5 \\times 6) + (2 \\times 8) = 30 + 16 = 46 \\]\nStep 3: Bottom-Left element: Take the second row of \\(m_2\\) and multiply it by the first column of \\(m_1\\).\n\\[ (15 \\times 2) + (12 \\times 4) = 30 + 48 = 78 \\]\nStep 4: Bottom-right element: Take the second row of \\(m_1\\) and multiply it by the second column of \\(m_2\\).\n\\[ (15 \\times 6) + (12 \\times 8) = 186 \\]\nWhen we multiply \\(m_1\\) by \\(m_2\\) we obtain a new matrix that is the matrix product or\n\\[ m_2 m_1 = \\begin{bmatrix} 5 & 2 \\\\ 15 & 12  \\end{bmatrix} \\begin{bmatrix} 2 & 6 \\\\ 4 & 8  \\end{bmatrix} = \\begin{bmatrix} (5 \\times 2) + (2 \\times 4) & (5 \\times 6) + (2 \\times 8) \\\\ (15 \\times 2) + (12 \\times 4) & (15 \\times 6) + (12 \\times 8) \\end{bmatrix} = \\begin{bmatrix} 18 & 46 \\\\ 78 & 186 \\end{bmatrix} \\]\nThis illustrates the point: matrix multiplication is non-communicative. Comparability and order of operations matter. Change the order, obtain a different result.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#symmetric-matrix",
+    "href": "mod-2-1-matrix.html#symmetric-matrix",
+    "title": "8  Matrix Operations",
+    "section": "8.7 Symmetric Matrix",
+    "text": "8.7 Symmetric Matrix\nA symmetric matrix is a square matrix, that is, it has the same number of rows as it has columns.\nA symmetric matrix is equal to its transpose, that is, \\(A = A^T\\).\nFor example, the matrix below is equal to its transpose, thus it is a symmetric matrix.\nThe code below illustrates this by creating the matrix and producing its transpose.\n\\[X = \\begin{bmatrix} 4 & 5 & -3 \\\\ 5 & 7 & 2 \\\\ -3 & 2 & 10 \\end{bmatrix}\\]\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#idempotent-matrix",
+    "href": "mod-2-1-matrix.html#idempotent-matrix",
+    "title": "8  Matrix Operations",
+    "section": "8.8 Idempotent Matrix",
+    "text": "8.8 Idempotent Matrix\nAn idempotent matrix is one which, when multiplied by itself, yields itself.\nIf a matrix \\(A\\) is idempotent, then \\(A \\times A = A\\).\n\\[M = \\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix}\\]\n\\[\nMM = \\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix}\n\\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix} =\n\\begin{bmatrix}\n(3*3)+(1*-6) & (3*1)+(1*-2)\\\\\n(1*3)+(-2*1) & (1*-6)+(-2*-2)\n\\end{bmatrix}\\]\n\\[MM = \\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix}\n\\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix} =\n\\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix}\\]\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#identity-matrix",
+    "href": "mod-2-1-matrix.html#identity-matrix",
+    "title": "8  Matrix Operations",
+    "section": "8.9 Identity Matrix",
+    "text": "8.9 Identity Matrix\nThe identity matrix has 1’s along the diagonal and 0’s on the off-diagonal positions.\nAn identity matrix is symmetric and idempotent.\nWe can create an identity matrix in R by using the diag function, that is, diag(5) creates a 5 x 5 identity matrix.\n\\[M = \\begin{bmatrix}\n1 & 0 & \\dots & 0 \\\\\n0 & 1 & \\dots & 0 \\\\\n\\vdots & 0 & \\ddots & \\vdots \\\\\n0 & 0 & \\dots & 1\n\\end{bmatrix}\\]\n\\[M = t(M) = MM = M\\]\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#matrix-inversion",
+    "href": "mod-2-1-matrix.html#matrix-inversion",
+    "title": "8  Matrix Operations",
+    "section": "8.10 Matrix Inversion",
+    "text": "8.10 Matrix Inversion\nTo understand the inverse of a matrix, let’s start with an example where have an equation and we want to solve for the unknown value of \\(x\\).\n\\[\n5x = 10\n\\]\nWe can divide both sides by the reciprocal of 5 to solve for \\(x\\). \\[\n\\frac{1}{5} \\times 5x = 10 \\times \\frac{1}{5}\n\\]In other words, if we multiply 5 by it’s inverse, we obtain\n\\[\n5 \\times \\frac{1}{5} = 1\n\\]\nWhen we multiply a matrix by its inverse, we obtain the identify matrix (I) which is the matrix equivalent of the number 1 where the identify matrix has 1’s along the diagonal and 0’s off the diagonal or:\n\\[\nA A^{-1} = I =\n\\begin{bmatrix}1 & 0 & \\ldots & 0 \\\\\n0 & 1 & \\dots & 0 \\\\\n\\vdots & & \\ddots & \\vdots \\\\\n0 & \\ldots & \\dots & 1\n\\end{bmatrix}\n\\]\nNot every matrix, however, has an inverse. A matrix must meet two criteria to have an inverse:\n\nThe matrix must be square, that is, the number of rows and columns are equal\nThe determinant cannot be zero.\n\nDefine a \\((2 \\times 2)\\) matrix as:\n\\[X = \\begin{bmatrix}\nA & B \\\\\nC & D\n\\end{bmatrix}\\]\nThe inverse of the \\(X\\) matrix is denoted as \\(X^{-1}\\) and is equal to:\n\\[X^{-1} = \\frac{1}{AD - BC} \\begin{bmatrix}\nD & -B \\\\\n-C & A\n\\end{bmatrix}\\]\nWe should note that \\((AD - BC)\\) is the determinant.\nNow define \\(X\\) as:\n\\[X = \\begin{bmatrix}\n4 & 8 \\\\\n2 & 6\n\\end{bmatrix}\\]\nThe inverse of \\(X\\) or \\(X^{-1}\\) is equal to:\n\\[X^{-1} = \\frac{1}{(4*6) - (8*2)} \\begin{bmatrix}\n6 & -8\\\\\n-2 & 4\n\\end{bmatrix}\\]\n\\[X^{-1} = \\frac{1}{8} \\begin{bmatrix}\n6 & -8\\\\\n-2 & 4\n\\end{bmatrix}\\]\n\\[X^{-1} = \\begin{bmatrix}\n3/4 & -1\\\\\n-1/4 & 1/2\n\\end{bmatrix}\\]\nAnd if we multiply \\(X\\) by \\(X^{-1}\\), we would obtain:\n\\[X X^{-1} = \\begin{bmatrix}\n4 & 8 \\\\\n2 & 6\n\\end{bmatrix}\n\\begin{bmatrix}\n3/4 & -1\\\\\n-1/4 & 1/2\n\\end{bmatrix} =\n\\begin{bmatrix}\n(4*3/4 + -1/4*8) & (4*-1 + 8*1/2) \\\\\n(2*3/4 + 6*-1/4) & (2*-1 + 6*1/2)\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n1 & 0 \\\\\n0 & 1\n\\end{bmatrix}=\nI\\]\nIn the code below, we create a \\((2 \\times 2)\\) matrix and use the solve function in R to calculate the inverse of the square matrix. We then multiply the matrix by its inverse to obtain the identity matrix.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#regression-example",
+    "href": "mod-2-1-matrix.html#regression-example",
+    "title": "8  Matrix Operations",
+    "section": "8.11 Regression Example",
+    "text": "8.11 Regression Example\nIn the code below, we create a matrix filled with zeros that has 6,000 rows and 6 columns.\nThe first column of the X matrix will be filled with the value 1.\nIn columns 2 through 6, we fill a random number from a standard normal distribution.\nThe gc() is a garbage collection command to return memory from R. It is optional to run this code.\nThe vector of \\(\\beta\\) coefficients is \\(\\beta \\in \\{1,2,3,4,5,6\\}\\).\nWe know define \\(y\\) as equal to a linear equation of \\(X\\beta\\) plus a disturbance term \\(\\epsilon\\) or:\n\\[y = X\\beta + \\epsilon\\]\n\\(\\epsilon\\) is drawn from a standard normal distribution with zero mean and constant variance.\nEstimate the least squares coefficients, predicted values for the dependent variable and residuals.\n\nrm(list = ls())\n\nset.seed(1234)\n \nx &lt;- matrix(0,6000,6)\n      x[,1] &lt;- 1\n      for (l in 2:6) {\n        x[,l] &lt;- rnorm(6000)\n        gc()\n      }\n\n# let beta = (1,2,3,4,5,6)\n\nbeta &lt;- seq(1,6)\n\n# y is equal to X*beta + random disturbance\n\ny &lt;- x %*% beta + rnorm(6000)\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\ne &lt;- y - yhat\n\nb_names &lt;- c(\"b1\", \"b2\", \"b3\", \"b4\", \"b5\", \"b6\")\n\nbhat_named &lt;- cbind(b_names, round(bhat,3))\n\nkable(bhat_named,\n      col.names = c(\"Coefficient\",\n                    \"Estimate\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nCoefficient\nEstimate\n\n\n\n\nb1\n1.015\n\n\nb2\n1.995\n\n\nb3\n3.003\n\n\nb4\n3.986\n\n\nb5\n4.988\n\n\nb6\n5.999",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
     ]
   }
 ]
