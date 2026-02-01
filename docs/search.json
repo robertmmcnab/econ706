@@ -499,7 +499,7 @@
     "href": "mod-2-1-matrix.html",
     "title": "8  Matrix Operations",
     "section": "",
-    "text": "8.1 Matrix Operations\nThis module covers the essential matrix operations required for econometrics. We begin with basic matrix creation and arithmetic, progressing to more complex operations like inversion and formal multiplication. Understanding these operations is critical as they form the backbone of the Ordinary Least Squares (OLS) estimator, which we will derive and implement both manually and using built-in R functions.",
+    "text": "8.1 Matrix Operations\nThis module extends our discussion of matrix operations. We begin with simulating least squares estimation before discussing matrix properties. We examine derivative properties before covering the projection and residual maker matrices. Understanding these operations is critical as they form the backbone of the Ordinary Least Squares (OLS) estimator, which we will derive and implement both manually and using built-in R functions.\nYou will find these examples useful as you derive the least squares estimator and examine the properties of the least squares estimator in later modules.",
     "crumbs": [
       "Least Squares Estimator",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
@@ -610,6 +610,39 @@
     "title": "8  Matrix Operations",
     "section": "8.11 Regression Example",
     "text": "8.11 Regression Example\nIn the code below, we create a matrix filled with zeros that has 6,000 rows and 6 columns.\nThe first column of the X matrix will be filled with the value 1.\nIn columns 2 through 6, we fill a random number from a standard normal distribution.\nThe gc() is a garbage collection command to return memory from R. It is optional to run this code.\nThe vector of \\(\\beta\\) coefficients is \\(\\beta \\in \\{1,2,3,4,5,6\\}\\).\nWe know define \\(y\\) as equal to a linear equation of \\(X\\beta\\) plus a disturbance term \\(\\epsilon\\) or:\n\\[y = X\\beta + \\epsilon\\]\n\\(\\epsilon\\) is drawn from a standard normal distribution with zero mean and constant variance.\nEstimate the least squares coefficients, predicted values for the dependent variable and residuals.\n\nrm(list = ls())\n\nset.seed(1234)\n \nx &lt;- matrix(0,6000,6)\n      x[,1] &lt;- 1\n      for (l in 2:6) {\n        x[,l] &lt;- rnorm(6000)\n        gc()\n      }\n\n# let beta = (1,2,3,4,5,6)\n\nbeta &lt;- seq(1,6)\n\n# y is equal to X*beta + random disturbance\n\ny &lt;- x %*% beta + rnorm(6000)\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\ne &lt;- y - yhat\n\nb_names &lt;- c(\"b1\", \"b2\", \"b3\", \"b4\", \"b5\", \"b6\")\n\nbhat_named &lt;- cbind(b_names, round(bhat,3))\n\nkable(bhat_named,\n      col.names = c(\"Coefficient\",\n                    \"Estimate\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nCoefficient\nEstimate\n\n\n\n\nb1\n1.015\n\n\nb2\n1.995\n\n\nb3\n3.003\n\n\nb4\n3.986\n\n\nb5\n4.988\n\n\nb6\n5.999",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#simulating-data",
+    "href": "mod-2-1-matrix.html#simulating-data",
+    "title": "8  Matrix Operations",
+    "section": "8.2 Simulating Data",
+    "text": "8.2 Simulating Data\nTo illustrate how to use the least squares estimator in R, we can use “simulated” data. The use of simulated data allows us to specify the properties of the observations that are used in the estimation of the least squares coefficients.\nFor replication, we use the set.seed function.\nBy specifying set.seed(1234), we will obtain the same results each time we run the code.\nWe first need to create the matrix of independent variables.\nAssume that we want to 6,000 observations with 5 independent variables. We will add an additional column for the intercept, so our matrix will be \\((6000 \\times 6)\\).\nOur first step is to create the \\((6000 \\times 6)\\) matrix. The matrix is filled with zeros.\nWe then fill the first column of the X matrix with 1’s for the intercept term.\nThe next step is to fill columns 2 thorough 6 of the X matrix. We use a loop to fill these columns.\nEach observation is filled with a random value from a standard normal distribution.\n\n# Clear memory\nrm(list = ls())\n\n# Set Seed to 1234\nset.seed(1234)\n\n# Create a (6000 x 6) matrix of 0s \nx &lt;- matrix(0,6000,6)\n\n# Fill the first column with 1s\n\nx[,1] &lt;- 1\n\n# Loop over remaining columns\n# Fill with values from standard normal\nfor (l in 2:6) {\n    x[,l] &lt;- rnorm(6000)\n        gc()\n}\n\n# Output the first three rows of the X matrix\nkable(x[1:3,])\n\n\n\n\n1\n-1.2070657\n0.0233919\n0.2493619\n1.4997568\n-0.0689789\n\n\n1\n0.2774292\n-0.2049017\n-1.0298485\n-0.5192977\n-0.2375112\n\n\n1\n1.0844412\n-1.0494016\n-0.3405868\n-2.7243444\n-1.1109575",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#linear-regression-model",
+    "href": "mod-2-1-matrix.html#linear-regression-model",
+    "title": "8  Matrix Operations",
+    "section": "8.3 Linear Regression Model",
+    "text": "8.3 Linear Regression Model\nWe can now specify the population coefficients, that is, as we are simulating population data, we can define the values of the population parameters or:\n\\[\n\\beta = \\begin{bmatrix}{1 \\\\ 2 \\\\ 3 \\\\ 4 \\\\ 5 \\\\ 6} \\end{bmatrix}\n\\] Let the disturbance term, \\(\\epsilon\\) be distributed normally with 0 mean and constant variance equal to 1 or:\n\\[\n\\epsilon \\sim N(0,1)\n\\] We specify that \\(y\\) is a linear equation equal to:\n\\[\ny = X \\beta + \\epsilon\n\\]\nThe least squares estimator is defined as:\n\\[\nb = (X^T X)^{-1} X^T y\n\\]\nWe estimate the least squares coefficients and produce a table of coefficients.\nYou should note that even though we have population data and know the population parameters, the least squares estimates are not equal to the population parameters.\nThe stochastic disturbance captures unobserved variation in the dependent variable, that is, we can not fully explain the variation in the dependent variable.\n\nset.seed(1234)\n \nx &lt;- matrix(0,6000,6)\n      x[,1] &lt;- 1\n      for (l in 2:6) {\n        x[,l] &lt;- rnorm(6000)\n      }\n\n# let beta = (1,2,3,4,5,6)\n\nbeta &lt;- seq(1,6)\n\n#\nepsilon &lt;- rnorm(6000, 0, 1)\n\n# y is equal to X*beta + random disturbance\n\ny &lt;- x %*% beta + epsilon\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nb_names &lt;- c(\"b1\", \"b2\", \"b3\", \"b4\", \"b5\", \"b6\")\n\nbhat_named &lt;- cbind(b_names, round(bhat,3))\n\nkable(bhat_named,\n      align     = 'c',\n      col.names = c(\"Coefficient\",\n                    \"Estimate\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nCoefficient\nEstimate\n\n\n\n\nb1\n1.015\n\n\nb2\n1.995\n\n\nb3\n3.003\n\n\nb4\n3.986\n\n\nb5\n4.988\n\n\nb6\n5.999",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-1-matrix.html#second-example",
+    "href": "mod-2-1-matrix.html#second-example",
+    "title": "8  Matrix Operations",
+    "section": "8.4 Second Example",
+    "text": "8.4 Second Example\n\nIn the second example, we compare the estimates from the least squares estimates with those obtained using the lm function in\n\n\n\n\n\nset.seed(1234)\n\nx &lt;- matrix(0,10000,6)\n      x[,1] &lt;- 1\n      for (l in 2:6) {\n        x[,l] &lt;- rnorm(10000)\n        gc()\n      }\n\n# let beta = (7,8,9,10,11,12)\n\nbeta &lt;- seq(7,12)\n\n# y is equal to X*beta + random disturbance\n\ny &lt;- x %*% beta + rnorm(10000)\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\ne &lt;- y - yhat\n\nb_names &lt;- c(\"b1\", \"b2\", \"b3\", \"b4\", \"b5\", \"b6\")\n\nbhat_named &lt;- cbind(b_names, bhat)\n\nkable(bhat_named,\n      col.names = c(\"Coefficient\",\n                    \"Estimate\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nCoefficient\nEstimate\n\n\n\n\nb1\n6.99220938948289\n\n\nb2\n7.99145359946009\n\n\nb3\n8.99507548489479\n\n\nb4\n10.032235275611\n\n\nb5\n11.0014804484265\n\n\nb6\n12.024686916929",
     "crumbs": [
       "Least Squares Estimator",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
