@@ -1,5 +1,5 @@
 ---
-title: "Matrix Operations"
+title: "Deriving Least Squares"
 format:
   html:
     toc: true

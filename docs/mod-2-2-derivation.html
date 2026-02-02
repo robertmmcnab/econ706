@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>8&nbsp; Matrix Operations – ECON 706</title>
+<title>9&nbsp; Deriving Least Squares – ECON 706</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./mod-2-2-derivation.html" rel="next">
-<link href="./mod-2-0-overview.html" rel="prev">
+<link href="./mod-2-1-matrix.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -1704,7 +1703,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-2-0-overview.html">Least Squares Estimator</a></li><li class="breadcrumb-item"><a href="./mod-2-1-matrix.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Matrix Operations</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-2-0-overview.html">Least Squares Estimator</a></li><li class="breadcrumb-item"><a href="./mod-2-2-derivation.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Matrix Operations</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -1806,13 +1805,13 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mod-2-1-matrix.html" class="sidebar-item-text sidebar-link active">
+  <a href="./mod-2-1-matrix.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Matrix Operations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mod-2-2-derivation.html" class="sidebar-item-text sidebar-link">
+  <a href="./mod-2-2-derivation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Matrix Operations</span></span></a>
   </div>
 </li>
@@ -1828,18 +1827,18 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#matrix-operations" id="toc-matrix-operations" class="nav-link active" data-scroll-target="#matrix-operations"><span class="header-section-number">8.1</span> Matrix Operations</a></li>
-  <li><a href="#simulating-data" id="toc-simulating-data" class="nav-link" data-scroll-target="#simulating-data"><span class="header-section-number">8.2</span> Simulating Data</a></li>
-  <li><a href="#estimating-coefficients" id="toc-estimating-coefficients" class="nav-link" data-scroll-target="#estimating-coefficients"><span class="header-section-number">8.3</span> Estimating Coefficients</a></li>
-  <li><a href="#estimating-using-lm-function" id="toc-estimating-using-lm-function" class="nav-link" data-scroll-target="#estimating-using-lm-function"><span class="header-section-number">8.4</span> Estimating Using LM Function</a></li>
-  <li><a href="#matrix-properties" id="toc-matrix-properties" class="nav-link" data-scroll-target="#matrix-properties"><span class="header-section-number">8.5</span> Matrix Properties</a></li>
-  <li><a href="#common-derivative-properties" id="toc-common-derivative-properties" class="nav-link" data-scroll-target="#common-derivative-properties"><span class="header-section-number">8.6</span> Common Derivative Properties</a></li>
-  <li><a href="#residual-maker-matrix" id="toc-residual-maker-matrix" class="nav-link" data-scroll-target="#residual-maker-matrix"><span class="header-section-number">8.7</span> Residual Maker Matrix</a></li>
-  <li><a href="#m-is-symmetric" id="toc-m-is-symmetric" class="nav-link" data-scroll-target="#m-is-symmetric"><span class="header-section-number">8.8</span> M is Symmetric</a></li>
-  <li><a href="#m-is-idempotent" id="toc-m-is-idempotent" class="nav-link" data-scroll-target="#m-is-idempotent"><span class="header-section-number">8.9</span> M is Idempotent</a></li>
-  <li><a href="#mx-is-zero" id="toc-mx-is-zero" class="nav-link" data-scroll-target="#mx-is-zero"><span class="header-section-number">8.10</span> MX is Zero</a></li>
-  <li><a href="#projection-matrix" id="toc-projection-matrix" class="nav-link" data-scroll-target="#projection-matrix"><span class="header-section-number">8.11</span> Projection Matrix</a></li>
-  <li><a href="#partitioned-y" id="toc-partitioned-y" class="nav-link" data-scroll-target="#partitioned-y"><span class="header-section-number">8.12</span> Partitioned Y</a></li>
+  <li><a href="#matrix-operations" id="toc-matrix-operations" class="nav-link active" data-scroll-target="#matrix-operations"><span class="header-section-number">9.1</span> Matrix Operations</a></li>
+  <li><a href="#simulating-data" id="toc-simulating-data" class="nav-link" data-scroll-target="#simulating-data"><span class="header-section-number">9.2</span> Simulating Data</a></li>
+  <li><a href="#estimating-coefficients" id="toc-estimating-coefficients" class="nav-link" data-scroll-target="#estimating-coefficients"><span class="header-section-number">9.3</span> Estimating Coefficients</a></li>
+  <li><a href="#estimating-using-lm-function" id="toc-estimating-using-lm-function" class="nav-link" data-scroll-target="#estimating-using-lm-function"><span class="header-section-number">9.4</span> Estimating Using LM Function</a></li>
+  <li><a href="#matrix-properties" id="toc-matrix-properties" class="nav-link" data-scroll-target="#matrix-properties"><span class="header-section-number">9.5</span> Matrix Properties</a></li>
+  <li><a href="#common-derivative-properties" id="toc-common-derivative-properties" class="nav-link" data-scroll-target="#common-derivative-properties"><span class="header-section-number">9.6</span> Common Derivative Properties</a></li>
+  <li><a href="#residual-maker-matrix" id="toc-residual-maker-matrix" class="nav-link" data-scroll-target="#residual-maker-matrix"><span class="header-section-number">9.7</span> Residual Maker Matrix</a></li>
+  <li><a href="#m-is-symmetric" id="toc-m-is-symmetric" class="nav-link" data-scroll-target="#m-is-symmetric"><span class="header-section-number">9.8</span> M is Symmetric</a></li>
+  <li><a href="#m-is-idempotent" id="toc-m-is-idempotent" class="nav-link" data-scroll-target="#m-is-idempotent"><span class="header-section-number">9.9</span> M is Idempotent</a></li>
+  <li><a href="#mx-is-zero" id="toc-mx-is-zero" class="nav-link" data-scroll-target="#mx-is-zero"><span class="header-section-number">9.10</span> MX is Zero</a></li>
+  <li><a href="#projection-matrix" id="toc-projection-matrix" class="nav-link" data-scroll-target="#projection-matrix"><span class="header-section-number">9.11</span> Projection Matrix</a></li>
+  <li><a href="#partitioned-y" id="toc-partitioned-y" class="nav-link" data-scroll-target="#partitioned-y"><span class="header-section-number">9.12</span> Partitioned Y</a></li>
   </ul>
 </nav>
     </div>
@@ -2130,9 +2129,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 }
 </script>
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-2-0-overview.html">Least Squares Estimator</a></li><li class="breadcrumb-item"><a href="./mod-2-1-matrix.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Matrix Operations</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-2-0-overview.html">Least Squares Estimator</a></li><li class="breadcrumb-item"><a href="./mod-2-2-derivation.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Matrix Operations</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Matrix Operations</span></h1>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Deriving Least Squares</span></h1>
 </div>
 
 
@@ -2149,13 +2148,13 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </header>
 
 
-<section id="matrix-operations" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="matrix-operations"><span class="header-section-number">8.1</span> Matrix Operations</h2>
+<section id="matrix-operations" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="matrix-operations"><span class="header-section-number">9.1</span> Matrix Operations</h2>
 <p>This module extends our discussion of matrix operations. We begin with simulating least squares estimation before discussing matrix properties. We examine derivative properties before covering the projection and residual maker matrices. Understanding these operations is critical as they form the backbone of the Ordinary Least Squares (OLS) estimator, which we will derive and implement both manually and using built-in R functions.</p>
 <p>You will find these examples useful as you derive the least squares estimator and examine the properties of the least squares estimator in later modules.</p>
 </section>
-<section id="simulating-data" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="simulating-data"><span class="header-section-number">8.2</span> Simulating Data</h2>
+<section id="simulating-data" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="simulating-data"><span class="header-section-number">9.2</span> Simulating Data</h2>
 <p>To illustrate how to use the least squares estimator in R, we can use “simulated” data. The use of simulated data allows us to specify the properties of the observations that are used in the estimation of the least squares coefficients.</p>
 <p>For replication, we use the <strong>set.seed</strong> function.</p>
 <p>By specifying <strong>set.seed(1234)</strong>, we will obtain the same results each time we run the code.</p>
@@ -2234,8 +2233,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 </div>
 </section>
-<section id="estimating-coefficients" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="estimating-coefficients"><span class="header-section-number">8.3</span> Estimating Coefficients</h2>
+<section id="estimating-coefficients" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="estimating-coefficients"><span class="header-section-number">9.3</span> Estimating Coefficients</h2>
 <p>We can now specify the population coefficients, that is, as we are simulating population data, we can define the values of the population parameters or:</p>
 <p><span class="math display">\[
 \beta = \begin{bmatrix}{1 \\ 2 \\ 3 \\ 4 \\ 5 \\ 6} \end{bmatrix}
@@ -2336,8 +2335,8 @@ b = (X^T X)^{-1} X^T y
 </div>
 </div>
 </section>
-<section id="estimating-using-lm-function" class="level2" data-number="8.4">
-<h2 data-number="8.4" class="anchored" data-anchor-id="estimating-using-lm-function"><span class="header-section-number">8.4</span> Estimating Using LM Function</h2>
+<section id="estimating-using-lm-function" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="estimating-using-lm-function"><span class="header-section-number">9.4</span> Estimating Using LM Function</h2>
 <p>We can also compare the least squares estimates using matrix algebra with those obtained using the <strong>lm</strong> function (which uses matrix algebra behind the scenes).</p>
 <p>In the example below, we replicate the methodology above to obtain the least squares estimates using matrix algebra. Note that we have changed the number of observations to 10,000.</p>
 <p>To use the <strong>lm</strong> function and obtain results comparable to those using matrix algebra, we only need to include the independent variables. This means we must exclude the intercept variable (<strong>X1</strong>) from the data that will be used by the <strong>lm</strong> function.</p>
@@ -2457,8 +2456,8 @@ b = (X^T X)^{-1} X^T y
 </div>
 </div>
 </section>
-<section id="matrix-properties" class="level2" data-number="8.5">
-<h2 data-number="8.5" class="anchored" data-anchor-id="matrix-properties"><span class="header-section-number">8.5</span> Matrix Properties</h2>
+<section id="matrix-properties" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="matrix-properties"><span class="header-section-number">9.5</span> Matrix Properties</h2>
 <p>In this section, we list some common matrix properties which are useful in econometrics.</p>
 <p>For much more information, see “The Matrix Cookbook” at <a href="http://matrixcookbook.com" class="uri">http://matrixcookbook.com</a></p>
 <p>Vectors are lowercase letters while capital letters represent matrices.</p>
@@ -2478,8 +2477,8 @@ b = (X^T X)^{-1} X^T y
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
-<section id="common-derivative-properties" class="level2" data-number="8.6">
-<h2 data-number="8.6" class="anchored" data-anchor-id="common-derivative-properties"><span class="header-section-number">8.6</span> Common Derivative Properties</h2>
+<section id="common-derivative-properties" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="common-derivative-properties"><span class="header-section-number">9.6</span> Common Derivative Properties</h2>
 <p>The following rules are often quite useful</p>
 <p>First, let’s state derivative properties with respect to scalars.</p>
 <p>The derivative of <span class="math inline">\(bx\)</span> with respect to <span class="math inline">\(x\)</span> is <span class="math inline">\(b\)</span>.</p>
@@ -2493,8 +2492,8 @@ b = (X^T X)^{-1} X^T y
 <p><span class="math display">\[\frac{\partial x^T b}{\partial x} = b\]</span></p>
 <p><span class="math display">\[\frac{\partial x^T x}{\partial x} = 2x\]</span> <span class="math display">\[\frac{\partial x^T B x}{\partial x} = (B + B^T)x = 2Bx \]</span></p>
 </section>
-<section id="residual-maker-matrix" class="level2" data-number="8.7">
-<h2 data-number="8.7" class="anchored" data-anchor-id="residual-maker-matrix"><span class="header-section-number">8.7</span> Residual Maker Matrix</h2>
+<section id="residual-maker-matrix" class="level2" data-number="9.7">
+<h2 data-number="9.7" class="anchored" data-anchor-id="residual-maker-matrix"><span class="header-section-number">9.7</span> Residual Maker Matrix</h2>
 <p><span class="math inline">\(M\)</span> is a <span class="math inline">\((n \times n)\)</span> symmetric, idempotent matrix where</p>
 <p><span class="math display">\[M = I - X(X^T X)^{-1}X^T\]</span></p>
 <p><span class="math inline">\(M\)</span> is the <strong>residual maker</strong> matrix.</p>
@@ -2607,8 +2606,8 @@ MX = (I - X(X^TX)^{-1} X^T)X = X - X(X^TX)^{-1}X^TX = X - X = 0
 </div>
 </div>
 </section>
-<section id="m-is-symmetric" class="level2" data-number="8.8">
-<h2 data-number="8.8" class="anchored" data-anchor-id="m-is-symmetric"><span class="header-section-number">8.8</span> M is Symmetric</h2>
+<section id="m-is-symmetric" class="level2" data-number="9.8">
+<h2 data-number="9.8" class="anchored" data-anchor-id="m-is-symmetric"><span class="header-section-number">9.8</span> M is Symmetric</h2>
 <p>Recall that <span class="math inline">\(M\)</span> is symmetric, that is,</p>
 <p><span class="math display">\[M = M^T\]</span></p>
 <div class="cell">
@@ -2751,8 +2750,8 @@ MX = (I - X(X^TX)^{-1} X^T)X = X - X(X^TX)^{-1}X^TX = X - X = 0
 </div>
 </div>
 </section>
-<section id="m-is-idempotent" class="level2" data-number="8.9">
-<h2 data-number="8.9" class="anchored" data-anchor-id="m-is-idempotent"><span class="header-section-number">8.9</span> M is Idempotent</h2>
+<section id="m-is-idempotent" class="level2" data-number="9.9">
+<h2 data-number="9.9" class="anchored" data-anchor-id="m-is-idempotent"><span class="header-section-number">9.9</span> M is Idempotent</h2>
 <p><span class="math inline">\(M\)</span> is also idempotent, that is, it is a matrix that, when multiplied by itself, yields itself.</p>
 <p><span class="math display">\[
 M M = M
@@ -2896,8 +2895,8 @@ M M = M
 </div>
 </div>
 </section>
-<section id="mx-is-zero" class="level2" data-number="8.10">
-<h2 data-number="8.10" class="anchored" data-anchor-id="mx-is-zero"><span class="header-section-number">8.10</span> MX is Zero</h2>
+<section id="mx-is-zero" class="level2" data-number="9.10">
+<h2 data-number="9.10" class="anchored" data-anchor-id="mx-is-zero"><span class="header-section-number">9.10</span> MX is Zero</h2>
 <p><span class="math inline">\(MX\)</span> is equal to zero.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
@@ -2983,8 +2982,8 @@ M M = M
 </div>
 </div>
 </section>
-<section id="projection-matrix" class="level2" data-number="8.11">
-<h2 data-number="8.11" class="anchored" data-anchor-id="projection-matrix"><span class="header-section-number">8.11</span> Projection Matrix</h2>
+<section id="projection-matrix" class="level2" data-number="9.11">
+<h2 data-number="9.11" class="anchored" data-anchor-id="projection-matrix"><span class="header-section-number">9.11</span> Projection Matrix</h2>
 <p>While <span class="math inline">\(My\)</span> captures the <strong>unexplained variation</strong> in <span class="math inline">\(y\)</span>, <span class="math inline">\(Py\)</span> captured the explained variation in <span class="math inline">\(y\)</span> or:</p>
 <p><span class="math display">\[M = I - X(X^T X)^{-1}X^T\]</span></p>
 <p><span class="math display">\[P = X(X^T X)^{-1}X^T\]</span></p>
@@ -3092,8 +3091,8 @@ M M = M
 </div>
 </div>
 </section>
-<section id="partitioned-y" class="level2" data-number="8.12">
-<h2 data-number="8.12" class="anchored" data-anchor-id="partitioned-y"><span class="header-section-number">8.12</span> Partitioned Y</h2>
+<section id="partitioned-y" class="level2" data-number="9.12">
+<h2 data-number="9.12" class="anchored" data-anchor-id="partitioned-y"><span class="header-section-number">9.12</span> Partitioned Y</h2>
 <p>We can now partition <span class="math inline">\(y\)</span> into explained variation and unexplained variation or:</p>
 <p><span class="math display">\[
 y = Py + My = Xb + e
@@ -3598,14 +3597,11 @@ y = Py + My = Xb + e
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./mod-2-0-overview.html" class="pagination-link" aria-label="Module 2 Overview">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Module 2 Overview</span></span>
+      <a href="./mod-2-1-matrix.html" class="pagination-link" aria-label="Matrix Operations">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Matrix Operations</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./mod-2-2-derivation.html" class="pagination-link" aria-label="Matrix Operations">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Matrix Operations</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

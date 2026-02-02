@@ -20,6 +20,7 @@ book:
       chapters:
         - mod-2-0-overview.qmd
         - mod-2-1-matrix.qmd
+        - mod-2-2-derivation.qmd
 execute:
   webR: true            # enables WebR chunks for interactive R in the browser
   
