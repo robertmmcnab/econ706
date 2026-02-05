@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -240,7 +275,14 @@ window.Quarto = {
   <li><a href="#why-least-squares" id="toc-why-least-squares" class="nav-link" data-scroll-target="#why-least-squares"><span class="header-section-number">9.3</span> Why Least Squares?</a></li>
   <li><a href="#objective-function" id="toc-objective-function" class="nav-link" data-scroll-target="#objective-function"><span class="header-section-number">9.4</span> Objective Function</a></li>
   <li><a href="#first-derivative" id="toc-first-derivative" class="nav-link" data-scroll-target="#first-derivative"><span class="header-section-number">9.5</span> First Derivative</a></li>
-  <li><a href="#first-derivative-1" id="toc-first-derivative-1" class="nav-link" data-scroll-target="#first-derivative-1"><span class="header-section-number">9.6</span> First Derivative</a></li>
+  <li><a href="#least-squares-estimator" id="toc-least-squares-estimator" class="nav-link" data-scroll-target="#least-squares-estimator"><span class="header-section-number">9.6</span> Least Squares Estimator</a></li>
+  <li><a href="#second-derivative" id="toc-second-derivative" class="nav-link" data-scroll-target="#second-derivative"><span class="header-section-number">9.7</span> Second Derivative</a></li>
+  <li><a href="#orthogonality-of-x-and-e" id="toc-orthogonality-of-x-and-e" class="nav-link" data-scroll-target="#orthogonality-of-x-and-e"><span class="header-section-number">9.8</span> Orthogonality of X and e</a></li>
+  <li><a href="#projection" id="toc-projection" class="nav-link" data-scroll-target="#projection"><span class="header-section-number">9.9</span> Projection</a></li>
+  <li><a href="#projection-matrix" id="toc-projection-matrix" class="nav-link" data-scroll-target="#projection-matrix"><span class="header-section-number">9.10</span> Projection Matrix</a></li>
+  <li><a href="#residual-maker-matrix" id="toc-residual-maker-matrix" class="nav-link" data-scroll-target="#residual-maker-matrix"><span class="header-section-number">9.11</span> Residual Maker Matrix</a></li>
+  <li><a href="#m-and-p" id="toc-m-and-p" class="nav-link" data-scroll-target="#m-and-p"><span class="header-section-number">9.12</span> M and P</a></li>
+  <li><a href="#decomposing-y" id="toc-decomposing-y" class="nav-link" data-scroll-target="#decomposing-y"><span class="header-section-number">9.13</span> Decomposing Y</a></li>
   </ul>
 </nav>
     </div>
@@ -390,18 +432,140 @@ var(X) = \frac{1}{N}\sum_{i=1}^N (x_i - \mu_x)^2
 <p><span class="math display">\[\frac{\partial \,y^Ty}{\partial{b_0}} = 0 \]</span></p>
 <p><span class="math display">\[\frac{\partial\ (-2\ \boldsymbol{b_0^T X^T y)}}{\partial\ \boldsymbol{b_0}} = -2 \boldsymbol{X^T y}\]</span> <span class="math display">\[\frac{\partial\ (\boldsymbol{b_0^T X^T X b_0})}{\partial\ \boldsymbol{b_0}} = 2\ \boldsymbol{X^T X\ b_0}\]</span></p>
 <p>The first derivative of the objective function is equal to: <span class="math display">\[\frac{\partial S(\boldsymbol{b_0})}{\partial \boldsymbol{b_0}} = -2\ \boldsymbol{X^T\ y} + 2\ \boldsymbol{X^T X\ b_0} = 0\]</span></p>
-<ul>
-<li>If a solution <span class="math inline">\(\boldsymbol{b}\)</span> exists, then the <strong>normal equations</strong> are: <span class="math display">\[\boldsymbol{X^T\ X\ b} = \boldsymbol{X^T\ y}\]</span></li>
-</ul>
+<p>If a solution <span class="math inline">\(\boldsymbol{b}\)</span> exists, then the <strong>normal equations</strong> are: <span class="math display">\[\boldsymbol{X^T\ X\ b} = \boldsymbol{X^T\ y}\]</span></p>
 </section>
-<section id="first-derivative-1" class="level2" data-number="9.6">
-<h2 data-number="9.6" class="anchored" data-anchor-id="first-derivative-1"><span class="header-section-number">9.6</span> First Derivative</h2>
+<section id="least-squares-estimator" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="least-squares-estimator"><span class="header-section-number">9.6</span> Least Squares Estimator</h2>
 <p>If the full column rank assumption holds, then <span class="math inline">\((\boldsymbol{X^T X})\)</span> is square as it is <span class="math inline">\((K \times K)\)</span> and <span class="math inline">\((\boldsymbol{X^T X})\)</span> is also symmetric.</p>
-<p>Furthermore, if the full column rank assumption holds, then <span class="math inline">\((\boldsymbol{X^T X})\)</span> has an inverse and we can use the normal equations to obtain the least square estimates of the population parameters.</p>
-<p><span class="math display">\[\boldsymbol{X^T\ X\ b} = \boldsymbol{X^T\ y}\]</span> <span class="math display">\[\boldsymbol{b} = (\boldsymbol{X^T\ X})^{-1}\ \boldsymbol{X^T\ y}\]</span> - The second derivative of the objective function is equal to: <span class="math display">\[\frac{\partial^2 S(\boldsymbol{b_0})}{\partial \boldsymbol{b_0 b_0^T}} = 2\ \boldsymbol{X^T X}\]</span> - <span class="math inline">\(2\ \boldsymbol{X^T X}\)</span> is only a positive definite matrix if the full column rank assumption holds.</p>
-<ul>
-<li>The least squares solution, if the full column rank assumption holds, is unique and minimizes the sum of the squared residuals <span class="math inline">\(e^Te\)</span>.</li>
-</ul>
+<p>If the full column rank assumption holds, then <span class="math inline">\((\boldsymbol{X^T X})\)</span> has an inverse and we can use the normal equations to obtain the least square estimates of the population parameters.</p>
+<p><span class="math display">\[\boldsymbol{X^T\ X\ b} = \boldsymbol{X^T\ y}\]</span></p>
+<p>Given that the inverse of <span class="math inline">\(\boldsymbol{(X^T X)}\)</span> exists, we can now solve for the <strong>least squares estimator</strong>.</p>
+<p>We define the least squares estimator as “<strong>beta hat</strong>” and use <strong>b</strong> to denote the least squares estimator.</p>
+<p><span class="math display">\[\boldsymbol{b} = (\boldsymbol{X^T\ X})^{-1}\ \boldsymbol{X^T\ y}\]</span></p>
+</section>
+<section id="second-derivative" class="level2" data-number="9.7">
+<h2 data-number="9.7" class="anchored" data-anchor-id="second-derivative"><span class="header-section-number">9.7</span> Second Derivative</h2>
+<p>If the first derivative is equal to zero, it informs us that the objective function has arrived at a minimum (or maximum). The first derivative being zero only means we have arrived at a stationary point.</p>
+<p><strong>We need the second derivative to provide that we have found a minimum instead of a maximum or a saddle point</strong>.</p>
+<p>Starting with the first derivative:</p>
+<p><span class="math display">\[\frac{\partial S(\boldsymbol{b_0})}{\partial \boldsymbol{b_0}} = -2\ \boldsymbol{X^T\ y} + 2\ \boldsymbol{X^T X\ b_0} = 0\]</span></p>
+<p>We take the derivative of the first derivative to obtain the second derivative : <span class="math display">\[\frac{\partial^2 S(\boldsymbol{b_0})}{\partial \boldsymbol{b_0 b_0^T}} = \frac{\partial}{\partial \boldsymbol{b_0 }} (-2\ \boldsymbol{X^T\ y} + 2\ \boldsymbol{X^T X\ b_0}) \]</span></p>
+<p>We know that:</p>
+<p><span class="math display">\[\frac{\partial}{\partial \boldsymbol{b_0}} (-2 \boldsymbol{X^T\ y}) = 0\]</span> <span class="math display">\[\frac{\partial}{\partial \boldsymbol{b_0}} (-2 \boldsymbol{X^T X b_0}) = \boldsymbol{2 X^T X}\]</span></p>
+<p>In other words, the second derivative is equal to:</p>
+<p><span class="math display">\[\frac{\partial^2 S(\boldsymbol{b_0})}{\partial \boldsymbol{b_0 b_0^T}} = 2\ \boldsymbol{X^T X}\]</span></p>
+<p>For a point to be a <strong>local minimum</strong>, the Hessian matrix (second derivative) must be <strong>Positive Definite.</strong></p>
+<p>We know that <span class="math inline">\(\boldsymbol{X^TX}\)</span> is always symmetric</p>
+<p>We know that, for any non-zero vector, the quadratic form is at least positive semi-definite.</p>
+<p><span class="math display">\[
+\boldsymbol{v^T (X^TX)} = \boldsymbol{(Xv)^T(Xv)} = \boldsymbol{||Xv||^2}
+\]</span></p>
+<p>We know that, if <span class="math inline">\(\boldsymbol{X}\)</span> has full column rank, then <span class="math inline">\(\boldsymbol{||Xv||^2} &gt; 0\)</span>, which means that the second derivative is positive definite.</p>
+<p><strong>Because the second derivative is positive definite, the objective function is strictly convex and the stationary point (b) is a unique global minimum.<br>
+<br>
+</strong>Simply put, because of the assumptions of linearity, full rank, and zero conditional mean, the least squares estimator minimizes (globally) the sum of the squared residuals.</p>
+</section>
+<section id="orthogonality-of-x-and-e" class="level2" data-number="9.8">
+<h2 data-number="9.8" class="anchored" data-anchor-id="orthogonality-of-x-and-e"><span class="header-section-number">9.8</span> Orthogonality of X and e</h2>
+<p>We can use <span class="math inline">\(\boldsymbol{y} = \boldsymbol{X\ b} + \boldsymbol{e}\)</span> and the normal equations to obtain: <span class="math display">\[\boldsymbol{X^T\ X\ b} = \boldsymbol{X^T\ y}\]</span> <span class="math display">\[\boldsymbol{X^T X\ b} = \boldsymbol{X^T\ (\boldsymbol{X\ b} + \boldsymbol{e})}\]</span> <span class="math display">\[\boldsymbol{X^T X\ b} = (\boldsymbol{X^T X}) \boldsymbol{b} + \boldsymbol{X^T e}\]</span> <span class="math display">\[\boldsymbol{X^T e} = 0\]</span></p>
+<p>Note that <span class="math inline">\(\boldsymbol{X^T e} = 0\)</span> means that <span class="math inline">\(\boldsymbol{x_k^T e} = 0\)</span>.</p>
+<p>The covariance between each independent variable and the disturbances is equal to zero.</p>
+<p>This only occurs if the assumption of the exogeneity of the regressors (<strong>zero conditional mean</strong>) holds.</p>
+<p>This illustrates why the assumptions of linearity, full rank, and strict exogeneity of the regressors are necessary to obtain the least squares estimates.</p>
+</section>
+<section id="projection" class="level2" data-number="9.9">
+<h2 data-number="9.9" class="anchored" data-anchor-id="projection"><span class="header-section-number">9.9</span> Projection</h2>
+<p>Imagine you have a flashlight and you are standing in a room.</p>
+<p>The <strong>floor</strong> represents all the possible values that can be created by your <strong>independent</strong> variables.</p>
+<p>There is a <strong>balloon</strong> floating above the floor. Let the balloon represent the dependent variable, <strong>y</strong>. Note that unless your model is perfect, the balloon will never touch the floor.<br>
+<br>
+<strong>In other words, even if we have all the independent variables, we cannot perfectly explain y</strong>.</p>
+<p>If you shine a flashlight directly above the balloon, you get a <strong>shadow</strong> on the floor. The shadow presents the predicted value of <strong>y</strong> created by the independent variables or <span class="math inline">\(\boldsymbol{\hat{y}}\)</span>.</p>
+<p>In other words, the predicted value of <strong>y</strong> on the floor is the projection of <strong>y</strong> on <strong>X</strong>.</p>
+<p><strong><em>The projection of y on X is the best linear approximation of y using the information in X.</em></strong></p>
+<p>What is the best projection of <strong>y</strong> on <strong>X</strong>? Think of the lines from the floor to the balloon. We have a line at a 10 degree angle, 25 degree angle, and so on until we have a line at a 90 degree angle from the floor to the balloon.<br>
+<br>
+We want the linear that minimizes the distance from our predicted value of y to the actual value of y.</p>
+<p>A straight line from the floor to the balloon minimizes the distance, in other words, a line at a 90 degree angle from the floor, that is, a <strong>perpendicular line from y onto the floor</strong>.</p>
+<p>Why is the “perpendicular line” the same as “minimizing the sum of squares”?</p>
+<p>Think of the distance between the balloon, <span class="math inline">\(\boldsymbol{y}\)</span>, and any point on the floor, <span class="math inline">\(\boldsymbol{\hat{y}}\)</span>.</p>
+<p>By the <strong>Pythagorean Theorem</strong>, the shortest distance between a point and a plane is always the <strong>perpendicular</strong> line.</p>
+<p>The length of that perpendicular line is the magnitude of our residuals, <span class="math inline">\(\boldsymbol{||e||}\)</span>.</p>
+<p>Minimizing the squared length of the residuals is mathematically identical to finding the orthogonal projection.</p>
+<p>We now need to define <strong>how</strong> we can make the projection happen and what is “left over.”</p>
+</section>
+<section id="projection-matrix" class="level2" data-number="9.10">
+<h2 data-number="9.10" class="anchored" data-anchor-id="projection-matrix"><span class="header-section-number">9.10</span> Projection Matrix</h2>
+<p>We have previously defined our linear regression model as:</p>
+<p><span class="math display">\[
+\boldsymbol{y = X\beta + \epsilon = Xb + e}
+\]</span></p>
+<p>We know that our predicted values are equal to:</p>
+<p><span class="math display">\[
+\boldsymbol{\hat{y} = Xb = y - e}
+\]</span></p>
+<p>We can use this to object the <strong>projection matrix</strong> <span class="math inline">\(\boldsymbol{P}\)</span> <span class="math display">\[\boldsymbol{\hat{y}} = \boldsymbol{Xb}\]</span> <span class="math display">\[\boldsymbol{\hat{y}} = \boldsymbol{X(X^TX)^{-1}X^T y}\]</span><br>
+<span class="math display">\[\boldsymbol{\hat{y}} = \boldsymbol{X (X^T X)^{-1} X^Ty} = \boldsymbol{P y}\]</span></p>
+<p><span class="math display">\[\boldsymbol{P} = \boldsymbol{X (X^T X)^{-1} X^T}\]</span></p>
+<p>The projection matrix <span class="math inline">\(\boldsymbol{P}\)</span> is symmetric and idempotent.</p>
+</section>
+<section id="residual-maker-matrix" class="level2" data-number="9.11">
+<h2 data-number="9.11" class="anchored" data-anchor-id="residual-maker-matrix"><span class="header-section-number">9.11</span> Residual Maker Matrix</h2>
+<p>The vector of least square residuals is <span class="math inline">\(\boldsymbol{e} = \boldsymbol{y} - \boldsymbol{X b}\)</span>.</p>
+<p>Substituting for <span class="math inline">\(\boldsymbol{b}\)</span> yields:</p>
+<p><span class="math display">\[\boldsymbol{e} = \boldsymbol{y} - \boldsymbol{X b}\]</span> <span class="math display">\[\boldsymbol{e} = \boldsymbol{y} - \boldsymbol{X (X^T X)^{-1} X^T y}\]</span> <span class="math display">\[\boldsymbol{e} = (\boldsymbol{I} - \boldsymbol{X (X^T X)^{-1} X^T})\boldsymbol{y}\]</span> <span class="math display">\[\boldsymbol{e} = \boldsymbol{M y}\]</span></p>
+<p><span class="math display">\[\boldsymbol{M} = (\boldsymbol{I} - \boldsymbol{X (X^T X)^{-1} X^T})\]</span></p>
+<p><strong>M</strong> is defined as the <strong>residual maker</strong> or the annihilator <strong>matrix</strong>.</p>
+</section>
+<section id="m-and-p" class="level2" data-number="9.12">
+<h2 data-number="9.12" class="anchored" data-anchor-id="m-and-p"><span class="header-section-number">9.12</span> M and P</h2>
+<p><strong>M</strong> is symmetric and idempotent.</p>
+<p><strong>P</strong> is symmetric and idempotent.</p>
+<p><strong>M and P are orthogonal.</strong></p>
+<p>The residual maker and the projection matrix are orthogonal. <span class="math display">\[\boldsymbol{PM} = \boldsymbol{MP} = \boldsymbol{0}\]</span></p>
+<p><span class="math display">\[\boldsymbol{PM} = (\boldsymbol{X (X^T X)^{-1} X^T})(\boldsymbol{I} - \boldsymbol{X (X^T X)^{-1} X^T})\]</span> <span class="math display">\[\boldsymbol{PM} = \boldsymbol{X (X^T X)^{-1} X^T} - \boldsymbol{X (X^T X)^{-1} X^T}\boldsymbol{X (X^T X)^{-1} X^T}\]</span> <span class="math display">\[\boldsymbol{PM} = \boldsymbol{X (X^T X)^{-1} X^T} - \boldsymbol{X (X^T X)^{-1} X^T} = \boldsymbol{0}\]</span></p>
+<p>When <span class="math inline">\(\boldsymbol{y}\)</span> is pre-multiplied by <span class="math inline">\(\boldsymbol{M}\)</span>, it produces a vector of the least squares residuals:</p>
+<p><span class="math display">\[\boldsymbol{e} = \boldsymbol{M y}\]</span></p>
+<p>When <span class="math inline">\(\boldsymbol{X}\)</span> is pre-multiplied by <span class="math inline">\(\boldsymbol{M}\)</span> the result is: <span class="math display">\[\boldsymbol{MX} = (\boldsymbol{I} - \boldsymbol{X (X^T X)^{-1} X^T})X\]</span> <span class="math display">\[\boldsymbol{MX} = \boldsymbol{X} - \boldsymbol{X (X^T X)^{-1} (X^T X)} = \boldsymbol{(X - X)} = \boldsymbol{0}\]</span></p>
+<p>The regression of <span class="math inline">\(\boldsymbol{X}\)</span> on <span class="math inline">\(\boldsymbol{X}\)</span> is a perfect fit and the residuals from this regression are equal to 0.</p>
+</section>
+<section id="decomposing-y" class="level2" data-number="9.13">
+<h2 data-number="9.13" class="anchored" data-anchor-id="decomposing-y"><span class="header-section-number">9.13</span> Decomposing Y</h2>
+<p>We can now partition <span class="math inline">\(\boldsymbol{y}\)</span> into two orthogonal parts, the <strong>projection</strong> and the <strong>residual</strong> <span class="math display">\[\boldsymbol{y} = \boldsymbol{Py} + \boldsymbol{My}\]</span></p>
+<p>Furthermore, the sum of squares <span class="math inline">\(\boldsymbol{y^T y}\)</span> exploits the orthogonality between <span class="math inline">\(\boldsymbol{P}\)</span> and <span class="math inline">\(\boldsymbol{M}\)</span>: <span class="math display">\[\boldsymbol{y^T y} = \boldsymbol{y^T P^T P y} + \boldsymbol{y^T M^T M y}\]</span> <span class="math display">\[\boldsymbol{y^T y} = \boldsymbol{\hat{y}^T \hat{y}} + \boldsymbol{e^T e}\]</span> The projection of the vector <span class="math inline">\(\boldsymbol{y}\)</span> into the column space of <span class="math inline">\(\boldsymbol{X}\)</span> creates fitted values <span class="math inline">\(\boldsymbol{\hat{y}}\)</span> and residuals <span class="math inline">\(\boldsymbol{e}\)</span>.</p>
+<p>In other words, the linear least squares regression projects the dependent variable into the independent variable space, but does not do so “perfectly.”</p>
+<p>The residual vector <span class="math inline">\(\boldsymbol{e}\)</span> captures the differences between the actual and predicted values of <span class="math inline">\(\boldsymbol{y}\)</span>.</p>
+<p>If the linearity assumption holds, then the population conditional mean <span class="math inline">\(E[y | \boldsymbol{x}]\)</span> is linear in <span class="math inline">\(\boldsymbol{x}\)</span>.</p>
+<p>The population conditional mean is the population counterpart to the projection of <span class="math inline">\(y\)</span> on <span class="math inline">\(\boldsymbol{x}\)</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>              <span class="dv">4</span>,<span class="dv">16</span>,<span class="dv">27</span>,<span class="dv">38</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>              <span class="dv">19</span>,<span class="dv">10</span>,<span class="dv">31</span>,<span class="dv">2</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>              <span class="dv">43</span>,<span class="dv">54</span>,<span class="dv">65</span>,<span class="dv">96</span>), </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">4</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>) </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">4</span>)       </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Define P and M</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> I <span class="sc">-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>y_hat <span class="ot">&lt;-</span> P<span class="sc">*</span>y</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> M<span class="sc">*</span>y</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Show P and M orthogonal</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>pm <span class="ot">&lt;-</span> P <span class="sc">%*%</span> M</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Show MX = 0</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>mx <span class="ot">&lt;-</span> M <span class="sc">%*%</span> X</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 </section>

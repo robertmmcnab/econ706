@@ -861,11 +861,11 @@
     "objectID": "mod-2-2-derivation.html#residual-maker-matrix",
     "href": "mod-2-2-derivation.html#residual-maker-matrix",
     "title": "9  Deriving Least Squares",
-    "section": "9.7 Residual Maker Matrix",
-    "text": "9.7 Residual Maker Matrix\n\\(M\\) is a \\((n \\times n)\\) symmetric, idempotent matrix where\n\\[M = I - X(X^T X)^{-1}X^T\\]\n\\(M\\) is the residual maker matrix.\nWhen \\(y\\) is pre-multiplied by \\(M\\), it produces the vector of least squares residuals, \\(e\\).\n\\[\nMy = (I - X(X^TX)^{-1} X^T = y - X(X^TX)^{-1}X^Ty = y - Xb = e\n\\]\nWe also note that \\(MX = 0\\) because the regression of \\(X\\) on \\(X\\) is a ‘perfect fit’ or:\n\\[\nMX = (I - X(X^TX)^{-1} X^T)X = X - X(X^TX)^{-1}X^TX = X - X = 0\n\\]\n\nrm(list = ls())\n\nnrows &lt;- 7000\nncols &lt;- 9\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- c(1,2,3,4,5,6,7,8,9)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\n# Solve for residuals\n\ne &lt;- y - yhat\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\n# Create Residual Maker\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\n# Residuals = My\n\ne1 &lt;- M %*% y\n\ndf_e &lt;- data.frame(e, e1)\n\nkable(df_e[1:10,],\n      col.names = c(\"e (y - yhat)\",\n                    \"e (My)\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\ne (y - yhat)\ne (My)\n\n\n\n\n0.7044752\n0.7044752\n\n\n0.5357223\n0.5357223\n\n\n-1.3074348\n-1.3074348\n\n\n-0.6846867\n-0.6846867\n\n\n0.8841051\n0.8841051\n\n\n1.8214250\n1.8214250\n\n\n1.2356265\n1.2356265\n\n\n-1.0181093\n-1.0181093\n\n\n-0.3338123\n-0.3338123\n\n\n0.2873728\n0.2873728",
+    "section": "9.11 Residual Maker Matrix",
+    "text": "9.11 Residual Maker Matrix\nThe vector of least square residuals is \\(\\boldsymbol{e} = \\boldsymbol{y} - \\boldsymbol{X b}\\).\nSubstituting for \\(\\boldsymbol{b}\\) yields:\n\\[\\boldsymbol{e} = \\boldsymbol{y} - \\boldsymbol{X b}\\] \\[\\boldsymbol{e} = \\boldsymbol{y} - \\boldsymbol{X (X^T X)^{-1} X^T y}\\] \\[\\boldsymbol{e} = (\\boldsymbol{I} - \\boldsymbol{X (X^T X)^{-1} X^T})\\boldsymbol{y}\\] \\[\\boldsymbol{e} = \\boldsymbol{M y}\\]\n\\[\\boldsymbol{M} = (\\boldsymbol{I} - \\boldsymbol{X (X^T X)^{-1} X^T})\\]\nM is defined as the residual maker or the annihilator matrix.",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
@@ -905,11 +905,11 @@
     "objectID": "mod-2-2-derivation.html#projection-matrix",
     "href": "mod-2-2-derivation.html#projection-matrix",
     "title": "9  Deriving Least Squares",
-    "section": "9.11 Projection Matrix",
-    "text": "9.11 Projection Matrix\nWhile \\(My\\) captures the unexplained variation in \\(y\\), \\(Py\\) captured the explained variation in \\(y\\) or:\n\\[M = I - X(X^T X)^{-1}X^T\\]\n\\[P = X(X^T X)^{-1}X^T\\]\nThe projection matrix \\(P\\) is symmetric and idempotent.\n\\(PM\\) and \\(MP\\) are equivalent and equal to zero and \\(P\\) and \\(M\\) are orthogonal.\nGiven the orthogonality, we can partition y into two parts:\n\\[y = Py + My\\] \\[y = X(X^T X)^{-1} X^T y + (I-X(X^T X)^{-1}X^T)y\\]\nRecall that \\(b = (X^T X)^{-1} X^T y\\) and substitute:\n\\[y = Xb + (I-X(X^T X)^{-1}X^T)y\\]\nNow multiply \\(y\\) through the second term:\n\\[y = X b + (y - X(X^T X)^{-1} X^T y)\\]\nSubstitute again for \\(b\\)\n\\[y = X b + (y - X b)\\]\nRecognize that \\(Xb = \\hat{y}\\)\n\\[y = Xb + (y - \\hat{y})\\] \\[y = Xb + e\\]\n\nrm(list = ls())\n\nnrows &lt;- 1000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n      }\n\nbeta &lt;- c(1,2,3,4,5)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\n\nPy &lt;- P %*% y\n\ndf_yhat &lt;- data.frame(yhat, Py)\n\nkable(df_yhat[1:10,]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nyhat\nPy\n\n\n\n\n3.2036752\n3.2036752\n\n\n-12.0361510\n-12.0361510\n\n\n1.5782350\n1.5782350\n\n\n-4.1662385\n-4.1662385\n\n\n8.6660633\n8.6660633\n\n\n-2.1167407\n-2.1167407\n\n\n-0.0707777\n-0.0707777\n\n\n8.4587151\n8.4587151\n\n\n1.8995740\n1.8995740\n\n\n5.1218411\n5.1218411",
+    "section": "9.10 Projection Matrix",
+    "text": "9.10 Projection Matrix\nWe have previously defined our linear regression model as:\n\\[\n\\boldsymbol{y = X\\beta + \\epsilon = Xb + e}\n\\]\nWe know that our predicted values are equal to:\n\\[\n\\boldsymbol{\\hat{y} = Xb = y - e}\n\\]\nWe can use this to object the projection matrix \\(\\boldsymbol{P}\\) \\[\\boldsymbol{\\hat{y}} = \\boldsymbol{Xb}\\] \\[\\boldsymbol{\\hat{y}} = \\boldsymbol{X(X^TX)^{-1}X^T y}\\]\n\\[\\boldsymbol{\\hat{y}} = \\boldsymbol{X (X^T X)^{-1} X^Ty} = \\boldsymbol{P y}\\]\n\\[\\boldsymbol{P} = \\boldsymbol{X (X^T X)^{-1} X^T}\\]\nThe projection matrix \\(\\boldsymbol{P}\\) is symmetric and idempotent.",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
@@ -961,7 +961,7 @@
     "href": "mod-2-2-derivation.html#first-derivative",
     "title": "9  Deriving Least Squares",
     "section": "9.5 First Derivative",
-    "text": "9.5 First Derivative\nThere are two useful identities that will help us in the derivation of the least squares estimator.\nFirst, for the vectors \\(\\boldsymbol{a}\\) and \\(\\boldsymbol{b}\\), the partial derivative of \\(\\boldsymbol{a^T}\\) times \\(\\boldsymbol{b}\\) with respect to \\(\\boldsymbol{a}\\) is equal to \\(\\boldsymbol{b}\\).\n\\[\\frac{\\delta \\boldsymbol{a^Tb}}{\\delta \\boldsymbol{a}} = \\boldsymbol{b}\\]\nSecond, if \\(\\boldsymbol{A}\\) is symmetric, then the first derivative of \\(\\boldsymbol{b^T A b}\\) with respect to \\(\\boldsymbol{b}\\) is:\n\\[\\frac{\\delta \\boldsymbol{b^T A b}}{\\delta \\boldsymbol{b}} = 2 \\boldsymbol{Ab} = 2 \\boldsymbol{b^TA}\\]\nWe can now return to the task at hand. We need to take the first derivative of the objective function with respect to \\(\\boldsymbol{b_0}\\) and set the first derivative equal to zero or:\n\\[\\frac{\\partial(\\boldsymbol{e_0^T e_0 )}}{\\partial\\ \\boldsymbol{b_0}} = 0\\]\n\\[\\frac{\\partial(\\boldsymbol{e_0^T e_0 )}}{\\partial\\ \\boldsymbol{b_0}} =\\frac{\\partial(\\boldsymbol{y^Ty - 2b_0^T\\ X^T\\ y + b_0^T X^T X b_0})}{\\boldsymbol{b_0}} = 0\\]\n\\[\\frac{\\partial(e_0^T e_0 )}{\\partial\\ b_0} =\\frac{\\partial \\,y^Ty}{\\partial{b_0}} +  \\frac{\\partial \\, 2b_0^T\\ X^T\\ y}{\\partial b_0} + \\frac{\\partial \\, b_0^T X^T Xb_0}{\\partial \\, b_0} = 0\\]\nBreaking the first derivative into its component parts yields:\n\\[\\frac{\\partial \\,y^Ty}{\\partial{b_0}} = 0 \\]\n\\[\\frac{\\partial\\ (-2\\ \\boldsymbol{b_0^T X^T y)}}{\\partial\\ \\boldsymbol{b_0}} = -2 \\boldsymbol{X^T y}\\] \\[\\frac{\\partial\\ (\\boldsymbol{b_0^T X^T X b_0})}{\\partial\\ \\boldsymbol{b_0}} = 2\\ \\boldsymbol{X^T X\\ b_0}\\]\nThe first derivative of the objective function is equal to: \\[\\frac{\\partial S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0}} = -2\\ \\boldsymbol{X^T\\ y} + 2\\ \\boldsymbol{X^T X\\ b_0} = 0\\]\n\nIf a solution \\(\\boldsymbol{b}\\) exists, then the normal equations are: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]",
+    "text": "9.5 First Derivative\nThere are two useful identities that will help us in the derivation of the least squares estimator.\nFirst, for the vectors \\(\\boldsymbol{a}\\) and \\(\\boldsymbol{b}\\), the partial derivative of \\(\\boldsymbol{a^T}\\) times \\(\\boldsymbol{b}\\) with respect to \\(\\boldsymbol{a}\\) is equal to \\(\\boldsymbol{b}\\).\n\\[\\frac{\\delta \\boldsymbol{a^Tb}}{\\delta \\boldsymbol{a}} = \\boldsymbol{b}\\]\nSecond, if \\(\\boldsymbol{A}\\) is symmetric, then the first derivative of \\(\\boldsymbol{b^T A b}\\) with respect to \\(\\boldsymbol{b}\\) is:\n\\[\\frac{\\delta \\boldsymbol{b^T A b}}{\\delta \\boldsymbol{b}} = 2 \\boldsymbol{Ab} = 2 \\boldsymbol{b^TA}\\]\nWe can now return to the task at hand. We need to take the first derivative of the objective function with respect to \\(\\boldsymbol{b_0}\\) and set the first derivative equal to zero or:\n\\[\\frac{\\partial(\\boldsymbol{e_0^T e_0 )}}{\\partial\\ \\boldsymbol{b_0}} = 0\\]\n\\[\\frac{\\partial(\\boldsymbol{e_0^T e_0 )}}{\\partial\\ \\boldsymbol{b_0}} =\\frac{\\partial(\\boldsymbol{y^Ty - 2b_0^T\\ X^T\\ y + b_0^T X^T X b_0})}{\\boldsymbol{b_0}} = 0\\]\n\\[\\frac{\\partial(e_0^T e_0 )}{\\partial\\ b_0} =\\frac{\\partial \\,y^Ty}{\\partial{b_0}} +  \\frac{\\partial \\, 2b_0^T\\ X^T\\ y}{\\partial b_0} + \\frac{\\partial \\, b_0^T X^T Xb_0}{\\partial \\, b_0} = 0\\]\nBreaking the first derivative into its component parts yields:\n\\[\\frac{\\partial \\,y^Ty}{\\partial{b_0}} = 0 \\]\n\\[\\frac{\\partial\\ (-2\\ \\boldsymbol{b_0^T X^T y)}}{\\partial\\ \\boldsymbol{b_0}} = -2 \\boldsymbol{X^T y}\\] \\[\\frac{\\partial\\ (\\boldsymbol{b_0^T X^T X b_0})}{\\partial\\ \\boldsymbol{b_0}} = 2\\ \\boldsymbol{X^T X\\ b_0}\\]\nThe first derivative of the objective function is equal to: \\[\\frac{\\partial S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0}} = -2\\ \\boldsymbol{X^T\\ y} + 2\\ \\boldsymbol{X^T X\\ b_0} = 0\\]\nIf a solution \\(\\boldsymbol{b}\\) exists, then the normal equations are: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]",
     "crumbs": [
       "Least Squares Estimator",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
@@ -973,6 +973,72 @@
     "title": "9  Deriving Least Squares",
     "section": "9.6 First Derivative",
     "text": "9.6 First Derivative\nIf the full column rank assumption holds, then \\((\\boldsymbol{X^T X})\\) is square as it is \\((K \\times K)\\) and \\((\\boldsymbol{X^T X})\\) is also symmetric.\nFurthermore, if the full column rank assumption holds, then \\((\\boldsymbol{X^T X})\\) has an inverse and we can use the normal equations to obtain the least square estimates of the population parameters.\n\\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\] \\[\\boldsymbol{b} = (\\boldsymbol{X^T\\ X})^{-1}\\ \\boldsymbol{X^T\\ y}\\] - The second derivative of the objective function is equal to: \\[\\frac{\\partial^2 S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0 b_0^T}} = 2\\ \\boldsymbol{X^T X}\\] - \\(2\\ \\boldsymbol{X^T X}\\) is only a positive definite matrix if the full column rank assumption holds.\n\nThe least squares solution, if the full column rank assumption holds, is unique and minimizes the sum of the squared residuals \\(e^Te\\).",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-2-derivation.html#least-squares-estimator",
+    "href": "mod-2-2-derivation.html#least-squares-estimator",
+    "title": "9  Deriving Least Squares",
+    "section": "9.6 Least Squares Estimator",
+    "text": "9.6 Least Squares Estimator\nIf the full column rank assumption holds, then \\((\\boldsymbol{X^T X})\\) is square as it is \\((K \\times K)\\) and \\((\\boldsymbol{X^T X})\\) is also symmetric.\nIf the full column rank assumption holds, then \\((\\boldsymbol{X^T X})\\) has an inverse and we can use the normal equations to obtain the least square estimates of the population parameters.\n\\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]\nGiven that the inverse of \\(\\boldsymbol{(X^T X)}\\) exists, we can now solve for the least squares estimator.\nWe define the least squares estimator as “beta hat” and use b to denote the least squares estimator.\n\\[\\boldsymbol{b} = (\\boldsymbol{X^T\\ X})^{-1}\\ \\boldsymbol{X^T\\ y}\\]",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-2-derivation.html#second-derivative",
+    "href": "mod-2-2-derivation.html#second-derivative",
+    "title": "9  Deriving Least Squares",
+    "section": "9.7 Second Derivative",
+    "text": "9.7 Second Derivative\nIf the first derivative is equal to zero, it informs us that the objective function has arrived at a minimum (or maximum). The first derivative being zero only means we have arrived at a stationary point.\nWe need the second derivative to provide that we have found a minimum instead of a maximum or a saddle point.\nStarting with the first derivative:\n\\[\\frac{\\partial S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0}} = -2\\ \\boldsymbol{X^T\\ y} + 2\\ \\boldsymbol{X^T X\\ b_0} = 0\\]\nWe take the derivative of the first derivative to obtain the second derivative : \\[\\frac{\\partial^2 S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0 b_0^T}} = \\frac{\\partial}{\\partial \\boldsymbol{b_0 }} (-2\\ \\boldsymbol{X^T\\ y} + 2\\ \\boldsymbol{X^T X\\ b_0}) \\]\nWe know that:\n\\[\\frac{\\partial}{\\partial \\boldsymbol{b_0}} (-2 \\boldsymbol{X^T\\ y}) = 0\\] \\[\\frac{\\partial}{\\partial \\boldsymbol{b_0}} (-2 \\boldsymbol{X^T X b_0}) = \\boldsymbol{2 X^T X}\\]\nIn other words, the second derivative is equal to:\n\\[\\frac{\\partial^2 S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0 b_0^T}} = 2\\ \\boldsymbol{X^T X}\\]\nFor a point to be a local minimum, the Hessian matrix (second derivative) must be Positive Definite.\nWe know that \\(\\boldsymbol{X^TX}\\) is always symmetric\nWe know that, for any non-zero vector, the quadratic form is at least positive semi-definite.\n\\[\n\\boldsymbol{v^T (X^TX)} = \\boldsymbol{(Xv)^T(Xv)} = \\boldsymbol{||Xv||^2}\n\\]\nWe know that, if \\(\\boldsymbol{X}\\) has full column rank, then \\(\\boldsymbol{||Xv||^2} &gt; 0\\), which means that the second derivative is positive definite.\nBecause the second derivative is positive definite, the objective function is strictly convex and the stationary point (b) is a unique global minimum.\n\nSimply put, because of the assumptions of linearity, full rank, and zero conditional mean, the least squares estimator minimizes (globally) the sum of the squared residuals.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-2-derivation.html#orthogonality-of-x-and-e",
+    "href": "mod-2-2-derivation.html#orthogonality-of-x-and-e",
+    "title": "9  Deriving Least Squares",
+    "section": "9.8 Orthogonality of X and e",
+    "text": "9.8 Orthogonality of X and e\nWe can use \\(\\boldsymbol{y} = \\boldsymbol{X\\ b} + \\boldsymbol{e}\\) and the normal equations to obtain: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\] \\[\\boldsymbol{X^T X\\ b} = \\boldsymbol{X^T\\ (\\boldsymbol{X\\ b} + \\boldsymbol{e})}\\] \\[\\boldsymbol{X^T X\\ b} = (\\boldsymbol{X^T X}) \\boldsymbol{b} + \\boldsymbol{X^T e}\\] \\[\\boldsymbol{X^T e} = 0\\]\nNote that \\(\\boldsymbol{X^T e} = 0\\) means that \\(\\boldsymbol{x_k^T e} = 0\\).\nThe covariance between each independent variable and the disturbances is equal to zero.\nThis only occurs if the assumption of the exogeneity of the regressors (zero conditional mean) holds.\nThis illustrates why the assumptions of linearity, full rank, and strict exogeneity of the regressors are necessary to obtain the least squares estimates.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-2-derivation.html#projection",
+    "href": "mod-2-2-derivation.html#projection",
+    "title": "9  Deriving Least Squares",
+    "section": "9.9 Projection",
+    "text": "9.9 Projection\nImagine you have a flashlight and you are standing in a room.\nThe floor represents all the possible values that can be created by your independent variables.\nThere is a balloon floating above the floor. Let the balloon represent the dependent variable, y. Note that unless your model is perfect, the balloon will never touch the floor.\n\nIn other words, even if we have all the independent variables, we cannot perfectly explain y.\nIf you shine a flashlight directly above the balloon, you get a shadow on the floor. The shadow presents the predicted value of y created by the independent variables or \\(\\boldsymbol{\\hat{y}}\\).\nIn other words, the predicted value of y on the floor is the projection of y on X.\nThe projection of y on X is the best linear approximation of y using the information in X.\nWhat is the best projection of y on X? Think of the lines from the floor to the balloon. We have a line at a 10 degree angle, 25 degree angle, and so on until we have a line at a 90 degree angle from the floor to the balloon.\n\nWe want the linear that minimizes the distance from our predicted value of y to the actual value of y.\nA straight line from the floor to the balloon minimizes the distance, in other words, a line at a 90 degree angle from the floor, that is, a perpendicular line from y onto the floor.\nWhy is the “perpendicular line” the same as “minimizing the sum of squares”?\nThink of the distance between the balloon, \\(\\boldsymbol{y}\\), and any point on the floor, \\(\\boldsymbol{\\hat{y}}\\).\nBy the Pythagorean Theorem, the shortest distance between a point and a plane is always the perpendicular line.\nThe length of that perpendicular line is the magnitude of our residuals, \\(\\boldsymbol{||e||}\\).\nMinimizing the squared length of the residuals is mathematically identical to finding the orthogonal projection.\nWe now need to define how we can make the projection happen and what is “left over.”",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-2-derivation.html#m-and-p",
+    "href": "mod-2-2-derivation.html#m-and-p",
+    "title": "9  Deriving Least Squares",
+    "section": "9.12 M and P",
+    "text": "9.12 M and P\nM is symmetric and idempotent.\nP is symmetric and idempotent.\nM and P are orthogonal.\nThe residual maker and the projection matrix are orthogonal. \\[\\boldsymbol{PM} = \\boldsymbol{MP} = \\boldsymbol{0}\\]\n\\[\\boldsymbol{PM} = (\\boldsymbol{X (X^T X)^{-1} X^T})(\\boldsymbol{I} - \\boldsymbol{X (X^T X)^{-1} X^T})\\] \\[\\boldsymbol{PM} = \\boldsymbol{X (X^T X)^{-1} X^T} - \\boldsymbol{X (X^T X)^{-1} X^T}\\boldsymbol{X (X^T X)^{-1} X^T}\\] \\[\\boldsymbol{PM} = \\boldsymbol{X (X^T X)^{-1} X^T} - \\boldsymbol{X (X^T X)^{-1} X^T} = \\boldsymbol{0}\\]\nWhen \\(\\boldsymbol{y}\\) is pre-multiplied by \\(\\boldsymbol{M}\\), it produces a vector of the least squares residuals:\n\\[\\boldsymbol{e} = \\boldsymbol{M y}\\]\nWhen \\(\\boldsymbol{X}\\) is pre-multiplied by \\(\\boldsymbol{M}\\) the result is: \\[\\boldsymbol{MX} = (\\boldsymbol{I} - \\boldsymbol{X (X^T X)^{-1} X^T})X\\] \\[\\boldsymbol{MX} = \\boldsymbol{X} - \\boldsymbol{X (X^T X)^{-1} (X^T X)} = \\boldsymbol{(X - X)} = \\boldsymbol{0}\\]\nThe regression of \\(\\boldsymbol{X}\\) on \\(\\boldsymbol{X}\\) is a perfect fit and the residuals from this regression are equal to 0.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-2-derivation.html#decomposing-y",
+    "href": "mod-2-2-derivation.html#decomposing-y",
+    "title": "9  Deriving Least Squares",
+    "section": "9.13 Decomposing Y",
+    "text": "9.13 Decomposing Y\nWe can now partition \\(\\boldsymbol{y}\\) into two orthogonal parts, the projection and the residual \\[\\boldsymbol{y} = \\boldsymbol{Py} + \\boldsymbol{My}\\]\nFurthermore, the sum of squares \\(\\boldsymbol{y^T y}\\) exploits the orthogonality between \\(\\boldsymbol{P}\\) and \\(\\boldsymbol{M}\\): \\[\\boldsymbol{y^T y} = \\boldsymbol{y^T P^T P y} + \\boldsymbol{y^T M^T M y}\\] \\[\\boldsymbol{y^T y} = \\boldsymbol{\\hat{y}^T \\hat{y}} + \\boldsymbol{e^T e}\\] The projection of the vector \\(\\boldsymbol{y}\\) into the column space of \\(\\boldsymbol{X}\\) creates fitted values \\(\\boldsymbol{\\hat{y}}\\) and residuals \\(\\boldsymbol{e}\\).\nIn other words, the linear least squares regression projects the dependent variable into the independent variable space, but does not do so “perfectly.”\nThe residual vector \\(\\boldsymbol{e}\\) captures the differences between the actual and predicted values of \\(\\boldsymbol{y}\\).\nIf the linearity assumption holds, then the population conditional mean \\(E[y | \\boldsymbol{x}]\\) is linear in \\(\\boldsymbol{x}\\).\nThe population conditional mean is the population counterpart to the projection of \\(y\\) on \\(\\boldsymbol{x}\\).\n\nrm(list = ls())\n\nX &lt;- matrix(c(1,2,3,4,\n              4,16,27,38,\n              19,10,31,2,\n              43,54,65,96), \n              nrow = 4, ncol = 4)\n\ny &lt;- c(6, 7, 8, 9) \n\nI &lt;- diag(4)       \n\n# Define P and M\n\nP &lt;- X %*% solve(t(X) %*% X) %*% t(X)\nM &lt;- I - X %*% solve(t(X) %*% X) %*% t(X)\n\ny_hat &lt;- P*y\ne &lt;- M*y\n\n# Show P and M orthogonal\n\npm &lt;- P %*% M\n\n# Show MX = 0\n\nmx &lt;- M %*% X",
     "crumbs": [
       "Least Squares Estimator",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
