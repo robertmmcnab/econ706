@@ -796,10 +796,10 @@
     "href": "mod-2-2-derivation.html",
     "title": "9  Deriving Least Squares",
     "section": "",
-    "text": "9.1 Matrix Operations\nThis module extends our discussion of matrix operations. We begin with simulating least squares estimation before discussing matrix properties. We examine derivative properties before covering the projection and residual maker matrices. Understanding these operations is critical as they form the backbone of the Ordinary Least Squares (OLS) estimator, which we will derive and implement both manually and using built-in R functions.\nYou will find these examples useful as you derive the least squares estimator and examine the properties of the least squares estimator in later modules.",
+    "text": "9.1 Least Squares\nIn this section, we discuss the motivation behind least squares regression before deriving the least squares estimator. We then examine the small sample properties of the least squares estimator. We explore how the dependent variable can be decomposed into explained and unexplained variation through the use of the residual maker and projection matrices.",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
@@ -921,6 +921,61 @@
     "crumbs": [
       "Least Squares Estimator",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-2-derivation.html#notation",
+    "href": "mod-2-2-derivation.html#notation",
+    "title": "9  Deriving Least Squares",
+    "section": "9.2 Notation",
+    "text": "9.2 Notation\nDefine a column vector \\(\\boldsymbol{x_k}\\) such that \\(\\boldsymbol{x_k}\\) consists of \\(n\\) observations.\nLet \\(k \\in \\{1, 2, \\dots, K\\}\\) such that \\(\\boldsymbol{x_1}\\) is the first column vector.\nLet \\(\\boldsymbol{x_2}\\) be the second column vector, and so on.\nCombining the column vectors for \\(\\boldsymbol{x_k}\\) yields a \\((n \\times K)\\) matrix.\nThe first column of the resulting \\(\\boldsymbol{X}\\) matrix consists of a column of 1’s.\nThe subscript \\(k\\) refers to the k-th column of the \\(\\boldsymbol{X}\\) matrix.\nThe subscript \\(i\\) refers to the i-th row of the \\(\\boldsymbol{X}\\) matrix.\nThe linear regression model is equal to:\n\\[\\boldsymbol{y = X \\, \\beta + \\epsilon}\\]\n\\[\\begin{bmatrix}\ny_1 \\\\ y_2 \\\\ \\vdots \\\\ y_n\n\\end{bmatrix} =\n\\begin{bmatrix}\nx_{11} & x_{12} & \\dots & x_{1K} \\\\\nx_{21} & x_{22} & \\dots & x_{2K} \\\\\n\\vdots & \\vdots & \\vdots & \\vdots \\\\\nx_{n1} & x_{n2} & x_{n3} & x_{nK}\n\\end{bmatrix}\n\\begin{bmatrix}\n\\beta_1 \\\\\n\\beta_2 \\\\\n\\beta_3 \\\\\n\\beta_4\n\\end{bmatrix} +\n\\begin{bmatrix}\n\\epsilon_1 \\\\\n\\epsilon_2 \\\\\n\\vdots \\\\\n\\epsilon_n\n\\end{bmatrix}\\]",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-2-derivation.html#why-least-squares",
+    "href": "mod-2-2-derivation.html#why-least-squares",
+    "title": "9  Deriving Least Squares",
+    "section": "9.3 Why Least Squares?",
+    "text": "9.3 Why Least Squares?\nAssume that we wish to estimate the impact of education on workers’ salaries. We specify a linear regression model where salary is a function of education and other explanatory variables or:\n\\[\nsalary = \\beta_1 + \\beta_2 \\, education + \\beta_3 \\, age + \\dots + \\beta_k x_K + \\epsilon\n\\]\nWe do not observe the population parameters.\nWe need an algorithm or rule by which we can develop estimates of the population parameters.\nThe algorithm or rule is called an estimator.\nWhen we use the estimator with data, we produce estimates of the population parameters.\nWhat is our objective?\nWe want an algorithm or rule that produces estimates that are “close” to the actual values.\nIn other words, we want an estimator to produce estimates that are “close” to the actual values of the dependent variable.\nWe can define our estimates of the population parameters as b.\nWe can define our predicted values of the dependent variable as \\(\\hat{y}\\).\nOur predicted values are equal to:\n\\[\n\\hat{y} = Xb = b_1x_1 + b_2x_2 + \\dots + b_k x_k\n\\]\nAnd our “mistakes” or “residuals” are defined as:\n\\[\ne = y - \\hat{y} = y - Xb\n\\]\nSo, what is our objective function?\nWe could try and minimize the sum of our mistakes or:\n\\[\n\\sum_{i=1}^n = y_i - \\hat{y_i} = \\sum_{i = 1}^n = e_i\n\\]\nHowever, we assume that our errors are normally distributed with a mean of zero, so if we sum the residuals, we would add the positive and negative values together and they would be equal to zero.\n\\[\n\\sum_{i=1}^n  y_i - \\hat{y_i} = \\sum_{i = 1}^n  e_i = 0\n\\]\nInstead, we can square our residuals and sum the squared residuals.\nThis is similar to estimating the variance of a random variable where we sum the squared deviations of the variable from its mean and then divide by \\(N\\).\n\\[\nvar(X) = \\frac{1}{N}\\sum_{i=1}^N (x_i - \\mu_x)^2\n\\]\nOur objective function is the minimization of the sum of the squared residuals:\n\\[\n\\sum_{i = 1}^n (y_i - \\hat{y})^2  = \\sum_{i=1}^n e_i^2\n\\]\nThe question is: how do we arrive that estimates of the population parameters that minimize the sum of the squared residuals?",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-2-derivation.html#objective-function",
+    "href": "mod-2-2-derivation.html#objective-function",
+    "title": "9  Deriving Least Squares",
+    "section": "9.4 Objective Function",
+    "text": "9.4 Objective Function\nLet \\(\\boldsymbol{b_0}\\) be a coefficient vector consisting of sample estimates of \\(\\boldsymbol{\\beta}\\) from a least squares regression.\nThe population regression function is:\n\\[\\boldsymbol{y} = \\boldsymbol{X\\beta} + \\boldsymbol{\\epsilon}\\]\nThe sample regression function is:\n\\[\\boldsymbol{y} = \\boldsymbol{X\\ b_0} + \\boldsymbol{e}\\]\nwhere the predicted values of the dependent variable are equal to:\n\\[\n\\boldsymbol{\\hat{y}} = \\boldsymbol{X \\, b_o}\n\\]\nand the residuals are equal to:\n\\[\n\\boldsymbol{e} = \\boldsymbol{y - \\hat{y}} = \\boldsymbol{y - X \\, b_0}\n\\]\nOur objective function is the minimization of the sum of the squared residuals, that is, we choose \\(\\boldsymbol{b_0}\\) such that the predicted values of the dependent variable best “fit” the data.\nThe sum of the squared residuals when we select \\(\\boldsymbol{b_0}\\) is equal to:\n\\[\n\\boldsymbol{e_0^T \\, e_0}\n\\]\nWe can now specific the objective function as:\n\\[min_{b0}\\ S(b_0) = \\boldsymbol{e_0^T e_0} = (\\boldsymbol{y - \\hat{y}})^T\\  (\\boldsymbol{y - \\hat{y}})\\]\n\\[e_0^T e_0 = (\\boldsymbol{y - X\\ b_0})^T\\  (\\boldsymbol{y - X\\ b_0})\\]\n\\[e_0^T e_0 = \\boldsymbol{y^Ty - b_0^T\\ X^T y - y^T\\ Xb_0 + b_0^T X^T X b_0}\\] It is important to note that:\n\\[\\boldsymbol{b_0^T X^T y} \\sim (1 \\times K) \\times (K \\times n) \\times (n \\times 1) \\sim (1 \\times 1)\\] \\[\\boldsymbol{y^T X b_0} \\sim (1 \\times n) \\times (n \\times K) \\times (K \\times 1) \\sim (1 \\times 1)\\]\n\\[(\\boldsymbol{b_0^T\\ X^T y})^T = \\boldsymbol{y^T\\ X\\ b_0}\\]\nWe can substitute for \\(\\boldsymbol{y^T\\ X\\ b_0}\\) to obtain:\n\\[min_{b0}\\ S(b_0) =e_0^T e_0 = \\boldsymbol{y^Ty - 2b_0^T\\ X^T\\ y + b_0^T X^T X b_0}\\]",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-2-derivation.html#first-derivative",
+    "href": "mod-2-2-derivation.html#first-derivative",
+    "title": "9  Deriving Least Squares",
+    "section": "9.5 First Derivative",
+    "text": "9.5 First Derivative\nThere are two useful identities that will help us in the derivation of the least squares estimator.\nFirst, for the vectors \\(\\boldsymbol{a}\\) and \\(\\boldsymbol{b}\\), the partial derivative of \\(\\boldsymbol{a^T}\\) times \\(\\boldsymbol{b}\\) with respect to \\(\\boldsymbol{a}\\) is equal to \\(\\boldsymbol{b}\\).\n\\[\\frac{\\delta \\boldsymbol{a^Tb}}{\\delta \\boldsymbol{a}} = \\boldsymbol{b}\\]\nSecond, if \\(\\boldsymbol{A}\\) is symmetric, then the first derivative of \\(\\boldsymbol{b^T A b}\\) with respect to \\(\\boldsymbol{b}\\) is:\n\\[\\frac{\\delta \\boldsymbol{b^T A b}}{\\delta \\boldsymbol{b}} = 2 \\boldsymbol{Ab} = 2 \\boldsymbol{b^TA}\\]\nWe can now return to the task at hand. We need to take the first derivative of the objective function with respect to \\(\\boldsymbol{b_0}\\) and set the first derivative equal to zero or:\n\\[\\frac{\\partial(\\boldsymbol{e_0^T e_0 )}}{\\partial\\ \\boldsymbol{b_0}} = 0\\]\n\\[\\frac{\\partial(\\boldsymbol{e_0^T e_0 )}}{\\partial\\ \\boldsymbol{b_0}} =\\frac{\\partial(\\boldsymbol{y^Ty - 2b_0^T\\ X^T\\ y + b_0^T X^T X b_0})}{\\boldsymbol{b_0}} = 0\\]\n\\[\\frac{\\partial(e_0^T e_0 )}{\\partial\\ b_0} =\\frac{\\partial \\,y^Ty}{\\partial{b_0}} +  \\frac{\\partial \\, 2b_0^T\\ X^T\\ y}{\\partial b_0} + \\frac{\\partial \\, b_0^T X^T Xb_0}{\\partial \\, b_0} = 0\\]\nBreaking the first derivative into its component parts yields:\n\\[\\frac{\\partial \\,y^Ty}{\\partial{b_0}} = 0 \\]\n\\[\\frac{\\partial\\ (-2\\ \\boldsymbol{b_0^T X^T y)}}{\\partial\\ \\boldsymbol{b_0}} = -2 \\boldsymbol{X^T y}\\] \\[\\frac{\\partial\\ (\\boldsymbol{b_0^T X^T X b_0})}{\\partial\\ \\boldsymbol{b_0}} = 2\\ \\boldsymbol{X^T X\\ b_0}\\]\nThe first derivative of the objective function is equal to: \\[\\frac{\\partial S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0}} = -2\\ \\boldsymbol{X^T\\ y} + 2\\ \\boldsymbol{X^T X\\ b_0} = 0\\]\n\nIf a solution \\(\\boldsymbol{b}\\) exists, then the normal equations are: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-2-derivation.html#first-derivative-1",
+    "href": "mod-2-2-derivation.html#first-derivative-1",
+    "title": "9  Deriving Least Squares",
+    "section": "9.6 First Derivative",
+    "text": "9.6 First Derivative\nIf the full column rank assumption holds, then \\((\\boldsymbol{X^T X})\\) is square as it is \\((K \\times K)\\) and \\((\\boldsymbol{X^T X})\\) is also symmetric.\nFurthermore, if the full column rank assumption holds, then \\((\\boldsymbol{X^T X})\\) has an inverse and we can use the normal equations to obtain the least square estimates of the population parameters.\n\\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\] \\[\\boldsymbol{b} = (\\boldsymbol{X^T\\ X})^{-1}\\ \\boldsymbol{X^T\\ y}\\] - The second derivative of the objective function is equal to: \\[\\frac{\\partial^2 S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0 b_0^T}} = 2\\ \\boldsymbol{X^T X}\\] - \\(2\\ \\boldsymbol{X^T X}\\) is only a positive definite matrix if the full column rank assumption holds.\n\nThe least squares solution, if the full column rank assumption holds, is unique and minimizes the sum of the squared residuals \\(e^Te\\).",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   }
 ]
