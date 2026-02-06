@@ -49,10 +49,10 @@ Please select the links provided to access material where applicable.
 
 ## Lessons in this Module
 
--   [2.1 – Matrix Operations](mod-2-1-matrix.qmd)\
--   [2.2 - Least Squares Derivation](mod-2-2-derivation.qmd)
--   [2.3 - R and Derivation](mod-2-3-rexamples.qmd)
+-   [2.1 - Least Squares Derivation](mod-2-1-derivation.qmd)
+-   [2.2 – Matrix Operations](mod-2-2-matrix.qmd)\
+
 
 ------------------------------------------------------------------------
 
-Next: Start with [**Matrix Operations**](mod-2-1-matrix.qmd).
+Next: Start with [**Least Squares Derivation**](mod-2-1-derivation.qmd).

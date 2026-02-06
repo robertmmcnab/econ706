@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>9&nbsp; Deriving Least Squares – ECON 706</title>
+<title>8&nbsp; Deriving Least Squares – ECON 706</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./mod-2-3-rexamples.html" rel="next">
-<link href="./mod-2-1-matrix.html" rel="prev">
+<link href="./mod-2-2-matrix.html" rel="next">
+<link href="./mod-2-0-overview.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -112,7 +112,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-2-0-overview.html">Least Squares Estimator</a></li><li class="breadcrumb-item"><a href="./mod-2-2-derivation.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Deriving Least Squares</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-2-0-overview.html">Least Squares Estimator</a></li><li class="breadcrumb-item"><a href="./mod-2-1-derivation.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Deriving Least Squares</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -214,20 +214,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mod-2-1-matrix.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Matrix Operations</span></span></a>
+  <a href="./mod-2-1-derivation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Deriving Least Squares</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mod-2-2-derivation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Deriving Least Squares</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./mod-2-3-rexamples.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Least Squares and R</span></span></a>
+  <a href="./mod-2-2-matrix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Matrix Operations</span></span></a>
   </div>
 </li>
       </ul>
@@ -242,28 +236,28 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#least-squares" id="toc-least-squares" class="nav-link active" data-scroll-target="#least-squares"><span class="header-section-number">9.1</span> Least Squares</a></li>
-  <li><a href="#notation" id="toc-notation" class="nav-link" data-scroll-target="#notation"><span class="header-section-number">9.2</span> Notation</a></li>
-  <li><a href="#why-least-squares" id="toc-why-least-squares" class="nav-link" data-scroll-target="#why-least-squares"><span class="header-section-number">9.3</span> Why Least Squares?</a></li>
-  <li><a href="#objective-function" id="toc-objective-function" class="nav-link" data-scroll-target="#objective-function"><span class="header-section-number">9.4</span> Objective Function</a></li>
-  <li><a href="#first-derivative" id="toc-first-derivative" class="nav-link" data-scroll-target="#first-derivative"><span class="header-section-number">9.5</span> First Derivative</a></li>
-  <li><a href="#least-squares-estimator" id="toc-least-squares-estimator" class="nav-link" data-scroll-target="#least-squares-estimator"><span class="header-section-number">9.6</span> Least Squares Estimator</a></li>
-  <li><a href="#second-derivative" id="toc-second-derivative" class="nav-link" data-scroll-target="#second-derivative"><span class="header-section-number">9.7</span> Second Derivative</a></li>
-  <li><a href="#orthogonality-of-x-and-e" id="toc-orthogonality-of-x-and-e" class="nav-link" data-scroll-target="#orthogonality-of-x-and-e"><span class="header-section-number">9.8</span> Orthogonality of X and e</a></li>
-  <li><a href="#projection" id="toc-projection" class="nav-link" data-scroll-target="#projection"><span class="header-section-number">9.9</span> Projection</a></li>
-  <li><a href="#projection-matrix" id="toc-projection-matrix" class="nav-link" data-scroll-target="#projection-matrix"><span class="header-section-number">9.10</span> Projection Matrix</a></li>
-  <li><a href="#residual-maker-matrix" id="toc-residual-maker-matrix" class="nav-link" data-scroll-target="#residual-maker-matrix"><span class="header-section-number">9.11</span> Residual Maker Matrix</a></li>
-  <li><a href="#m-and-p" id="toc-m-and-p" class="nav-link" data-scroll-target="#m-and-p"><span class="header-section-number">9.12</span> M and P</a></li>
-  <li><a href="#decomposing-y" id="toc-decomposing-y" class="nav-link" data-scroll-target="#decomposing-y"><span class="header-section-number">9.13</span> Decomposing Y</a></li>
+  <li><a href="#least-squares" id="toc-least-squares" class="nav-link active" data-scroll-target="#least-squares"><span class="header-section-number">8.1</span> Least Squares</a></li>
+  <li><a href="#notation" id="toc-notation" class="nav-link" data-scroll-target="#notation"><span class="header-section-number">8.2</span> Notation</a></li>
+  <li><a href="#why-least-squares" id="toc-why-least-squares" class="nav-link" data-scroll-target="#why-least-squares"><span class="header-section-number">8.3</span> Why Least Squares?</a></li>
+  <li><a href="#objective-function" id="toc-objective-function" class="nav-link" data-scroll-target="#objective-function"><span class="header-section-number">8.4</span> Objective Function</a></li>
+  <li><a href="#first-derivative" id="toc-first-derivative" class="nav-link" data-scroll-target="#first-derivative"><span class="header-section-number">8.5</span> First Derivative</a></li>
+  <li><a href="#least-squares-estimator" id="toc-least-squares-estimator" class="nav-link" data-scroll-target="#least-squares-estimator"><span class="header-section-number">8.6</span> Least Squares Estimator</a></li>
+  <li><a href="#second-derivative" id="toc-second-derivative" class="nav-link" data-scroll-target="#second-derivative"><span class="header-section-number">8.7</span> Second Derivative</a></li>
+  <li><a href="#orthogonality-of-x-and-e" id="toc-orthogonality-of-x-and-e" class="nav-link" data-scroll-target="#orthogonality-of-x-and-e"><span class="header-section-number">8.8</span> Orthogonality of X and e</a></li>
+  <li><a href="#projection" id="toc-projection" class="nav-link" data-scroll-target="#projection"><span class="header-section-number">8.9</span> Projection</a></li>
+  <li><a href="#projection-matrix" id="toc-projection-matrix" class="nav-link" data-scroll-target="#projection-matrix"><span class="header-section-number">8.10</span> Projection Matrix</a></li>
+  <li><a href="#residual-maker-matrix" id="toc-residual-maker-matrix" class="nav-link" data-scroll-target="#residual-maker-matrix"><span class="header-section-number">8.11</span> Residual Maker Matrix</a></li>
+  <li><a href="#m-and-p" id="toc-m-and-p" class="nav-link" data-scroll-target="#m-and-p"><span class="header-section-number">8.12</span> M and P</a></li>
+  <li><a href="#decomposing-y" id="toc-decomposing-y" class="nav-link" data-scroll-target="#decomposing-y"><span class="header-section-number">8.13</span> Decomposing Y</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-2-0-overview.html">Least Squares Estimator</a></li><li class="breadcrumb-item"><a href="./mod-2-2-derivation.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Deriving Least Squares</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-2-0-overview.html">Least Squares Estimator</a></li><li class="breadcrumb-item"><a href="./mod-2-1-derivation.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Deriving Least Squares</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Deriving Least Squares</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Deriving Least Squares</span></h1>
 </div>
 
 
@@ -280,12 +274,12 @@ window.Quarto = {
 </header>
 
 
-<section id="least-squares" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="least-squares"><span class="header-section-number">9.1</span> Least Squares</h2>
+<section id="least-squares" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="least-squares"><span class="header-section-number">8.1</span> Least Squares</h2>
 <p>In this section, we discuss the motivation behind least squares regression before deriving the least squares estimator. We then examine the small sample properties of the least squares estimator. We explore how the dependent variable can be decomposed into <strong>explained</strong> and <strong>unexplained</strong> variation through the use of the <strong>residual maker</strong> and <strong>projection</strong> matrices.</p>
 </section>
-<section id="notation" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="notation"><span class="header-section-number">9.2</span> Notation</h2>
+<section id="notation" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="notation"><span class="header-section-number">8.2</span> Notation</h2>
 <p>Define a column vector <span class="math inline">\(\boldsymbol{x_k}\)</span> such that <span class="math inline">\(\boldsymbol{x_k}\)</span> consists of <span class="math inline">\(n\)</span> observations.</p>
 <p>Let <span class="math inline">\(k \in \{1, 2, \dots, K\}\)</span> such that <span class="math inline">\(\boldsymbol{x_1}\)</span> is the first column vector.</p>
 <p>Let <span class="math inline">\(\boldsymbol{x_2}\)</span> be the second column vector, and so on.</p>
@@ -317,8 +311,8 @@ x_{n1} &amp; x_{n2} &amp; x_{n3} &amp; x_{nK}
 \epsilon_n
 \end{bmatrix}\]</span></p>
 </section>
-<section id="why-least-squares" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="why-least-squares"><span class="header-section-number">9.3</span> Why Least Squares?</h2>
+<section id="why-least-squares" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="why-least-squares"><span class="header-section-number">8.3</span> Why Least Squares?</h2>
 <p>Assume that we wish to estimate the impact of education on workers’ salaries. We specify a linear regression model where salary is a function of education and other explanatory variables or:</p>
 <p><span class="math display">\[
 salary = \beta_1 + \beta_2 \, education + \beta_3 \, age + \dots + \beta_k x_K + \epsilon
@@ -360,8 +354,8 @@ var(X) = \frac{1}{N}\sum_{i=1}^N (x_i - \mu_x)^2
 \]</span></p>
 <p>The question is: how do we arrive that estimates of the population parameters that minimize the sum of the squared residuals?</p>
 </section>
-<section id="objective-function" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="objective-function"><span class="header-section-number">9.4</span> Objective Function</h2>
+<section id="objective-function" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="objective-function"><span class="header-section-number">8.4</span> Objective Function</h2>
 <p>Let <span class="math inline">\(\boldsymbol{b_0}\)</span> be a coefficient vector consisting of sample estimates of <span class="math inline">\(\boldsymbol{\beta}\)</span> from a least squares regression.</p>
 <p>The population regression function is:</p>
 <p><span class="math display">\[\boldsymbol{y} = \boldsymbol{X\beta} + \boldsymbol{\epsilon}\]</span></p>
@@ -389,8 +383,8 @@ var(X) = \frac{1}{N}\sum_{i=1}^N (x_i - \mu_x)^2
 <p>We can substitute for <span class="math inline">\(\boldsymbol{y^T\ X\ b_0}\)</span> to obtain:</p>
 <p><span class="math display">\[min_{b0}\ S(b_0) =e_0^T e_0 = \boldsymbol{y^Ty - 2b_0^T\ X^T\ y + b_0^T X^T X b_0}\]</span></p>
 </section>
-<section id="first-derivative" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="first-derivative"><span class="header-section-number">9.5</span> First Derivative</h2>
+<section id="first-derivative" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="first-derivative"><span class="header-section-number">8.5</span> First Derivative</h2>
 <p>There are two useful identities that will help us in the derivation of the least squares estimator.</p>
 <p>First, for the vectors <span class="math inline">\(\boldsymbol{a}\)</span> and <span class="math inline">\(\boldsymbol{b}\)</span>, the partial derivative of <span class="math inline">\(\boldsymbol{a^T}\)</span> times <span class="math inline">\(\boldsymbol{b}\)</span> with respect to <span class="math inline">\(\boldsymbol{a}\)</span> is equal to <span class="math inline">\(\boldsymbol{b}\)</span>.</p>
 <p><span class="math display">\[\frac{\delta \boldsymbol{a^Tb}}{\delta \boldsymbol{a}} = \boldsymbol{b}\]</span></p>
@@ -406,8 +400,8 @@ var(X) = \frac{1}{N}\sum_{i=1}^N (x_i - \mu_x)^2
 <p>The first derivative of the objective function is equal to: <span class="math display">\[\frac{\partial S(\boldsymbol{b_0})}{\partial \boldsymbol{b_0}} = -2\ \boldsymbol{X^T\ y} + 2\ \boldsymbol{X^T X\ b_0} = 0\]</span></p>
 <p>If a solution <span class="math inline">\(\boldsymbol{b}\)</span> exists, then the <strong>normal equations</strong> are: <span class="math display">\[\boldsymbol{X^T\ X\ b} = \boldsymbol{X^T\ y}\]</span></p>
 </section>
-<section id="least-squares-estimator" class="level2" data-number="9.6">
-<h2 data-number="9.6" class="anchored" data-anchor-id="least-squares-estimator"><span class="header-section-number">9.6</span> Least Squares Estimator</h2>
+<section id="least-squares-estimator" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="least-squares-estimator"><span class="header-section-number">8.6</span> Least Squares Estimator</h2>
 <p>If the full column rank assumption holds, then <span class="math inline">\((\boldsymbol{X^T X})\)</span> is square as it is <span class="math inline">\((K \times K)\)</span> and <span class="math inline">\((\boldsymbol{X^T X})\)</span> is also symmetric.</p>
 <p>If the full column rank assumption holds, then <span class="math inline">\((\boldsymbol{X^T X})\)</span> has an inverse and we can use the normal equations to obtain the least square estimates of the population parameters.</p>
 <p><span class="math display">\[\boldsymbol{X^T\ X\ b} = \boldsymbol{X^T\ y}\]</span></p>
@@ -415,8 +409,8 @@ var(X) = \frac{1}{N}\sum_{i=1}^N (x_i - \mu_x)^2
 <p>We define the least squares estimator as “<strong>beta hat</strong>” and use <strong>b</strong> to denote the least squares estimator.</p>
 <p><span class="math display">\[\boldsymbol{b} = (\boldsymbol{X^T\ X})^{-1}\ \boldsymbol{X^T\ y}\]</span></p>
 </section>
-<section id="second-derivative" class="level2" data-number="9.7">
-<h2 data-number="9.7" class="anchored" data-anchor-id="second-derivative"><span class="header-section-number">9.7</span> Second Derivative</h2>
+<section id="second-derivative" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="second-derivative"><span class="header-section-number">8.7</span> Second Derivative</h2>
 <p>If the first derivative is equal to zero, it informs us that the objective function has arrived at a minimum (or maximum). The first derivative being zero only means we have arrived at a stationary point.</p>
 <p><strong>We need the second derivative to provide that we have found a minimum instead of a maximum or a saddle point</strong>.</p>
 <p>Starting with the first derivative:</p>
@@ -437,16 +431,16 @@ var(X) = \frac{1}{N}\sum_{i=1}^N (x_i - \mu_x)^2
 <br>
 </strong>Simply put, because of the assumptions of linearity, full rank, and zero conditional mean, the least squares estimator minimizes (globally) the sum of the squared residuals.</p>
 </section>
-<section id="orthogonality-of-x-and-e" class="level2" data-number="9.8">
-<h2 data-number="9.8" class="anchored" data-anchor-id="orthogonality-of-x-and-e"><span class="header-section-number">9.8</span> Orthogonality of X and e</h2>
+<section id="orthogonality-of-x-and-e" class="level2" data-number="8.8">
+<h2 data-number="8.8" class="anchored" data-anchor-id="orthogonality-of-x-and-e"><span class="header-section-number">8.8</span> Orthogonality of X and e</h2>
 <p>We can use <span class="math inline">\(\boldsymbol{y} = \boldsymbol{X\ b} + \boldsymbol{e}\)</span> and the normal equations to obtain: <span class="math display">\[\boldsymbol{X^T\ X\ b} = \boldsymbol{X^T\ y}\]</span> <span class="math display">\[\boldsymbol{X^T X\ b} = \boldsymbol{X^T\ (\boldsymbol{X\ b} + \boldsymbol{e})}\]</span> <span class="math display">\[\boldsymbol{X^T X\ b} = (\boldsymbol{X^T X}) \boldsymbol{b} + \boldsymbol{X^T e}\]</span> <span class="math display">\[\boldsymbol{X^T e} = 0\]</span></p>
 <p>Note that <span class="math inline">\(\boldsymbol{X^T e} = 0\)</span> means that <span class="math inline">\(\boldsymbol{x_k^T e} = 0\)</span>.</p>
 <p>The covariance between each independent variable and the disturbances is equal to zero.</p>
 <p>This only occurs if the assumption of the exogeneity of the regressors (<strong>zero conditional mean</strong>) holds.</p>
 <p>This illustrates why the assumptions of linearity, full rank, and strict exogeneity of the regressors are necessary to obtain the least squares estimates.</p>
 </section>
-<section id="projection" class="level2" data-number="9.9">
-<h2 data-number="9.9" class="anchored" data-anchor-id="projection"><span class="header-section-number">9.9</span> Projection</h2>
+<section id="projection" class="level2" data-number="8.9">
+<h2 data-number="8.9" class="anchored" data-anchor-id="projection"><span class="header-section-number">8.9</span> Projection</h2>
 <p>Imagine you have a flashlight and you are standing in a room.</p>
 <p>The <strong>floor</strong> represents all the possible values that can be created by your <strong>independent</strong> variables.</p>
 <p>There is a <strong>balloon</strong> floating above the floor. Let the balloon represent the dependent variable, <strong>y</strong>. Note that unless your model is perfect, the balloon will never touch the floor.<br>
@@ -466,8 +460,8 @@ We want the linear that minimizes the distance from our predicted value of y to 
 <p>Minimizing the squared length of the residuals is mathematically identical to finding the orthogonal projection.</p>
 <p>We now need to define <strong>how</strong> we can make the projection happen and what is “left over.”</p>
 </section>
-<section id="projection-matrix" class="level2" data-number="9.10">
-<h2 data-number="9.10" class="anchored" data-anchor-id="projection-matrix"><span class="header-section-number">9.10</span> Projection Matrix</h2>
+<section id="projection-matrix" class="level2" data-number="8.10">
+<h2 data-number="8.10" class="anchored" data-anchor-id="projection-matrix"><span class="header-section-number">8.10</span> Projection Matrix</h2>
 <p>We have previously defined our linear regression model as:</p>
 <p><span class="math display">\[
 \boldsymbol{y = X\beta + \epsilon = Xb + e}
@@ -481,16 +475,16 @@ We want the linear that minimizes the distance from our predicted value of y to 
 <p><span class="math display">\[\boldsymbol{P} = \boldsymbol{X (X^T X)^{-1} X^T}\]</span></p>
 <p>The projection matrix <span class="math inline">\(\boldsymbol{P}\)</span> is symmetric and idempotent.</p>
 </section>
-<section id="residual-maker-matrix" class="level2" data-number="9.11">
-<h2 data-number="9.11" class="anchored" data-anchor-id="residual-maker-matrix"><span class="header-section-number">9.11</span> Residual Maker Matrix</h2>
+<section id="residual-maker-matrix" class="level2" data-number="8.11">
+<h2 data-number="8.11" class="anchored" data-anchor-id="residual-maker-matrix"><span class="header-section-number">8.11</span> Residual Maker Matrix</h2>
 <p>The vector of least square residuals is <span class="math inline">\(\boldsymbol{e} = \boldsymbol{y} - \boldsymbol{X b}\)</span>.</p>
 <p>Substituting for <span class="math inline">\(\boldsymbol{b}\)</span> yields:</p>
 <p><span class="math display">\[\boldsymbol{e} = \boldsymbol{y} - \boldsymbol{X b}\]</span> <span class="math display">\[\boldsymbol{e} = \boldsymbol{y} - \boldsymbol{X (X^T X)^{-1} X^T y}\]</span> <span class="math display">\[\boldsymbol{e} = (\boldsymbol{I} - \boldsymbol{X (X^T X)^{-1} X^T})\boldsymbol{y}\]</span> <span class="math display">\[\boldsymbol{e} = \boldsymbol{M y}\]</span></p>
 <p><span class="math display">\[\boldsymbol{M} = (\boldsymbol{I} - \boldsymbol{X (X^T X)^{-1} X^T})\]</span></p>
 <p><strong>M</strong> is defined as the <strong>residual maker</strong> or the annihilator <strong>matrix</strong>.</p>
 </section>
-<section id="m-and-p" class="level2" data-number="9.12">
-<h2 data-number="9.12" class="anchored" data-anchor-id="m-and-p"><span class="header-section-number">9.12</span> M and P</h2>
+<section id="m-and-p" class="level2" data-number="8.12">
+<h2 data-number="8.12" class="anchored" data-anchor-id="m-and-p"><span class="header-section-number">8.12</span> M and P</h2>
 <p><strong>M</strong> is symmetric and idempotent.</p>
 <p><strong>P</strong> is symmetric and idempotent.</p>
 <p><strong>M and P are orthogonal.</strong></p>
@@ -501,8 +495,8 @@ We want the linear that minimizes the distance from our predicted value of y to 
 <p>When <span class="math inline">\(\boldsymbol{X}\)</span> is pre-multiplied by <span class="math inline">\(\boldsymbol{M}\)</span> the result is: <span class="math display">\[\boldsymbol{MX} = (\boldsymbol{I} - \boldsymbol{X (X^T X)^{-1} X^T})X\]</span> <span class="math display">\[\boldsymbol{MX} = \boldsymbol{X} - \boldsymbol{X (X^T X)^{-1} (X^T X)} = \boldsymbol{(X - X)} = \boldsymbol{0}\]</span></p>
 <p>The regression of <span class="math inline">\(\boldsymbol{X}\)</span> on <span class="math inline">\(\boldsymbol{X}\)</span> is a perfect fit and the residuals from this regression are equal to 0.</p>
 </section>
-<section id="decomposing-y" class="level2" data-number="9.13">
-<h2 data-number="9.13" class="anchored" data-anchor-id="decomposing-y"><span class="header-section-number">9.13</span> Decomposing Y</h2>
+<section id="decomposing-y" class="level2" data-number="8.13">
+<h2 data-number="8.13" class="anchored" data-anchor-id="decomposing-y"><span class="header-section-number">8.13</span> Decomposing Y</h2>
 <p>We have previously specified the linear regression model as:</p>
 <p><span class="math display">\[
 \boldsymbol{y = X \beta + \epsilon}
@@ -932,13 +926,13 @@ We want the linear that minimizes the distance from our predicted value of y to 
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./mod-2-1-matrix.html" class="pagination-link" aria-label="Matrix Operations">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Matrix Operations</span></span>
+      <a href="./mod-2-0-overview.html" class="pagination-link" aria-label="Module 2 Overview">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Module 2 Overview</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./mod-2-3-rexamples.html" class="pagination-link" aria-label="Least Squares and R">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Least Squares and R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./mod-2-2-matrix.html" class="pagination-link" aria-label="Matrix Operations">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Matrix Operations</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

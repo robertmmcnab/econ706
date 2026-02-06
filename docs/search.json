@@ -488,324 +488,170 @@
     "href": "mod-2-0-overview.html#lessons-in-this-module",
     "title": "7  Module 2 Overview",
     "section": "7.5 Lessons in this Module",
-    "text": "7.5 Lessons in this Module\n\n2.1 – Matrix Operations\n\n2.2 - Least Squares Derivation\n2.3 - R and Derivation\n\n\nNext: Start with Matrix Operations.",
+    "text": "7.5 Lessons in this Module\n\n2.1 - Least Squares Derivation\n2.2 – Matrix Operations\n\n\n\nNext: Start with Least Squares Derivation.",
     "crumbs": [
       "Least Squares Estimator",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Module 2 Overview</span>"
     ]
   },
   {
-    "objectID": "mod-2-1-matrix.html",
-    "href": "mod-2-1-matrix.html",
-    "title": "8  Matrix Operations",
+    "objectID": "mod-2-1-derivation.html",
+    "href": "mod-2-1-derivation.html",
+    "title": "8  Deriving Least Squares",
     "section": "",
-    "text": "8.1 Matrix Operations\nThis module extends our discussion of matrix operations. We begin with simulating least squares estimation before discussing matrix properties. We examine derivative properties before covering the projection and residual maker matrices. Understanding these operations is critical as they form the backbone of the Ordinary Least Squares (OLS) estimator, which we will derive and implement both manually and using built-in R functions.\nYou will find these examples useful as you derive the least squares estimator and examine the properties of the least squares estimator in later modules.",
+    "text": "8.1 Least Squares\nIn this section, we discuss the motivation behind least squares regression before deriving the least squares estimator. We then examine the small sample properties of the least squares estimator. We explore how the dependent variable can be decomposed into explained and unexplained variation through the use of the residual maker and projection matrices.",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
-    "objectID": "mod-2-1-matrix.html#matrix-creation",
-    "href": "mod-2-1-matrix.html#matrix-creation",
-    "title": "8  Matrix Operations",
-    "section": "8.2 Matrix Creation",
-    "text": "8.2 Matrix Creation\nWe can create two vectors that contain 4 numeric elements and form two matrices that are \\((2 \\times 2)\\) Assume that we have call the two matrices, \\(m_1\\) and \\(m_2\\) and the matrices can be expressed as:\n\\[ m_1 = \\begin{bmatrix} 2 & 6 \\\\ 4 & 8 \\end{bmatrix} \\]\n\\[ m_2 = \\begin{bmatrix} 5 & 2 \\\\ 15 & 12 \\end{bmatrix} \\]\nWe can also create a \\((4 \\times 1)\\) matrix from the same elements that form \\(m_1\\) or:\n\\[\nm_{1a} = \\begin{bmatrix}\n2 \\\\\n4 \\\\\n6 \\\\\n8\n\\end{bmatrix}\n\\]\nWe can take a transpose of a matrix by using t(), so t(m_1) would be the transpose of matrix m_1 or\n\\[\nm_1^T = \\begin{bmatrix}\n2 & 4 \\\\\n6 & 8\n\\end{bmatrix}\n\\]\nWe can use the dim function to obtain the dimensions of a matrix (and other elements like vectors).\nThe code chunk below does the following:\n\nCreate numeric vectors using the combine function and assign to d_1 and d_2\nUsing d_1, create a \\((2 \\times 2)\\) matrix\nUsing d_2, create a \\((2 \\times 2)\\) matrix\nUsing d_1, create a $(4 ) matrix\nUse kable to output m_1\nUse the transpose function and kable to output t(m_1)\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "objectID": "mod-2-1-derivation.html#notation",
+    "href": "mod-2-1-derivation.html#notation",
+    "title": "8  Deriving Least Squares",
+    "section": "8.2 Notation",
+    "text": "8.2 Notation\nDefine a column vector \\(\\boldsymbol{x_k}\\) such that \\(\\boldsymbol{x_k}\\) consists of \\(n\\) observations.\nLet \\(k \\in \\{1, 2, \\dots, K\\}\\) such that \\(\\boldsymbol{x_1}\\) is the first column vector.\nLet \\(\\boldsymbol{x_2}\\) be the second column vector, and so on.\nCombining the column vectors for \\(\\boldsymbol{x_k}\\) yields a \\((n \\times K)\\) matrix.\nThe first column of the resulting \\(\\boldsymbol{X}\\) matrix consists of a column of 1’s.\nThe subscript \\(k\\) refers to the k-th column of the \\(\\boldsymbol{X}\\) matrix.\nThe subscript \\(i\\) refers to the i-th row of the \\(\\boldsymbol{X}\\) matrix.\nThe linear regression model is equal to:\n\\[\\boldsymbol{y = X \\, \\beta + \\epsilon}\\]\n\\[\\begin{bmatrix}\ny_1 \\\\ y_2 \\\\ \\vdots \\\\ y_n\n\\end{bmatrix} =\n\\begin{bmatrix}\nx_{11} & x_{12} & \\dots & x_{1K} \\\\\nx_{21} & x_{22} & \\dots & x_{2K} \\\\\n\\vdots & \\vdots & \\vdots & \\vdots \\\\\nx_{n1} & x_{n2} & x_{n3} & x_{nK}\n\\end{bmatrix}\n\\begin{bmatrix}\n\\beta_1 \\\\\n\\beta_2 \\\\\n\\beta_3 \\\\\n\\beta_4\n\\end{bmatrix} +\n\\begin{bmatrix}\n\\epsilon_1 \\\\\n\\epsilon_2 \\\\\n\\vdots \\\\\n\\epsilon_n\n\\end{bmatrix}\\]",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
-    "objectID": "mod-2-1-matrix.html#matrix-addition",
-    "href": "mod-2-1-matrix.html#matrix-addition",
-    "title": "8  Matrix Operations",
-    "section": "8.3 Matrix Addition",
-    "text": "8.3 Matrix Addition\nIn this example, we demonstrate how to add matrices.\nWe return to the two \\((2 \\times 2)\\) matrices in the previous example and add the matrices together.\n\\[ \\begin{bmatrix}\n2 & 6 \\\\ 4 & 8\n\\end{bmatrix} +\n\\begin{bmatrix}\n5 & 2 \\\\ 15 & 12\n\\end{bmatrix} =\n\\begin{bmatrix}\n(2 + 5) & (6 + 2) \\\\\n(4 + 15) & (8 + 12)\n\\end{bmatrix} =\n\\begin{bmatrix}\n7 & 8 \\\\\n19 & 20\n\\end{bmatrix}\\]\nWhen we add \\(m_1\\) and \\(m_2\\), we are adding the values in the same position in each matrix.\nFor example, for \\(m_1\\), the value in the first row, first column is equal to 2.\nFor \\(m_2\\), the value in the first row, first column is equal to 5.\nAdding \\(m_1\\) and \\(m_2\\) yields a value of 7 in the first row, first column of the resulting matrix.\nThe order for matrix addition does not matter, that is, \\(m_1 + m_2 = m_2 + m_1\\).\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "objectID": "mod-2-1-derivation.html#why-least-squares",
+    "href": "mod-2-1-derivation.html#why-least-squares",
+    "title": "8  Deriving Least Squares",
+    "section": "8.3 Why Least Squares?",
+    "text": "8.3 Why Least Squares?\nAssume that we wish to estimate the impact of education on workers’ salaries. We specify a linear regression model where salary is a function of education and other explanatory variables or:\n\\[\nsalary = \\beta_1 + \\beta_2 \\, education + \\beta_3 \\, age + \\dots + \\beta_k x_K + \\epsilon\n\\]\nWe do not observe the population parameters.\nWe need an algorithm or rule by which we can develop estimates of the population parameters.\nThe algorithm or rule is called an estimator.\nWhen we use the estimator with data, we produce estimates of the population parameters.\nWhat is our objective?\nWe want an algorithm or rule that produces estimates that are “close” to the actual values.\nIn other words, we want an estimator to produce estimates that are “close” to the actual values of the dependent variable.\nWe can define our estimates of the population parameters as b.\nWe can define our predicted values of the dependent variable as \\(\\hat{y}\\).\nOur predicted values are equal to:\n\\[\n\\hat{y} = Xb = b_1x_1 + b_2x_2 + \\dots + b_k x_k\n\\]\nAnd our “mistakes” or “residuals” are defined as:\n\\[\ne = y - \\hat{y} = y - Xb\n\\]\nSo, what is our objective function?\nWe could try and minimize the sum of our mistakes or:\n\\[\n\\sum_{i=1}^n = y_i - \\hat{y_i} = \\sum_{i = 1}^n = e_i\n\\]\nHowever, we assume that our errors are normally distributed with a mean of zero, so if we sum the residuals, we would add the positive and negative values together and they would be equal to zero.\n\\[\n\\sum_{i=1}^n  y_i - \\hat{y_i} = \\sum_{i = 1}^n  e_i = 0\n\\]\nInstead, we can square our residuals and sum the squared residuals.\nThis is similar to estimating the variance of a random variable where we sum the squared deviations of the variable from its mean and then divide by \\(N\\).\n\\[\nvar(X) = \\frac{1}{N}\\sum_{i=1}^N (x_i - \\mu_x)^2\n\\]\nOur objective function is the minimization of the sum of the squared residuals:\n\\[\n\\sum_{i = 1}^n (y_i - \\hat{y})^2  = \\sum_{i=1}^n e_i^2\n\\]\nThe question is: how do we arrive that estimates of the population parameters that minimize the sum of the squared residuals?",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
-    "objectID": "mod-2-1-matrix.html#matrix-subtraction",
-    "href": "mod-2-1-matrix.html#matrix-subtraction",
-    "title": "8  Matrix Operations",
-    "section": "8.4 Matrix Subtraction",
-    "text": "8.4 Matrix Subtraction\nUsing a similar process, we can subtract one matrix from another. While order does not matter for addition, order does matter for subtraction.\nIf we subtract \\(m_2\\) from \\(m_1\\), that is \\(m_1 - m_2\\), then, we are subtracting the value of each element in \\(m_2\\) from the corresponding element in \\(m_1\\).\n\\[ \\begin{bmatrix}\n2 & 6 \\\\ 4 & 8\n\\end{bmatrix} -\n\\begin{bmatrix}\n5 & 2 \\\\ 15 & 12\n\\end{bmatrix} =\n\\begin{bmatrix}\n(2 - 5) & (6 - 2) \\\\\n(4 - 15) & (8 - 12)\n\\end{bmatrix} =\n\\begin{bmatrix}\n-3 & 4 \\\\\n-11 & -4\n\\end{bmatrix}\\]\nThe value in the first row, first column of \\(m_1\\) is equal to 5. When we subtract \\(m_2\\) from \\(m_1\\), we would subtract 2 (first row, first column of \\(m_2\\)) from 5 (first row, first column of \\(m_1\\)), that is, the resulting value is equal to \\(2-5 = -3\\).\nOn the other hand, if we subtract \\(m_1\\) from \\(m_2\\), then the same position yields \\(5-2 = 3\\).\n\\[ \\begin{bmatrix}\n5 & 2 \\\\ 15 & 12\n\\end{bmatrix} -\n\\begin{bmatrix}\n2 & 6 \\\\ 4 & 8\n\\end{bmatrix} -\n=\n\\begin{bmatrix}\n(5 - 2) & (2 - 6) \\\\\n(15 - 4) & (12 - 8)\n\\end{bmatrix} =\n\\begin{bmatrix}\n3 & -4 \\\\\n11 & 4\n\\end{bmatrix}\\]\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "objectID": "mod-2-1-derivation.html#objective-function",
+    "href": "mod-2-1-derivation.html#objective-function",
+    "title": "8  Deriving Least Squares",
+    "section": "8.4 Objective Function",
+    "text": "8.4 Objective Function\nLet \\(\\boldsymbol{b_0}\\) be a coefficient vector consisting of sample estimates of \\(\\boldsymbol{\\beta}\\) from a least squares regression.\nThe population regression function is:\n\\[\\boldsymbol{y} = \\boldsymbol{X\\beta} + \\boldsymbol{\\epsilon}\\]\nThe sample regression function is:\n\\[\\boldsymbol{y} = \\boldsymbol{X\\ b_0} + \\boldsymbol{e}\\]\nwhere the predicted values of the dependent variable are equal to:\n\\[\n\\boldsymbol{\\hat{y}} = \\boldsymbol{X \\, b_o}\n\\]\nand the residuals are equal to:\n\\[\n\\boldsymbol{e} = \\boldsymbol{y - \\hat{y}} = \\boldsymbol{y - X \\, b_0}\n\\]\nOur objective function is the minimization of the sum of the squared residuals, that is, we choose \\(\\boldsymbol{b_0}\\) such that the predicted values of the dependent variable best “fit” the data.\nThe sum of the squared residuals when we select \\(\\boldsymbol{b_0}\\) is equal to:\n\\[\n\\boldsymbol{e_0^T \\, e_0}\n\\]\nWe can now specific the objective function as:\n\\[min_{b0}\\ S(b_0) = \\boldsymbol{e_0^T e_0} = (\\boldsymbol{y - \\hat{y}})^T\\  (\\boldsymbol{y - \\hat{y}})\\]\n\\[e_0^T e_0 = (\\boldsymbol{y - X\\ b_0})^T\\  (\\boldsymbol{y - X\\ b_0})\\]\n\\[e_0^T e_0 = \\boldsymbol{y^Ty - b_0^T\\ X^T y - y^T\\ Xb_0 + b_0^T X^T X b_0}\\] It is important to note that:\n\\[\\boldsymbol{b_0^T X^T y} \\sim (1 \\times K) \\times (K \\times n) \\times (n \\times 1) \\sim (1 \\times 1)\\] \\[\\boldsymbol{y^T X b_0} \\sim (1 \\times n) \\times (n \\times K) \\times (K \\times 1) \\sim (1 \\times 1)\\]\n\\[(\\boldsymbol{b_0^T\\ X^T y})^T = \\boldsymbol{y^T\\ X\\ b_0}\\]\nWe can substitute for \\(\\boldsymbol{y^T\\ X\\ b_0}\\) to obtain:\n\\[min_{b0}\\ S(b_0) =e_0^T e_0 = \\boldsymbol{y^Ty - 2b_0^T\\ X^T\\ y + b_0^T X^T X b_0}\\]",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
-    "objectID": "mod-2-1-matrix.html#hadamard-product",
-    "href": "mod-2-1-matrix.html#hadamard-product",
-    "title": "8  Matrix Operations",
-    "section": "8.5 Hadamard Product",
-    "text": "8.5 Hadamard Product\nElement-by-element matrix multiplication is straightforward but is not typically used in this class. Element-by-element matrix multiplication is known as the Hadamard Product.\nThe order of multiplication does not matter, however, the two matrices must have identical dimensions.\nReturning to the two matrices, \\(m_1\\) and \\(m_2\\), we can conduct element-by-element multiplication by multiplying each element by its corresponding element in the other matrix.\n\\[\nm1 \\times m2 =\n\\begin{bmatrix}\n2 & 6 \\\\\n4 & 8\n\\end{bmatrix} \\times\n\\begin{bmatrix}\n5 & 2 \\\\\n15 & 12\n\\end{bmatrix} =\n\\begin{bmatrix}\n(2 \\times 5) & (6 \\times 2) \\\\\n(4 \\times 15) & (8 \\times 12)\n\\end{bmatrix} =\n\\begin{bmatrix}\n10 & 12 \\\\\n60 & 96\n\\end{bmatrix}\n\\]\nAs an exercise, you can use the webr code chunk below to calculate the product of the two matrices and observe whether the Hadamard Product depends on the order of multiplication.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "objectID": "mod-2-1-derivation.html#first-derivative",
+    "href": "mod-2-1-derivation.html#first-derivative",
+    "title": "8  Deriving Least Squares",
+    "section": "8.5 First Derivative",
+    "text": "8.5 First Derivative\nThere are two useful identities that will help us in the derivation of the least squares estimator.\nFirst, for the vectors \\(\\boldsymbol{a}\\) and \\(\\boldsymbol{b}\\), the partial derivative of \\(\\boldsymbol{a^T}\\) times \\(\\boldsymbol{b}\\) with respect to \\(\\boldsymbol{a}\\) is equal to \\(\\boldsymbol{b}\\).\n\\[\\frac{\\delta \\boldsymbol{a^Tb}}{\\delta \\boldsymbol{a}} = \\boldsymbol{b}\\]\nSecond, if \\(\\boldsymbol{A}\\) is symmetric, then the first derivative of \\(\\boldsymbol{b^T A b}\\) with respect to \\(\\boldsymbol{b}\\) is:\n\\[\\frac{\\delta \\boldsymbol{b^T A b}}{\\delta \\boldsymbol{b}} = 2 \\boldsymbol{Ab} = 2 \\boldsymbol{b^TA}\\]\nWe can now return to the task at hand. We need to take the first derivative of the objective function with respect to \\(\\boldsymbol{b_0}\\) and set the first derivative equal to zero or:\n\\[\\frac{\\partial(\\boldsymbol{e_0^T e_0 )}}{\\partial\\ \\boldsymbol{b_0}} = 0\\]\n\\[\\frac{\\partial(\\boldsymbol{e_0^T e_0 )}}{\\partial\\ \\boldsymbol{b_0}} =\\frac{\\partial(\\boldsymbol{y^Ty - 2b_0^T\\ X^T\\ y + b_0^T X^T X b_0})}{\\boldsymbol{b_0}} = 0\\]\n\\[\\frac{\\partial(e_0^T e_0 )}{\\partial\\ b_0} =\\frac{\\partial \\,y^Ty}{\\partial{b_0}} +  \\frac{\\partial \\, 2b_0^T\\ X^T\\ y}{\\partial b_0} + \\frac{\\partial \\, b_0^T X^T Xb_0}{\\partial \\, b_0} = 0\\]\nBreaking the first derivative into its component parts yields:\n\\[\\frac{\\partial \\,y^Ty}{\\partial{b_0}} = 0 \\]\n\\[\\frac{\\partial\\ (-2\\ \\boldsymbol{b_0^T X^T y)}}{\\partial\\ \\boldsymbol{b_0}} = -2 \\boldsymbol{X^T y}\\] \\[\\frac{\\partial\\ (\\boldsymbol{b_0^T X^T X b_0})}{\\partial\\ \\boldsymbol{b_0}} = 2\\ \\boldsymbol{X^T X\\ b_0}\\]\nThe first derivative of the objective function is equal to: \\[\\frac{\\partial S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0}} = -2\\ \\boldsymbol{X^T\\ y} + 2\\ \\boldsymbol{X^T X\\ b_0} = 0\\]\nIf a solution \\(\\boldsymbol{b}\\) exists, then the normal equations are: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
-    "objectID": "mod-2-1-matrix.html#matrix-multiplication",
-    "href": "mod-2-1-matrix.html#matrix-multiplication",
-    "title": "8  Matrix Operations",
-    "section": "8.6 Matrix Multiplication",
-    "text": "8.6 Matrix Multiplication\nIf A is a \\((m \\times n)\\) matrix and B is a \\((n \\times p)\\) matrix, then we can form the matrix product C by AB, if and only if the two matrices are compatible.\nThe first step is to ensure the matrices are compatible, that is, the inner dimensions of the matrices must match. In this case, the columns in A are equal to the rows in B, so the matrices are compatible.\nThe resulting matrix will have the dimensions of the ‘outer’ numbers. If we examine this from a dimensional perspective then:\n\\[\nA \\times B = (m \\times n) \\times (n \\times p) = (m \\times p)\n\\]\nFor example, assume that A is \\((5 \\times 5)\\) and B is \\((5 \\times 8)\\). We can form the matrix product AB since the as the number of columns in A is equal to the number of rows in B.\n\nWe cannot, however, form the matrix product BA since the number of columns in B is not equal to the number of rows in A.\nIn general, the only time we are assured that we can multiply AB and BA is when A and B are square matrices with the same dimensions.\nRecall that we have previously defined two matrices as:\n\\[\nm_1 = \\begin{bmatrix}\n2 & 6 \\\\\n4 & 8\n\\end{bmatrix}\\]\n\\[m_2 = \\begin{bmatrix}\n5 & 2 \\\\\n15 & 12\n\\end{bmatrix}\n\\]\nStep 1: Top-Left element: Take the first row of \\(m_1\\) and multiply it by the first column of \\(m_2\\).\n\\[\n(2 \\times 5) + (6 \\times 15) = 10 + 90 = 100\n\\]\nStep 2: Top-Right Element: Take the first row of \\(m_1\\) and multiply it by the second column of \\(m_2\\).\n\\[\n(2 \\times 2) + (6 \\times 12) = 4 + 72 = 76\n\\]\nStep 3: Bottom-Left element: Take the second row of \\(m_1\\) and multiply it by the first column of \\(m_2\\).\n\\[\n(4 \\times 5) + (8 \\times 15) = 20 + 120 = 140\n\\]\nStep 4: Bottom-right element: Take the second row of \\(m_1\\) and multiply it by the second column of \\(m_2\\).\n\\[\n(4 \\times 2) + (8 \\times 12) = 8 + 96 = 104\n\\]\nWhen we multiply \\(m_1\\) by \\(m_2\\) we obtain a new matrix that is the matrix product or\n\\[\nm_1m_2 = \\begin{bmatrix}\n2 & 6 \\\\\n4 & 8\n\\end{bmatrix}\n\\begin{bmatrix}\n5 & 2 \\\\\n15 & 12\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n(2 \\times 5) + (6 \\times 15) & (2 \\times 2) + (6 \\times 12) \\\\\n(4 \\times 5) + (8 \\times 15) & (4 \\times 2) + (8 \\times 12)\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n100 & 76 \\\\\n140 & 104\n\\end{bmatrix}\n\\]\nTo illustrate the point that, in general, matrix multiplication depends on the order of the matrices, we can calculate the product of \\(m_2 m_1\\).\nStep 1: Top-Left element: Take the first row of \\(m_2\\) and multiply it by the first column of \\(m_1\\).\n\\[ (5 \\times 2) + (2 \\times 4) = 10 + 8 = 18 \\]\nStep 2: Top-Right Element: Take the first row of \\(m_2\\) and multiply it by the second column of \\(m_1\\).\n\\[ (5 \\times 6) + (2 \\times 8) = 30 + 16 = 46 \\]\nStep 3: Bottom-Left element: Take the second row of \\(m_2\\) and multiply it by the first column of \\(m_1\\).\n\\[ (15 \\times 2) + (12 \\times 4) = 30 + 48 = 78 \\]\nStep 4: Bottom-right element: Take the second row of \\(m_1\\) and multiply it by the second column of \\(m_2\\).\n\\[ (15 \\times 6) + (12 \\times 8) = 186 \\]\nWhen we multiply \\(m_1\\) by \\(m_2\\) we obtain a new matrix that is the matrix product or\n\\[ m_2 m_1 = \\begin{bmatrix} 5 & 2 \\\\ 15 & 12  \\end{bmatrix} \\begin{bmatrix} 2 & 6 \\\\ 4 & 8  \\end{bmatrix} = \\begin{bmatrix} (5 \\times 2) + (2 \\times 4) & (5 \\times 6) + (2 \\times 8) \\\\ (15 \\times 2) + (12 \\times 4) & (15 \\times 6) + (12 \\times 8) \\end{bmatrix} = \\begin{bmatrix} 18 & 46 \\\\ 78 & 186 \\end{bmatrix} \\]\nThis illustrates the point: matrix multiplication is non-communicative. Comparability and order of operations matter. Change the order, obtain a different result.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "objectID": "mod-2-1-derivation.html#least-squares-estimator",
+    "href": "mod-2-1-derivation.html#least-squares-estimator",
+    "title": "8  Deriving Least Squares",
+    "section": "8.6 Least Squares Estimator",
+    "text": "8.6 Least Squares Estimator\nIf the full column rank assumption holds, then \\((\\boldsymbol{X^T X})\\) is square as it is \\((K \\times K)\\) and \\((\\boldsymbol{X^T X})\\) is also symmetric.\nIf the full column rank assumption holds, then \\((\\boldsymbol{X^T X})\\) has an inverse and we can use the normal equations to obtain the least square estimates of the population parameters.\n\\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]\nGiven that the inverse of \\(\\boldsymbol{(X^T X)}\\) exists, we can now solve for the least squares estimator.\nWe define the least squares estimator as “beta hat” and use b to denote the least squares estimator.\n\\[\\boldsymbol{b} = (\\boldsymbol{X^T\\ X})^{-1}\\ \\boldsymbol{X^T\\ y}\\]",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
-    "objectID": "mod-2-1-matrix.html#symmetric-matrix",
-    "href": "mod-2-1-matrix.html#symmetric-matrix",
-    "title": "8  Matrix Operations",
-    "section": "8.7 Symmetric Matrix",
-    "text": "8.7 Symmetric Matrix\nA symmetric matrix is a square matrix, that is, it has the same number of rows as it has columns.\nA symmetric matrix is equal to its transpose, that is, \\(A = A^T\\).\nFor example, the matrix below is equal to its transpose, thus it is a symmetric matrix.\nThe code below illustrates this by creating the matrix and producing its transpose.\n\\[X = \\begin{bmatrix} 4 & 5 & -3 \\\\ 5 & 7 & 2 \\\\ -3 & 2 & 10 \\end{bmatrix}\\]\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "objectID": "mod-2-1-derivation.html#second-derivative",
+    "href": "mod-2-1-derivation.html#second-derivative",
+    "title": "8  Deriving Least Squares",
+    "section": "8.7 Second Derivative",
+    "text": "8.7 Second Derivative\nIf the first derivative is equal to zero, it informs us that the objective function has arrived at a minimum (or maximum). The first derivative being zero only means we have arrived at a stationary point.\nWe need the second derivative to provide that we have found a minimum instead of a maximum or a saddle point.\nStarting with the first derivative:\n\\[\\frac{\\partial S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0}} = -2\\ \\boldsymbol{X^T\\ y} + 2\\ \\boldsymbol{X^T X\\ b_0} = 0\\]\nWe take the derivative of the first derivative to obtain the second derivative : \\[\\frac{\\partial^2 S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0 b_0^T}} = \\frac{\\partial}{\\partial \\boldsymbol{b_0 }} (-2\\ \\boldsymbol{X^T\\ y} + 2\\ \\boldsymbol{X^T X\\ b_0}) \\]\nWe know that:\n\\[\\frac{\\partial}{\\partial \\boldsymbol{b_0}} (-2 \\boldsymbol{X^T\\ y}) = 0\\] \\[\\frac{\\partial}{\\partial \\boldsymbol{b_0}} (-2 \\boldsymbol{X^T X b_0}) = \\boldsymbol{2 X^T X}\\]\nIn other words, the second derivative is equal to:\n\\[\\frac{\\partial^2 S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0 b_0^T}} = 2\\ \\boldsymbol{X^T X}\\]\nFor a point to be a local minimum, the Hessian matrix (second derivative) must be Positive Definite.\nWe know that \\(\\boldsymbol{X^TX}\\) is always symmetric\nWe know that, for any non-zero vector, the quadratic form is at least positive semi-definite.\n\\[\n\\boldsymbol{v^T (X^TX)} = \\boldsymbol{(Xv)^T(Xv)} = \\boldsymbol{||Xv||^2}\n\\]\nWe know that, if \\(\\boldsymbol{X}\\) has full column rank, then \\(\\boldsymbol{||Xv||^2} &gt; 0\\), which means that the second derivative is positive definite.\nBecause the second derivative is positive definite, the objective function is strictly convex and the stationary point (b) is a unique global minimum.\n\nSimply put, because of the assumptions of linearity, full rank, and zero conditional mean, the least squares estimator minimizes (globally) the sum of the squared residuals.",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
-    "objectID": "mod-2-1-matrix.html#idempotent-matrix",
-    "href": "mod-2-1-matrix.html#idempotent-matrix",
-    "title": "8  Matrix Operations",
-    "section": "8.8 Idempotent Matrix",
-    "text": "8.8 Idempotent Matrix\nAn idempotent matrix is one which, when multiplied by itself, yields itself.\nIf a matrix \\(A\\) is idempotent, then \\(A \\times A = A\\).\n\\[M = \\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix}\\]\n\\[\nMM = \\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix}\n\\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix} =\n\\begin{bmatrix}\n(3*3)+(1*-6) & (3*1)+(1*-2)\\\\\n(1*3)+(-2*1) & (1*-6)+(-2*-2)\n\\end{bmatrix}\\]\n\\[MM = \\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix}\n\\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix} =\n\\begin{bmatrix}\n3 & -6 \\\\\n1 & -2\n\\end{bmatrix}\\]\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "objectID": "mod-2-1-derivation.html#orthogonality-of-x-and-e",
+    "href": "mod-2-1-derivation.html#orthogonality-of-x-and-e",
+    "title": "8  Deriving Least Squares",
+    "section": "8.8 Orthogonality of X and e",
+    "text": "8.8 Orthogonality of X and e\nWe can use \\(\\boldsymbol{y} = \\boldsymbol{X\\ b} + \\boldsymbol{e}\\) and the normal equations to obtain: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\] \\[\\boldsymbol{X^T X\\ b} = \\boldsymbol{X^T\\ (\\boldsymbol{X\\ b} + \\boldsymbol{e})}\\] \\[\\boldsymbol{X^T X\\ b} = (\\boldsymbol{X^T X}) \\boldsymbol{b} + \\boldsymbol{X^T e}\\] \\[\\boldsymbol{X^T e} = 0\\]\nNote that \\(\\boldsymbol{X^T e} = 0\\) means that \\(\\boldsymbol{x_k^T e} = 0\\).\nThe covariance between each independent variable and the disturbances is equal to zero.\nThis only occurs if the assumption of the exogeneity of the regressors (zero conditional mean) holds.\nThis illustrates why the assumptions of linearity, full rank, and strict exogeneity of the regressors are necessary to obtain the least squares estimates.",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
-    "objectID": "mod-2-1-matrix.html#identity-matrix",
-    "href": "mod-2-1-matrix.html#identity-matrix",
-    "title": "8  Matrix Operations",
-    "section": "8.9 Identity Matrix",
-    "text": "8.9 Identity Matrix\nThe identity matrix has 1’s along the diagonal and 0’s on the off-diagonal positions.\nAn identity matrix is symmetric and idempotent.\nWe can create an identity matrix in R by using the diag function, that is, diag(5) creates a 5 x 5 identity matrix.\n\\[M = \\begin{bmatrix}\n1 & 0 & \\dots & 0 \\\\\n0 & 1 & \\dots & 0 \\\\\n\\vdots & 0 & \\ddots & \\vdots \\\\\n0 & 0 & \\dots & 1\n\\end{bmatrix}\\]\n\\[M = t(M) = MM = M\\]\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "objectID": "mod-2-1-derivation.html#projection",
+    "href": "mod-2-1-derivation.html#projection",
+    "title": "8  Deriving Least Squares",
+    "section": "8.9 Projection",
+    "text": "8.9 Projection\nImagine you have a flashlight and you are standing in a room.\nThe floor represents all the possible values that can be created by your independent variables.\nThere is a balloon floating above the floor. Let the balloon represent the dependent variable, y. Note that unless your model is perfect, the balloon will never touch the floor.\n\nIn other words, even if we have all the independent variables, we cannot perfectly explain y.\nIf you shine a flashlight directly above the balloon, you get a shadow on the floor. The shadow presents the predicted value of y created by the independent variables or \\(\\boldsymbol{\\hat{y}}\\).\nIn other words, the predicted value of y on the floor is the projection of y on X.\nThe projection of y on X is the best linear approximation of y using the information in X.\nWhat is the best projection of y on X? Think of the lines from the floor to the balloon. We have a line at a 10 degree angle, 25 degree angle, and so on until we have a line at a 90 degree angle from the floor to the balloon.\n\nWe want the linear that minimizes the distance from our predicted value of y to the actual value of y.\nA straight line from the floor to the balloon minimizes the distance, in other words, a line at a 90 degree angle from the floor, that is, a perpendicular line from y onto the floor.\nWhy is the “perpendicular line” the same as “minimizing the sum of squares”?\nThink of the distance between the balloon, \\(\\boldsymbol{y}\\), and any point on the floor, \\(\\boldsymbol{\\hat{y}}\\).\nBy the Pythagorean Theorem, the shortest distance between a point and a plane is always the perpendicular line.\nThe length of that perpendicular line is the magnitude of our residuals, \\(\\boldsymbol{||e||}\\).\nMinimizing the squared length of the residuals is mathematically identical to finding the orthogonal projection.\nWe now need to define how we can make the projection happen and what is “left over.”",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
-    "objectID": "mod-2-1-matrix.html#matrix-inversion",
-    "href": "mod-2-1-matrix.html#matrix-inversion",
-    "title": "8  Matrix Operations",
-    "section": "8.10 Matrix Inversion",
-    "text": "8.10 Matrix Inversion\nTo understand the inverse of a matrix, let’s start with an example where have an equation and we want to solve for the unknown value of \\(x\\).\n\\[\n5x = 10\n\\]\nWe can divide both sides by the reciprocal of 5 to solve for \\(x\\). \\[\n\\frac{1}{5} \\times 5x = 10 \\times \\frac{1}{5}\n\\]In other words, if we multiply 5 by it’s inverse, we obtain\n\\[\n5 \\times \\frac{1}{5} = 1\n\\]\nWhen we multiply a matrix by its inverse, we obtain the identify matrix (I) which is the matrix equivalent of the number 1 where the identify matrix has 1’s along the diagonal and 0’s off the diagonal or:\n\\[\nA A^{-1} = I =\n\\begin{bmatrix}1 & 0 & \\ldots & 0 \\\\\n0 & 1 & \\dots & 0 \\\\\n\\vdots & & \\ddots & \\vdots \\\\\n0 & \\ldots & \\dots & 1\n\\end{bmatrix}\n\\]\nNot every matrix, however, has an inverse. A matrix must meet two criteria to have an inverse:\n\nThe matrix must be square, that is, the number of rows and columns are equal\nThe determinant cannot be zero.\n\nDefine a \\((2 \\times 2)\\) matrix as:\n\\[X = \\begin{bmatrix}\nA & B \\\\\nC & D\n\\end{bmatrix}\\]\nThe inverse of the \\(X\\) matrix is denoted as \\(X^{-1}\\) and is equal to:\n\\[X^{-1} = \\frac{1}{AD - BC} \\begin{bmatrix}\nD & -B \\\\\n-C & A\n\\end{bmatrix}\\]\nWe should note that \\((AD - BC)\\) is the determinant.\nNow define \\(X\\) as:\n\\[X = \\begin{bmatrix}\n4 & 8 \\\\\n2 & 6\n\\end{bmatrix}\\]\nThe inverse of \\(X\\) or \\(X^{-1}\\) is equal to:\n\\[X^{-1} = \\frac{1}{(4*6) - (8*2)} \\begin{bmatrix}\n6 & -8\\\\\n-2 & 4\n\\end{bmatrix}\\]\n\\[X^{-1} = \\frac{1}{8} \\begin{bmatrix}\n6 & -8\\\\\n-2 & 4\n\\end{bmatrix}\\]\n\\[X^{-1} = \\begin{bmatrix}\n3/4 & -1\\\\\n-1/4 & 1/2\n\\end{bmatrix}\\]\nAnd if we multiply \\(X\\) by \\(X^{-1}\\), we would obtain:\n\\[X X^{-1} = \\begin{bmatrix}\n4 & 8 \\\\\n2 & 6\n\\end{bmatrix}\n\\begin{bmatrix}\n3/4 & -1\\\\\n-1/4 & 1/2\n\\end{bmatrix} =\n\\begin{bmatrix}\n(4*3/4 + -1/4*8) & (4*-1 + 8*1/2) \\\\\n(2*3/4 + 6*-1/4) & (2*-1 + 6*1/2)\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n1 & 0 \\\\\n0 & 1\n\\end{bmatrix}=\nI\\]\nIn the code below, we create a \\((2 \\times 2)\\) matrix and use the solve function in R to calculate the inverse of the square matrix. We then multiply the matrix by its inverse to obtain the identity matrix.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "objectID": "mod-2-1-derivation.html#projection-matrix",
+    "href": "mod-2-1-derivation.html#projection-matrix",
+    "title": "8  Deriving Least Squares",
+    "section": "8.10 Projection Matrix",
+    "text": "8.10 Projection Matrix\nWe have previously defined our linear regression model as:\n\\[\n\\boldsymbol{y = X\\beta + \\epsilon = Xb + e}\n\\]\nWe know that our predicted values are equal to:\n\\[\n\\boldsymbol{\\hat{y} = Xb = y - e}\n\\]\nWe can use this to object the projection matrix \\(\\boldsymbol{P}\\) \\[\\boldsymbol{\\hat{y}} = \\boldsymbol{Xb}\\] \\[\\boldsymbol{\\hat{y}} = \\boldsymbol{X(X^TX)^{-1}X^T y}\\]\n\\[\\boldsymbol{\\hat{y}} = \\boldsymbol{X (X^T X)^{-1} X^Ty} = \\boldsymbol{P y}\\]\n\\[\\boldsymbol{P} = \\boldsymbol{X (X^T X)^{-1} X^T}\\]\nThe projection matrix \\(\\boldsymbol{P}\\) is symmetric and idempotent.",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
-    "objectID": "mod-2-1-matrix.html#regression-example",
-    "href": "mod-2-1-matrix.html#regression-example",
-    "title": "8  Matrix Operations",
-    "section": "8.11 Regression Example",
-    "text": "8.11 Regression Example\nIn the code below, we create a matrix filled with zeros that has 6,000 rows and 6 columns.\nThe first column of the X matrix will be filled with the value 1.\nIn columns 2 through 6, we fill a random number from a standard normal distribution.\nThe gc() is a garbage collection command to return memory from R. It is optional to run this code.\nThe vector of \\(\\beta\\) coefficients is \\(\\beta \\in \\{1,2,3,4,5,6\\}\\).\nWe know define \\(y\\) as equal to a linear equation of \\(X\\beta\\) plus a disturbance term \\(\\epsilon\\) or:\n\\[y = X\\beta + \\epsilon\\]\n\\(\\epsilon\\) is drawn from a standard normal distribution with zero mean and constant variance.\nEstimate the least squares coefficients, predicted values for the dependent variable and residuals.\n\nrm(list = ls())\n\nset.seed(1234)\n \nx &lt;- matrix(0,6000,6)\n      x[,1] &lt;- 1\n      for (l in 2:6) {\n        x[,l] &lt;- rnorm(6000)\n        gc()\n      }\n\n# let beta = (1,2,3,4,5,6)\n\nbeta &lt;- seq(1,6)\n\n# y is equal to X*beta + random disturbance\n\ny &lt;- x %*% beta + rnorm(6000)\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\ne &lt;- y - yhat\n\nb_names &lt;- c(\"b1\", \"b2\", \"b3\", \"b4\", \"b5\", \"b6\")\n\nbhat_named &lt;- cbind(b_names, round(bhat,3))\n\nkable(bhat_named,\n      col.names = c(\"Coefficient\",\n                    \"Estimate\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nCoefficient\nEstimate\n\n\n\n\nb1\n1.015\n\n\nb2\n1.995\n\n\nb3\n3.003\n\n\nb4\n3.986\n\n\nb5\n4.988\n\n\nb6\n5.999",
+    "objectID": "mod-2-1-derivation.html#residual-maker-matrix",
+    "href": "mod-2-1-derivation.html#residual-maker-matrix",
+    "title": "8  Deriving Least Squares",
+    "section": "8.11 Residual Maker Matrix",
+    "text": "8.11 Residual Maker Matrix\nThe vector of least square residuals is \\(\\boldsymbol{e} = \\boldsymbol{y} - \\boldsymbol{X b}\\).\nSubstituting for \\(\\boldsymbol{b}\\) yields:\n\\[\\boldsymbol{e} = \\boldsymbol{y} - \\boldsymbol{X b}\\] \\[\\boldsymbol{e} = \\boldsymbol{y} - \\boldsymbol{X (X^T X)^{-1} X^T y}\\] \\[\\boldsymbol{e} = (\\boldsymbol{I} - \\boldsymbol{X (X^T X)^{-1} X^T})\\boldsymbol{y}\\] \\[\\boldsymbol{e} = \\boldsymbol{M y}\\]\n\\[\\boldsymbol{M} = (\\boldsymbol{I} - \\boldsymbol{X (X^T X)^{-1} X^T})\\]\nM is defined as the residual maker or the annihilator matrix.",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
-    "objectID": "mod-2-1-matrix.html#simulating-data",
-    "href": "mod-2-1-matrix.html#simulating-data",
-    "title": "8  Matrix Operations",
-    "section": "8.2 Simulating Data",
-    "text": "8.2 Simulating Data\nTo illustrate how to use the least squares estimator in R, we can use “simulated” data. The use of simulated data allows us to specify the properties of the observations that are used in the estimation of the least squares coefficients.\nFor replication, we use the set.seed function.\nBy specifying set.seed(1234), we will obtain the same results each time we run the code.\nWe first need to create the matrix of independent variables.\nAssume that we want to 6,000 observations with 5 independent variables. We will add an additional column for the intercept, so our matrix will be \\((6000 \\times 6)\\).\nOur first step is to create the \\((6000 \\times 6)\\) matrix. The matrix is filled with zeros.\nWe then fill the first column of the X matrix with 1’s for the intercept term.\nThe next step is to fill columns 2 thorough 6 of the X matrix. We use a loop to fill these columns.\nEach observation is filled with a random value from a standard normal distribution.\n\n# Clear memory\nrm(list = ls())\n\n# Set Seed to 1234\nset.seed(1234)\n\n# Create a (6000 x 6) matrix of 0s \nx &lt;- matrix(0,6000,6)\n\n# Fill the first column with 1s\n\nx[,1] &lt;- 1\n\n# Loop over remaining columns\n# Fill with values from standard normal\nfor (l in 2:6) {\n    x[,l] &lt;- rnorm(6000)\n}\n\n# Output the first three rows of the X matrix\nkable(x[1:3,],\n      digits = 3,\n      col.names = c('X1','X2','X3','X4','X5','X6')) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\nX6\n\n\n\n\n1\n-1.207\n0.023\n0.249\n1.500\n-0.069\n\n\n1\n0.277\n-0.205\n-1.030\n-0.519\n-0.238\n\n\n1\n1.084\n-1.049\n-0.341\n-2.724\n-1.111",
+    "objectID": "mod-2-1-derivation.html#m-and-p",
+    "href": "mod-2-1-derivation.html#m-and-p",
+    "title": "8  Deriving Least Squares",
+    "section": "8.12 M and P",
+    "text": "8.12 M and P\nM is symmetric and idempotent.\nP is symmetric and idempotent.\nM and P are orthogonal.\nThe residual maker and the projection matrix are orthogonal. \\[\\boldsymbol{PM} = \\boldsymbol{MP} = \\boldsymbol{0}\\]\n\\[\\boldsymbol{PM} = (\\boldsymbol{X (X^T X)^{-1} X^T})(\\boldsymbol{I} - \\boldsymbol{X (X^T X)^{-1} X^T})\\] \\[\\boldsymbol{PM} = \\boldsymbol{X (X^T X)^{-1} X^T} - \\boldsymbol{X (X^T X)^{-1} X^T}\\boldsymbol{X (X^T X)^{-1} X^T}\\] \\[\\boldsymbol{PM} = \\boldsymbol{X (X^T X)^{-1} X^T} - \\boldsymbol{X (X^T X)^{-1} X^T} = \\boldsymbol{0}\\]\nWhen \\(\\boldsymbol{y}\\) is pre-multiplied by \\(\\boldsymbol{M}\\), it produces a vector of the least squares residuals:\n\\[\\boldsymbol{e} = \\boldsymbol{M y}\\]\nWhen \\(\\boldsymbol{X}\\) is pre-multiplied by \\(\\boldsymbol{M}\\) the result is: \\[\\boldsymbol{MX} = (\\boldsymbol{I} - \\boldsymbol{X (X^T X)^{-1} X^T})X\\] \\[\\boldsymbol{MX} = \\boldsymbol{X} - \\boldsymbol{X (X^T X)^{-1} (X^T X)} = \\boldsymbol{(X - X)} = \\boldsymbol{0}\\]\nThe regression of \\(\\boldsymbol{X}\\) on \\(\\boldsymbol{X}\\) is a perfect fit and the residuals from this regression are equal to 0.",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
-    "objectID": "mod-2-1-matrix.html#linear-regression-model",
-    "href": "mod-2-1-matrix.html#linear-regression-model",
-    "title": "8  Matrix Operations",
-    "section": "8.3 Linear Regression Model",
-    "text": "8.3 Linear Regression Model\nWe can now specify the population coefficients, that is, as we are simulating population data, we can define the values of the population parameters or:\n\\[\n\\beta = \\begin{bmatrix}{1 \\\\ 2 \\\\ 3 \\\\ 4 \\\\ 5 \\\\ 6} \\end{bmatrix}\n\\] Let the disturbance term, \\(\\epsilon\\) be distributed normally with 0 mean and constant variance equal to 1 or:\n\\[\n\\epsilon \\sim N(0,1)\n\\] We specify that \\(y\\) is a linear equation equal to:\n\\[\ny = X \\beta + \\epsilon\n\\]\nThe least squares estimator is defined as:\n\\[\nb = (X^T X)^{-1} X^T y\n\\]\nWe estimate the least squares coefficients and produce a table of coefficients.\nYou should note that even though we have population data and know the population parameters, the least squares estimates are not equal to the population parameters.\nThe stochastic disturbance captures unobserved variation in the dependent variable, that is, we can not fully explain the variation in the dependent variable.\n\nset.seed(1234)\n \nx &lt;- matrix(0,6000,6)\n      x[,1] &lt;- 1\n      for (l in 2:6) {\n        x[,l] &lt;- rnorm(6000)\n      }\n\n# let beta = (1,2,3,4,5,6)\n\nbeta &lt;- seq(1,6)\n\n#\nepsilon &lt;- rnorm(6000, 0, 1)\n\n# y is equal to X*beta + random disturbance\n\ny &lt;- x %*% beta + epsilon\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nb_names &lt;- c(\"b1\", \"b2\", \"b3\", \"b4\", \"b5\", \"b6\")\n\nbhat_named &lt;- cbind(b_names, round(bhat,3))\n\nkable(bhat_named,\n      align     = 'c',\n      col.names = c(\"Coefficient\",\n                    \"Estimate\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nCoefficient\nEstimate\n\n\n\n\nb1\n1.015\n\n\nb2\n1.995\n\n\nb3\n3.003\n\n\nb4\n3.986\n\n\nb5\n4.988\n\n\nb6\n5.999",
+    "objectID": "mod-2-1-derivation.html#decomposing-y",
+    "href": "mod-2-1-derivation.html#decomposing-y",
+    "title": "8  Deriving Least Squares",
+    "section": "8.13 Decomposing Y",
+    "text": "8.13 Decomposing Y\nWe have previously specified the linear regression model as:\n\\[\n\\boldsymbol{y = X \\beta + \\epsilon}\n\\]\nWe can now decompose y into two parts: explained variation and unexplained variation.\n\\[\n\\boldsymbol{y = \\hat{y} + e = Xb + e}\n\\]\nWe can also show the two parts are orthogonal, that is, there is no information in one part that provides information about the other part.\nBuilding on this discussion, we can decompose y:\n\\[\n\\boldsymbol{y = \\hat{y} + e = Xb + e}\n\\]\n\\[\\boldsymbol{y} = \\boldsymbol{Py} + \\boldsymbol{My}\\]\nAnd we know that P and M are orthogonal to each other, so Py and My are orthogonal to each other as well, showing that we can decompose y into two orthogonal components.\nBecause \\(\\boldsymbol{\\hat{y}}\\) and \\(\\boldsymbol{e}\\) are orthogonal, there is zero correlation between them, that is, the residuals contain no information about the predicted values of the dependent variable and, likewise, the predicted values of the dependent variable contain no information about the residuals.\nIn the next section, we will work in R to illustrate these and other points.",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deriving Least Squares</span>"
     ]
   },
   {
-    "objectID": "mod-2-1-matrix.html#second-example",
-    "href": "mod-2-1-matrix.html#second-example",
-    "title": "8  Matrix Operations",
-    "section": "8.4 Second Example",
-    "text": "8.4 Second Example\n\nIn the second example, we compare the estimates from the least squares estimates with those obtained using the lm function in\n\n\n\n\n\nset.seed(1234)\n\nx &lt;- matrix(0,10000,6)\n      x[,1] &lt;- 1\n      for (l in 2:6) {\n        x[,l] &lt;- rnorm(10000)\n        gc()\n      }\n\n# let beta = (7,8,9,10,11,12)\n\nbeta &lt;- seq(7,12)\n\n# y is equal to X*beta + random disturbance\n\ny &lt;- x %*% beta + rnorm(10000)\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\ne &lt;- y - yhat\n\nb_names &lt;- c(\"b1\", \"b2\", \"b3\", \"b4\", \"b5\", \"b6\")\n\nbhat_named &lt;- cbind(b_names, bhat)\n\nkable(bhat_named,\n      col.names = c(\"Coefficient\",\n                    \"Estimate\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nCoefficient\nEstimate\n\n\n\n\nb1\n6.99220938948289\n\n\nb2\n7.99145359946009\n\n\nb3\n8.99507548489479\n\n\nb4\n10.032235275611\n\n\nb5\n11.0014804484265\n\n\nb6\n12.024686916929",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-1-matrix.html#estimating-coefficients",
-    "href": "mod-2-1-matrix.html#estimating-coefficients",
-    "title": "8  Matrix Operations",
-    "section": "8.3 Estimating Coefficients",
-    "text": "8.3 Estimating Coefficients\nWe can now specify the population coefficients, that is, as we are simulating population data, we can define the values of the population parameters or:\n\\[\n\\beta = \\begin{bmatrix}{1 \\\\ 2 \\\\ 3 \\\\ 4 \\\\ 5 \\\\ 6} \\end{bmatrix}\n\\] Let the disturbance term, \\(\\epsilon\\) be distributed normally with 0 mean and constant variance equal to 1 or:\n\\[\n\\epsilon \\sim N(0,1)\n\\] We specify that \\(y\\) is a linear equation equal to:\n\\[\ny = X \\beta + \\epsilon\n\\]\nThe least squares estimator is defined as:\n\\[\nb = (X^T X)^{-1} X^T y\n\\]\nWe estimate the least squares coefficients and produce a table of coefficients.\nYou should note that even though we have population data and know the population parameters, the least squares estimates are not equal to the population parameters.\nThe stochastic disturbance captures unobserved variation in the dependent variable, that is, we can not fully explain the variation in the dependent variable.\n\nset.seed(1234)\n \nx &lt;- matrix(0,6000,6)\n      x[,1] &lt;- 1\n      for (l in 2:6) {\n        x[,l] &lt;- rnorm(6000)\n      }\n\n# Population coefficients\n\nbeta &lt;- c(1,2,3,4,5,6)\n\n# Disturbance term\nepsilon &lt;- rnorm(6000, 0, 1)\n\n# y is equal to X*beta + epsilon\n\ny &lt;- x %*% beta + epsilon\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nb_names &lt;- c(\"b1\", \"b2\", \"b3\", \"b4\", \"b5\", \"b6\")\n\nbhat_named &lt;- cbind(b_names, \n                    beta,\n                    round(bhat,3))\n\nkable(bhat_named,\n      align     = 'c',\n      col.names = c(\"Coefficient\",\n                    \"Population Parameter\",\n                    \"Estimate\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nCoefficient\nPopulation Parameter\nEstimate\n\n\n\n\nb1\n1\n1.015\n\n\nb2\n2\n1.995\n\n\nb3\n3\n3.003\n\n\nb4\n4\n3.986\n\n\nb5\n5\n4.988\n\n\nb6\n6\n5.999",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-1-matrix.html#estimating-using-lm-function",
-    "href": "mod-2-1-matrix.html#estimating-using-lm-function",
-    "title": "8  Matrix Operations",
-    "section": "8.4 Estimating Using LM Function",
-    "text": "8.4 Estimating Using LM Function\nWe can also compare the least squares estimates using matrix algebra with those obtained using the lm function (which uses matrix algebra behind the scenes).\nIn the example below, we replicate the methodology above to obtain the least squares estimates using matrix algebra. Note that we have changed the number of observations to 10,000.\nTo use the lm function and obtain results comparable to those using matrix algebra, we only need to include the independent variables. This means we must exclude the intercept variable (X1) from the data that will be used by the lm function.\nWhy?\nThe lm function, by default, estimates an intercept. If we included the intercept variable (which is a column of 1’s in the X matrix), then our results would not be comparable.\nWe find that the estimates are the same, regardless if we use matrix algebra or the lm function.\n\nrm(list = ls())\n\nset.seed(1234)\n\nx &lt;- matrix(0,10000,6)\n      x[,1] &lt;- 1\n      for (l in 2:6) {\n        x[,l] &lt;- rnorm(10000)\n        gc()\n      }\n\nbeta &lt;- c(7,8,9,10,11,12)\n\nepsilon &lt;- rnorm(10000, 0, 1)\n\n# y is equal to X*beta + random disturbance\n\ny &lt;- x %*% beta + epsilon\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nb_names &lt;- c(\"b1\", \"b2\", \"b3\", \"b4\", \"b5\", \"b6\")\n\n# Create dataframe for LM function\n# Include Y and independent variables \n\ndata &lt;- tibble(y = y[,1],\n               x2 = x[,2],\n               x3 = x[,3],\n               x4 = x[,4],\n               x5 = x[,5],\n               x6 = x[,6])\n\n# Generate least squares estimates using LM function\n\nlm_mod &lt;- lm(y ~ x2 + x3 + x4 + x5 + x6, data = data)$coefficients\n\n# Bind population parameters and estimates together\nbhat_named &lt;- cbind(b_names, \n                     beta, \n                     round(bhat,3),\n                     round(lm_mod,3))\nkable(bhat_named,\n      align     = 'c',\n      col.names = c(\"Coefficient\",\n                    \"Population Parameter\",\n                    \"LS Estimates\",\n                    \"LM Estimates\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\n\nCoefficient\nPopulation Parameter\nLS Estimates\nLM Estimates\n\n\n\n\n(Intercept)\nb1\n7\n6.992\n6.992\n\n\nx2\nb2\n8\n7.991\n7.991\n\n\nx3\nb3\n9\n8.995\n8.995\n\n\nx4\nb4\n10\n10.032\n10.032\n\n\nx5\nb5\n11\n11.001\n11.001\n\n\nx6\nb6\n12\n12.025\n12.025",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-1-matrix.html#matrix-properties",
-    "href": "mod-2-1-matrix.html#matrix-properties",
-    "title": "8  Matrix Operations",
-    "section": "8.5 Matrix Properties",
-    "text": "8.5 Matrix Properties\nIn this section, we list some common matrix properties which are useful in econometrics.\nFor much more information, see “The Matrix Cookbook” at http://matrixcookbook.com\nVectors are lowercase letters while capital letters represent matrices.\nThe transpose operation reverses the order of an operation so that the transpose of a product of two matrices can be expressed as the product of the transposed matrices in reverse order.\n\\[(AB)^T = B^T A^T\\]\nLet \\(a\\) and \\(c\\) be vectors.\nThe transpose operator reverses the order of the operation.\nThe transpose of a transposed vector is the vector.\n\\[(a^T B c)^T = c^T B^T a\\]\n\\((A + B)\\) pre-multiplies \\(C\\) is equal to the distributed addition of \\(AC\\) and \\(BC\\).\n\\[(A+B)C = AC + BC\\]\nThe transpose of the addition of the vectors \\(a\\) and \\(b\\) pre-multiplies \\(C\\) and the multiplication can be distributed.\n\\[(a+b)^T C = a^T C + b^T C\\]\nAs noted previously, in almost every case, matrix multiplication is not communicative.\n\\[AB \\ne BA\\]\nIn the code below, we demonstrate each of these properties.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-1-matrix.html#common-derivative-properties",
-    "href": "mod-2-1-matrix.html#common-derivative-properties",
-    "title": "8  Matrix Operations",
-    "section": "8.6 Common Derivative Properties",
-    "text": "8.6 Common Derivative Properties\nThe following rules are often quite useful\nFirst, let’s state derivative properties with respect to scalars.\nThe derivative of \\(bx\\) with respect to \\(x\\) is \\(b\\).\n\\[\\frac{\\partial bx}{\\partial x} = b \\]\nThe derivative of \\(x^2\\) with respect to \\(x\\) is \\(2x\\).\n\\[\\frac{\\partial x^2}{\\partial x} = 2x\\]\nThe derivative of \\(bx^2\\) with respect to \\(x\\) is \\(2bx\\).\n\\[\\frac{\\partial b x^2}{\\partial x} = 2bx\\]\nWe can take these scalar rules and apply them in a similar fashion of vectors and matrices.\n\\[\\frac{\\partial x^T B}{\\partial x} = B\\]\n\\[\\frac{\\partial x^T b}{\\partial x} = b\\]\n\\[\\frac{\\partial x^T x}{\\partial x} = 2x\\] \\[\\frac{\\partial x^T B x}{\\partial x} = (B + B^T)x = 2Bx \\]",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-1-matrix.html#properties-of-m",
-    "href": "mod-2-1-matrix.html#properties-of-m",
-    "title": "8  Matrix Operations",
-    "section": "8.7 Properties of M",
-    "text": "8.7 Properties of M\n\\(M\\) is a \\((n \\times n)\\) symmetric, idempotent matrix where\n\\[M = I - X(X^T X)^{-1}X^T\\]\n\\(M\\) is the residual maker when \\(y\\) is premulitplied by \\(M\\) it produces the vector of least squares residuals.\nNote that \\(MX = 0\\) since the regression of \\(X\\) on \\(X\\) is a “perfect fit” and there is no unexplained variation.\n\nnrows &lt;- 7000\nncols &lt;- 9\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\n# let beta = (1,2,3,4,5,6,7,8,9)\n\nbeta &lt;- seq(1,ncols)\n\n# y is equal to X*beta + random disturbance\n\ny &lt;- x %*% beta + rnorm(nrows)\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\n# Solve for residuals\n\ne &lt;- y - yhat\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\n# Create Residual Maker\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\n# Residuals = My\n\ne1 &lt;- M %*% y\n\ndf_e &lt;- data.frame(e, e1)\n\nkable(df_e[1:10,],\n      col.names = c(\"e (y - yhat)\",\n                    \"e (My)\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\ne (y - yhat)\ne (My)\n\n\n\n\n0.7044752\n0.7044752\n\n\n0.5357223\n0.5357223\n\n\n-1.3074348\n-1.3074348\n\n\n-0.6846867\n-0.6846867\n\n\n0.8841051\n0.8841051\n\n\n1.8214250\n1.8214250\n\n\n1.2356265\n1.2356265\n\n\n-1.0181093\n-1.0181093\n\n\n-0.3338123\n-0.3338123\n\n\n0.2873728\n0.2873728",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-1-matrix.html#m-properties",
-    "href": "mod-2-1-matrix.html#m-properties",
-    "title": "8  Matrix Operations",
-    "section": "8.8 M Properties",
-    "text": "8.8 M Properties\n\nnrows &lt;- 500\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ne1 &lt;- y - yhat\n\ne2 &lt;- M %*% y\n\nresids &lt;- as.data.frame(cbind(e1,e2))\n\nkable(resids[1:10,],\n      col.names = c(\"e (y - yhat)\",\n                    \"e (My)\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\ne (y - yhat)\ne (My)\n\n\n\n\n0.7689276\n0.7689276\n\n\n-0.2706183\n-0.2706183\n\n\n-0.7808239\n-0.7808239\n\n\n0.3798104\n0.3798104\n\n\n0.5806918\n0.5806918\n\n\n0.9877439\n0.9877439\n\n\n-0.6722584\n-0.6722584\n\n\n-0.9176326\n-0.9176326\n\n\n-0.6932500\n-0.6932500\n\n\n0.8988364\n0.8988364",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-1-matrix.html#m-is-symmetric",
-    "href": "mod-2-1-matrix.html#m-is-symmetric",
-    "title": "8  Matrix Operations",
-    "section": "8.8 M is Symmetric",
-    "text": "8.8 M is Symmetric\nRecall that \\(M\\) is symmetric, that is,\n\\[M = M^T\\]\n\nrm(list = ls())\n\nnrows &lt;- 3000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n      }\n\nbeta &lt;- c(1,2,3,4,5)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\n# Create Residual Maker\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\n# Transpose of M\n\nt_M &lt;- t(M)\n\nkable(data.frame(M)[1:5,1:5]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\n\n\n\n\n0.9966323\n0.0001332\n0.0000138\n0.0006391\n-0.0000068\n\n\n0.0001332\n0.9990577\n0.0000818\n-0.0008291\n-0.0006630\n\n\n0.0000138\n0.0000818\n0.9987474\n0.0002162\n0.0000077\n\n\n0.0006391\n-0.0008291\n0.0002162\n0.9988237\n-0.0007385\n\n\n-0.0000068\n-0.0006630\n0.0000077\n-0.0007385\n0.9994385\n\n\n\n\nkable(data.frame(t_M)[1:5,1:5]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\n\n\n\n\n0.9966323\n0.0001332\n0.0000138\n0.0006391\n-0.0000068\n\n\n0.0001332\n0.9990577\n0.0000818\n-0.0008291\n-0.0006630\n\n\n0.0000138\n0.0000818\n0.9987474\n0.0002162\n0.0000077\n\n\n0.0006391\n-0.0008291\n0.0002162\n0.9988237\n-0.0007385\n\n\n-0.0000068\n-0.0006630\n0.0000077\n-0.0007385\n0.9994385",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-1-matrix.html#m-is-idempotent",
-    "href": "mod-2-1-matrix.html#m-is-idempotent",
-    "title": "8  Matrix Operations",
-    "section": "8.9 M is Idempotent",
-    "text": "8.9 M is Idempotent\n\\(M\\) is also idempotent, that is, it is a matrix that, when multiplied by itself, yields itself.\n\\[\nM M = M\n\\]\n\nrm(list = ls())\n\nnrows &lt;- 1000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n      }\n\nbeta &lt;- c(1,2,3,4,5)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\n# Create Residual Maker\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\n\nMM &lt;- M %*% M\n\nkable(data.frame(M)[1:5,1:5]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\n\n\n\n\n0.9937489\n-0.0013963\n-0.0018414\n-0.0023038\n-0.0021625\n\n\n-0.0013963\n0.9958213\n-0.0004577\n0.0008719\n-0.0026584\n\n\n-0.0018414\n-0.0004577\n0.9982273\n-0.0014619\n-0.0007969\n\n\n-0.0023038\n0.0008719\n-0.0014619\n0.9973824\n-0.0003145\n\n\n-0.0021625\n-0.0026584\n-0.0007969\n-0.0003145\n0.9979395\n\n\n\n\nkable(data.frame(MM)[1:5,1:5]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\n\n\n\n\n0.9937489\n-0.0013963\n-0.0018414\n-0.0023038\n-0.0021625\n\n\n-0.0013963\n0.9958213\n-0.0004577\n0.0008719\n-0.0026584\n\n\n-0.0018414\n-0.0004577\n0.9982273\n-0.0014619\n-0.0007969\n\n\n-0.0023038\n0.0008719\n-0.0014619\n0.9973824\n-0.0003145\n\n\n-0.0021625\n-0.0026584\n-0.0007969\n-0.0003145\n0.9979395",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-1-matrix.html#mx-is-zero",
-    "href": "mod-2-1-matrix.html#mx-is-zero",
-    "title": "8  Matrix Operations",
-    "section": "8.10 MX is Zero",
-    "text": "8.10 MX is Zero\n\\(MX\\) is equal to zero.\n\nrm(list = ls())\n\nnrows &lt;- 1000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n      }\n\nbeta &lt;- c(1,2,3,4,5)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\n# Create Residual Maker\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\nMX &lt;- M %*% x\n\nkable(data.frame(MX)[1:5,1:5]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\n\n\n\n\n0\n0\n0\n0\n0\n\n\n0\n0\n0\n0\n0\n\n\n0\n0\n0\n0\n0\n\n\n0\n0\n0\n0\n0\n\n\n0\n0\n0\n0\n0",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-1-matrix.html#projection-matrix",
-    "href": "mod-2-1-matrix.html#projection-matrix",
-    "title": "8  Matrix Operations",
-    "section": "8.11 Projection Matrix",
-    "text": "8.11 Projection Matrix\nWhile \\(My\\) captures the unexplained variation in \\(y\\), \\(Py\\) captured the explained variation in \\(y\\) or:\n\\[M = I - X(X^T X)^{-1}X^T\\]\n\\[P = X(X^T X)^{-1}X^T\\]\nThe projection matrix \\(P\\) is symmetric and idempotent.\n\\(PM\\) and \\(MP\\) are equivalent and equal to zero and \\(P\\) and \\(M\\) are orthogonal.\nGiven the orthogonality, we can partition y into two parts:\n\\[y = Py + My\\] \\[y = X(X^T X)^{-1} X^T y + (I-X(X^T X)^{-1}X^T)y\\]\nRecall that \\(b = (X^T X)^{-1} X^T y\\) and substitute:\n\\[y = Xb + (I-X(X^T X)^{-1}X^T)y\\]\nNow multiply \\(y\\) through the second term:\n\\[y = X b + (y - X(X^T X)^{-1} X^T y)\\]\nSubstitute again for \\(b\\)\n\\[y = X b + (y - X b)\\]\nRecognize that \\(Xb = \\hat{y}\\)\n\\[y = Xb + (y - \\hat{y})\\] \\[y = Xb + e\\]\n\nrm(list = ls())\n\nnrows &lt;- 1000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n      }\n\nbeta &lt;- c(1,2,3,4,5)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\n\nPy &lt;- P %*% y\n\ndf_yhat &lt;- data.frame(yhat, Py)\n\nkable(df_yhat[1:10,]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nyhat\nPy\n\n\n\n\n3.2036752\n3.2036752\n\n\n-12.0361510\n-12.0361510\n\n\n1.5782350\n1.5782350\n\n\n-4.1662385\n-4.1662385\n\n\n8.6660633\n8.6660633\n\n\n-2.1167407\n-2.1167407\n\n\n-0.0707777\n-0.0707777\n\n\n8.4587151\n8.4587151\n\n\n1.8995740\n1.8995740\n\n\n5.1218411\n5.1218411",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-1-matrix.html#partitioned-y",
-    "href": "mod-2-1-matrix.html#partitioned-y",
-    "title": "8  Matrix Operations",
-    "section": "8.12 Partitioned Y",
-    "text": "8.12 Partitioned Y\nWe can now partition \\(y\\) into explained variation and unexplained variation or:\n\\[\ny = Py + My = Xb + e\n\\]\nSince P and M are orthogonal, Py and My are orthogonal.\n\nrm(list = ls())\n\nnrows &lt;- 1000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n      }\n\nbeta &lt;- c(1,2,3,4,5)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\n\nypart &lt;- P %*% y + M %*% y\n\ndf_y &lt;- data.frame(y, ypart)\n\nkable(df_y[1:10,]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\ny\nypart\n\n\n\n\n10.860336\n10.860336\n\n\n-7.490902\n-7.490902\n\n\n-2.729709\n-2.729709\n\n\n-10.164991\n-10.164991\n\n\n-4.621012\n-4.621012\n\n\n6.230111\n6.230111\n\n\n-9.098625\n-9.098625\n\n\n-9.537042\n-9.537042\n\n\n-11.211872\n-11.211872\n\n\n14.520627\n14.520627",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-1-matrix.html#sum-of-squares",
-    "href": "mod-2-1-matrix.html#sum-of-squares",
-    "title": "8  Matrix Operations",
-    "section": "8.13 Sum of Squares",
-    "text": "8.13 Sum of Squares\nThe sum of squares is equal to \\(y^T y\\) and should not be confused with the total sum of squares which is the sum of squared deviations of \\(y\\) from \\(\\mu_y\\).\n\nrm(list = ls())\n\nnrows &lt;- 1000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n      }\n\nbeta &lt;- c(1,2,3,4,5)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\n# Create Residual Maker\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\n\nsum_sq &lt;- t(y) %*% y \n\nsum_sq2 &lt;- t(y) %*% t(P) %*% P %*% y + t(y) %*% t(M) %*% M %*% y\n\nsum_square &lt;- data.frame(sum_sq, sum_sq2)\n\nkable(sum_square) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nsum_sq\nsum_sq2\n\n\n\n\n55060.47\n55060.47",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-1-matrix.html#residual-maker-matrix",
-    "href": "mod-2-1-matrix.html#residual-maker-matrix",
-    "title": "8  Matrix Operations",
-    "section": "8.7 Residual Maker Matrix",
-    "text": "8.7 Residual Maker Matrix\n\\(M\\) is a \\((n \\times n)\\) symmetric, idempotent matrix where\n\\[M = I - X(X^T X)^{-1}X^T\\]\n\\(M\\) is the residual maker matrix.\nWhen \\(y\\) is pre-multiplied by \\(M\\), it produces the vector of least squares residuals, \\(e\\).\n\\[\nMy = (I - X(X^TX)^{-1} X^T = y - X(X^TX)^{-1}X^Ty = y - Xb = e\n\\]\nWe also note that \\(MX = 0\\) because the regression of \\(X\\) on \\(X\\) is a ‘perfect fit’ or:\n\\[\nMX = (I - X(X^TX)^{-1} X^T)X = X - X(X^TX)^{-1}X^TX = X - X = 0\n\\]\n\nrm(list = ls())\n\nnrows &lt;- 7000\nncols &lt;- 9\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- c(1,2,3,4,5,6,7,8,9)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\n# Solve for residuals\n\ne &lt;- y - yhat\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\n# Create Residual Maker\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\n# Residuals = My\n\ne1 &lt;- M %*% y\n\ndf_e &lt;- data.frame(e, e1)\n\nkable(df_e[1:10,],\n      col.names = c(\"e (y - yhat)\",\n                    \"e (My)\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\ne (y - yhat)\ne (My)\n\n\n\n\n0.7044752\n0.7044752\n\n\n0.5357223\n0.5357223\n\n\n-1.3074348\n-1.3074348\n\n\n-0.6846867\n-0.6846867\n\n\n0.8841051\n0.8841051\n\n\n1.8214250\n1.8214250\n\n\n1.2356265\n1.2356265\n\n\n-1.0181093\n-1.0181093\n\n\n-0.3338123\n-0.3338123\n\n\n0.2873728\n0.2873728",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Matrix Operations</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-2-derivation.html",
-    "href": "mod-2-2-derivation.html",
-    "title": "9  Deriving Least Squares",
+    "objectID": "mod-2-2-matrix.html",
+    "href": "mod-2-2-matrix.html",
+    "title": "9  Matrix Operations",
     "section": "",
-    "text": "9.1 Least Squares\nIn this section, we discuss the motivation behind least squares regression before deriving the least squares estimator. We then examine the small sample properties of the least squares estimator. We explore how the dependent variable can be decomposed into explained and unexplained variation through the use of the residual maker and projection matrices.",
+    "text": "9.1 Matrix Operations\nThis module extends our discussion of matrix operations. We begin with simulating least squares estimation before discussing matrix properties. We examine derivative properties before covering the projection and residual maker matrices. Understanding these operations is critical as they form the backbone of the Ordinary Least Squares (OLS) estimator, which we will derive and implement both manually and using built-in R functions.\nYou will find these examples useful as you derive the least squares estimator and examine the properties of the least squares estimator in later modules.",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Matrix Operations</span>"
     ]
   },
   {
-    "objectID": "mod-2-2-derivation.html#simulating-data",
-    "href": "mod-2-2-derivation.html#simulating-data",
-    "title": "9  Deriving Least Squares",
+    "objectID": "mod-2-2-matrix.html#simulating-data",
+    "href": "mod-2-2-matrix.html#simulating-data",
+    "title": "9  Matrix Operations",
     "section": "9.2 Simulating Data",
     "text": "9.2 Simulating Data\nTo illustrate how to use the least squares estimator in R, we can use “simulated” data. The use of simulated data allows us to specify the properties of the observations that are used in the estimation of the least squares coefficients.\nFor replication, we use the set.seed function.\nBy specifying set.seed(1234), we will obtain the same results each time we run the code.\nWe first need to create the matrix of independent variables.\nAssume that we want to 6,000 observations with 5 independent variables. We will add an additional column for the intercept, so our matrix will be \\((6000 \\times 6)\\).\nOur first step is to create the \\((6000 \\times 6)\\) matrix. The matrix is filled with zeros.\nWe then fill the first column of the X matrix with 1’s for the intercept term.\nThe next step is to fill columns 2 thorough 6 of the X matrix. We use a loop to fill these columns.\nEach observation is filled with a random value from a standard normal distribution.\n\n# Clear memory\nrm(list = ls())\n\n# Set Seed to 1234\nset.seed(1234)\n\n# Create a (6000 x 6) matrix of 0s \nx &lt;- matrix(0,6000,6)\n\n# Fill the first column with 1s\n\nx[,1] &lt;- 1\n\n# Loop over remaining columns\n# Fill with values from standard normal\nfor (l in 2:6) {\n    x[,l] &lt;- rnorm(6000)\n}\n\n# Output the first three rows of the X matrix\nkable(x[1:3,],\n      digits = 3,\n      col.names = c('X1','X2','X3','X4','X5','X6')) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\nX6\n\n\n\n\n1\n-1.207\n0.023\n0.249\n1.500\n-0.069\n\n\n1\n0.277\n-0.205\n-1.030\n-0.519\n-0.238\n\n\n1\n1.084\n-1.049\n-0.341\n-2.724\n-1.111",
     "crumbs": [
@@ -814,9 +660,9 @@
     ]
   },
   {
-    "objectID": "mod-2-2-derivation.html#estimating-coefficients",
-    "href": "mod-2-2-derivation.html#estimating-coefficients",
-    "title": "9  Deriving Least Squares",
+    "objectID": "mod-2-2-matrix.html#estimating-coefficients",
+    "href": "mod-2-2-matrix.html#estimating-coefficients",
+    "title": "9  Matrix Operations",
     "section": "9.3 Estimating Coefficients",
     "text": "9.3 Estimating Coefficients\nWe can now specify the population coefficients, that is, as we are simulating population data, we can define the values of the population parameters or:\n\\[\n\\beta = \\begin{bmatrix}{1 \\\\ 2 \\\\ 3 \\\\ 4 \\\\ 5 \\\\ 6} \\end{bmatrix}\n\\] Let the disturbance term, \\(\\epsilon\\) be distributed normally with 0 mean and constant variance equal to 1 or:\n\\[\n\\epsilon \\sim N(0,1)\n\\] We specify that \\(y\\) is a linear equation equal to:\n\\[\ny = X \\beta + \\epsilon\n\\]\nThe least squares estimator is defined as:\n\\[\nb = (X^T X)^{-1} X^T y\n\\]\nWe estimate the least squares coefficients and produce a table of coefficients.\nYou should note that even though we have population data and know the population parameters, the least squares estimates are not equal to the population parameters.\nThe stochastic disturbance captures unobserved variation in the dependent variable, that is, we can not fully explain the variation in the dependent variable.\n\nset.seed(1234)\n \nx &lt;- matrix(0,6000,6)\n      x[,1] &lt;- 1\n      for (l in 2:6) {\n        x[,l] &lt;- rnorm(6000)\n      }\n\n# Population coefficients\n\nbeta &lt;- c(1,2,3,4,5,6)\n\n# Disturbance term\nepsilon &lt;- rnorm(6000, 0, 1)\n\n# y is equal to X*beta + epsilon\n\ny &lt;- x %*% beta + epsilon\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nb_names &lt;- c(\"b1\", \"b2\", \"b3\", \"b4\", \"b5\", \"b6\")\n\nbhat_named &lt;- cbind(b_names, \n                    beta,\n                    round(bhat,3))\n\nkable(bhat_named,\n      align     = 'c',\n      col.names = c(\"Coefficient\",\n                    \"Population Parameter\",\n                    \"Estimate\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nCoefficient\nPopulation Parameter\nEstimate\n\n\n\n\nb1\n1\n1.015\n\n\nb2\n2\n1.995\n\n\nb3\n3\n3.003\n\n\nb4\n4\n3.986\n\n\nb5\n5\n4.988\n\n\nb6\n6\n5.999",
     "crumbs": [
@@ -825,9 +671,9 @@
     ]
   },
   {
-    "objectID": "mod-2-2-derivation.html#estimating-using-lm-function",
-    "href": "mod-2-2-derivation.html#estimating-using-lm-function",
-    "title": "9  Deriving Least Squares",
+    "objectID": "mod-2-2-matrix.html#estimating-using-lm-function",
+    "href": "mod-2-2-matrix.html#estimating-using-lm-function",
+    "title": "9  Matrix Operations",
     "section": "9.4 Estimating Using LM Function",
     "text": "9.4 Estimating Using LM Function\nWe can also compare the least squares estimates using matrix algebra with those obtained using the lm function (which uses matrix algebra behind the scenes).\nIn the example below, we replicate the methodology above to obtain the least squares estimates using matrix algebra. Note that we have changed the number of observations to 10,000.\nTo use the lm function and obtain results comparable to those using matrix algebra, we only need to include the independent variables. This means we must exclude the intercept variable (X1) from the data that will be used by the lm function.\nWhy?\nThe lm function, by default, estimates an intercept. If we included the intercept variable (which is a column of 1’s in the X matrix), then our results would not be comparable.\nWe find that the estimates are the same, regardless if we use matrix algebra or the lm function.\n\nrm(list = ls())\n\nset.seed(1234)\n\nx &lt;- matrix(0,10000,6)\n      x[,1] &lt;- 1\n      for (l in 2:6) {\n        x[,l] &lt;- rnorm(10000)\n        gc()\n      }\n\nbeta &lt;- c(7,8,9,10,11,12)\n\nepsilon &lt;- rnorm(10000, 0, 1)\n\n# y is equal to X*beta + random disturbance\n\ny &lt;- x %*% beta + epsilon\n\n# Solve for b =  (X^T X)^(-1) X^T y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nb_names &lt;- c(\"b1\", \"b2\", \"b3\", \"b4\", \"b5\", \"b6\")\n\n# Create dataframe for LM function\n# Include Y and independent variables \n\ndata &lt;- tibble(y = y[,1],\n               x2 = x[,2],\n               x3 = x[,3],\n               x4 = x[,4],\n               x5 = x[,5],\n               x6 = x[,6])\n\n# Generate least squares estimates using LM function\n\nlm_mod &lt;- lm(y ~ x2 + x3 + x4 + x5 + x6, data = data)$coefficients\n\n# Bind population parameters and estimates together\nbhat_named &lt;- cbind(b_names, \n                     beta, \n                     round(bhat,3),\n                     round(lm_mod,3))\nkable(bhat_named,\n      align     = 'c',\n      col.names = c(\"Coefficient\",\n                    \"Population Parameter\",\n                    \"LS Estimates\",\n                    \"LM Estimates\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\n\nCoefficient\nPopulation Parameter\nLS Estimates\nLM Estimates\n\n\n\n\n(Intercept)\nb1\n7\n6.992\n6.992\n\n\nx2\nb2\n8\n7.991\n7.991\n\n\nx3\nb3\n9\n8.995\n8.995\n\n\nx4\nb4\n10\n10.032\n10.032\n\n\nx5\nb5\n11\n11.001\n11.001\n\n\nx6\nb6\n12\n12.025\n12.025",
     "crumbs": [
@@ -836,9 +682,9 @@
     ]
   },
   {
-    "objectID": "mod-2-2-derivation.html#matrix-properties",
-    "href": "mod-2-2-derivation.html#matrix-properties",
-    "title": "9  Deriving Least Squares",
+    "objectID": "mod-2-2-matrix.html#matrix-properties",
+    "href": "mod-2-2-matrix.html#matrix-properties",
+    "title": "9  Matrix Operations",
     "section": "9.5 Matrix Properties",
     "text": "9.5 Matrix Properties\nIn this section, we list some common matrix properties which are useful in econometrics.\nFor much more information, see “The Matrix Cookbook” at http://matrixcookbook.com\nVectors are lowercase letters while capital letters represent matrices.\nThe transpose operation reverses the order of an operation so that the transpose of a product of two matrices can be expressed as the product of the transposed matrices in reverse order.\n\\[(AB)^T = B^T A^T\\]\nLet \\(a\\) and \\(c\\) be vectors.\nThe transpose operator reverses the order of the operation.\nThe transpose of a transposed vector is the vector.\n\\[(a^T B c)^T = c^T B^T a\\]\n\\((A + B)\\) pre-multiplies \\(C\\) is equal to the distributed addition of \\(AC\\) and \\(BC\\).\n\\[(A+B)C = AC + BC\\]\nThe transpose of the addition of the vectors \\(a\\) and \\(b\\) pre-multiplies \\(C\\) and the multiplication can be distributed.\n\\[(a+b)^T C = a^T C + b^T C\\]\nAs noted previously, in almost every case, matrix multiplication is not communicative.\n\\[AB \\ne BA\\]\nIn the code below, we demonstrate each of these properties.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
     "crumbs": [
@@ -847,9 +693,9 @@
     ]
   },
   {
-    "objectID": "mod-2-2-derivation.html#common-derivative-properties",
-    "href": "mod-2-2-derivation.html#common-derivative-properties",
-    "title": "9  Deriving Least Squares",
+    "objectID": "mod-2-2-matrix.html#common-derivative-properties",
+    "href": "mod-2-2-matrix.html#common-derivative-properties",
+    "title": "9  Matrix Operations",
     "section": "9.6 Common Derivative Properties",
     "text": "9.6 Common Derivative Properties\nThe following rules are often quite useful\nFirst, let’s state derivative properties with respect to scalars.\nThe derivative of \\(bx\\) with respect to \\(x\\) is \\(b\\).\n\\[\\frac{\\partial bx}{\\partial x} = b \\]\nThe derivative of \\(x^2\\) with respect to \\(x\\) is \\(2x\\).\n\\[\\frac{\\partial x^2}{\\partial x} = 2x\\]\nThe derivative of \\(bx^2\\) with respect to \\(x\\) is \\(2bx\\).\n\\[\\frac{\\partial b x^2}{\\partial x} = 2bx\\]\nWe can take these scalar rules and apply them in a similar fashion of vectors and matrices.\n\\[\\frac{\\partial x^T B}{\\partial x} = B\\]\n\\[\\frac{\\partial x^T b}{\\partial x} = b\\]\n\\[\\frac{\\partial x^T x}{\\partial x} = 2x\\] \\[\\frac{\\partial x^T B x}{\\partial x} = (B + B^T)x = 2Bx \\]",
     "crumbs": [
@@ -858,20 +704,20 @@
     ]
   },
   {
-    "objectID": "mod-2-2-derivation.html#residual-maker-matrix",
-    "href": "mod-2-2-derivation.html#residual-maker-matrix",
-    "title": "9  Deriving Least Squares",
-    "section": "9.11 Residual Maker Matrix",
-    "text": "9.11 Residual Maker Matrix\nThe vector of least square residuals is \\(\\boldsymbol{e} = \\boldsymbol{y} - \\boldsymbol{X b}\\).\nSubstituting for \\(\\boldsymbol{b}\\) yields:\n\\[\\boldsymbol{e} = \\boldsymbol{y} - \\boldsymbol{X b}\\] \\[\\boldsymbol{e} = \\boldsymbol{y} - \\boldsymbol{X (X^T X)^{-1} X^T y}\\] \\[\\boldsymbol{e} = (\\boldsymbol{I} - \\boldsymbol{X (X^T X)^{-1} X^T})\\boldsymbol{y}\\] \\[\\boldsymbol{e} = \\boldsymbol{M y}\\]\n\\[\\boldsymbol{M} = (\\boldsymbol{I} - \\boldsymbol{X (X^T X)^{-1} X^T})\\]\nM is defined as the residual maker or the annihilator matrix.",
+    "objectID": "mod-2-2-matrix.html#residual-maker-matrix",
+    "href": "mod-2-2-matrix.html#residual-maker-matrix",
+    "title": "9  Matrix Operations",
+    "section": "9.7 Residual Maker Matrix",
+    "text": "9.7 Residual Maker Matrix\n\\(M\\) is a \\((n \\times n)\\) symmetric, idempotent matrix where\n\\[M = I - X(X^T X)^{-1}X^T\\]\n\\(M\\) is the residual maker matrix.\nWhen \\(y\\) is pre-multiplied by \\(M\\), it produces the vector of least squares residuals, \\(e\\).\n\\[\nMy = (I - X(X^TX)^{-1} X^T = y - X(X^TX)^{-1}X^Ty = y - Xb = e\n\\]\nWe also note that \\(MX = 0\\) because the regression of \\(X\\) on \\(X\\) is a ‘perfect fit’ or:\n\\[\nMX = (I - X(X^TX)^{-1} X^T)X = X - X(X^TX)^{-1}X^TX = X - X = 0\n\\]\n\nrm(list = ls())\n\nnrows &lt;- 7000\nncols &lt;- 9\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- c(1,2,3,4,5,6,7,8,9)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\n# Solve for residuals\n\ne &lt;- y - yhat\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\n# Create Residual Maker\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\n# Residuals = My\n\ne1 &lt;- M %*% y\n\ndf_e &lt;- data.frame(e, e1)\n\nkable(df_e[1:10,],\n      col.names = c(\"e (y - yhat)\",\n                    \"e (My)\")) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\ne (y - yhat)\ne (My)\n\n\n\n\n0.7044752\n0.7044752\n\n\n0.5357223\n0.5357223\n\n\n-1.3074348\n-1.3074348\n\n\n-0.6846867\n-0.6846867\n\n\n0.8841051\n0.8841051\n\n\n1.8214250\n1.8214250\n\n\n1.2356265\n1.2356265\n\n\n-1.0181093\n-1.0181093\n\n\n-0.3338123\n-0.3338123\n\n\n0.2873728\n0.2873728",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Matrix Operations</span>"
     ]
   },
   {
-    "objectID": "mod-2-2-derivation.html#m-is-symmetric",
-    "href": "mod-2-2-derivation.html#m-is-symmetric",
-    "title": "9  Deriving Least Squares",
+    "objectID": "mod-2-2-matrix.html#m-is-symmetric",
+    "href": "mod-2-2-matrix.html#m-is-symmetric",
+    "title": "9  Matrix Operations",
     "section": "9.8 M is Symmetric",
     "text": "9.8 M is Symmetric\nRecall that \\(M\\) is symmetric, that is,\n\\[M = M^T\\]\n\nrm(list = ls())\n\nnrows &lt;- 3000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n      }\n\nbeta &lt;- c(1,2,3,4,5)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\n# Create Residual Maker\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\n# Transpose of M\n\nt_M &lt;- t(M)\n\nkable(data.frame(M)[1:5,1:5]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\n\n\n\n\n0.9966323\n0.0001332\n0.0000138\n0.0006391\n-0.0000068\n\n\n0.0001332\n0.9990577\n0.0000818\n-0.0008291\n-0.0006630\n\n\n0.0000138\n0.0000818\n0.9987474\n0.0002162\n0.0000077\n\n\n0.0006391\n-0.0008291\n0.0002162\n0.9988237\n-0.0007385\n\n\n-0.0000068\n-0.0006630\n0.0000077\n-0.0007385\n0.9994385\n\n\n\n\nkable(data.frame(t_M)[1:5,1:5]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\n\n\n\n\n0.9966323\n0.0001332\n0.0000138\n0.0006391\n-0.0000068\n\n\n0.0001332\n0.9990577\n0.0000818\n-0.0008291\n-0.0006630\n\n\n0.0000138\n0.0000818\n0.9987474\n0.0002162\n0.0000077\n\n\n0.0006391\n-0.0008291\n0.0002162\n0.9988237\n-0.0007385\n\n\n-0.0000068\n-0.0006630\n0.0000077\n-0.0007385\n0.9994385",
     "crumbs": [
@@ -880,9 +726,9 @@
     ]
   },
   {
-    "objectID": "mod-2-2-derivation.html#m-is-idempotent",
-    "href": "mod-2-2-derivation.html#m-is-idempotent",
-    "title": "9  Deriving Least Squares",
+    "objectID": "mod-2-2-matrix.html#m-is-idempotent",
+    "href": "mod-2-2-matrix.html#m-is-idempotent",
+    "title": "9  Matrix Operations",
     "section": "9.9 M is Idempotent",
     "text": "9.9 M is Idempotent\n\\(M\\) is also idempotent, that is, it is a matrix that, when multiplied by itself, yields itself.\n\\[\nM M = M\n\\]\n\nrm(list = ls())\n\nnrows &lt;- 1000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n      }\n\nbeta &lt;- c(1,2,3,4,5)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\n# Create Residual Maker\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\n\nMM &lt;- M %*% M\n\nkable(data.frame(M)[1:5,1:5]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\n\n\n\n\n0.9937489\n-0.0013963\n-0.0018414\n-0.0023038\n-0.0021625\n\n\n-0.0013963\n0.9958213\n-0.0004577\n0.0008719\n-0.0026584\n\n\n-0.0018414\n-0.0004577\n0.9982273\n-0.0014619\n-0.0007969\n\n\n-0.0023038\n0.0008719\n-0.0014619\n0.9973824\n-0.0003145\n\n\n-0.0021625\n-0.0026584\n-0.0007969\n-0.0003145\n0.9979395\n\n\n\n\nkable(data.frame(MM)[1:5,1:5]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\n\n\n\n\n0.9937489\n-0.0013963\n-0.0018414\n-0.0023038\n-0.0021625\n\n\n-0.0013963\n0.9958213\n-0.0004577\n0.0008719\n-0.0026584\n\n\n-0.0018414\n-0.0004577\n0.9982273\n-0.0014619\n-0.0007969\n\n\n-0.0023038\n0.0008719\n-0.0014619\n0.9973824\n-0.0003145\n\n\n-0.0021625\n-0.0026584\n-0.0007969\n-0.0003145\n0.9979395",
     "crumbs": [
@@ -891,9 +737,9 @@
     ]
   },
   {
-    "objectID": "mod-2-2-derivation.html#mx-is-zero",
-    "href": "mod-2-2-derivation.html#mx-is-zero",
-    "title": "9  Deriving Least Squares",
+    "objectID": "mod-2-2-matrix.html#mx-is-zero",
+    "href": "mod-2-2-matrix.html#mx-is-zero",
+    "title": "9  Matrix Operations",
     "section": "9.10 MX is Zero",
     "text": "9.10 MX is Zero\n\\(MX\\) is equal to zero.\n\nrm(list = ls())\n\nnrows &lt;- 1000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n      }\n\nbeta &lt;- c(1,2,3,4,5)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\n# Create Residual Maker\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\nMX &lt;- M %*% x\n\nkable(data.frame(MX)[1:5,1:5]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nX1\nX2\nX3\nX4\nX5\n\n\n\n\n0\n0\n0\n0\n0\n\n\n0\n0\n0\n0\n0\n\n\n0\n0\n0\n0\n0\n\n\n0\n0\n0\n0\n0\n\n\n0\n0\n0\n0\n0",
     "crumbs": [
@@ -902,146 +748,25 @@
     ]
   },
   {
-    "objectID": "mod-2-2-derivation.html#projection-matrix",
-    "href": "mod-2-2-derivation.html#projection-matrix",
-    "title": "9  Deriving Least Squares",
-    "section": "9.10 Projection Matrix",
-    "text": "9.10 Projection Matrix\nWe have previously defined our linear regression model as:\n\\[\n\\boldsymbol{y = X\\beta + \\epsilon = Xb + e}\n\\]\nWe know that our predicted values are equal to:\n\\[\n\\boldsymbol{\\hat{y} = Xb = y - e}\n\\]\nWe can use this to object the projection matrix \\(\\boldsymbol{P}\\) \\[\\boldsymbol{\\hat{y}} = \\boldsymbol{Xb}\\] \\[\\boldsymbol{\\hat{y}} = \\boldsymbol{X(X^TX)^{-1}X^T y}\\]\n\\[\\boldsymbol{\\hat{y}} = \\boldsymbol{X (X^T X)^{-1} X^Ty} = \\boldsymbol{P y}\\]\n\\[\\boldsymbol{P} = \\boldsymbol{X (X^T X)^{-1} X^T}\\]\nThe projection matrix \\(\\boldsymbol{P}\\) is symmetric and idempotent.",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-2-derivation.html#partitioned-y",
-    "href": "mod-2-2-derivation.html#partitioned-y",
-    "title": "9  Deriving Least Squares",
-    "section": "9.12 Partitioned Y",
-    "text": "9.12 Partitioned Y\nWe can now partition \\(y\\) into explained variation and unexplained variation or:\n\\[\ny = Py + My = Xb + e\n\\]\nSince P and M are orthogonal, Py and My are orthogonal.\n\nrm(list = ls())\n\nnrows &lt;- 1000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n      }\n\nbeta &lt;- c(1,2,3,4,5)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\n\nypart &lt;- P %*% y + M %*% y\n\ndf_y &lt;- data.frame(y, ypart)\n\nkable(df_y[1:10,]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\ny\nypart\n\n\n\n\n10.860336\n10.860336\n\n\n-7.490902\n-7.490902\n\n\n-2.729709\n-2.729709\n\n\n-10.164991\n-10.164991\n\n\n-4.621012\n-4.621012\n\n\n6.230111\n6.230111\n\n\n-9.098625\n-9.098625\n\n\n-9.537042\n-9.537042\n\n\n-11.211872\n-11.211872\n\n\n14.520627\n14.520627",
+    "objectID": "mod-2-2-matrix.html#projection-matrix",
+    "href": "mod-2-2-matrix.html#projection-matrix",
+    "title": "9  Matrix Operations",
+    "section": "9.11 Projection Matrix",
+    "text": "9.11 Projection Matrix\nWhile \\(My\\) captures the unexplained variation in \\(y\\), \\(Py\\) captured the explained variation in \\(y\\) or:\n\\[M = I - X(X^T X)^{-1}X^T\\]\n\\[P = X(X^T X)^{-1}X^T\\]\nThe projection matrix \\(P\\) is symmetric and idempotent.\n\\(PM\\) and \\(MP\\) are equivalent and equal to zero and \\(P\\) and \\(M\\) are orthogonal.\nGiven the orthogonality, we can partition y into two parts:\n\\[y = Py + My\\] \\[y = X(X^T X)^{-1} X^T y + (I-X(X^T X)^{-1}X^T)y\\]\nRecall that \\(b = (X^T X)^{-1} X^T y\\) and substitute:\n\\[y = Xb + (I-X(X^T X)^{-1}X^T)y\\]\nNow multiply \\(y\\) through the second term:\n\\[y = X b + (y - X(X^T X)^{-1} X^T y)\\]\nSubstitute again for \\(b\\)\n\\[y = X b + (y - X b)\\]\nRecognize that \\(Xb = \\hat{y}\\)\n\\[y = Xb + (y - \\hat{y})\\] \\[y = Xb + e\\]\n\nrm(list = ls())\n\nnrows &lt;- 1000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n      }\n\nbeta &lt;- c(1,2,3,4,5)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nyhat &lt;- x %*% bhat\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\n\nPy &lt;- P %*% y\n\ndf_yhat &lt;- data.frame(yhat, Py)\n\nkable(df_yhat[1:10,]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\nyhat\nPy\n\n\n\n\n3.2036752\n3.2036752\n\n\n-12.0361510\n-12.0361510\n\n\n1.5782350\n1.5782350\n\n\n-4.1662385\n-4.1662385\n\n\n8.6660633\n8.6660633\n\n\n-2.1167407\n-2.1167407\n\n\n-0.0707777\n-0.0707777\n\n\n8.4587151\n8.4587151\n\n\n1.8995740\n1.8995740\n\n\n5.1218411\n5.1218411",
     "crumbs": [
       "Least Squares Estimator",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Matrix Operations</span>"
     ]
   },
   {
-    "objectID": "mod-2-2-derivation.html#notation",
-    "href": "mod-2-2-derivation.html#notation",
-    "title": "9  Deriving Least Squares",
-    "section": "9.2 Notation",
-    "text": "9.2 Notation\nDefine a column vector \\(\\boldsymbol{x_k}\\) such that \\(\\boldsymbol{x_k}\\) consists of \\(n\\) observations.\nLet \\(k \\in \\{1, 2, \\dots, K\\}\\) such that \\(\\boldsymbol{x_1}\\) is the first column vector.\nLet \\(\\boldsymbol{x_2}\\) be the second column vector, and so on.\nCombining the column vectors for \\(\\boldsymbol{x_k}\\) yields a \\((n \\times K)\\) matrix.\nThe first column of the resulting \\(\\boldsymbol{X}\\) matrix consists of a column of 1’s.\nThe subscript \\(k\\) refers to the k-th column of the \\(\\boldsymbol{X}\\) matrix.\nThe subscript \\(i\\) refers to the i-th row of the \\(\\boldsymbol{X}\\) matrix.\nThe linear regression model is equal to:\n\\[\\boldsymbol{y = X \\, \\beta + \\epsilon}\\]\n\\[\\begin{bmatrix}\ny_1 \\\\ y_2 \\\\ \\vdots \\\\ y_n\n\\end{bmatrix} =\n\\begin{bmatrix}\nx_{11} & x_{12} & \\dots & x_{1K} \\\\\nx_{21} & x_{22} & \\dots & x_{2K} \\\\\n\\vdots & \\vdots & \\vdots & \\vdots \\\\\nx_{n1} & x_{n2} & x_{n3} & x_{nK}\n\\end{bmatrix}\n\\begin{bmatrix}\n\\beta_1 \\\\\n\\beta_2 \\\\\n\\beta_3 \\\\\n\\beta_4\n\\end{bmatrix} +\n\\begin{bmatrix}\n\\epsilon_1 \\\\\n\\epsilon_2 \\\\\n\\vdots \\\\\n\\epsilon_n\n\\end{bmatrix}\\]",
+    "objectID": "mod-2-2-matrix.html#partitioned-y",
+    "href": "mod-2-2-matrix.html#partitioned-y",
+    "title": "9  Matrix Operations",
+    "section": "9.12 Partitioned Y",
+    "text": "9.12 Partitioned Y\nWe can now partition \\(y\\) into explained variation and unexplained variation or:\n\\[\ny = Py + My = Xb + e\n\\]\nSince P and M are orthogonal, Py and My are orthogonal.\n\nrm(list = ls())\n\nnrows &lt;- 1000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n      }\n\nbeta &lt;- c(1,2,3,4,5)\n\nepsilon &lt;- rnorm(nrows, 0, 1)\n\ny &lt;- x %*% beta + epsilon\n\n# Create Identity Matrix\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\n\nypart &lt;- P %*% y + M %*% y\n\ndf_y &lt;- data.frame(y, ypart)\n\nkable(df_y[1:10,]) %&gt;%\nkable_styling(font_size = 12,\n              position  = \"center\",\n              full_width = FALSE)\n\n\n\n\ny\nypart\n\n\n\n\n10.860336\n10.860336\n\n\n-7.490902\n-7.490902\n\n\n-2.729709\n-2.729709\n\n\n-10.164991\n-10.164991\n\n\n-4.621012\n-4.621012\n\n\n6.230111\n6.230111\n\n\n-9.098625\n-9.098625\n\n\n-9.537042\n-9.537042\n\n\n-11.211872\n-11.211872\n\n\n14.520627\n14.520627",
     "crumbs": [
       "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-2-derivation.html#why-least-squares",
-    "href": "mod-2-2-derivation.html#why-least-squares",
-    "title": "9  Deriving Least Squares",
-    "section": "9.3 Why Least Squares?",
-    "text": "9.3 Why Least Squares?\nAssume that we wish to estimate the impact of education on workers’ salaries. We specify a linear regression model where salary is a function of education and other explanatory variables or:\n\\[\nsalary = \\beta_1 + \\beta_2 \\, education + \\beta_3 \\, age + \\dots + \\beta_k x_K + \\epsilon\n\\]\nWe do not observe the population parameters.\nWe need an algorithm or rule by which we can develop estimates of the population parameters.\nThe algorithm or rule is called an estimator.\nWhen we use the estimator with data, we produce estimates of the population parameters.\nWhat is our objective?\nWe want an algorithm or rule that produces estimates that are “close” to the actual values.\nIn other words, we want an estimator to produce estimates that are “close” to the actual values of the dependent variable.\nWe can define our estimates of the population parameters as b.\nWe can define our predicted values of the dependent variable as \\(\\hat{y}\\).\nOur predicted values are equal to:\n\\[\n\\hat{y} = Xb = b_1x_1 + b_2x_2 + \\dots + b_k x_k\n\\]\nAnd our “mistakes” or “residuals” are defined as:\n\\[\ne = y - \\hat{y} = y - Xb\n\\]\nSo, what is our objective function?\nWe could try and minimize the sum of our mistakes or:\n\\[\n\\sum_{i=1}^n = y_i - \\hat{y_i} = \\sum_{i = 1}^n = e_i\n\\]\nHowever, we assume that our errors are normally distributed with a mean of zero, so if we sum the residuals, we would add the positive and negative values together and they would be equal to zero.\n\\[\n\\sum_{i=1}^n  y_i - \\hat{y_i} = \\sum_{i = 1}^n  e_i = 0\n\\]\nInstead, we can square our residuals and sum the squared residuals.\nThis is similar to estimating the variance of a random variable where we sum the squared deviations of the variable from its mean and then divide by \\(N\\).\n\\[\nvar(X) = \\frac{1}{N}\\sum_{i=1}^N (x_i - \\mu_x)^2\n\\]\nOur objective function is the minimization of the sum of the squared residuals:\n\\[\n\\sum_{i = 1}^n (y_i - \\hat{y})^2  = \\sum_{i=1}^n e_i^2\n\\]\nThe question is: how do we arrive that estimates of the population parameters that minimize the sum of the squared residuals?",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-2-derivation.html#objective-function",
-    "href": "mod-2-2-derivation.html#objective-function",
-    "title": "9  Deriving Least Squares",
-    "section": "9.4 Objective Function",
-    "text": "9.4 Objective Function\nLet \\(\\boldsymbol{b_0}\\) be a coefficient vector consisting of sample estimates of \\(\\boldsymbol{\\beta}\\) from a least squares regression.\nThe population regression function is:\n\\[\\boldsymbol{y} = \\boldsymbol{X\\beta} + \\boldsymbol{\\epsilon}\\]\nThe sample regression function is:\n\\[\\boldsymbol{y} = \\boldsymbol{X\\ b_0} + \\boldsymbol{e}\\]\nwhere the predicted values of the dependent variable are equal to:\n\\[\n\\boldsymbol{\\hat{y}} = \\boldsymbol{X \\, b_o}\n\\]\nand the residuals are equal to:\n\\[\n\\boldsymbol{e} = \\boldsymbol{y - \\hat{y}} = \\boldsymbol{y - X \\, b_0}\n\\]\nOur objective function is the minimization of the sum of the squared residuals, that is, we choose \\(\\boldsymbol{b_0}\\) such that the predicted values of the dependent variable best “fit” the data.\nThe sum of the squared residuals when we select \\(\\boldsymbol{b_0}\\) is equal to:\n\\[\n\\boldsymbol{e_0^T \\, e_0}\n\\]\nWe can now specific the objective function as:\n\\[min_{b0}\\ S(b_0) = \\boldsymbol{e_0^T e_0} = (\\boldsymbol{y - \\hat{y}})^T\\  (\\boldsymbol{y - \\hat{y}})\\]\n\\[e_0^T e_0 = (\\boldsymbol{y - X\\ b_0})^T\\  (\\boldsymbol{y - X\\ b_0})\\]\n\\[e_0^T e_0 = \\boldsymbol{y^Ty - b_0^T\\ X^T y - y^T\\ Xb_0 + b_0^T X^T X b_0}\\] It is important to note that:\n\\[\\boldsymbol{b_0^T X^T y} \\sim (1 \\times K) \\times (K \\times n) \\times (n \\times 1) \\sim (1 \\times 1)\\] \\[\\boldsymbol{y^T X b_0} \\sim (1 \\times n) \\times (n \\times K) \\times (K \\times 1) \\sim (1 \\times 1)\\]\n\\[(\\boldsymbol{b_0^T\\ X^T y})^T = \\boldsymbol{y^T\\ X\\ b_0}\\]\nWe can substitute for \\(\\boldsymbol{y^T\\ X\\ b_0}\\) to obtain:\n\\[min_{b0}\\ S(b_0) =e_0^T e_0 = \\boldsymbol{y^Ty - 2b_0^T\\ X^T\\ y + b_0^T X^T X b_0}\\]",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-2-derivation.html#first-derivative",
-    "href": "mod-2-2-derivation.html#first-derivative",
-    "title": "9  Deriving Least Squares",
-    "section": "9.5 First Derivative",
-    "text": "9.5 First Derivative\nThere are two useful identities that will help us in the derivation of the least squares estimator.\nFirst, for the vectors \\(\\boldsymbol{a}\\) and \\(\\boldsymbol{b}\\), the partial derivative of \\(\\boldsymbol{a^T}\\) times \\(\\boldsymbol{b}\\) with respect to \\(\\boldsymbol{a}\\) is equal to \\(\\boldsymbol{b}\\).\n\\[\\frac{\\delta \\boldsymbol{a^Tb}}{\\delta \\boldsymbol{a}} = \\boldsymbol{b}\\]\nSecond, if \\(\\boldsymbol{A}\\) is symmetric, then the first derivative of \\(\\boldsymbol{b^T A b}\\) with respect to \\(\\boldsymbol{b}\\) is:\n\\[\\frac{\\delta \\boldsymbol{b^T A b}}{\\delta \\boldsymbol{b}} = 2 \\boldsymbol{Ab} = 2 \\boldsymbol{b^TA}\\]\nWe can now return to the task at hand. We need to take the first derivative of the objective function with respect to \\(\\boldsymbol{b_0}\\) and set the first derivative equal to zero or:\n\\[\\frac{\\partial(\\boldsymbol{e_0^T e_0 )}}{\\partial\\ \\boldsymbol{b_0}} = 0\\]\n\\[\\frac{\\partial(\\boldsymbol{e_0^T e_0 )}}{\\partial\\ \\boldsymbol{b_0}} =\\frac{\\partial(\\boldsymbol{y^Ty - 2b_0^T\\ X^T\\ y + b_0^T X^T X b_0})}{\\boldsymbol{b_0}} = 0\\]\n\\[\\frac{\\partial(e_0^T e_0 )}{\\partial\\ b_0} =\\frac{\\partial \\,y^Ty}{\\partial{b_0}} +  \\frac{\\partial \\, 2b_0^T\\ X^T\\ y}{\\partial b_0} + \\frac{\\partial \\, b_0^T X^T Xb_0}{\\partial \\, b_0} = 0\\]\nBreaking the first derivative into its component parts yields:\n\\[\\frac{\\partial \\,y^Ty}{\\partial{b_0}} = 0 \\]\n\\[\\frac{\\partial\\ (-2\\ \\boldsymbol{b_0^T X^T y)}}{\\partial\\ \\boldsymbol{b_0}} = -2 \\boldsymbol{X^T y}\\] \\[\\frac{\\partial\\ (\\boldsymbol{b_0^T X^T X b_0})}{\\partial\\ \\boldsymbol{b_0}} = 2\\ \\boldsymbol{X^T X\\ b_0}\\]\nThe first derivative of the objective function is equal to: \\[\\frac{\\partial S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0}} = -2\\ \\boldsymbol{X^T\\ y} + 2\\ \\boldsymbol{X^T X\\ b_0} = 0\\]\nIf a solution \\(\\boldsymbol{b}\\) exists, then the normal equations are: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-2-derivation.html#first-derivative-1",
-    "href": "mod-2-2-derivation.html#first-derivative-1",
-    "title": "9  Deriving Least Squares",
-    "section": "9.6 First Derivative",
-    "text": "9.6 First Derivative\nIf the full column rank assumption holds, then \\((\\boldsymbol{X^T X})\\) is square as it is \\((K \\times K)\\) and \\((\\boldsymbol{X^T X})\\) is also symmetric.\nFurthermore, if the full column rank assumption holds, then \\((\\boldsymbol{X^T X})\\) has an inverse and we can use the normal equations to obtain the least square estimates of the population parameters.\n\\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\] \\[\\boldsymbol{b} = (\\boldsymbol{X^T\\ X})^{-1}\\ \\boldsymbol{X^T\\ y}\\] - The second derivative of the objective function is equal to: \\[\\frac{\\partial^2 S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0 b_0^T}} = 2\\ \\boldsymbol{X^T X}\\] - \\(2\\ \\boldsymbol{X^T X}\\) is only a positive definite matrix if the full column rank assumption holds.\n\nThe least squares solution, if the full column rank assumption holds, is unique and minimizes the sum of the squared residuals \\(e^Te\\).",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-2-derivation.html#least-squares-estimator",
-    "href": "mod-2-2-derivation.html#least-squares-estimator",
-    "title": "9  Deriving Least Squares",
-    "section": "9.6 Least Squares Estimator",
-    "text": "9.6 Least Squares Estimator\nIf the full column rank assumption holds, then \\((\\boldsymbol{X^T X})\\) is square as it is \\((K \\times K)\\) and \\((\\boldsymbol{X^T X})\\) is also symmetric.\nIf the full column rank assumption holds, then \\((\\boldsymbol{X^T X})\\) has an inverse and we can use the normal equations to obtain the least square estimates of the population parameters.\n\\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]\nGiven that the inverse of \\(\\boldsymbol{(X^T X)}\\) exists, we can now solve for the least squares estimator.\nWe define the least squares estimator as “beta hat” and use b to denote the least squares estimator.\n\\[\\boldsymbol{b} = (\\boldsymbol{X^T\\ X})^{-1}\\ \\boldsymbol{X^T\\ y}\\]",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-2-derivation.html#second-derivative",
-    "href": "mod-2-2-derivation.html#second-derivative",
-    "title": "9  Deriving Least Squares",
-    "section": "9.7 Second Derivative",
-    "text": "9.7 Second Derivative\nIf the first derivative is equal to zero, it informs us that the objective function has arrived at a minimum (or maximum). The first derivative being zero only means we have arrived at a stationary point.\nWe need the second derivative to provide that we have found a minimum instead of a maximum or a saddle point.\nStarting with the first derivative:\n\\[\\frac{\\partial S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0}} = -2\\ \\boldsymbol{X^T\\ y} + 2\\ \\boldsymbol{X^T X\\ b_0} = 0\\]\nWe take the derivative of the first derivative to obtain the second derivative : \\[\\frac{\\partial^2 S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0 b_0^T}} = \\frac{\\partial}{\\partial \\boldsymbol{b_0 }} (-2\\ \\boldsymbol{X^T\\ y} + 2\\ \\boldsymbol{X^T X\\ b_0}) \\]\nWe know that:\n\\[\\frac{\\partial}{\\partial \\boldsymbol{b_0}} (-2 \\boldsymbol{X^T\\ y}) = 0\\] \\[\\frac{\\partial}{\\partial \\boldsymbol{b_0}} (-2 \\boldsymbol{X^T X b_0}) = \\boldsymbol{2 X^T X}\\]\nIn other words, the second derivative is equal to:\n\\[\\frac{\\partial^2 S(\\boldsymbol{b_0})}{\\partial \\boldsymbol{b_0 b_0^T}} = 2\\ \\boldsymbol{X^T X}\\]\nFor a point to be a local minimum, the Hessian matrix (second derivative) must be Positive Definite.\nWe know that \\(\\boldsymbol{X^TX}\\) is always symmetric\nWe know that, for any non-zero vector, the quadratic form is at least positive semi-definite.\n\\[\n\\boldsymbol{v^T (X^TX)} = \\boldsymbol{(Xv)^T(Xv)} = \\boldsymbol{||Xv||^2}\n\\]\nWe know that, if \\(\\boldsymbol{X}\\) has full column rank, then \\(\\boldsymbol{||Xv||^2} &gt; 0\\), which means that the second derivative is positive definite.\nBecause the second derivative is positive definite, the objective function is strictly convex and the stationary point (b) is a unique global minimum.\n\nSimply put, because of the assumptions of linearity, full rank, and zero conditional mean, the least squares estimator minimizes (globally) the sum of the squared residuals.",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-2-derivation.html#orthogonality-of-x-and-e",
-    "href": "mod-2-2-derivation.html#orthogonality-of-x-and-e",
-    "title": "9  Deriving Least Squares",
-    "section": "9.8 Orthogonality of X and e",
-    "text": "9.8 Orthogonality of X and e\nWe can use \\(\\boldsymbol{y} = \\boldsymbol{X\\ b} + \\boldsymbol{e}\\) and the normal equations to obtain: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\] \\[\\boldsymbol{X^T X\\ b} = \\boldsymbol{X^T\\ (\\boldsymbol{X\\ b} + \\boldsymbol{e})}\\] \\[\\boldsymbol{X^T X\\ b} = (\\boldsymbol{X^T X}) \\boldsymbol{b} + \\boldsymbol{X^T e}\\] \\[\\boldsymbol{X^T e} = 0\\]\nNote that \\(\\boldsymbol{X^T e} = 0\\) means that \\(\\boldsymbol{x_k^T e} = 0\\).\nThe covariance between each independent variable and the disturbances is equal to zero.\nThis only occurs if the assumption of the exogeneity of the regressors (zero conditional mean) holds.\nThis illustrates why the assumptions of linearity, full rank, and strict exogeneity of the regressors are necessary to obtain the least squares estimates.",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-2-derivation.html#projection",
-    "href": "mod-2-2-derivation.html#projection",
-    "title": "9  Deriving Least Squares",
-    "section": "9.9 Projection",
-    "text": "9.9 Projection\nImagine you have a flashlight and you are standing in a room.\nThe floor represents all the possible values that can be created by your independent variables.\nThere is a balloon floating above the floor. Let the balloon represent the dependent variable, y. Note that unless your model is perfect, the balloon will never touch the floor.\n\nIn other words, even if we have all the independent variables, we cannot perfectly explain y.\nIf you shine a flashlight directly above the balloon, you get a shadow on the floor. The shadow presents the predicted value of y created by the independent variables or \\(\\boldsymbol{\\hat{y}}\\).\nIn other words, the predicted value of y on the floor is the projection of y on X.\nThe projection of y on X is the best linear approximation of y using the information in X.\nWhat is the best projection of y on X? Think of the lines from the floor to the balloon. We have a line at a 10 degree angle, 25 degree angle, and so on until we have a line at a 90 degree angle from the floor to the balloon.\n\nWe want the linear that minimizes the distance from our predicted value of y to the actual value of y.\nA straight line from the floor to the balloon minimizes the distance, in other words, a line at a 90 degree angle from the floor, that is, a perpendicular line from y onto the floor.\nWhy is the “perpendicular line” the same as “minimizing the sum of squares”?\nThink of the distance between the balloon, \\(\\boldsymbol{y}\\), and any point on the floor, \\(\\boldsymbol{\\hat{y}}\\).\nBy the Pythagorean Theorem, the shortest distance between a point and a plane is always the perpendicular line.\nThe length of that perpendicular line is the magnitude of our residuals, \\(\\boldsymbol{||e||}\\).\nMinimizing the squared length of the residuals is mathematically identical to finding the orthogonal projection.\nWe now need to define how we can make the projection happen and what is “left over.”",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-2-derivation.html#m-and-p",
-    "href": "mod-2-2-derivation.html#m-and-p",
-    "title": "9  Deriving Least Squares",
-    "section": "9.12 M and P",
-    "text": "9.12 M and P\nM is symmetric and idempotent.\nP is symmetric and idempotent.\nM and P are orthogonal.\nThe residual maker and the projection matrix are orthogonal. \\[\\boldsymbol{PM} = \\boldsymbol{MP} = \\boldsymbol{0}\\]\n\\[\\boldsymbol{PM} = (\\boldsymbol{X (X^T X)^{-1} X^T})(\\boldsymbol{I} - \\boldsymbol{X (X^T X)^{-1} X^T})\\] \\[\\boldsymbol{PM} = \\boldsymbol{X (X^T X)^{-1} X^T} - \\boldsymbol{X (X^T X)^{-1} X^T}\\boldsymbol{X (X^T X)^{-1} X^T}\\] \\[\\boldsymbol{PM} = \\boldsymbol{X (X^T X)^{-1} X^T} - \\boldsymbol{X (X^T X)^{-1} X^T} = \\boldsymbol{0}\\]\nWhen \\(\\boldsymbol{y}\\) is pre-multiplied by \\(\\boldsymbol{M}\\), it produces a vector of the least squares residuals:\n\\[\\boldsymbol{e} = \\boldsymbol{M y}\\]\nWhen \\(\\boldsymbol{X}\\) is pre-multiplied by \\(\\boldsymbol{M}\\) the result is: \\[\\boldsymbol{MX} = (\\boldsymbol{I} - \\boldsymbol{X (X^T X)^{-1} X^T})X\\] \\[\\boldsymbol{MX} = \\boldsymbol{X} - \\boldsymbol{X (X^T X)^{-1} (X^T X)} = \\boldsymbol{(X - X)} = \\boldsymbol{0}\\]\nThe regression of \\(\\boldsymbol{X}\\) on \\(\\boldsymbol{X}\\) is a perfect fit and the residuals from this regression are equal to 0.",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
-    ]
-  },
-  {
-    "objectID": "mod-2-2-derivation.html#decomposing-y",
-    "href": "mod-2-2-derivation.html#decomposing-y",
-    "title": "9  Deriving Least Squares",
-    "section": "9.13 Decomposing Y",
-    "text": "9.13 Decomposing Y\nWe have previously specified the linear regression model as:\n\\[\n\\boldsymbol{y = X \\beta + \\epsilon}\n\\]\nWe can now decompose y into two parts: explained variation and unexplained variation.\n\\[\n\\boldsymbol{y = \\hat{y} + e = Xb + e}\n\\]\nWe can also show the two parts are orthogonal, that is, there is no information in one part that provides information about the other part.\nBuilding on this discussion, we can decompose y:\n\\[\n\\boldsymbol{y = \\hat{y} + e = Xb + e}\n\\]\n\\[\\boldsymbol{y} = \\boldsymbol{Py} + \\boldsymbol{My}\\]\nAnd we know that P and M are orthogonal to each other, so Py and My are orthogonal to each other as well, showing that we can decompose y into two orthogonal components.\nBecause \\(\\boldsymbol{\\hat{y}}\\) and \\(\\boldsymbol{e}\\) are orthogonal, there is zero correlation between them, that is, the residuals contain no information about the predicted values of the dependent variable and, likewise, the predicted values of the dependent variable contain no information about the residuals.\nIn the next section, we will work in R to illustrate these and other points.",
-    "crumbs": [
-      "Least Squares Estimator",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Deriving Least Squares</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Matrix Operations</span>"
     ]
   }
 ]

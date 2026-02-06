@@ -19,9 +19,9 @@ book:
     - part: "Least Squares Estimator"
       chapters:
         - mod-2-0-overview.qmd
-        - mod-2-1-matrix.qmd
-        - mod-2-2-derivation.qmd
-        - mod-2-3-rexamples.qmd
+        - mod-2-1-derivation.qmd
+        - mod-2-2-matrix.qmd
+
 execute:
   webR: true            # enables WebR chunks for interactive R in the browser
   
