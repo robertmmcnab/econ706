@@ -488,7 +488,7 @@
     "href": "mod-2-0-overview.html#lessons-in-this-module",
     "title": "7  Module 2 Overview",
     "section": "7.5 Lessons in this Module",
-    "text": "7.5 Lessons in this Module\n\n2.1 - Least Squares Derivation\n2.2 – Matrix Operations\n\n\n\nNext: Start with Least Squares Derivation.",
+    "text": "7.5 Lessons in this Module\n\n2.1 - Least Squares Derivation\n2.2 – Matrix Operations\n2.3 - Orthgonality\n\n\nNext: Start with Least Squares Derivation.",
     "crumbs": [
       "Least Squares Estimator",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Module 2 Overview</span>"
@@ -767,6 +767,61 @@
     "crumbs": [
       "Least Squares Estimator",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Matrix Operations</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-3-orthogonality.html",
+    "href": "mod-2-3-orthogonality.html",
+    "title": "10  Orthogonality",
+    "section": "",
+    "text": "10.1 Introduction\nThis module extends our discussion of orthogonality.\nOrthogonality serves as the geometric bedrock of linear regression, providing a rigorous mathematical framework for the concept of “unrelatedness” between variables. At its simplest level, orthogonality is defined by a zero dot product between two vectors, indicating that they are perpendicular and share no common components in a vector space.\nIn the context of least squares, this principle allows us to decompose the dependent variable \\(\\boldsymbol{y}\\) into two perfectly independent parts: the projection, \\(\\boldsymbol{\\hat{y}}\\), which represents the information captured by the model, and the residual vector \\(\\boldsymbol{e}\\), which represents the remaining noise. By ensuring that the residuals are orthogonal to the column space of the regressors, the least squares estimator effectively “annihilates” all linear information contained in the independent variables from the error term, resulting in a unique, global minimum where the predicted signal and the unexplained noise are completely uncorrelated.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Orthogonality</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-3-orthogonality.html#dot-product",
+    "href": "mod-2-3-orthogonality.html#dot-product",
+    "title": "10  Orthogonality",
+    "section": "10.2 Dot Product",
+    "text": "10.2 Dot Product\nThe dot product or inner product or scalar product is a way to multiply two vectors to get a scalar. The dot product measures how much the two vectors are aligned.\nGiven two vectors, a and b, where \\(a = (a_1, a_2, \\dots, a_n)\\) and \\(b = (b_1, b_2, \\dots, b_n)\\), the dot product of a and b is equal to:\n\\[\na \\cdot b = a_1 b_1 + a_2 b_2 + a_3 b3 + \\dots + a_n b_n\n\\]",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Orthogonality</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-3-orthogonality.html#orthogonality",
+    "href": "mod-2-3-orthogonality.html#orthogonality",
+    "title": "10  Orthogonality",
+    "section": "10.3 Orthogonality",
+    "text": "10.3 Orthogonality\nIf two vectors are orthogonal, then the two vectors are perpendicular to each other.\nLet \\(\\theta\\) be the angle between vectors a and b. The dot product of the two vectors is\n\\[\na \\cdot b = |a| |b| cos(\\theta)\n\\]\nIf the two vectors are orthogonal, then the angle between the vectors is 90 degrees.\nThe cosine of 90 degrees is equal to 0, thus the dot product between the two vectors is equal to 0. This means that the two vectors have no component in the same direction.",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Orthogonality</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-3-orthogonality.html#orthogonal-example",
+    "href": "mod-2-3-orthogonality.html#orthogonal-example",
+    "title": "10  Orthogonality",
+    "section": "10.4 Orthogonal Example",
+    "text": "10.4 Orthogonal Example\nAssume that we have two vectors,\n\\[\na = (3,4) \\quad \\quad b = (6,8)\n\\]\nThe dot product between a and b is equal to:\n\\[\na \\cdot b = (3 \\times 6) + (4 \\times 8) = 18 + 32 = 50\n\\]\nIn this example, the two vectors are not orthogonal to each other.\nAssume we have two vectors,\n\\[\na = (3,4) \\quad \\quad c = (-4,3)\n\\]\nThe dot product between a and c is equal to:\n\\[\na \\cdot c = (3 \\times -4) + (4 \\times 3) = -12 + 12 = 0\n\\]\nIn this example, a and c are orthogonal as their dot product is equal to 0.\nIn the code example below, we show that\n\\[\na \\cdot b = 50 \\\\\na \\cdot c = 0 \\\\\nb \\cdot c = 0\n\\]\n\n# Define vectors\n\nvector1 &lt;- c(3, 4)\nvector2 &lt;- c(6, 8)  \nvector3 &lt;- c(-4,3) \n\n# Check whether dot product is equal to 0\n\ndot_prod_12 &lt;- vector1 %*% vector2\ndot_prod_13 &lt;- vector1 %*% vector3\ndot_prod_23 &lt;- vector2 %*% vector3\n\n# Create a data frame for plotting\ndf &lt;- tibble(x = c(0, 0), \n             y = c(0, 0), \n             xend = c(vector1[1], vector3[1]), \n             yend = c(vector1[2], vector3[2]))\n\n# Plot the vectors\nggplot() +\n  geom_segment(data = df, \n               aes(x = x, \n                   y = y, \n                   xend = xend, \n                   yend = yend),\n               arrow = arrow(length = unit(0.2, \"inches\")),\n               color = c(\"blue\", \"red\"), linewidth = 1) +\n  xlim(-5, 5) + ylim(-5, 5) +\n  coord_fixed() +  \n  theme_minimal() +\n  ggtitle(\"Orthogonal Vectors in R\") +\n  xlab(\"X-axis\") + \n  ylab(\"Y-axis\") +\n  geom_hline(yintercept = 0, linetype = \"dashed\") +\n  geom_vline(xintercept = 0, linetype = \"dashed\")",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Orthogonality</span>"
+    ]
+  },
+  {
+    "objectID": "mod-2-3-orthogonality.html#least-squares",
+    "href": "mod-2-3-orthogonality.html#least-squares",
+    "title": "10  Orthogonality",
+    "section": "10.5 Least Squares",
+    "text": "10.5 Least Squares\nGiven the assumptions of linearity, full rank, and zero conditional mean, the least squares estimator is equal to:\n\\[\nb = (X^T X)^{-1} X^T y\n\\]\nThe predicted (fitted) values, \\(\\boldsymbol{\\hat{y}}\\) are equal to\n\\[\n\\boldsymbol{\\hat{y} = Xb}\n\\]\nThe residuals are thus equal to\n\\[\ne = y - \\hat{y} = y - Xb = y - X(X^TX)^{-1}X^Ty = My\n\\]\nWe know that M and P are orthogonal, so it stands to reason that My and Py are orthogonal, or\n\\[\n(My)^T Py = 0\n\\]\n\\[\n(My)^T Py = ((I - P)y)^T Py = y^T(I-P)Py\n\\]\nRecalling that I and P are square, symmetric, and idempotent yields\n\\[\n(My)^T Py = y^T(I - P)Py = y^T(P-P^2)y = y^T(P-P)y = 0\n\\]\nThus, we have demonstrated that My and Py are orthogonal.\nWe can demonstrate this below using R.\nHere we use the mtcars example data to create a y vector containing mpg and a matrix of independent variables where the first column is a column of 1’s.\nWe estimate b and Xb to obtain e and then illustrate the dot product of \\(e^T\\) and \\(\\hat{y}\\) is approximately 0.\nWe then turn to the question of whether \\(\\boldsymbol{e}\\) is orthogonal to each individual regressor, that is, does zero conditional mean hold? The answer is yes, the residuals are orthogonal to the regressors.\n\nrm(list = ls())\n\ndata(mtcars)\n\ny &lt;- as.matrix(mtcars$mpg)\n\nx &lt;- as.matrix(tibble(x1 = rep(1,32),\n            cyl = mtcars$cyl,\n            hp  = mtcars$hp,\n            wt  = mtcars$wt))\n\nI &lt;- diag(32)\n\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\n\nM &lt;- (I - P)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\ne &lt;- M %*% y\n\nyhat &lt;- x %*% bhat\n\ndot_e_yhat &lt;- t(e) %*% yhat\n\north_e_cyl &lt;- t(e) %*% x[,\"cyl\"]\north_e_hp  &lt;- t(e) %*% x[,\"hp\"]\north_e_wt  &lt;- t(e) %*% x[,\"wt\"]\n\ndf &lt;- tibble(round(dot_e_yhat, 3),\n             round(orth_e_cyl,3),\n             round(orth_e_hp,3),\n             round(orth_e_wt,3))\n\nkable(df,\n      col.names = c('Dot Product of Yhat and e',\n                    'Dot Product of e and Cylinder Variable',\n                    'Dot Product of e and HP Variable',\n                    'Dot Product of e and Weight Variable'),\n      align     = 'c') %&gt;%\nkable_styling()\n\n\n\n\nDot Product of Yhat and e\nDot Product of e and Cylinder Variable\nDot Product of e and HP Variable\nDot Product of e and Weight Variable\n\n\n\n\n0\n0\n0\n0",
+    "crumbs": [
+      "Least Squares Estimator",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Orthogonality</span>"
     ]
   }
 ]

@@ -50,7 +50,8 @@ Please select the links provided to access material where applicable.
 ## Lessons in this Module
 
 -   [2.1 - Least Squares Derivation](mod-2-1-derivation.qmd)
--   [2.2 – Matrix Operations](mod-2-2-matrix.qmd)\
+-   [2.2 – Matrix Operations](mod-2-2-matrix.qmd) 
+-   [2.3 - Orthgonality](mod-2-3-orthogonality.qmd)
 
 
 ------------------------------------------------------------------------

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Meet Your Instructor – ECON 706</title>
+<title>10&nbsp; Orthogonality – ECON 706</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./about.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./mod-2-2-matrix.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -70,7 +104,40 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -83,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li><li class="breadcrumb-item"><a href="./mcnab.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Meet Your Instructor</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-2-0-overview.html">Least Squares Estimator</a></li><li class="breadcrumb-item"><a href="./mod-2-3-orthogonality.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Orthogonality</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -127,7 +194,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mcnab.html" class="sidebar-item-text sidebar-link active">
+  <a href="./mcnab.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Meet Your Instructor</span></span></a>
   </div>
 </li>
@@ -197,7 +264,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mod-2-3-orthogonality.html" class="sidebar-item-text sidebar-link">
+  <a href="./mod-2-3-orthogonality.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Orthogonality</span></span></a>
   </div>
 </li>
@@ -213,18 +280,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#about" id="toc-about" class="nav-link active" data-scroll-target="#about"><span class="header-section-number">2.1</span> About</a></li>
-  <li><a href="#contact-policy" id="toc-contact-policy" class="nav-link" data-scroll-target="#contact-policy"><span class="header-section-number">2.2</span> Contact Policy</a></li>
-  <li><a href="#virtual-office-hours" id="toc-virtual-office-hours" class="nav-link" data-scroll-target="#virtual-office-hours"><span class="header-section-number">2.3</span> Virtual Office Hours</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">10.1</span> Introduction</a></li>
+  <li><a href="#dot-product" id="toc-dot-product" class="nav-link" data-scroll-target="#dot-product"><span class="header-section-number">10.2</span> Dot Product</a></li>
+  <li><a href="#orthogonality" id="toc-orthogonality" class="nav-link" data-scroll-target="#orthogonality"><span class="header-section-number">10.3</span> Orthogonality</a></li>
+  <li><a href="#orthogonal-example" id="toc-orthogonal-example" class="nav-link" data-scroll-target="#orthogonal-example"><span class="header-section-number">10.4</span> Orthogonal Example</a></li>
+  <li><a href="#least-squares" id="toc-least-squares" class="nav-link" data-scroll-target="#least-squares"><span class="header-section-number">10.5</span> Least Squares</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li><li class="breadcrumb-item"><a href="./mcnab.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Meet Your Instructor</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-2-0-overview.html">Least Squares Estimator</a></li><li class="breadcrumb-item"><a href="./mod-2-3-orthogonality.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Orthogonality</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Meet Your Instructor</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Orthogonality</span></h1>
 </div>
 
 
@@ -241,26 +310,194 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="quarto-figure quarto-figure-center">
+<section id="introduction" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">10.1</span> Introduction</h2>
+<p>This module extends our discussion of <strong>orthogonality</strong>.</p>
+<p>Orthogonality serves as the geometric bedrock of linear regression, providing a rigorous mathematical framework for the concept of “unrelatedness” between variables. At its simplest level, orthogonality is defined by a <strong>zero dot product</strong> between two vectors, indicating that they are perpendicular and share no common components in a vector space.</p>
+<p>In the context of least squares, this principle allows us to decompose the dependent variable <span class="math inline">\(\boldsymbol{y}\)</span> into two perfectly independent parts: the projection, <span class="math inline">\(\boldsymbol{\hat{y}}\)</span>, which represents the information captured by the model, and the residual vector <span class="math inline">\(\boldsymbol{e}\)</span>, which represents the remaining noise. By ensuring that the residuals are orthogonal to the column space of the regressors, the least squares estimator effectively “annihilates” all linear information contained in the independent variables from the error term, resulting in a unique, global minimum where the predicted signal and the unexplained noise are completely uncorrelated.</p>
+</section>
+<section id="dot-product" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="dot-product"><span class="header-section-number">10.2</span> Dot Product</h2>
+<p>The <strong>dot product</strong> or <strong>inner product</strong> or <strong>scalar product</strong> is a way to multiply two vectors to get a scalar. The dot product measures how much the two vectors are aligned.</p>
+<p>Given two vectors, <strong>a</strong> and <strong>b</strong>, where <span class="math inline">\(a = (a_1, a_2, \dots, a_n)\)</span> and <span class="math inline">\(b = (b_1, b_2, \dots, b_n)\)</span>, the dot product of <strong>a</strong> and <strong>b</strong> is equal to:</p>
+<p><span class="math display">\[
+a \cdot b = a_1 b_1 + a_2 b_2 + a_3 b3 + \dots + a_n b_n
+\]</span></p>
+</section>
+<section id="orthogonality" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="orthogonality"><span class="header-section-number">10.3</span> Orthogonality</h2>
+<p>If two vectors are orthogonal, then the two vectors are <strong>perpendicular</strong> to each other.</p>
+<p>Let <span class="math inline">\(\theta\)</span> be the angle between vectors <strong>a</strong> and <strong>b</strong>. The dot product of the two vectors is</p>
+<p><span class="math display">\[
+a \cdot b = |a| |b| cos(\theta)
+\]</span></p>
+<p>If the two vectors are orthogonal, then the angle between the vectors is 90 degrees.</p>
+<p>The cosine of 90 degrees is equal to 0, thus the dot product between the two vectors is equal to 0. This means that the two vectors have no component in the same direction.</p>
+</section>
+<section id="orthogonal-example" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="orthogonal-example"><span class="header-section-number">10.4</span> Orthogonal Example</h2>
+<p>Assume that we have two vectors,</p>
+<p><span class="math display">\[
+a = (3,4) \quad \quad b = (6,8)
+\]</span></p>
+<p>The dot product between <strong>a</strong> and <strong>b</strong> is equal to:</p>
+<p><span class="math display">\[
+a \cdot b = (3 \times 6) + (4 \times 8) = 18 + 32 = 50
+\]</span></p>
+<p>In this example, the two vectors are <strong>not orthogonal</strong> to each other.</p>
+<p>Assume we have two vectors,</p>
+<p><span class="math display">\[
+a = (3,4) \quad \quad c = (-4,3)
+\]</span></p>
+<p>The dot product between <strong>a</strong> and <strong>c</strong> is equal to:</p>
+<p><span class="math display">\[
+a \cdot c = (3 \times -4) + (4 \times 3) = -12 + 12 = 0
+\]</span></p>
+<p>In this example, <strong>a</strong> and <strong>c</strong> are orthogonal as their dot product is equal to 0.</p>
+<p>In the code example below, we show that</p>
+<p><span class="math display">\[
+a \cdot b = 50 \\
+a \cdot c = 0 \\
+b \cdot c = 0
+\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define vectors</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>vector1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>vector2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">8</span>)  </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>vector3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">3</span>) </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check whether dot product is equal to 0</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>dot_prod_12 <span class="ot">&lt;-</span> vector1 <span class="sc">%*%</span> vector2</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>dot_prod_13 <span class="ot">&lt;-</span> vector1 <span class="sc">%*%</span> vector3</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>dot_prod_23 <span class="ot">&lt;-</span> vector2 <span class="sc">%*%</span> vector3</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame for plotting</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">xend =</span> <span class="fu">c</span>(vector1[<span class="dv">1</span>], vector3[<span class="dv">1</span>]), </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">yend =</span> <span class="fu">c</span>(vector1[<span class="dv">2</span>], vector3[<span class="dv">2</span>]))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the vectors</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data =</span> df, </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> x, </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> y, </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>                   <span class="at">xend =</span> xend, </span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>                   <span class="at">yend =</span> yend),</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">"inches"</span>)),</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"red"</span>), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span>  </span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Orthogonal Vectors in R"</span>) <span class="sc">+</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"X-axis"</span>) <span class="sc">+</span> </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Y-axis"</span>) <span class="sc">+</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
 <figure class="figure">
-<p><img src="images/COVABIZ24DUO_ODUDSC_9401.jpg" class="img-fluid figure-img" width="163"></p>
-<figcaption>Picture of Professor Robert M. McNab</figcaption>
+<p><img src="mod-2-3-orthogonality_files/figure-html/example-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
-<p>Chair, Department of Economics | rmcnab@odu.edu | 757-683-3153</p>
-<section id="about" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="about"><span class="header-section-number">2.1</span> About</h2>
-<p>Professor Robert M. McNab currently serves as the Chair of the Department of Economics in the Strome College of Business at Old Dominion University. Dr.&nbsp;McNab is also the Director of the Dragas Center for Economic Analysis and Policy at Old Dominion University. He is a member of the Federal Reserve Bank of Philadelphia’s Survey of Professional Forecasters and, from 2018 to 2022, he was a member of the Joint Advisory Board of Economists for the Commonwealth of Virginia. Professor McNab has published in Applied Economics, Cornell Hospitality Quarterly, Defense and Peace Economics, National Tax Journal, Public Budgeting and Finance, and World Development, among others. He edits the annual State of the Region: Hampton Roads and State of the Commonwealth reports Professor McNab has appeared in the Associated Press, China Global Television Network, CNN, LiveNow from Fox News, Forbes, Newsweek, Wall Street Journal, Washington Post, Welt am Sonntag, Yahoo News, Yahoo Finance, Richmond Times-Dispatch, Virginian Pilot, Virginia Public Media, and Daily Press, among others. Dr.&nbsp;McNab joined the faculty of the Department of Economics in the Strome College of Business of Old Dominion University in July 2016 and previously was a member of the faculty of the Naval Postgraduate School in Monterey, California from 2000 to 2016.</p>
+</div>
+</div>
 </section>
-<section id="contact-policy" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="contact-policy"><span class="header-section-number">2.2</span> Contact Policy</h2>
-<p>Students should feel welcome to contact me via email at <a href="mailto:rmcnab@odu.edu" class="email">rmcnab@odu.edu</a> or drop by Zoom office hours. I strongly encourage students to communicate with me. I will try to answer emails within 48 business hours (often much sooner) for course related topics.</p>
-<p>Students should take the time to craft complete, professional emails. The more information that you can provide about a question or problem, the more likely that my response will be helpful. Avoid non-professional language and practice communicating in the corporate workplace. Emails that are unprofessional will be returned with no action.</p>
-<p>Students should proactively address issues with the class and scheduling rather than waiting until an assignment or case study discussion is overdue. In many cases, accommodations can be made for ‘life events,’ however, clear and prompt communication is necessary.</p>
-</section>
-<section id="virtual-office-hours" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="virtual-office-hours"><span class="header-section-number">2.3</span> Virtual Office Hours</h2>
-<p>Office hours will be held on a rotating schedule and are available by appointment. Check the class announcements for the schedule of office hours, which vary to accommodate students with different schedules.</p>
+<section id="least-squares" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="least-squares"><span class="header-section-number">10.5</span> Least Squares</h2>
+<p>Given the assumptions of linearity, full rank, and zero conditional mean, the least squares estimator is equal to:</p>
+<p><span class="math display">\[
+b = (X^T X)^{-1} X^T y
+\]</span></p>
+<p>The predicted (fitted) values, <span class="math inline">\(\boldsymbol{\hat{y}}\)</span> are equal to</p>
+<p><span class="math display">\[
+\boldsymbol{\hat{y} = Xb}
+\]</span></p>
+<p>The residuals are thus equal to</p>
+<p><span class="math display">\[
+e = y - \hat{y} = y - Xb = y - X(X^TX)^{-1}X^Ty = My
+\]</span></p>
+<p>We know that <strong>M</strong> and <strong>P</strong> are orthogonal, so it stands to reason that <strong>My</strong> and <strong>Py</strong> are orthogonal, or</p>
+<p><span class="math display">\[
+(My)^T Py = 0
+\]</span></p>
+<p><span class="math display">\[
+(My)^T Py = ((I - P)y)^T Py = y^T(I-P)Py
+\]</span></p>
+<p>Recalling that <strong>I</strong> and <strong>P</strong> are square, symmetric, and idempotent yields</p>
+<p><span class="math display">\[
+(My)^T Py = y^T(I - P)Py = y^T(P-P^2)y = y^T(P-P)y = 0
+\]</span></p>
+<p>Thus, we have demonstrated that <strong>My</strong> and <strong>Py</strong> are orthogonal.</p>
+<p>We can demonstrate this below using R.</p>
+<p>Here we use the <strong>mtcars</strong> example data to create a <strong>y</strong> vector containing <em>mpg</em> and a matrix of independent variables where the first column is a column of 1’s.</p>
+<p>We estimate <strong>b</strong> and <strong>Xb</strong> to obtain <strong>e</strong> and then illustrate the dot product of <span class="math inline">\(e^T\)</span> and <span class="math inline">\(\hat{y}\)</span> is approximately 0.</p>
+<p>We then turn to the question of whether <span class="math inline">\(\boldsymbol{e}\)</span> is orthogonal to each individual regressor, that is, does zero conditional mean hold? The answer is yes, the residuals are orthogonal to the regressors.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">tibble</span>(<span class="at">x1 =</span> <span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">32</span>),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">cyl =</span> mtcars<span class="sc">$</span>cyl,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">hp  =</span> mtcars<span class="sc">$</span>hp,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">wt  =</span> mtcars<span class="sc">$</span>wt))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">32</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> x <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> (I <span class="sc">-</span> P)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>bhat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> M <span class="sc">%*%</span> y</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> x <span class="sc">%*%</span> bhat</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>dot_e_yhat <span class="ot">&lt;-</span> <span class="fu">t</span>(e) <span class="sc">%*%</span> yhat</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>orth_e_cyl <span class="ot">&lt;-</span> <span class="fu">t</span>(e) <span class="sc">%*%</span> x[,<span class="st">"cyl"</span>]</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>orth_e_hp  <span class="ot">&lt;-</span> <span class="fu">t</span>(e) <span class="sc">%*%</span> x[,<span class="st">"hp"</span>]</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>orth_e_wt  <span class="ot">&lt;-</span> <span class="fu">t</span>(e) <span class="sc">%*%</span> x[,<span class="st">"wt"</span>]</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="fu">round</span>(dot_e_yhat, <span class="dv">3</span>),</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>             <span class="fu">round</span>(orth_e_cyl,<span class="dv">3</span>),</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>             <span class="fu">round</span>(orth_e_hp,<span class="dv">3</span>),</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>             <span class="fu">round</span>(orth_e_wt,<span class="dv">3</span>))</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df,</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">'Dot Product of Yhat and e'</span>,</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Dot Product of e and Cylinder Variable'</span>,</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Dot Product of e and HP Variable'</span>,</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Dot Product of e and Weight Variable'</span>),</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">align     =</span> <span class="st">'c'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_styling</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Dot Product of Yhat and e</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Dot Product of e and Cylinder Variable</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Dot Product of e and HP Variable</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Dot Product of e and Weight Variable</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
 
 </section>
@@ -673,14 +910,11 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="ECON 706">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ECON 706</span></span>
+      <a href="./mod-2-2-matrix.html" class="pagination-link" aria-label="Matrix Operations">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Matrix Operations</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./about.html" class="pagination-link" aria-label="Course Objectives">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Course Objectives</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
