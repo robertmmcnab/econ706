@@ -823,5 +823,236 @@
       "Least Squares Estimator",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Orthogonality</span>"
     ]
+  },
+  {
+    "objectID": "mod-3-0-overview.html",
+    "href": "mod-3-0-overview.html",
+    "title": "11  Module 3 Overview",
+    "section": "",
+    "text": "11.1 Introduction\nWelcome to Module 3 of ECON 706.\nThis module introduces the concept of Partitioned Regression and the Frisch-Waugh-Lovell (FWL) Theorem, fundamental tools for understanding how multiple independent variables interact within a single model. In the previous modules, we established the geometric foundations of Ordinary Least Squares (OLS) through orthogonality and projection. We now apply those principles to “partitioned” data sets to uncover how the OLS estimator “partials out” or “controls for” the influence of competing variables.\nBy mastering the algebra of block-diagonal matrices and the residual-maker matrix (M), you will learn why coefficients in a multiple regression are interpreted as “partial effects” and why the omission of relevant, correlated variables leads to biased results. This theoretical framework provides the mathematical justification for the common research phrase, “all else being equal.”",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Module 3 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-0-overview.html#learning-objectives",
+    "href": "mod-3-0-overview.html#learning-objectives",
+    "title": "11  Module 3 Overview",
+    "section": "11.2 Learning Objectives",
+    "text": "11.2 Learning Objectives\nBy the end of this module, you should be able to:\n\nMLO 1: Analyze the structure of partitioned matrices and describe the mathematical requirements for a matrix to be considered block-diagonal.\nMLO 2: Apply the Frisch-Waugh-Lovell (FWL) Theorem to derive partial regression coefficients using the “netting out” process.\nMLO 3: Differentiate between the results of a simple regression and a multiple regression by examining the orthogonality (or lack thereof) between independent variables.\nMLO 4: Evaluate the impact of omitted variable bias on least squares parameter estimates based on the correlation between included and excluded regressors.\nMLO 5: Execute a partitioned regression in R to verify that regressing residuals on residuals yields the same coefficients as a full multiple linear regression model.",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Module 3 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-0-overview.html#required-texts",
+    "href": "mod-3-0-overview.html#required-texts",
+    "title": "11  Module 3 Overview",
+    "section": "11.3 Required Texts",
+    "text": "11.3 Required Texts\nPlease select the links provided to access material where applicable.\n\nWilliam H. Greene. (2018). Econometric Analysis, 8th Edition. Available from Pearson. Chapters 3-4.\nRafael Irizarry. (2025). Introduction to Data Science: Data Wrangling and Visualization with R. Chapters 1-2.\nHadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund. (2025) R for Data Science. Sections 1-19.\nOnline R documentation\nRStudio Cheat Sheets",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Module 3 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-0-overview.html#module-to-do-list",
+    "href": "mod-3-0-overview.html#module-to-do-list",
+    "title": "11  Module 3 Overview",
+    "section": "11.4 Module To Do List",
+    "text": "11.4 Module To Do List\n\nComplete the hands-on coding exercises embedded in each lesson (MLO 1, 5)\n\nUse WebR to experiment directly in your browser (MLO 1, 2, 3, 4, 5)\n\nComplete the weekly class assignment (MLO 1, 2, 3, 4, 5)\n\nTake the weekly knowledge quiz (MLO 1, 2, 3, 4, 5)",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Module 3 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-0-overview.html#lessons-in-this-module",
+    "href": "mod-3-0-overview.html#lessons-in-this-module",
+    "title": "11  Module 3 Overview",
+    "section": "11.5 Lessons in this Module",
+    "text": "11.5 Lessons in this Module\n\n3.1 - Orthogonal Regression\n3.2 - Partitioned Regression\n\n\nNext: Start with Orthgonoal Regression.",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Module 3 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-1-orthogonal.html",
+    "href": "mod-3-1-orthogonal.html",
+    "title": "12  Orthogonal Regression",
+    "section": "",
+    "text": "12.1 Introduction\nUnderstanding partitioned regression is an element of discussing the properties of the least squares regression model. Omitting relevant variables or variables that are correlated with other independent variables influences the least squares parameter estimates. The coefficients from the multiple regression model are partial regression coefficients.",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Orthogonal Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-1-orthogonal.html#the-problem",
+    "href": "mod-3-1-orthogonal.html#the-problem",
+    "title": "12  Orthogonal Regression",
+    "section": "12.2 The Problem",
+    "text": "12.2 The Problem\nLet the population regression function be\n\\[\\boldsymbol{y} = \\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon}\\]\nWe can ‘split’ or partition the \\(\\boldsymbol{X}\\) matrix into two matrices of variables:\n\\[\\boldsymbol{X = [X_1, X_2]}\\]\nWe want to investigate the influence of the percentage of students receiving free and reduced priced lunch on schools’ performance on a standardized reading test.\nWe specify a functional relationship that includes the dependent variable, reading score (read), and the independent variable of interest, percent of students receiving free or reduced price lunch (lunch), and several other independent variables that serve as control variables.\n\\[\\text{read = f(lunch, teachers, computers, race, location, ....)}\\]\nSince we are specifically interested in the influence of the lunch variable, we can split or partition the lunch variable into a smaller matrix and the remaining independent variables are assigned to the other matrix of independent variables.\n\\[\\boldsymbol{X = [X_1, X_2] = [\\text{lunch}, \\text{everything else}]}\\]\nThe control variables are independent variables that we believe significantly influence the dependent variable. If we excluded the control variables from the regression analysis, we would likely violate zero conditional mean and our parameter estimates would be biased (that is, deviate, on average, from the true parameter values).\nIn our example, the percent of students receiving free or reduced price lunch is typically highly correlated with income, race, geographic location, and other variables. If we excluded these other variables from the regression analysis, the estimated coefficient for lunch would likely capture some of the influence of the omitted variables.\nWe would only be able to omit the variables in \\(\\boldsymbol{X_2}\\) if and only if these variables were orthogonal to the variables in \\(\\boldsymbol{X_1}\\), which is very strong (and basically untenable) assumption.\nSo, if we cannot omit the variables in \\(\\boldsymbol{X_2}\\), we need to develop the processes by which we can isolate the influence of \\(\\boldsymbol{X_1}\\) while controlling for the influence of the influence of the variables in \\(\\boldsymbol{X_2}\\).\nPartitioned regression is that process.",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Orthogonal Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-1-orthogonal.html#partitioned-regression",
+    "href": "mod-3-1-orthogonal.html#partitioned-regression",
+    "title": "12  Orthogonal Regression",
+    "section": "12.3 Partitioned Regression",
+    "text": "12.3 Partitioned Regression\nWe start with the population regression function\n\\[\\boldsymbol{y} = \\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon}\\]We partition the matrix of independent variables into two matrices or:\n\\[\\boldsymbol{X} = [\\boldsymbol{X_1, X_2}]\\]\nWhen we partition the matrix of independent variables, we must also partition the vector of coefficients for the independent variables or:\n\\[\n\\boldsymbol{\\beta} = \\begin{bmatrix} \\boldsymbol{\\beta_1} \\\\ \\boldsymbol{\\beta_2} \\end{bmatrix}\n\\]\nThe population regression function can be partitioned into:\n\\[\\boldsymbol{y} = \\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon} = \\begin{bmatrix} \\boldsymbol{X_1} & \\boldsymbol{X_2} \\end{bmatrix} \\begin{bmatrix} \\boldsymbol{\\beta_1} \\\\ \\boldsymbol{\\beta_2} \\end{bmatrix} + \\boldsymbol{\\epsilon} =\\boldsymbol{X_1 \\beta_1} + \\boldsymbol{X_2 \\beta_2} + \\epsilon\\]\nThe normal equations can be partitioned in a similar manner so that:\n\\[\\boldsymbol{X^T X b} = \\boldsymbol{X^T y}\\]\n\\[\\boldsymbol{[X_1 X_2]^T [X_1 X_2]b = [X_1 X_2]^T y}\\]\n\\[\\begin{bmatrix} \\boldsymbol{X_1^T X_1} & \\boldsymbol{X_1^T X_2} \\\\ \\boldsymbol{X_2^T X_1} & \\boldsymbol{X_2^T X_2} \\end{bmatrix} \\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} \\boldsymbol{X_1^T y} \\\\ \\boldsymbol{X_2^T y} \\end{bmatrix}\\]",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Orthogonal Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-1-orthogonal.html#orthogonal-partitioned-regression",
+    "href": "mod-3-1-orthogonal.html#orthogonal-partitioned-regression",
+    "title": "12  Orthogonal Regression",
+    "section": "12.4 Orthogonal Partitioned Regression",
+    "text": "12.4 Orthogonal Partitioned Regression\nThe Orthogonal Partitioned Regression theorem states that if you regress \\(\\boldsymbol{y}\\) on two sets of variables, \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\), then if (and only if) \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal, you can obtain the coefficient vectors for \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) by regressing \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nWhat does this mean?\nYou can exclude the variables in \\(\\boldsymbol{X_2}\\) if these variables are irrelevant to the dependent variable or orthogonal to the other independent variables contained in \\(\\boldsymbol{X_1}\\).\nIf the variables in \\(\\boldsymbol{X_2}\\) are not irrelevant to the dependent variable, then the exclusion of these variables will change your estimates of \\(\\boldsymbol{b_1}\\).\nIf the variables in \\(\\boldsymbol{X_2}\\) are not orthogonal to the variables in \\(\\boldsymbol{X_1}\\), then the exclusion of these variables will change your estimates of \\(\\boldsymbol{b_1}\\).",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Orthogonal Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-1-orthogonal.html#block-diagonal-matrix",
+    "href": "mod-3-1-orthogonal.html#block-diagonal-matrix",
+    "title": "12  Orthogonal Regression",
+    "section": "12.5 Block Diagonal Matrix",
+    "text": "12.5 Block Diagonal Matrix\nWe need to discuss the Frisch-Waugh-Lovell Theorem. It will take some work to get there.\nFirst, assume that any matrix or sub-matrix that is inverted is square.\nSecond, assume that other matrices may be rectangular but that matrices are conformable.\nThus, only square matrices are inverted.\nDirect multiplication tells us that\n\\[\\begin{bmatrix}\nA_{11} & 0 \\\\\n0 & A_{22}\n\\end{bmatrix}^{-1}=\\begin{bmatrix}\nA_{11}^{-1} & 0 \\\\\n0 & A_{22}^{-1}\n\\end{bmatrix}\\]\nThe two matrices above are block diagonal.\nA block diagonal matrix is a square matrix such that the main-diagonal blocks are square matrices and all off-diagonal blocks are zero matrices.",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Orthogonal Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-1-orthogonal.html#non-block-diagonal-matrix",
+    "href": "mod-3-1-orthogonal.html#non-block-diagonal-matrix",
+    "title": "12  Orthogonal Regression",
+    "section": "12.6 Non-Block Diagonal Matrix",
+    "text": "12.6 Non-Block Diagonal Matrix\nWhat happens it a matrix is not block diagonal?\nWe again can use direct multiplication to show:\n\\[\\begin{bmatrix}\nA_{11} & A_{12} \\\\\nA_{21} & A_{22}\n\\end{bmatrix}^{-1}=\\begin{bmatrix}\nA_{11}^{-1}(I + A_{12} F A_{21}A_{11}^{-1}) & -A_{11}^{-1} A_{12}F \\\\\n-FA_{21}A_{11}^{-1} & F\n\\end{bmatrix}\\]\n\\[F = (A_{22} - A_{21}A_{11}^{-1}A_{12})^{-1}\\]\nThe above shows what happens if the off-diagonal blocks in a matrix are non-zero.\nIn other words, if we omit relevant variables or include too many variables, then the possibility exists the off-diagonal blocks will not be zero because the two sets of independent variables are not orthogonal to each other.\nSo, to understand partitioned regression, we must understand whether the two sets of independent variables are orthogonal.",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Orthogonal Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-1-orthogonal.html#orthogonal-partitions",
+    "href": "mod-3-1-orthogonal.html#orthogonal-partitions",
+    "title": "12  Orthogonal Regression",
+    "section": "12.7 Orthogonal Partitions",
+    "text": "12.7 Orthogonal Partitions\nAssume that \\(\\boldsymbol{X}\\) consists of two sets of independent variables, \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\)\nAssume that \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal.\nThe orthogonality of \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) means that the sums of the cross products of the variables in \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are zero.\nIn other words, the \\(\\boldsymbol{X^T X}\\) matrix formed from \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) is block diagonal.\n\\[\\boldsymbol{X}=[\\boldsymbol{X_1} \\boldsymbol{X_2}]\\]\n\\[\\boldsymbol{X^TX}=[\\boldsymbol{X_1} \\boldsymbol{X_2}]^T[\\boldsymbol{X_1} \\boldsymbol{X_2}] = \\begin{bmatrix} \\boldsymbol{X_1^T} \\\\ \\boldsymbol{X_2^T} \\end{bmatrix}\\begin{bmatrix} \\boldsymbol{X_1} & \\boldsymbol{X_2} \\end{bmatrix}\\] \\[\\boldsymbol{X^TX} = \\begin{bmatrix}\\boldsymbol{X_1^T X_1} & \\boldsymbol{X_1^T X_2} \\\\ \\boldsymbol{X_2^T X_1} & \\boldsymbol{X_2^T X_2} \\end{bmatrix} =\n\\begin{bmatrix}\\boldsymbol{X_1^T X_1} & 0 \\\\ 0 & \\boldsymbol{X_2^T X_2} \\end{bmatrix}\\]\nSince \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal, \\(\\boldsymbol{X_1^T X_2} = 0\\) and \\(\\boldsymbol{X_2^T X_1} = 0\\).",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Orthogonal Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-1-orthogonal.html#orthogonal-regression",
+    "href": "mod-3-1-orthogonal.html#orthogonal-regression",
+    "title": "12  Orthogonal Regression",
+    "section": "12.8 Orthogonal Regression",
+    "text": "12.8 Orthogonal Regression\nIn this case \\(\\boldsymbol{X^T X}\\) is block diagonal, so \\((\\boldsymbol{X^T X})^{-1}\\) is equal to:\n\\[(\\boldsymbol{X^TX})^{-1} = \\begin{bmatrix}\\boldsymbol{X_1^T X_1} & 0 \\\\ 0 & \\boldsymbol{X_2^T X_2} \\end{bmatrix}^{-1} = \\begin{bmatrix} (\\boldsymbol{X_1^T X_1})^{-1} & 0 \\\\ 0 & (\\boldsymbol{X_2^T X_2})^{-1} \\end{bmatrix}\\]\nContinuing to assume that \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal and using the normal equations:\n\\[\\begin{bmatrix} \\boldsymbol{X_1^T X_1} & \\boldsymbol{X_1^T X_2} \\\\ \\boldsymbol{X_2^T X_1} & \\boldsymbol{X_2^T X_2} \\end{bmatrix} \\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} \\boldsymbol{X_1^T y} \\\\ \\boldsymbol{X_2^T y} \\end{bmatrix}\\] \\[\\begin{bmatrix} \\boldsymbol{X_1^T X_1} & \\boldsymbol{0} \\\\ \\boldsymbol{0} & \\boldsymbol{X_2^T X_2} \\end{bmatrix} \\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} \\boldsymbol{X_1^T y} \\\\ \\boldsymbol{X_2^T y} \\end{bmatrix}\\] The partitioned least squares estimates can now be obtained:\n\\[\\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} \\boldsymbol{X_1^T X_1} & \\boldsymbol{0} \\\\ \\boldsymbol{0} & \\boldsymbol{X_2^T X_2} \\end{bmatrix}^{-1}  \\begin{bmatrix} \\boldsymbol{X_1^T y} \\\\ \\boldsymbol{X_2^T y} \\end{bmatrix}\\]\n\\[\\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} (\\boldsymbol{X_1^T X_1})^{-1} & 0 \\\\ 0 & (\\boldsymbol{X_2^T X_2})^{-1} \\end{bmatrix} \\begin{bmatrix} \\boldsymbol{X_1^T y} \\\\ \\boldsymbol{X_2^T y} \\end{bmatrix}\\] \\[\\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} \\boldsymbol{(X_1^T X_1)^{-1}X_1^T y} \\\\ \\boldsymbol{(X_2^T X_2)^{-1}X_2^T y} \\end{bmatrix}\\]\nSince the \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal then \\((\\boldsymbol{X^T X})\\) matrix is block diagonal.\nSince \\((\\boldsymbol{X^T X})\\) matrix is block diagonal, the least squares estimates of the coefficients for the first set of independent variables from the regression of \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) are the same as the least squares estimates obtained from the regression of \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\).\nThe Orthogonal Partitioned Regression theorem states that if you regress \\(\\boldsymbol{y}\\) on two sets of variables, \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\), then if (and only if) \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal, you can obtain the coefficient vectors for \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) by regressing \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nThis, however, is not the general case.\nIn the next section, we will demonstrate why this is not the general case and how to obtain the partial regression coefficients.",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Orthogonal Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-2-partitioned.html",
+    "href": "mod-3-2-partitioned.html",
+    "title": "13  Partitioned Regression",
+    "section": "",
+    "text": "13.1 Introduction\nUnderstanding partitioned regression is an element of discussing the properties of the least squares regression model. Omitting relevant variables or variables that are correlated with other independent variables influences the least squares parameter estimates. The coefficients from the multiple regression model are partial regression coefficients.",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-2-partitioned.html#the-problem",
+    "href": "mod-3-2-partitioned.html#the-problem",
+    "title": "13  Partitioned Regression",
+    "section": "13.2 The Problem",
+    "text": "13.2 The Problem\nLet the population regression function be\n\\[\\boldsymbol{y} = \\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon}\\]\nWe can ‘split’ or partition the \\(\\boldsymbol{X}\\) matrix into two matrices of variables:\n\\[\\boldsymbol{X = [X_1, X_2]}\\]\nWe want to investigate the influence of the percentage of students receiving free and reduced priced lunch on schools’ performance on a standardized reading test.\nWe specify a functional relationship that includes the dependent variable, reading score (read), and the independent variable of interest, percent of students receiving free or reduced price lunch (lunch), and several other independent variables that serve as control variables.\n\\[\\text{read = f(lunch, teachers, computers, race, location, ....)}\\]\nSince we are specifically interested in the influence of the lunch variable, we can split or partition the lunch variable into a smaller matrix and the remaining independent variables are assigned to the other matrix of independent variables.\n\\[\\boldsymbol{X = [X_1, X_2] = [\\text{lunch}, \\text{everything else}]}\\]\nThe control variables are independent variables that we believe significantly influence the dependent variable. If we excluded the control variables from the regression analysis, we would likely violate zero conditional mean and our parameter estimates would be biased (that is, deviate, on average, from the true parameter values).\nIn our example, the percent of students receiving free or reduced price lunch is typically highly correlated with income, race, geographic location, and other variables. If we excluded these other variables from the regression analysis, the estimated coefficient for lunch would likely capture some of the influence of the omitted variables.\nWe would only be able to omit the variables in \\(\\boldsymbol{X_2}\\) if and only if these variables were orthogonal to the variables in \\(\\boldsymbol{X_1}\\), which is very strong (and basically untenable) assumption.\nSo, if we cannot omit the variables in \\(\\boldsymbol{X_2}\\), we need to develop the processes by which we can isolate the influence of \\(\\boldsymbol{X_1}\\) while controlling for the influence of the influence of the variables in \\(\\boldsymbol{X_2}\\).\nPartitioned regression is that process.",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-2-partitioned.html#partitioned-regression",
+    "href": "mod-3-2-partitioned.html#partitioned-regression",
+    "title": "13  Partitioned Regression",
+    "section": "13.3 Partitioned Regression",
+    "text": "13.3 Partitioned Regression\nWe start with the population regression function\n\\[\\boldsymbol{y} = \\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon}\\]We partition the matrix of independent variables into two matrices or:\n\\[\\boldsymbol{X} = [\\boldsymbol{X_1, X_2}]\\]\nWhen we partition the matrix of independent variables, we must also partition the vector of coefficients for the independent variables or:\n\\[\n\\boldsymbol{\\beta} = \\begin{bmatrix} \\boldsymbol{\\beta_1} \\\\ \\boldsymbol{\\beta_2} \\end{bmatrix}\n\\]\nThe population regression function can be partitioned into:\n\\[\\boldsymbol{y} = \\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon} = \\begin{bmatrix} \\boldsymbol{X_1} & \\boldsymbol{X_2} \\end{bmatrix} \\begin{bmatrix} \\boldsymbol{\\beta_1} \\\\ \\boldsymbol{\\beta_2} \\end{bmatrix} + \\boldsymbol{\\epsilon} =\\boldsymbol{X_1 \\beta_1} + \\boldsymbol{X_2 \\beta_2} + \\epsilon\\]\nThe normal equations can be partitioned in a similar manner so that:\n\\[\\boldsymbol{X^T X b} = \\boldsymbol{X^T y}\\]\n\\[\\boldsymbol{[X_1 X_2]^T [X_1 X_2]b = [X_1 X_2]^T y}\\]\n\\[\\begin{bmatrix} \\boldsymbol{X_1^T X_1} & \\boldsymbol{X_1^T X_2} \\\\ \\boldsymbol{X_2^T X_1} & \\boldsymbol{X_2^T X_2} \\end{bmatrix} \\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} \\boldsymbol{X_1^T y} \\\\ \\boldsymbol{X_2^T y} \\end{bmatrix}\\]",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-2-partitioned.html#orthogonal-partitioned-regression",
+    "href": "mod-3-2-partitioned.html#orthogonal-partitioned-regression",
+    "title": "13  Partitioned Regression",
+    "section": "13.4 Orthogonal Partitioned Regression",
+    "text": "13.4 Orthogonal Partitioned Regression\nThe Orthogonal Partitioned Regression theorem states that if you regress \\(\\boldsymbol{y}\\) on two sets of variables, \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\), then if (and only if) \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal, you can obtain the coefficient vectors for \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) by regressing \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nWhat does this mean?\nYou can exclude the variables in \\(\\boldsymbol{X_2}\\) if these variables are irrelevant to the dependent variable or orthogonal to the other independent variables contained in \\(\\boldsymbol{X_1}\\).\nIf the variables in \\(\\boldsymbol{X_2}\\) are not irrelevant to the dependent variable, then the exclusion of these variables will change your estimates of \\(\\boldsymbol{b_1}\\).\nIf the variables in \\(\\boldsymbol{X_2}\\) are not orthogonal to the variables in \\(\\boldsymbol{X_1}\\), then the exclusion of these variables will change your estimates of \\(\\boldsymbol{b_1}\\).",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-2-partitioned.html#block-diagonal-matrix",
+    "href": "mod-3-2-partitioned.html#block-diagonal-matrix",
+    "title": "13  Partitioned Regression",
+    "section": "13.5 Block Diagonal Matrix",
+    "text": "13.5 Block Diagonal Matrix\nWe need to discuss the Frisch-Waugh-Lovell Theorem. It will take some work to get there.\nFirst, assume that any matrix or sub-matrix that is inverted is square.\nSecond, assume that other matrices may be rectangular but that matrices are conformable.\nThus, only square matrices are inverted.\nDirect multiplication tells us that\n\\[\\begin{bmatrix}\nA_{11} & 0 \\\\\n0 & A_{22}\n\\end{bmatrix}^{-1}=\\begin{bmatrix}\nA_{11}^{-1} & 0 \\\\\n0 & A_{22}^{-1}\n\\end{bmatrix}\\]\nThe two matrices above are block diagonal.\nA block diagonal matrix is a square matrix such that the main-diagonal blocks are square matrices and all off-diagonal blocks are zero matrices.",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-2-partitioned.html#non-block-diagonal-matrix",
+    "href": "mod-3-2-partitioned.html#non-block-diagonal-matrix",
+    "title": "13  Partitioned Regression",
+    "section": "13.6 Non-Block Diagonal Matrix",
+    "text": "13.6 Non-Block Diagonal Matrix\nWhat happens it a matrix is not block diagonal?\nWe again can use direct multiplication to show:\n\\[\\begin{bmatrix}\nA_{11} & A_{12} \\\\\nA_{21} & A_{22}\n\\end{bmatrix}^{-1}=\\begin{bmatrix}\nA_{11}^{-1}(I + A_{12} F A_{21}A_{11}^{-1}) & -A_{11}^{-1} A_{12}F \\\\\n-FA_{21}A_{11}^{-1} & F\n\\end{bmatrix}\\]\n\\[F = (A_{22} - A_{21}A_{11}^{-1}A_{12})^{-1}\\]\nThe above shows what happens if the off-diagonal blocks in a matrix are non-zero.\nIn other words, if we omit relevant variables or include too many variables, then the possibility exists the off-diagonal blocks will not be zero because the two sets of independent variables are not orthogonal to each other.\nSo, to understand partitioned regression, we must understand whether the two sets of independent variables are orthogonal.",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-2-partitioned.html#orthogonal-partitions",
+    "href": "mod-3-2-partitioned.html#orthogonal-partitions",
+    "title": "13  Partitioned Regression",
+    "section": "13.7 Orthogonal Partitions",
+    "text": "13.7 Orthogonal Partitions\nAssume that \\(\\boldsymbol{X}\\) consists of two sets of independent variables, \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\)\nAssume that \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal.\nThe orthogonality of \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) means that the sums of the cross products of the variables in \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are zero.\nIn other words, the \\(\\boldsymbol{X^T X}\\) matrix formed from \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) is block diagonal.\n\\[\\boldsymbol{X}=[\\boldsymbol{X_1} \\boldsymbol{X_2}]\\]\n\\[\\boldsymbol{X^TX}=[\\boldsymbol{X_1} \\boldsymbol{X_2}]^T[\\boldsymbol{X_1} \\boldsymbol{X_2}] = \\begin{bmatrix} \\boldsymbol{X_1^T} \\\\ \\boldsymbol{X_2^T} \\end{bmatrix}\\begin{bmatrix} \\boldsymbol{X_1} & \\boldsymbol{X_2} \\end{bmatrix}\\] \\[\\boldsymbol{X^TX} = \\begin{bmatrix}\\boldsymbol{X_1^T X_1} & \\boldsymbol{X_1^T X_2} \\\\ \\boldsymbol{X_2^T X_1} & \\boldsymbol{X_2^T X_2} \\end{bmatrix} =\n\\begin{bmatrix}\\boldsymbol{X_1^T X_1} & 0 \\\\ 0 & \\boldsymbol{X_2^T X_2} \\end{bmatrix}\\]\nSince \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal, \\(\\boldsymbol{X_1^T X_2} = 0\\) and \\(\\boldsymbol{X_2^T X_1} = 0\\).",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-3-2-partitioned.html#orthogonal-regression",
+    "href": "mod-3-2-partitioned.html#orthogonal-regression",
+    "title": "13  Partitioned Regression",
+    "section": "13.8 Orthogonal Regression",
+    "text": "13.8 Orthogonal Regression\nIn this case \\(\\boldsymbol{X^T X}\\) is block diagonal, so \\((\\boldsymbol{X^T X})^{-1}\\) is equal to:\n\\[(\\boldsymbol{X^TX})^{-1} = \\begin{bmatrix}\\boldsymbol{X_1^T X_1} & 0 \\\\ 0 & \\boldsymbol{X_2^T X_2} \\end{bmatrix}^{-1} = \\begin{bmatrix} (\\boldsymbol{X_1^T X_1})^{-1} & 0 \\\\ 0 & (\\boldsymbol{X_2^T X_2})^{-1} \\end{bmatrix}\\]\nContinuing to assume that \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal and using the normal equations:\n\\[\\begin{bmatrix} \\boldsymbol{X_1^T X_1} & \\boldsymbol{X_1^T X_2} \\\\ \\boldsymbol{X_2^T X_1} & \\boldsymbol{X_2^T X_2} \\end{bmatrix} \\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} \\boldsymbol{X_1^T y} \\\\ \\boldsymbol{X_2^T y} \\end{bmatrix}\\] \\[\\begin{bmatrix} \\boldsymbol{X_1^T X_1} & \\boldsymbol{0} \\\\ \\boldsymbol{0} & \\boldsymbol{X_2^T X_2} \\end{bmatrix} \\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} \\boldsymbol{X_1^T y} \\\\ \\boldsymbol{X_2^T y} \\end{bmatrix}\\] The partitioned least squares estimates can now be obtained:\n\\[\\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} \\boldsymbol{X_1^T X_1} & \\boldsymbol{0} \\\\ \\boldsymbol{0} & \\boldsymbol{X_2^T X_2} \\end{bmatrix}^{-1}  \\begin{bmatrix} \\boldsymbol{X_1^T y} \\\\ \\boldsymbol{X_2^T y} \\end{bmatrix}\\]\n\\[\\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} (\\boldsymbol{X_1^T X_1})^{-1} & 0 \\\\ 0 & (\\boldsymbol{X_2^T X_2})^{-1} \\end{bmatrix} \\begin{bmatrix} \\boldsymbol{X_1^T y} \\\\ \\boldsymbol{X_2^T y} \\end{bmatrix}\\] \\[\\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} \\boldsymbol{(X_1^T X_1)^{-1}X_1^T y} \\\\ \\boldsymbol{(X_2^T X_2)^{-1}X_2^T y} \\end{bmatrix}\\]\nSince the \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal then \\((\\boldsymbol{X^T X})\\) matrix is block diagonal.\nSince \\((\\boldsymbol{X^T X})\\) matrix is block diagonal, the least squares estimates of the coefficients for the first set of independent variables from the regression of \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) are the same as the least squares estimates obtained from the regression of \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\).\nThe Orthogonal Partitioned Regression theorem states that if you regress \\(\\boldsymbol{y}\\) on two sets of variables, \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\), then if (and only if) \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal, you can obtain the coefficient vectors for \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) by regressing \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nThis, however, is not the general case.\nIn the next section, we will demonstrate why this is not the general case and how to obtain the partial regression coefficients.",
+    "crumbs": [
+      "Partitioned Regression",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
+    ]
   }
 ]

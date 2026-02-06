@@ -22,6 +22,11 @@ book:
         - mod-2-1-derivation.qmd
         - mod-2-2-matrix.qmd
         - mod-2-3-orthogonality.qmd
+    - part: "Partitioned Regression"
+      chapters:
+        - mod-3-0-overview.qmd
+        - mod-3-1-orthogonal.qmd
+        - mod-3-2-partitioned.qmd
 
 execute:
   webR: true            # enables WebR chunks for interactive R in the browser

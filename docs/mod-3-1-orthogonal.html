@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Robert M. McNab">
 
-<title>ECON 706</title>
+<title>12&nbsp; Orthogonal Regression – ECON 706</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./mcnab.html" rel="next">
+<link href="./mod-3-2-partitioned.html" rel="next">
+<link href="./mod-3-0-overview.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -71,6 +71,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -83,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ECON 706</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-3-0-overview.html">Partitioned Regression</a></li><li class="breadcrumb-item"><a href="./mod-3-1-orthogonal.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Orthogonal Regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -121,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ECON 706</span></span></a>
   </div>
 </li>
@@ -220,7 +249,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mod-3-1-orthogonal.html" class="sidebar-item-text sidebar-link">
+  <a href="./mod-3-1-orthogonal.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Orthogonal Regression</span></span></a>
   </div>
 </li>
@@ -242,29 +271,29 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#course-introduction" id="toc-course-introduction" class="nav-link active" data-scroll-target="#course-introduction"><span class="header-section-number">0.1</span> Course Introduction</a></li>
-  <li><a href="#module-01-introduction-to-linear-regression" id="toc-module-01-introduction-to-linear-regression" class="nav-link" data-scroll-target="#module-01-introduction-to-linear-regression"><span class="header-section-number">0.2</span> Module 01 – Introduction to Linear Regression</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">12.1</span> Introduction</a></li>
+  <li><a href="#the-problem" id="toc-the-problem" class="nav-link" data-scroll-target="#the-problem"><span class="header-section-number">12.2</span> The Problem</a></li>
+  <li><a href="#partitioned-regression" id="toc-partitioned-regression" class="nav-link" data-scroll-target="#partitioned-regression"><span class="header-section-number">12.3</span> Partitioned Regression</a></li>
+  <li><a href="#orthogonal-partitioned-regression" id="toc-orthogonal-partitioned-regression" class="nav-link" data-scroll-target="#orthogonal-partitioned-regression"><span class="header-section-number">12.4</span> Orthogonal Partitioned Regression</a></li>
+  <li><a href="#block-diagonal-matrix" id="toc-block-diagonal-matrix" class="nav-link" data-scroll-target="#block-diagonal-matrix"><span class="header-section-number">12.5</span> Block Diagonal Matrix</a></li>
+  <li><a href="#non-block-diagonal-matrix" id="toc-non-block-diagonal-matrix" class="nav-link" data-scroll-target="#non-block-diagonal-matrix"><span class="header-section-number">12.6</span> Non-Block Diagonal Matrix</a></li>
+  <li><a href="#orthogonal-partitions" id="toc-orthogonal-partitions" class="nav-link" data-scroll-target="#orthogonal-partitions"><span class="header-section-number">12.7</span> Orthogonal Partitions</a></li>
+  <li><a href="#orthogonal-regression" id="toc-orthogonal-regression" class="nav-link" data-scroll-target="#orthogonal-regression"><span class="header-section-number">12.8</span> Orthogonal Regression</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ECON 706</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-3-0-overview.html">Partitioned Regression</a></li><li class="breadcrumb-item"><a href="./mod-3-1-orthogonal.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Orthogonal Regression</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">ECON 706</h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Orthogonal Regression</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Robert M. McNab </p>
-          </div>
-  </div>
     
   
     
@@ -275,34 +304,108 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="course-introduction" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="course-introduction"><span class="header-section-number">0.1</span> Course Introduction</h2>
-<ul>
-<li>
-<a href="./mcnab.html">Meet Your Instructor</a>
-</li>
-<li>
-<a href="./about.html">Course Objectives and Materials</a>
-</li>
-</ul>
+<section id="introduction" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">12.1</span> Introduction</h2>
+<p>Understanding partitioned regression is an element of discussing the properties of the least squares regression model. Omitting relevant variables or variables that are correlated with other independent variables influences the least squares parameter estimates. The coefficients from the multiple regression model are partial regression coefficients.</p>
 </section>
-<section id="module-01-introduction-to-linear-regression" class="level2" data-number="0.2">
-<h2 data-number="0.2" class="anchored" data-anchor-id="module-01-introduction-to-linear-regression"><span class="header-section-number">0.2</span> Module 01 – Introduction to Linear Regression</h2>
-<ul>
-<li>
-<a href="./mod-1-0-overview.html">Module 1 Overview</a>
-</li>
-<li>
-<a href="./mod-1-1-matrix.html">Matrix Operations</a>
-</li>
-<li>
-<a href="./mod-1-2-model.html">Linear Regression Models</a>
-</li>
-</ul>
-<hr>
-<p>
-This site provides <strong>interactive and static examples</strong> for economic data analysis using R and WebR. Click on the links above to explore each module.
-</p>
+<section id="the-problem" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="the-problem"><span class="header-section-number">12.2</span> The Problem</h2>
+<p>Let the population regression function be</p>
+<p><span class="math display">\[\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}\]</span></p>
+<p>We can ‘split’ or <strong>partition</strong> the <span class="math inline">\(\boldsymbol{X}\)</span> matrix into two matrices of variables:</p>
+<p><span class="math display">\[\boldsymbol{X = [X_1, X_2]}\]</span></p>
+<p>We want to investigate the influence of the percentage of students receiving free and reduced priced lunch on schools’ performance on a standardized reading test.</p>
+<p>We specify a functional relationship that includes the dependent variable, <strong>reading score (read)</strong>, and the independent variable of interest, <strong>percent of students receiving free or reduced price lunch (lunch)</strong>, and several other independent variables that serve as <strong>control</strong> variables.</p>
+<p><span class="math display">\[\text{read = f(lunch, teachers, computers, race, location, ....)}\]</span></p>
+<p>Since we are specifically interested in the influence of the lunch variable, we can <strong>split</strong> or <strong>partition</strong> the lunch variable into a smaller matrix and the remaining independent variables are assigned to the other matrix of independent variables.</p>
+<p><span class="math display">\[\boldsymbol{X = [X_1, X_2] = [\text{lunch}, \text{everything else}]}\]</span></p>
+<p>The control variables are independent variables that we believe significantly influence the dependent variable. If we excluded the control variables from the regression analysis, we would likely violate zero conditional mean and our parameter estimates would be biased (that is, deviate, on average, from the true parameter values).</p>
+<p>In our example, the percent of students receiving free or reduced price lunch is typically highly correlated with income, race, geographic location, and other variables. If we excluded these other variables from the regression analysis, the estimated coefficient for lunch would likely capture some of the influence of the <strong>omitted variables</strong>.</p>
+<p>We would only be able to omit the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span> if and only if these variables were orthogonal to the variables in <span class="math inline">\(\boldsymbol{X_1}\)</span>, which is very strong (and basically untenable) assumption.</p>
+<p>So, if we cannot omit the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span>, we need to develop the processes by which we can isolate the influence of <span class="math inline">\(\boldsymbol{X_1}\)</span> while controlling for the influence of the influence of the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span>.</p>
+<p><strong>Partitioned regression is that process</strong>.</p>
+</section>
+<section id="partitioned-regression" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="partitioned-regression"><span class="header-section-number">12.3</span> Partitioned Regression</h2>
+<p>We start with the population regression function</p>
+<p><span class="math display">\[\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}\]</span>We partition the matrix of independent variables into two matrices or:</p>
+<p><span class="math display">\[\boldsymbol{X} = [\boldsymbol{X_1, X_2}]\]</span></p>
+<p>When we partition the matrix of independent variables, we must also partition the vector of coefficients for the independent variables or:</p>
+<p><span class="math display">\[
+\boldsymbol{\beta} = \begin{bmatrix} \boldsymbol{\beta_1} \\ \boldsymbol{\beta_2} \end{bmatrix}
+\]</span></p>
+<p>The population regression function can be partitioned into:</p>
+<p><span class="math display">\[\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon} = \begin{bmatrix} \boldsymbol{X_1} &amp; \boldsymbol{X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{\beta_1} \\ \boldsymbol{\beta_2} \end{bmatrix} + \boldsymbol{\epsilon} =\boldsymbol{X_1 \beta_1} + \boldsymbol{X_2 \beta_2} + \epsilon\]</span></p>
+<p>The normal equations can be partitioned in a similar manner so that:</p>
+<p><span class="math display">\[\boldsymbol{X^T X b} = \boldsymbol{X^T y}\]</span></p>
+<p><span class="math display">\[\boldsymbol{[X_1 X_2]^T [X_1 X_2]b = [X_1 X_2]^T y}\]</span></p>
+<p><span class="math display">\[\begin{bmatrix} \boldsymbol{X_1^T X_1} &amp; \boldsymbol{X_1^T X_2} \\ \boldsymbol{X_2^T X_1} &amp; \boldsymbol{X_2^T X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}\]</span></p>
+</section>
+<section id="orthogonal-partitioned-regression" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="orthogonal-partitioned-regression"><span class="header-section-number">12.4</span> Orthogonal Partitioned Regression</h2>
+<p>The Orthogonal Partitioned Regression theorem states that if you regress <span class="math inline">\(\boldsymbol{y}\)</span> on two sets of variables, <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span>, then if (and only if) <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are orthogonal, you can obtain the coefficient vectors for <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> by regressing <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> separately.</p>
+<p>What does this mean?</p>
+<p>You can exclude the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span> if these variables are <strong>irrelevant</strong> to the dependent variable or <strong>orthogonal</strong> to the other independent variables contained in <span class="math inline">\(\boldsymbol{X_1}\)</span>.</p>
+<p>If the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span> are not irrelevant to the dependent variable, then the exclusion of these variables will change your estimates of <span class="math inline">\(\boldsymbol{b_1}\)</span>.</p>
+<p>If the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span> are not orthogonal to the variables in <span class="math inline">\(\boldsymbol{X_1}\)</span>, then the exclusion of these variables will change your estimates of <span class="math inline">\(\boldsymbol{b_1}\)</span>.</p>
+</section>
+<section id="block-diagonal-matrix" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="block-diagonal-matrix"><span class="header-section-number">12.5</span> Block Diagonal Matrix</h2>
+<p>We need to discuss the <strong>Frisch-Waugh-Lovell Theorem</strong>. It will take some work to get there.</p>
+<p>First, assume that any matrix or sub-matrix that is inverted is square.</p>
+<p>Second, assume that other matrices may be rectangular but that matrices are conformable.</p>
+<p>Thus, only square matrices are inverted.</p>
+<p>Direct multiplication tells us that</p>
+<p><span class="math display">\[\begin{bmatrix}
+A_{11} &amp; 0 \\
+0 &amp; A_{22}
+\end{bmatrix}^{-1}=\begin{bmatrix}
+A_{11}^{-1} &amp; 0 \\
+0 &amp; A_{22}^{-1}
+\end{bmatrix}\]</span></p>
+<p>The two matrices above are <strong>block diagonal</strong>.</p>
+<p>A block diagonal matrix is a square matrix such that the main-diagonal blocks are square matrices and all off-diagonal blocks are zero matrices.</p>
+</section>
+<section id="non-block-diagonal-matrix" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="non-block-diagonal-matrix"><span class="header-section-number">12.6</span> Non-Block Diagonal Matrix</h2>
+<p>What happens it a matrix is not block diagonal?</p>
+<p>We again can use direct multiplication to show:</p>
+<p><span class="math display">\[\begin{bmatrix}
+A_{11} &amp; A_{12} \\
+A_{21} &amp; A_{22}
+\end{bmatrix}^{-1}=\begin{bmatrix}
+A_{11}^{-1}(I + A_{12} F A_{21}A_{11}^{-1}) &amp; -A_{11}^{-1} A_{12}F \\
+-FA_{21}A_{11}^{-1} &amp; F
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[F = (A_{22} - A_{21}A_{11}^{-1}A_{12})^{-1}\]</span></p>
+<p>The above shows what happens if the off-diagonal blocks in a matrix are non-zero.</p>
+<p>In other words, if we omit relevant variables or include too many variables, then the possibility exists the off-diagonal blocks will not be zero because the two sets of independent variables are not orthogonal to each other.</p>
+<p>So, to understand partitioned regression, we must understand whether the two sets of independent variables are orthogonal.</p>
+</section>
+<section id="orthogonal-partitions" class="level2" data-number="12.7">
+<h2 data-number="12.7" class="anchored" data-anchor-id="orthogonal-partitions"><span class="header-section-number">12.7</span> Orthogonal Partitions</h2>
+<p>Assume that <span class="math inline">\(\boldsymbol{X}\)</span> consists of two sets of independent variables, <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span></p>
+<p>Assume that <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are orthogonal.</p>
+<p>The orthogonality of <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> means that the sums of the cross products of the variables in <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are zero.</p>
+<p>In other words, the <span class="math inline">\(\boldsymbol{X^T X}\)</span> matrix formed from <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> is block diagonal.</p>
+<p><span class="math display">\[\boldsymbol{X}=[\boldsymbol{X_1} \boldsymbol{X_2}]\]</span></p>
+<p><span class="math display">\[\boldsymbol{X^TX}=[\boldsymbol{X_1} \boldsymbol{X_2}]^T[\boldsymbol{X_1} \boldsymbol{X_2}] = \begin{bmatrix} \boldsymbol{X_1^T} \\ \boldsymbol{X_2^T} \end{bmatrix}\begin{bmatrix} \boldsymbol{X_1} &amp; \boldsymbol{X_2} \end{bmatrix}\]</span> <span class="math display">\[\boldsymbol{X^TX} = \begin{bmatrix}\boldsymbol{X_1^T X_1} &amp; \boldsymbol{X_1^T X_2} \\ \boldsymbol{X_2^T X_1} &amp; \boldsymbol{X_2^T X_2} \end{bmatrix} =
+\begin{bmatrix}\boldsymbol{X_1^T X_1} &amp; 0 \\ 0 &amp; \boldsymbol{X_2^T X_2} \end{bmatrix}\]</span></p>
+<p>Since <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are orthogonal, <span class="math inline">\(\boldsymbol{X_1^T X_2} = 0\)</span> and <span class="math inline">\(\boldsymbol{X_2^T X_1} = 0\)</span>.</p>
+</section>
+<section id="orthogonal-regression" class="level2" data-number="12.8">
+<h2 data-number="12.8" class="anchored" data-anchor-id="orthogonal-regression"><span class="header-section-number">12.8</span> Orthogonal Regression</h2>
+<p>In this case <span class="math inline">\(\boldsymbol{X^T X}\)</span> is block diagonal, so <span class="math inline">\((\boldsymbol{X^T X})^{-1}\)</span> is equal to:</p>
+<p><span class="math display">\[(\boldsymbol{X^TX})^{-1} = \begin{bmatrix}\boldsymbol{X_1^T X_1} &amp; 0 \\ 0 &amp; \boldsymbol{X_2^T X_2} \end{bmatrix}^{-1} = \begin{bmatrix} (\boldsymbol{X_1^T X_1})^{-1} &amp; 0 \\ 0 &amp; (\boldsymbol{X_2^T X_2})^{-1} \end{bmatrix}\]</span></p>
+<p>Continuing to assume that <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are orthogonal and using the normal equations:</p>
+<p><span class="math display">\[\begin{bmatrix} \boldsymbol{X_1^T X_1} &amp; \boldsymbol{X_1^T X_2} \\ \boldsymbol{X_2^T X_1} &amp; \boldsymbol{X_2^T X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}\]</span> <span class="math display">\[\begin{bmatrix} \boldsymbol{X_1^T X_1} &amp; \boldsymbol{0} \\ \boldsymbol{0} &amp; \boldsymbol{X_2^T X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}\]</span> The partitioned least squares estimates can now be obtained:</p>
+<p><span class="math display">\[\begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T X_1} &amp; \boldsymbol{0} \\ \boldsymbol{0} &amp; \boldsymbol{X_2^T X_2} \end{bmatrix}^{-1}  \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}\]</span></p>
+<p><span class="math display">\[\begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} (\boldsymbol{X_1^T X_1})^{-1} &amp; 0 \\ 0 &amp; (\boldsymbol{X_2^T X_2})^{-1} \end{bmatrix} \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}\]</span> <span class="math display">\[\begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{(X_1^T X_1)^{-1}X_1^T y} \\ \boldsymbol{(X_2^T X_2)^{-1}X_2^T y} \end{bmatrix}\]</span></p>
+<p>Since the <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are orthogonal then <span class="math inline">\((\boldsymbol{X^T X})\)</span> matrix is block diagonal.</p>
+<p>Since <span class="math inline">\((\boldsymbol{X^T X})\)</span> matrix is block diagonal, the least squares estimates of the coefficients for the first set of independent variables from the regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span> are the same as the least squares estimates obtained from the regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span>.</p>
+<p>The Orthogonal Partitioned Regression theorem states that if you regress <span class="math inline">\(\boldsymbol{y}\)</span> on two sets of variables, <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span>, then if (and only if) <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are orthogonal, you can obtain the coefficient vectors for <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> by regressing <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> separately.</p>
+<p><u><strong>This, however, is not the general case.</strong></u></p>
+<p>In the next section, we will demonstrate why this is not the general case and how to obtain the partial regression coefficients.</p>
 
 
 </section>
@@ -715,10 +818,13 @@ This site provides <strong>interactive and static examples</strong> for economic
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./mod-3-0-overview.html" class="pagination-link" aria-label="Module 3 Overview">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Module 3 Overview</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./mcnab.html" class="pagination-link" aria-label="Meet Your Instructor">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Meet Your Instructor</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./mod-3-2-partitioned.html" class="pagination-link" aria-label="Partitioned Regression">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Partitioned Regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

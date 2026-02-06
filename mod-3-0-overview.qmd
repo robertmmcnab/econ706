@@ -1,0 +1,60 @@
+---
+title: "Module 3 Overview"
+---
+
+## Introduction
+
+Welcome to **Module 3** of ECON 706.
+
+This module introduces the concept of Partitioned Regression and the Frisch-Waugh-Lovell (FWL) Theorem, fundamental tools for understanding how multiple independent variables interact within a single model. In the previous modules, we established the geometric foundations of Ordinary Least Squares (OLS) through orthogonality and projection. We now apply those principles to "partitioned" data sets to uncover how the OLS estimator "partials out" or "controls for" the influence of competing variables.
+
+By mastering the algebra of block-diagonal matrices and the residual-maker matrix (**M**), you will learn why coefficients in a multiple regression are interpreted as "partial effects" and why the omission of relevant, correlated variables leads to biased results. This theoretical framework provides the mathematical justification for the common research phrase, "all else being equal."
+
+------------------------------------------------------------------------
+
+## Learning Objectives
+
+By the end of this module, you should be able to:
+
+-   MLO 1: **Analyze** the structure of partitioned matrices and describe the mathematical requirements for a matrix to be considered block-diagonal.
+-   MLO 2: **Apply** the Frisch-Waugh-Lovell (FWL) Theorem to derive partial regression coefficients using the "netting out" process.
+-   MLO 3: **Differentiate** between the results of a simple regression and a multiple regression by examining the orthogonality (or lack thereof) between independent variables.
+-   MLO 4: **Evaluate** the impact of omitted variable bias on least squares parameter estimates based on the correlation between included and excluded regressors.
+-   MLO 5: **Execute** a partitioned regression in R to verify that regressing residuals on residuals yields the same coefficients as a full multiple linear regression model.
+
+------------------------------------------------------------------------
+
+## Required Texts
+
+Please select the links provided to access material where applicable.
+
+-   William H. Greene. (2018). *Econometric Analysis, 8th Edition*. Available from Pearson. Chapters 3-4.
+
+-   Rafael Irizarry. (2025). [Introduction to Data Science: Data Wrangling and Visualization with R](https://rafalab.dfci.harvard.edu/dsbook-part-1/). Chapters 1-2.
+
+-   Hadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund. (2025) [R for Data Science](https://r4ds.hadley.nz/). Sections 1-19.
+
+-   [Online R documentation](https://cran.r-project.org/manuals.html)
+
+-   [RStudio Cheat Sheets](https://posit.co/resources/cheatsheets/)
+
+------------------------------------------------------------------------
+
+## Module To Do List
+
+-   Complete the hands-on coding exercises embedded in each lesson (MLO 1, 5)\
+-   Use WebR to experiment directly in your browser (MLO 1, 2, 3, 4, 5)\
+-   Complete the weekly class assignment (MLO 1, 2, 3, 4, 5)\
+-   Take the weekly knowledge quiz (MLO 1, 2, 3, 4, 5)\
+
+------------------------------------------------------------------------
+
+## Lessons in this Module
+
+-   [3.1 - Orthogonal Regression](mod-3-1-orthogonal.qmd)
+-   [3.2 - Partitioned Regression](mod-3-2-partitioned.qmd)
+
+
+------------------------------------------------------------------------
+
+Next: Start with [**Orthgonoal Regression**](mod-3-1-orthogonal.qmd).
