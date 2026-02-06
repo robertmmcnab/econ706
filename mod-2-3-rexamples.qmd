@@ -1,5 +1,5 @@
 ---
-title: "Deriving Least Squares"
+title: "Least Squares and R"
 format:
   html:
     toc: true
@@ -366,30 +366,47 @@ The regression of $\boldsymbol{X}$ on $\boldsymbol{X}$ is a perfect fit and the 
 
 ## Decomposing Y
 
-We have previously specified the linear regression model as:
+We can now partition $\boldsymbol{y}$ into two orthogonal parts, the **projection** and the **residual** $$\boldsymbol{y} = \boldsymbol{Py} + \boldsymbol{My}$$
 
-$$
-\boldsymbol{y = X \beta + \epsilon}
-$$
+Furthermore, the sum of squares $\boldsymbol{y^T y}$ exploits the orthogonality between $\boldsymbol{P}$ and $\boldsymbol{M}$: $$\boldsymbol{y^T y} = \boldsymbol{y^T P^T P y} + \boldsymbol{y^T M^T M y}$$ $$\boldsymbol{y^T y} = \boldsymbol{\hat{y}^T \hat{y}} + \boldsymbol{e^T e}$$ The projection of the vector $\boldsymbol{y}$ into the column space of $\boldsymbol{X}$ creates fitted values $\boldsymbol{\hat{y}}$ and residuals $\boldsymbol{e}$.
 
-We can now **decompose** **y** into two parts: **explained variation** and **unexplained variation**.
+In other words, the linear least squares regression projects the dependent variable into the independent variable space, but does not do so "perfectly."
 
-$$
-\boldsymbol{y = \hat{y} + e = Xb + e}
-$$
+The residual vector $\boldsymbol{e}$ captures the differences between the actual and predicted values of $\boldsymbol{y}$.
 
-We can also show the two parts are **orthogonal**, that is, there is no information in one part that provides information about the other part.
+If the linearity assumption holds, then the population conditional mean $E[y | \boldsymbol{x}]$ is linear in $\boldsymbol{x}$.
 
-Building on this discussion, we can decompose **y**:
+The population conditional mean is the population counterpart to the projection of $y$ on $\boldsymbol{x}$.
 
-$$
-\boldsymbol{y = \hat{y} + e = Xb + e}
-$$
+```{r}
 
-$$\boldsymbol{y} = \boldsymbol{Py} + \boldsymbol{My}$$
+rm(list = ls())
 
-And we know that **P** and **M** are orthogonal to each other, so **Py** and **My** are orthogonal to each other as well, showing that we can decompose **y** into two orthogonal components.
+X <- matrix(c(1,2,3,4,
+              4,16,27,38,
+              19,10,31,2,
+              43,54,65,96), 
+              nrow = 4, ncol = 4)
 
-Because $\boldsymbol{\hat{y}}$ and $\boldsymbol{e}$ are orthogonal, there is **zero correlation** between them, that is, the residuals contain no information about the predicted values of the dependent variable and, likewise, the predicted values of the dependent variable contain no information about the residuals.
+y <- c(6, 7, 8, 9) 
 
-In the next section, we will work in R to illustrate these and other points.
+I <- diag(4)       
+
+# Define P and M
+
+P <- X %*% solve(t(X) %*% X) %*% t(X)
+M <- I - X %*% solve(t(X) %*% X) %*% t(X)
+
+y_hat <- P*y
+e <- M*y
+
+# Show P and M orthogonal
+
+pm <- P %*% M
+
+# Show MX = 0
+
+mx <- M %*% X
+
+
+```

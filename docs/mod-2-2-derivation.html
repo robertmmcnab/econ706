@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -65,6 +30,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./mod-2-3-rexamples.html" rel="next">
 <link href="./mod-2-1-matrix.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -256,6 +222,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./mod-2-2-derivation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Deriving Least Squares</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mod-2-3-rexamples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Least Squares and R</span></span></a>
   </div>
 </li>
       </ul>
@@ -531,41 +503,23 @@ We want the linear that minimizes the distance from our predicted value of y to 
 </section>
 <section id="decomposing-y" class="level2" data-number="9.13">
 <h2 data-number="9.13" class="anchored" data-anchor-id="decomposing-y"><span class="header-section-number">9.13</span> Decomposing Y</h2>
-<p>We can now partition <span class="math inline">\(\boldsymbol{y}\)</span> into two orthogonal parts, the <strong>projection</strong> and the <strong>residual</strong> <span class="math display">\[\boldsymbol{y} = \boldsymbol{Py} + \boldsymbol{My}\]</span></p>
-<p>Furthermore, the sum of squares <span class="math inline">\(\boldsymbol{y^T y}\)</span> exploits the orthogonality between <span class="math inline">\(\boldsymbol{P}\)</span> and <span class="math inline">\(\boldsymbol{M}\)</span>: <span class="math display">\[\boldsymbol{y^T y} = \boldsymbol{y^T P^T P y} + \boldsymbol{y^T M^T M y}\]</span> <span class="math display">\[\boldsymbol{y^T y} = \boldsymbol{\hat{y}^T \hat{y}} + \boldsymbol{e^T e}\]</span> The projection of the vector <span class="math inline">\(\boldsymbol{y}\)</span> into the column space of <span class="math inline">\(\boldsymbol{X}\)</span> creates fitted values <span class="math inline">\(\boldsymbol{\hat{y}}\)</span> and residuals <span class="math inline">\(\boldsymbol{e}\)</span>.</p>
-<p>In other words, the linear least squares regression projects the dependent variable into the independent variable space, but does not do so “perfectly.”</p>
-<p>The residual vector <span class="math inline">\(\boldsymbol{e}\)</span> captures the differences between the actual and predicted values of <span class="math inline">\(\boldsymbol{y}\)</span>.</p>
-<p>If the linearity assumption holds, then the population conditional mean <span class="math inline">\(E[y | \boldsymbol{x}]\)</span> is linear in <span class="math inline">\(\boldsymbol{x}\)</span>.</p>
-<p>The population conditional mean is the population counterpart to the projection of <span class="math inline">\(y\)</span> on <span class="math inline">\(\boldsymbol{x}\)</span>.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>              <span class="dv">4</span>,<span class="dv">16</span>,<span class="dv">27</span>,<span class="dv">38</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>              <span class="dv">19</span>,<span class="dv">10</span>,<span class="dv">31</span>,<span class="dv">2</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>              <span class="dv">43</span>,<span class="dv">54</span>,<span class="dv">65</span>,<span class="dv">96</span>), </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">4</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>) </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">4</span>)       </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Define P and M</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> I <span class="sc">-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>y_hat <span class="ot">&lt;-</span> P<span class="sc">*</span>y</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> M<span class="sc">*</span>y</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Show P and M orthogonal</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>pm <span class="ot">&lt;-</span> P <span class="sc">%*%</span> M</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Show MX = 0</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>mx <span class="ot">&lt;-</span> M <span class="sc">%*%</span> X</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>We have previously specified the linear regression model as:</p>
+<p><span class="math display">\[
+\boldsymbol{y = X \beta + \epsilon}
+\]</span></p>
+<p>We can now <strong>decompose</strong> <strong>y</strong> into two parts: <strong>explained variation</strong> and <strong>unexplained variation</strong>.</p>
+<p><span class="math display">\[
+\boldsymbol{y = \hat{y} + e = Xb + e}
+\]</span></p>
+<p>We can also show the two parts are <strong>orthogonal</strong>, that is, there is no information in one part that provides information about the other part.</p>
+<p>Building on this discussion, we can decompose <strong>y</strong>:</p>
+<p><span class="math display">\[
+\boldsymbol{y = \hat{y} + e = Xb + e}
+\]</span></p>
+<p><span class="math display">\[\boldsymbol{y} = \boldsymbol{Py} + \boldsymbol{My}\]</span></p>
+<p>And we know that <strong>P</strong> and <strong>M</strong> are orthogonal to each other, so <strong>Py</strong> and <strong>My</strong> are orthogonal to each other as well, showing that we can decompose <strong>y</strong> into two orthogonal components.</p>
+<p>Because <span class="math inline">\(\boldsymbol{\hat{y}}\)</span> and <span class="math inline">\(\boldsymbol{e}\)</span> are orthogonal, there is <strong>zero correlation</strong> between them, that is, the residuals contain no information about the predicted values of the dependent variable and, likewise, the predicted values of the dependent variable contain no information about the residuals.</p>
+<p>In the next section, we will work in R to illustrate these and other points.</p>
 
 
 </section>
@@ -983,6 +937,9 @@ We want the linear that minimizes the distance from our predicted value of y to 
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./mod-2-3-rexamples.html" class="pagination-link" aria-label="Least Squares and R">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Least Squares and R</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
