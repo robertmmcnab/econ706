@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -271,13 +306,17 @@ window.Quarto = {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">13.1</span> Introduction</a></li>
-  <li><a href="#the-problem" id="toc-the-problem" class="nav-link" data-scroll-target="#the-problem"><span class="header-section-number">13.2</span> The Problem</a></li>
-  <li><a href="#partitioned-regression" id="toc-partitioned-regression" class="nav-link" data-scroll-target="#partitioned-regression"><span class="header-section-number">13.3</span> Partitioned Regression</a></li>
-  <li><a href="#orthogonal-partitioned-regression" id="toc-orthogonal-partitioned-regression" class="nav-link" data-scroll-target="#orthogonal-partitioned-regression"><span class="header-section-number">13.4</span> Orthogonal Partitioned Regression</a></li>
-  <li><a href="#block-diagonal-matrix" id="toc-block-diagonal-matrix" class="nav-link" data-scroll-target="#block-diagonal-matrix"><span class="header-section-number">13.5</span> Block Diagonal Matrix</a></li>
-  <li><a href="#non-block-diagonal-matrix" id="toc-non-block-diagonal-matrix" class="nav-link" data-scroll-target="#non-block-diagonal-matrix"><span class="header-section-number">13.6</span> Non-Block Diagonal Matrix</a></li>
-  <li><a href="#orthogonal-partitions" id="toc-orthogonal-partitions" class="nav-link" data-scroll-target="#orthogonal-partitions"><span class="header-section-number">13.7</span> Orthogonal Partitions</a></li>
-  <li><a href="#orthogonal-regression" id="toc-orthogonal-regression" class="nav-link" data-scroll-target="#orthogonal-regression"><span class="header-section-number">13.8</span> Orthogonal Regression</a></li>
+  <li><a href="#orthogonal-estimates" id="toc-orthogonal-estimates" class="nav-link" data-scroll-target="#orthogonal-estimates"><span class="header-section-number">13.2</span> Orthogonal Estimates</a></li>
+  <li><a href="#non-orthogonal-partitions" id="toc-non-orthogonal-partitions" class="nav-link" data-scroll-target="#non-orthogonal-partitions"><span class="header-section-number">13.3</span> Non-Orthogonal Partitions</a></li>
+  <li><a href="#deriving-estimates" id="toc-deriving-estimates" class="nav-link" data-scroll-target="#deriving-estimates"><span class="header-section-number">13.4</span> Deriving Estimates</a></li>
+  <li><a href="#residual-maker" id="toc-residual-maker" class="nav-link" data-scroll-target="#residual-maker"><span class="header-section-number">13.5</span> Residual Maker</a></li>
+  <li><a href="#fwl-theorem" id="toc-fwl-theorem" class="nav-link" data-scroll-target="#fwl-theorem"><span class="header-section-number">13.6</span> FWL Theorem</a></li>
+  <li><a href="#what-is-the-fwl-theorem" id="toc-what-is-the-fwl-theorem" class="nav-link" data-scroll-target="#what-is-the-fwl-theorem"><span class="header-section-number">13.7</span> What is the FWL Theorem?</a></li>
+  <li><a href="#fwl-example" id="toc-fwl-example" class="nav-link" data-scroll-target="#fwl-example"><span class="header-section-number">13.8</span> FWL Example</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">13.9</span> Summary</a></li>
+  <li><a href="#orthogonal-example" id="toc-orthogonal-example" class="nav-link" data-scroll-target="#orthogonal-example"><span class="header-section-number">13.10</span> Orthogonal Example</a></li>
+  <li><a href="#non-orthogonal-example" id="toc-non-orthogonal-example" class="nav-link" data-scroll-target="#non-orthogonal-example"><span class="header-section-number">13.11</span> Non-Orthogonal Example</a></li>
+  <li><a href="#wrapping-up" id="toc-wrapping-up" class="nav-link" data-scroll-target="#wrapping-up"><span class="header-section-number">13.12</span> Wrapping Up</a></li>
   </ul>
 </nav>
     </div>
@@ -307,104 +346,405 @@ window.Quarto = {
 <h2 data-number="13.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">13.1</span> Introduction</h2>
 <p>Understanding partitioned regression is an element of discussing the properties of the least squares regression model. Omitting relevant variables or variables that are correlated with other independent variables influences the least squares parameter estimates. The coefficients from the multiple regression model are partial regression coefficients.</p>
 </section>
-<section id="the-problem" class="level2" data-number="13.2">
-<h2 data-number="13.2" class="anchored" data-anchor-id="the-problem"><span class="header-section-number">13.2</span> The Problem</h2>
-<p>Let the population regression function be</p>
-<p><span class="math display">\[\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}\]</span></p>
-<p>We can ‘split’ or <strong>partition</strong> the <span class="math inline">\(\boldsymbol{X}\)</span> matrix into two matrices of variables:</p>
-<p><span class="math display">\[\boldsymbol{X = [X_1, X_2]}\]</span></p>
-<p>We want to investigate the influence of the percentage of students receiving free and reduced priced lunch on schools’ performance on a standardized reading test.</p>
-<p>We specify a functional relationship that includes the dependent variable, <strong>reading score (read)</strong>, and the independent variable of interest, <strong>percent of students receiving free or reduced price lunch (lunch)</strong>, and several other independent variables that serve as <strong>control</strong> variables.</p>
-<p><span class="math display">\[\text{read = f(lunch, teachers, computers, race, location, ....)}\]</span></p>
-<p>Since we are specifically interested in the influence of the lunch variable, we can <strong>split</strong> or <strong>partition</strong> the lunch variable into a smaller matrix and the remaining independent variables are assigned to the other matrix of independent variables.</p>
-<p><span class="math display">\[\boldsymbol{X = [X_1, X_2] = [\text{lunch}, \text{everything else}]}\]</span></p>
-<p>The control variables are independent variables that we believe significantly influence the dependent variable. If we excluded the control variables from the regression analysis, we would likely violate zero conditional mean and our parameter estimates would be biased (that is, deviate, on average, from the true parameter values).</p>
-<p>In our example, the percent of students receiving free or reduced price lunch is typically highly correlated with income, race, geographic location, and other variables. If we excluded these other variables from the regression analysis, the estimated coefficient for lunch would likely capture some of the influence of the <strong>omitted variables</strong>.</p>
-<p>We would only be able to omit the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span> if and only if these variables were orthogonal to the variables in <span class="math inline">\(\boldsymbol{X_1}\)</span>, which is very strong (and basically untenable) assumption.</p>
-<p>So, if we cannot omit the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span>, we need to develop the processes by which we can isolate the influence of <span class="math inline">\(\boldsymbol{X_1}\)</span> while controlling for the influence of the influence of the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span>.</p>
-<p><strong>Partitioned regression is that process</strong>.</p>
+<section id="orthogonal-estimates" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="orthogonal-estimates"><span class="header-section-number">13.2</span> Orthogonal Estimates</h2>
+<p>If the matrix of independent variables can be partitioned into two <strong>orthogonal</strong> matrices, then the partitioned least squares estimates are:</p>
+<p><span class="math display">\[\begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T X_1} &amp; \boldsymbol{0} \\ \boldsymbol{0} &amp; \boldsymbol{X_2^T X_2} \end{bmatrix}^{-1}  \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}\]</span></p>
+<p><span class="math display">\[\begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} (\boldsymbol{X_1^T X_1})^{-1} &amp; 0 \\ 0 &amp; (\boldsymbol{X_2^T X_2})^{-1} \end{bmatrix} \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}\]</span> <span class="math display">\[\begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{(X_1^T X_1)^{-1}X_1^T y} \\ \boldsymbol{(X_2^T X_2)^{-1}X_2^T y} \end{bmatrix}\]</span></p>
+<p>Since the <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are orthogonal then <span class="math inline">\((\boldsymbol{X^T X})\)</span> matrix is block diagonal.</p>
+<p>Since <span class="math inline">\((\boldsymbol{X^T X})\)</span> matrix is block diagonal, the least squares estimates of the coefficients for the first set of independent variables from the regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span> are the same as the least squares estimates obtained from the regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span>.</p>
+<p><strong>This, however, is not the usual case</strong>.</p>
 </section>
-<section id="partitioned-regression" class="level2" data-number="13.3">
-<h2 data-number="13.3" class="anchored" data-anchor-id="partitioned-regression"><span class="header-section-number">13.3</span> Partitioned Regression</h2>
-<p>We start with the population regression function</p>
-<p><span class="math display">\[\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}\]</span>We partition the matrix of independent variables into two matrices or:</p>
-<p><span class="math display">\[\boldsymbol{X} = [\boldsymbol{X_1, X_2}]\]</span></p>
-<p>When we partition the matrix of independent variables, we must also partition the vector of coefficients for the independent variables or:</p>
+<section id="non-orthogonal-partitions" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="non-orthogonal-partitions"><span class="header-section-number">13.3</span> Non-Orthogonal Partitions</h2>
+<p>It is more likely that the partition of the matrix of independent variables will create two <strong>non-orthogonal</strong> matrices.</p>
+<p>If <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are non-orthogonal, then the Orthogonal Partitioned Regression Theorem no longer applies. In other words, we cannot regress <span class="math inline">\(\boldsymbol{y}\)</span> separately on <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> and obtain the same coefficients that we would obtain by regressing <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
+<p>Start with the partitioned normal equations:</p>
+<p><span class="math display">\[\begin{matrix} (1) \\ (2) \end{matrix} \begin{bmatrix} \boldsymbol{X_1^T X_1} &amp; \boldsymbol{X_1^T X_2} \\ \boldsymbol{X_2^T X_1} &amp; \boldsymbol{X_2^T X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}\]</span></p>
+<p>From the partitioned normal equations, we can solve (1) for <span class="math inline">\(\boldsymbol{b_1}\)</span>.</p>
+<p><span class="math display">\[(\boldsymbol{X_1^T X_1}) \boldsymbol{b_1} + (\boldsymbol{X_1^T X_2}) \boldsymbol{b_2} = \boldsymbol{X_1^T y}\]</span></p>
+<p><span class="math display">\[\boldsymbol{b_1}  = (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T y} - (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T X_2} \boldsymbol{b_2}\]</span></p>
+<p><span class="math display">\[\boldsymbol{b_1}  = (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} (\boldsymbol{y}  - \boldsymbol{X_2} \boldsymbol{b_2})\]</span></p>
+<p>The coefficients <span class="math inline">\(\boldsymbol{b_1}\)</span> are obtained from the regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span> minus a correction vector</p>
+<p>The regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span>:</p>
+<p><span class="math display">\[(\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{y}\]</span></p>
+<p>The correction vector is:</p>
+<p><span class="math display">\[(\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{X_2} \boldsymbol{b_2}\]</span></p>
+<p>What is the <strong>correction vector</strong>?</p>
+<p>The correction vector is the regression of the variables (done separately and put together in a matrix) in <span class="math inline">\(\boldsymbol{X_2}\)</span> on all the variables in <span class="math inline">\(\boldsymbol{X_1}\)</span>.</p>
+<p>The correction vector will be zero if and only if the variables in <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are orthogonal.</p>
+<p>The second term <span class="math inline">\(\boldsymbol{b_2}\)</span> will be zero if the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span> have no influence on <span class="math inline">\(\boldsymbol{y}\)</span>, that is, the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span> are irrelevant to <span class="math inline">\(\boldsymbol{y}\)</span>.</p>
+<p>We can only omit <span class="math inline">\(\boldsymbol{X_2}\)</span> if the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span> are irrelevant.</p>
+<p>If we omit relevant variables, then the parameter estimates in <span class="math inline">\(\boldsymbol{b_1}\)</span> are affected.</p>
+<p>If <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are not orthogonal, then the parameter estimates in <span class="math inline">\(\boldsymbol{b_1}\)</span> are affected.</p>
+</section>
+<section id="deriving-estimates" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="deriving-estimates"><span class="header-section-number">13.4</span> Deriving Estimates</h2>
+<p>What if <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are not orthogonal? Start with the partitioned normal equations:</p>
+<p><span class="math display">\[\begin{matrix} (1) \\ (2) \end{matrix} \begin{bmatrix} \boldsymbol{X_1^T X_1} &amp; \boldsymbol{X_1^T X_2} \\ \boldsymbol{X_2^T X_1} &amp; \boldsymbol{X_2^T X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}\]</span></p>
+<p>From the partitioned normal equations, we can solve (1) for <span class="math inline">\(\boldsymbol{b_1}\)</span>:</p>
+<p><span class="math display">\[\boldsymbol{b_1}  = (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} (\boldsymbol{y}  - \boldsymbol{X_2} \boldsymbol{b_2})\]</span></p>
+<p>From the partitioned normal equations, we can use (2) to obtain: <span class="math display">\[(\boldsymbol{X_2^T X_1}) \boldsymbol{b_1} + (\boldsymbol{X_2^T X_2}) \boldsymbol{b_2} = \boldsymbol{X_2^T y}\]</span></p>
+<p>Substituting <span class="math inline">\(\boldsymbol{b_1}\)</span> into the above yields: <span class="math display">\[(\boldsymbol{X_2^T X_1})  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} (\boldsymbol{y}  - \boldsymbol{X_2} \boldsymbol{b_2}) + (\boldsymbol{X_2^T X_2}) \boldsymbol{b_2} = \boldsymbol{X_2^T y}\]</span> <span class="math display">\[(\boldsymbol{X_2^T X_1})  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{y}  - (\boldsymbol{X_2^T X_1})  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{X_2} \boldsymbol{b_2} + (\boldsymbol{X_2^T X_2}) \boldsymbol{b_2} = \boldsymbol{X_2^T y}\]</span></p>
+<p>We can collect like terms to obtain:</p>
+<p><span class="math display">\[\boldsymbol{X_2^T X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{y}  - \boldsymbol{X_2^T X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{X_2} \boldsymbol{b_2} + \boldsymbol{X_2^T X_2} \boldsymbol{b_2} = \boldsymbol{X_2^T y}\]</span></p>
+<p><span class="math display">\[\boldsymbol{X_2^T X_2} \boldsymbol{b_2} - \boldsymbol{X_2^T X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{X_2} \boldsymbol{b_2} = \boldsymbol{X_2^T y} - \boldsymbol{X_2^T X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{y}\]</span> <span class="math display">\[[\boldsymbol{X_2^T}(\boldsymbol{I} - \boldsymbol{X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T}) \boldsymbol{X_2} ]\boldsymbol{b_2} = \boldsymbol{X_2^T}(\boldsymbol{I} - \boldsymbol{X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T}) \boldsymbol{y}\]</span></p>
+<p>Now solve for <span class="math inline">\(\boldsymbol{b_2}\)</span> <span class="math display">\[\boldsymbol{b_2} = [\boldsymbol{X_2^T}(\boldsymbol{I} - \boldsymbol{X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T}) \boldsymbol{X_2} ]^{-1}[\boldsymbol{X_2^T}(\boldsymbol{I} - \boldsymbol{X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T})\ \boldsymbol{y}]\]</span></p>
+</section>
+<section id="residual-maker" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="residual-maker"><span class="header-section-number">13.5</span> Residual Maker</h2>
+<p>Previously, we derived the <strong>residual maker</strong> matrix, <strong>M</strong>:</p>
+<p><span class="math display">\[\boldsymbol{I - X(X^T X)^{-1}X} = \boldsymbol{M}\]</span></p>
+<p>Remember that <span class="math inline">\(\boldsymbol{M}\)</span> is the residual maker, that is, <span class="math inline">\(\boldsymbol{My} = \boldsymbol{e}\)</span>.</p>
+<p>In other words, <span class="math inline">\(\boldsymbol{My}\)</span> makes the residuals for the regressions of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
+<p>The counterpart of <strong>M</strong> when for the partition <span class="math inline">\(\boldsymbol{X_1}\)</span> is:</p>
+<p><span class="math display">\[\boldsymbol{I - X_1(X_1^T X_1)^{-1}X_1} = \boldsymbol{M_1}\]</span></p>
+<p>This means that <span class="math inline">\(\boldsymbol{M_1}\)</span> is the residual maker for regressions on the <span class="math inline">\(\boldsymbol{X_1}\)</span> variables.</p>
+<p><span class="math inline">\(\boldsymbol{M_1 y}\)</span> are the residuals from regressing <span class="math inline">\(\boldsymbol{y}\)</span> on the <span class="math inline">\(\boldsymbol{X_1}\)</span> variables.</p>
+<p><span class="math inline">\(\boldsymbol{M_1 X_2}\)</span> are the column by column residuals from regressing each variable in <span class="math inline">\(\boldsymbol{X_2}\)</span> on all the variables in <span class="math inline">\(\boldsymbol{X_1}\)</span>.</p>
+<p>We can use <span class="math inline">\(\boldsymbol{M_1}\)</span> to simplify:</p>
+<p><span class="math display">\[\boldsymbol{b_2} = [\boldsymbol{X_2^T}(\boldsymbol{I} - \boldsymbol{X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T}) \boldsymbol{X_2} ]^{-1}[\boldsymbol{X_2^T}(\boldsymbol{I} - \boldsymbol{X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T})\ \boldsymbol{y}]\]</span></p>
+<p><span class="math display">\[\boldsymbol{b_2} = [\boldsymbol{X_2^T}\ \boldsymbol{M_1}\ \boldsymbol{X_2} ]^{-1}[\boldsymbol{X_2^T}\ \boldsymbol{M_1}\ \boldsymbol{y}]\]</span></p>
+<p>Since <span class="math inline">\(\boldsymbol{M_1}\)</span> is symmetric and idempotent, <span class="math inline">\(\boldsymbol{M_1} = \boldsymbol{M_1^T M_1}\)</span>.</p>
+<p><span class="math display">\[\boldsymbol{b_2} = [\boldsymbol{X_2^T}\boldsymbol{M_1^T}\boldsymbol{M_1}  \boldsymbol{X_2} ]^{-1}[\boldsymbol{X_2^T}\boldsymbol{M_1^T}\boldsymbol{M_1} \boldsymbol{y}]\]</span></p>
+<p>Let <span class="math inline">\(\boldsymbol{M_1 X_2} = \boldsymbol{X_2^*}\)</span> and <span class="math inline">\(\boldsymbol{M_1 y} = \boldsymbol{y^*}\)</span></p>
+<p><span class="math display">\[\boldsymbol{b_2} = [\boldsymbol{{X_2^*}^T}  \boldsymbol{X_2^*} ]^{-1}[\boldsymbol{{X_2^*}^T} \boldsymbol{y^*}]\]</span></p>
+</section>
+<section id="fwl-theorem" class="level2" data-number="13.6">
+<h2 data-number="13.6" class="anchored" data-anchor-id="fwl-theorem"><span class="header-section-number">13.6</span> FWL Theorem</h2>
+<p>The Frisch-Waugh-Lovell Theorem discusses a fundamental result in regression analysis.</p>
+<p>In the linear least squares regression model of vector <span class="math inline">\(\boldsymbol{y}\)</span> on two sets of variables, <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span>, the subvector <span class="math inline">\(\boldsymbol{b_2}\)</span> is the set of coefficients obtained when the residuals from a regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span> alone are regressed on the set of residuals obtained when each column of <span class="math inline">\(\boldsymbol{X_2}\)</span> is regressed on <span class="math inline">\(\boldsymbol{X_1}\)</span>.</p>
+<p>The least squares coefficients <span class="math inline">\(\boldsymbol{b_2}\)</span> are obtained from regressing <span class="math inline">\(\boldsymbol{y^*}\)</span> on <span class="math inline">\(\boldsymbol{X_2^*}\)</span>.</p>
+<p><span class="math display">\[\boldsymbol{b_2} = [\boldsymbol{{X_2^*}^T}  \boldsymbol{X_2^*} ]^{-1}[\boldsymbol{{X_2^*}^T} \boldsymbol{y^*}]\]</span></p>
+<p>But what are <span class="math inline">\(\boldsymbol{y^*}\)</span> and <span class="math inline">\(\boldsymbol{X_2^*}\)</span>?</p>
+<p><span class="math inline">\(\boldsymbol{y^*}\)</span> on <span class="math inline">\(\boldsymbol{X_2^*}\)</span> are just the residuals obtained from regressing on the <span class="math inline">\(\boldsymbol{X_1}\)</span> variables.</p>
+<p>The difference between regressing <span class="math inline">\(\boldsymbol{y}\)</span> only on <span class="math inline">\(\boldsymbol{X_2}\)</span> and <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> is that the latter first regresses the dependent variable and all the <span class="math inline">\(\boldsymbol{X_2}\)</span> variables on the <span class="math inline">\(\boldsymbol{X_1}\)</span> variables and then regresses the resulting residuals on each other.</p>
+<p>The smaller regression just regresses <span class="math inline">\(\boldsymbol{y}\)</span> on the <span class="math inline">\(\boldsymbol{X_2}\)</span> variables.</p>
+</section>
+<section id="what-is-the-fwl-theorem" class="level2" data-number="13.7">
+<h2 data-number="13.7" class="anchored" data-anchor-id="what-is-the-fwl-theorem"><span class="header-section-number">13.7</span> What is the FWL Theorem?</h2>
+<p>The FWL theorem means that the multiple regression coefficient of any single variable can be obtained by first netting out the effect of the other variables in the regression model from the dependent variable and the independent variables.</p>
+<p>In practice this means taking the residuals from regressing <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span> and regressing these residuals on the residuals from regressing <span class="math inline">\(\boldsymbol{X_2}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span>.</p>
+<p>This process is known as <strong>partialing out</strong> or <strong>netting out</strong> the effect of <span class="math inline">\(\boldsymbol{X_1}\)</span>.</p>
+<p>In other words, a multiple regression model partials out the influence of the the control variables.</p>
+<p>Assume that our regression model was:</p>
+<p><span class="math display">\[earnings = \beta_1 + \beta_2\ education + \beta_3\ age + \epsilon \]</span></p>
+<p>We could first regress earnings on age and obtain the residuals. We could then regress education on age and obtain the residuals.</p>
+<p>Regressing the residuals for earnings on the residuals for education would obtain the same coefficient as the full multiple regression model.</p>
+</section>
+<section id="fwl-example" class="level2" data-number="13.8">
+<h2 data-number="13.8" class="anchored" data-anchor-id="fwl-example"><span class="header-section-number">13.8</span> FWL Example</h2>
+<p>In the example below, we first regress reading scores on the percentage of students receiving free and reduced price lunch and average income in the school district.</p>
 <p><span class="math display">\[
-\boldsymbol{\beta} = \begin{bmatrix} \boldsymbol{\beta_1} \\ \boldsymbol{\beta_2} \end{bmatrix}
+reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
 \]</span></p>
-<p>The population regression function can be partitioned into:</p>
-<p><span class="math display">\[\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon} = \begin{bmatrix} \boldsymbol{X_1} &amp; \boldsymbol{X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{\beta_1} \\ \boldsymbol{\beta_2} \end{bmatrix} + \boldsymbol{\epsilon} =\boldsymbol{X_1 \beta_1} + \boldsymbol{X_2 \beta_2} + \epsilon\]</span></p>
-<p>The normal equations can be partitioned in a similar manner so that:</p>
-<p><span class="math display">\[\boldsymbol{X^T X b} = \boldsymbol{X^T y}\]</span></p>
-<p><span class="math display">\[\boldsymbol{[X_1 X_2]^T [X_1 X_2]b = [X_1 X_2]^T y}\]</span></p>
-<p><span class="math display">\[\begin{bmatrix} \boldsymbol{X_1^T X_1} &amp; \boldsymbol{X_1^T X_2} \\ \boldsymbol{X_2^T X_1} &amp; \boldsymbol{X_2^T X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}\]</span></p>
+<p>We want to demonstrate the FWL Theorem. We do this by</p>
+<ul>
+<li><p>Regressing reading scores on income</p></li>
+<li><p>Obtaining the residuals from the regression of reading on income</p></li>
+<li><p>Regressing the lunch variable on income</p></li>
+<li><p>Obtaining the residuals from the regression of lunch on income</p></li>
+<li><p>Regressing the residuals from the regression of <strong>y</strong> on <strong>income</strong> on the residuals from <strong>lunch</strong> on <strong>income</strong></p></li>
+</ul>
+<p>When we regress <strong>y</strong> on income, the resulting residuals are the variation in <strong>y</strong> that is not explained by the income variable.</p>
+<p>When we regress <strong>lunch</strong> on income, the resulting residuals are the variation in <strong>lunch</strong> that are not explained by the income variable.</p>
+<p>We then regress the unexplained variation in <strong>y</strong> on the unexplained variation in <strong>lunch</strong>.</p>
+<p>We have <strong>netted out</strong> the influence of <strong>income</strong>. The result should be the partial coefficient that represents the marginal influence of lunch on reading scores.</p>
+<p>You can see in the table of regression estimates that the coefficient in the full model for lunch is also the coefficient the the lunch residuals in the regression of the <strong>y residuals</strong> on the <strong>lunch residuals</strong>.</p>
+<p>As stated by the FWL Theorem, the coefficient obtained from the regression of <span class="math inline">\(\boldsymbol{M_1 y}\)</span> on <span class="math inline">\(\boldsymbol{M_1 X_2}\)</span> is the same as the coefficient from the multiple linear regression model on <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
+<p>This is why coefficients in multiple linear regression models are often referred to as <strong>partial regression coefficients.</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(CASchools)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple Regression</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>mod_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(read <span class="sc">~</span> lunch <span class="sc">+</span> income, <span class="at">data =</span> CASchools)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Regress Y on X1</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Save residuals as m1_y</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>mod_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(read <span class="sc">~</span> income, <span class="at">data =</span> CASchools)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>m1_y <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mod_2<span class="sc">$</span>residuals)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression X2 on X1</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Save residuals as m1_x1</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>mod_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(lunch <span class="sc">~</span> income, <span class="at">data =</span> CASchools)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>m1_x1 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mod_3<span class="sc">$</span>residuals)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind columns of residuals together in a dataframe</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>resids <span class="ot">&lt;-</span> <span class="fu">cbind</span>(m1_y, m1_x1)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Regress m1_y on m1_x1</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>fwl <span class="ot">&lt;-</span> <span class="fu">lm</span>(mod_2<span class="sc">$</span>residuals <span class="sc">~</span> mod_3<span class="sc">$</span>residuals, <span class="at">data =</span> resids)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>modelsummary<span class="sc">::</span><span class="fu">modelsummary</span>(<span class="fu">list</span>(mod_1, fwl))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<!-- preamble start -->
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_zgr78funj55mbhi3elgg = TinyTable.createTableFunctions("tinytable_zgr78funj55mbhi3elgg");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '16', j: 2 }, { i: '16', j: 3 } ], css_id: 'tinytable_css_km98o0brqx12w5aqsx10',}, 
+          { positions: [ { i: '8', j: 2 }, { i: '8', j: 3 } ], css_id: 'tinytable_css_io8ppswj96769z9wi15k',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 }, { i: '13', j: 3 }, { i: '14', j: 3 }, { i: '15', j: 3 } ], css_id: 'tinytable_css_uj59qq44rszrecz43d4x',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_is8mgiw7buvvkujcevf1',}, 
+          { positions: [ { i: '16', j: 1 } ], css_id: 'tinytable_css_b3bqxrstzcqioih8pv6z',}, 
+          { positions: [ { i: '8', j: 1 } ], css_id: 'tinytable_css_1vpqu36rge4qhb2j8riw',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 } ], css_id: 'tinytable_css_0xsyyq4ckbebgky5pa53',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_qcetx8xru2r13bda5jkv',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_zgr78funj55mbhi3elgg.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_zgr78funj55mbhi3elgg td.tinytable_css_km98o0brqx12w5aqsx10, #tinytable_zgr78funj55mbhi3elgg th.tinytable_css_km98o0brqx12w5aqsx10 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_zgr78funj55mbhi3elgg td.tinytable_css_io8ppswj96769z9wi15k, #tinytable_zgr78funj55mbhi3elgg th.tinytable_css_io8ppswj96769z9wi15k {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_zgr78funj55mbhi3elgg td.tinytable_css_uj59qq44rszrecz43d4x, #tinytable_zgr78funj55mbhi3elgg th.tinytable_css_uj59qq44rszrecz43d4x { text-align: center }
+    #tinytable_zgr78funj55mbhi3elgg td.tinytable_css_is8mgiw7buvvkujcevf1, #tinytable_zgr78funj55mbhi3elgg th.tinytable_css_is8mgiw7buvvkujcevf1 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_zgr78funj55mbhi3elgg td.tinytable_css_b3bqxrstzcqioih8pv6z, #tinytable_zgr78funj55mbhi3elgg th.tinytable_css_b3bqxrstzcqioih8pv6z {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_zgr78funj55mbhi3elgg td.tinytable_css_1vpqu36rge4qhb2j8riw, #tinytable_zgr78funj55mbhi3elgg th.tinytable_css_1vpqu36rge4qhb2j8riw {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_zgr78funj55mbhi3elgg td.tinytable_css_0xsyyq4ckbebgky5pa53, #tinytable_zgr78funj55mbhi3elgg th.tinytable_css_0xsyyq4ckbebgky5pa53 { text-align: left }
+    #tinytable_zgr78funj55mbhi3elgg td.tinytable_css_qcetx8xru2r13bda5jkv, #tinytable_zgr78funj55mbhi3elgg th.tinytable_css_qcetx8xru2r13bda5jkv {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_zgr78funj55mbhi3elgg" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1"> </th>
+                <th scope="col" data-row="0" data-col="2">(1)</th>
+                <th scope="col" data-row="0" data-col="3">(2)</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">(Intercept)</td>
+                  <td data-row="1" data-col="2">672.261</td>
+                  <td data-row="1" data-col="3">0.000</td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1"></td>
+                  <td data-row="2" data-col="2">(2.191)</td>
+                  <td data-row="2" data-col="3">(0.450)</td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="1">lunch</td>
+                  <td data-row="3" data-col="2">-0.560</td>
+                  <td data-row="3" data-col="3"></td>
+                </tr>
+                <tr>
+                  <td data-row="4" data-col="1"></td>
+                  <td data-row="4" data-col="2">(0.023)</td>
+                  <td data-row="4" data-col="3"></td>
+                </tr>
+                <tr>
+                  <td data-row="5" data-col="1">income</td>
+                  <td data-row="5" data-col="2">0.504</td>
+                  <td data-row="5" data-col="3"></td>
+                </tr>
+                <tr>
+                  <td data-row="6" data-col="1"></td>
+                  <td data-row="6" data-col="2">(0.086)</td>
+                  <td data-row="6" data-col="3"></td>
+                </tr>
+                <tr>
+                  <td data-row="7" data-col="1">mod_3$residuals</td>
+                  <td data-row="7" data-col="2"></td>
+                  <td data-row="7" data-col="3">-0.560</td>
+                </tr>
+                <tr>
+                  <td data-row="8" data-col="1"></td>
+                  <td data-row="8" data-col="2"></td>
+                  <td data-row="8" data-col="3">(0.023)</td>
+                </tr>
+                <tr>
+                  <td data-row="9" data-col="1">Num.Obs.</td>
+                  <td data-row="9" data-col="2">420</td>
+                  <td data-row="9" data-col="3">420</td>
+                </tr>
+                <tr>
+                  <td data-row="10" data-col="1">R2</td>
+                  <td data-row="10" data-col="2">0.790</td>
+                  <td data-row="10" data-col="3">0.590</td>
+                </tr>
+                <tr>
+                  <td data-row="11" data-col="1">R2 Adj.</td>
+                  <td data-row="11" data-col="2">0.789</td>
+                  <td data-row="11" data-col="3">0.589</td>
+                </tr>
+                <tr>
+                  <td data-row="12" data-col="1">AIC</td>
+                  <td data-row="12" data-col="2">3064.9</td>
+                  <td data-row="12" data-col="3">3062.9</td>
+                </tr>
+                <tr>
+                  <td data-row="13" data-col="1">BIC</td>
+                  <td data-row="13" data-col="2">3081.0</td>
+                  <td data-row="13" data-col="3">3075.0</td>
+                </tr>
+                <tr>
+                  <td data-row="14" data-col="1">Log.Lik.</td>
+                  <td data-row="14" data-col="2">-1528.427</td>
+                  <td data-row="14" data-col="3">-1528.427</td>
+                </tr>
+                <tr>
+                  <td data-row="15" data-col="1">F</td>
+                  <td data-row="15" data-col="2">783.223</td>
+                  <td data-row="15" data-col="3">602.045</td>
+                </tr>
+                <tr>
+                  <td data-row="16" data-col="1">RMSE</td>
+                  <td data-row="16" data-col="2">9.21</td>
+                  <td data-row="16" data-col="3"></td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
 </section>
-<section id="orthogonal-partitioned-regression" class="level2" data-number="13.4">
-<h2 data-number="13.4" class="anchored" data-anchor-id="orthogonal-partitioned-regression"><span class="header-section-number">13.4</span> Orthogonal Partitioned Regression</h2>
+<section id="summary" class="level2" data-number="13.9">
+<h2 data-number="13.9" class="anchored" data-anchor-id="summary"><span class="header-section-number">13.9</span> Summary</h2>
 <p>The Orthogonal Partitioned Regression theorem states that if you regress <span class="math inline">\(\boldsymbol{y}\)</span> on two sets of variables, <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span>, then if (and only if) <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are orthogonal, you can obtain the coefficient vectors for <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> by regressing <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> separately.</p>
 <p>What does this mean?</p>
 <p>You can exclude the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span> if these variables are <strong>irrelevant</strong> to the dependent variable or <strong>orthogonal</strong> to the other independent variables contained in <span class="math inline">\(\boldsymbol{X_1}\)</span>.</p>
 <p>If the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span> are not irrelevant to the dependent variable, then the exclusion of these variables will change your estimates of <span class="math inline">\(\boldsymbol{b_1}\)</span>.</p>
 <p>If the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span> are not orthogonal to the variables in <span class="math inline">\(\boldsymbol{X_1}\)</span>, then the exclusion of these variables will change your estimates of <span class="math inline">\(\boldsymbol{b_1}\)</span>.</p>
 </section>
-<section id="block-diagonal-matrix" class="level2" data-number="13.5">
-<h2 data-number="13.5" class="anchored" data-anchor-id="block-diagonal-matrix"><span class="header-section-number">13.5</span> Block Diagonal Matrix</h2>
-<p>We need to discuss the <strong>Frisch-Waugh-Lovell Theorem</strong>. It will take some work to get there.</p>
-<p>First, assume that any matrix or sub-matrix that is inverted is square.</p>
-<p>Second, assume that other matrices may be rectangular but that matrices are conformable.</p>
-<p>Thus, only square matrices are inverted.</p>
-<p>Direct multiplication tells us that</p>
-<p><span class="math display">\[\begin{bmatrix}
-A_{11} &amp; 0 \\
-0 &amp; A_{22}
-\end{bmatrix}^{-1}=\begin{bmatrix}
-A_{11}^{-1} &amp; 0 \\
-0 &amp; A_{22}^{-1}
-\end{bmatrix}\]</span></p>
-<p>The two matrices above are <strong>block diagonal</strong>.</p>
-<p>A block diagonal matrix is a square matrix such that the main-diagonal blocks are square matrices and all off-diagonal blocks are zero matrices.</p>
+<section id="orthogonal-example" class="level2" data-number="13.10">
+<h2 data-number="13.10" class="anchored" data-anchor-id="orthogonal-example"><span class="header-section-number">13.10</span> Orthogonal Example</h2>
+<p>In the R code, we create a large <span class="math inline">\(\boldsymbol{X}\)</span> matrix and estimate <span class="math inline">\(\boldsymbol{b}\)</span>.</p>
+<p>Note that the elements of <span class="math inline">\(\boldsymbol{X}\)</span> are created randomly.</p>
+<p>There is no underlying data generating process to suggest that the elements of <span class="math inline">\(\boldsymbol{X}\)</span> violate the orthogonality assumption.</p>
+<p>We partition <span class="math inline">\(\boldsymbol{X}\)</span> into <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> and regress <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> separately.</p>
+<p>Comparing the full and partitioned regression results for the coefficients of the independent variables illustrates the partitioned orthogonal regression theorem.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>nrows <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ncols <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, nrows, ncols)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      x[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span> ncols) {</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        x[,l] <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(nrows)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">gc</span>()</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">%*%</span> beta <span class="sc">+</span> <span class="fu">rnorm</span>(nrows)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>bhat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>x_1 <span class="ot">&lt;-</span> x[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>x_2 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(x[,<span class="dv">1</span>],x[,<span class="dv">5</span><span class="sc">:</span><span class="dv">7</span>])</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>bhat_1 <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x_1) <span class="sc">%*%</span> x_1) <span class="sc">%*%</span> <span class="fu">t</span>(x_1) <span class="sc">%*%</span> y</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>bhat_2 <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x_2) <span class="sc">%*%</span> x_2) <span class="sc">%*%</span> <span class="fu">t</span>(x_2) <span class="sc">%*%</span> y</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(bhat[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>],bhat_1[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]     [,2]
+[1,] 1.986867 1.942166
+[2,] 3.003957 2.809226
+[3,] 4.001221 4.067400</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(bhat[<span class="dv">5</span><span class="sc">:</span><span class="dv">7</span>], bhat_2[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]     [,2]
+[1,] 4.981016 5.026624
+[2,] 5.995843 5.911455
+[3,] 6.996422 6.974757</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> y, <span class="at">x =</span> x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="non-block-diagonal-matrix" class="level2" data-number="13.6">
-<h2 data-number="13.6" class="anchored" data-anchor-id="non-block-diagonal-matrix"><span class="header-section-number">13.6</span> Non-Block Diagonal Matrix</h2>
-<p>What happens it a matrix is not block diagonal?</p>
-<p>We again can use direct multiplication to show:</p>
-<p><span class="math display">\[\begin{bmatrix}
-A_{11} &amp; A_{12} \\
-A_{21} &amp; A_{22}
-\end{bmatrix}^{-1}=\begin{bmatrix}
-A_{11}^{-1}(I + A_{12} F A_{21}A_{11}^{-1}) &amp; -A_{11}^{-1} A_{12}F \\
--FA_{21}A_{11}^{-1} &amp; F
-\end{bmatrix}\]</span></p>
-<p><span class="math display">\[F = (A_{22} - A_{21}A_{11}^{-1}A_{12})^{-1}\]</span></p>
-<p>The above shows what happens if the off-diagonal blocks in a matrix are non-zero.</p>
-<p>In other words, if we omit relevant variables or include too many variables, then the possibility exists the off-diagonal blocks will not be zero because the two sets of independent variables are not orthogonal to each other.</p>
-<p>So, to understand partitioned regression, we must understand whether the two sets of independent variables are orthogonal.</p>
+<section id="non-orthogonal-example" class="level2" data-number="13.11">
+<h2 data-number="13.11" class="anchored" data-anchor-id="non-orthogonal-example"><span class="header-section-number">13.11</span> Non-Orthogonal Example</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS,<span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>nrows <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>ncols <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>sigma_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, ncols<span class="dv">-1</span>, ncols<span class="dv">-1</span>) </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a> sigma_mat[<span class="fu">lower.tri</span>(sigma_mat)] <span class="ot">&lt;-</span> <span class="fl">0.95</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a> sigma_mat[<span class="fu">upper.tri</span>(sigma_mat)] <span class="ot">&lt;-</span> <span class="fl">0.95</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a> <span class="fu">diag</span>(sigma_mat) <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, nrows, ncols)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  x[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  x[,<span class="dv">2</span><span class="sc">:</span> ncols] <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="at">n =</span> nrows, <span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>                          <span class="at">Sigma =</span> sigma_mat)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">10</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">%*%</span> beta <span class="sc">+</span> <span class="fu">rnorm</span>(nrows)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>bhat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>bhat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           [,1]
+[1,]  0.9038233
+[2,]  3.9557953
+[3,]  5.0301144
+[4,]  5.9670072
+[5,] 10.0451259</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x_1 <span class="ot">&lt;-</span> x[,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>x_2 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(x[,<span class="dv">1</span>],x[,<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>])</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>bhat_1 <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x_1) <span class="sc">%*%</span> x_1) <span class="sc">%*%</span> <span class="fu">t</span>(x_1) <span class="sc">%*%</span> y</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>bhat_2 <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x_2) <span class="sc">%*%</span> x_2) <span class="sc">%*%</span> <span class="fu">t</span>(x_2) <span class="sc">%*%</span> y</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>bhat_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]
+[1,] 35.58081
+[2,] 11.77011
+[3,] 12.84251</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bhat_2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] -15.56281
+[2,]  10.42312
+[3,]  14.31682</code></pre>
+</div>
+</div>
 </section>
-<section id="orthogonal-partitions" class="level2" data-number="13.7">
-<h2 data-number="13.7" class="anchored" data-anchor-id="orthogonal-partitions"><span class="header-section-number">13.7</span> Orthogonal Partitions</h2>
-<p>Assume that <span class="math inline">\(\boldsymbol{X}\)</span> consists of two sets of independent variables, <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span></p>
-<p>Assume that <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are orthogonal.</p>
-<p>The orthogonality of <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> means that the sums of the cross products of the variables in <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are zero.</p>
-<p>In other words, the <span class="math inline">\(\boldsymbol{X^T X}\)</span> matrix formed from <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> is block diagonal.</p>
-<p><span class="math display">\[\boldsymbol{X}=[\boldsymbol{X_1} \boldsymbol{X_2}]\]</span></p>
-<p><span class="math display">\[\boldsymbol{X^TX}=[\boldsymbol{X_1} \boldsymbol{X_2}]^T[\boldsymbol{X_1} \boldsymbol{X_2}] = \begin{bmatrix} \boldsymbol{X_1^T} \\ \boldsymbol{X_2^T} \end{bmatrix}\begin{bmatrix} \boldsymbol{X_1} &amp; \boldsymbol{X_2} \end{bmatrix}\]</span> <span class="math display">\[\boldsymbol{X^TX} = \begin{bmatrix}\boldsymbol{X_1^T X_1} &amp; \boldsymbol{X_1^T X_2} \\ \boldsymbol{X_2^T X_1} &amp; \boldsymbol{X_2^T X_2} \end{bmatrix} =
-\begin{bmatrix}\boldsymbol{X_1^T X_1} &amp; 0 \\ 0 &amp; \boldsymbol{X_2^T X_2} \end{bmatrix}\]</span></p>
-<p>Since <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are orthogonal, <span class="math inline">\(\boldsymbol{X_1^T X_2} = 0\)</span> and <span class="math inline">\(\boldsymbol{X_2^T X_1} = 0\)</span>.</p>
-</section>
-<section id="orthogonal-regression" class="level2" data-number="13.8">
-<h2 data-number="13.8" class="anchored" data-anchor-id="orthogonal-regression"><span class="header-section-number">13.8</span> Orthogonal Regression</h2>
-<p>In this case <span class="math inline">\(\boldsymbol{X^T X}\)</span> is block diagonal, so <span class="math inline">\((\boldsymbol{X^T X})^{-1}\)</span> is equal to:</p>
-<p><span class="math display">\[(\boldsymbol{X^TX})^{-1} = \begin{bmatrix}\boldsymbol{X_1^T X_1} &amp; 0 \\ 0 &amp; \boldsymbol{X_2^T X_2} \end{bmatrix}^{-1} = \begin{bmatrix} (\boldsymbol{X_1^T X_1})^{-1} &amp; 0 \\ 0 &amp; (\boldsymbol{X_2^T X_2})^{-1} \end{bmatrix}\]</span></p>
-<p>Continuing to assume that <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are orthogonal and using the normal equations:</p>
-<p><span class="math display">\[\begin{bmatrix} \boldsymbol{X_1^T X_1} &amp; \boldsymbol{X_1^T X_2} \\ \boldsymbol{X_2^T X_1} &amp; \boldsymbol{X_2^T X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}\]</span> <span class="math display">\[\begin{bmatrix} \boldsymbol{X_1^T X_1} &amp; \boldsymbol{0} \\ \boldsymbol{0} &amp; \boldsymbol{X_2^T X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}\]</span> The partitioned least squares estimates can now be obtained:</p>
-<p><span class="math display">\[\begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T X_1} &amp; \boldsymbol{0} \\ \boldsymbol{0} &amp; \boldsymbol{X_2^T X_2} \end{bmatrix}^{-1}  \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}\]</span></p>
-<p><span class="math display">\[\begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} (\boldsymbol{X_1^T X_1})^{-1} &amp; 0 \\ 0 &amp; (\boldsymbol{X_2^T X_2})^{-1} \end{bmatrix} \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}\]</span> <span class="math display">\[\begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{(X_1^T X_1)^{-1}X_1^T y} \\ \boldsymbol{(X_2^T X_2)^{-1}X_2^T y} \end{bmatrix}\]</span></p>
-<p>Since the <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are orthogonal then <span class="math inline">\((\boldsymbol{X^T X})\)</span> matrix is block diagonal.</p>
-<p>Since <span class="math inline">\((\boldsymbol{X^T X})\)</span> matrix is block diagonal, the least squares estimates of the coefficients for the first set of independent variables from the regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span> are the same as the least squares estimates obtained from the regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span>.</p>
-<p>The Orthogonal Partitioned Regression theorem states that if you regress <span class="math inline">\(\boldsymbol{y}\)</span> on two sets of variables, <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span>, then if (and only if) <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> are orthogonal, you can obtain the coefficient vectors for <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> by regressing <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_1}\)</span> and <span class="math inline">\(\boldsymbol{X_2}\)</span> separately.</p>
-<p><u><strong>This, however, is not the general case.</strong></u></p>
-<p>In the next section, we will demonstrate why this is not the general case and how to obtain the partial regression coefficients.</p>
+<section id="wrapping-up" class="level2" data-number="13.12">
+<h2 data-number="13.12" class="anchored" data-anchor-id="wrapping-up"><span class="header-section-number">13.12</span> Wrapping Up</h2>
+<p>If we omit independent variables that are not orthogonal to the other independent variables, the least squares coefficients are adversely impacted.</p>
+<p>If we omit independent variables that are relevant to the dependent variable, the least squares coefficients are adversely impacted.</p>
+<p>The least squares coefficients from the multiple regression model are partial regression coefficients.</p>
+<p>A partial regression coefficient estimates the influence of the independent variable after the influence of other independent variables has been controlled for or netted out.</p>
+<p>Hence, we preface our analysis with, “All else being equal” because we have (hopefully) controlled for the influence of other relevant variables of interest.</p>
 
 
 </section>

@@ -11,6 +11,9 @@ filters:
   - webr
 execute:
   webR: true
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, echo = FALSE, message = FALSE}
@@ -25,159 +28,435 @@ library(tidyquant, quietly = TRUE)
 
 ## Introduction
 
-Understanding partitioned regression is an element of discussing the properties of the least squares regression model. Omitting relevant variables or variables that are correlated with other independent variables influences the least squares parameter estimates. The coefficients from the multiple regression model are partial regression coefficients.
+Understanding partitioned regression is an element of discussing the
+properties of the least squares regression model. Omitting relevant
+variables or variables that are correlated with other independent
+variables influences the least squares parameter estimates. The
+coefficients from the multiple regression model are partial regression
+coefficients.
 
-## The Problem
+## Orthogonal Estimates
 
-Let the population regression function be
-
-$$\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}$$
-
-We can 'split' or **partition** the $\boldsymbol{X}$ matrix into two matrices of variables:
-
-$$\boldsymbol{X = [X_1, X_2]}$$
-
-We want to investigate the influence of the percentage of students receiving free and reduced priced lunch on schools' performance on a standardized reading test.
-
-We specify a functional relationship that includes the dependent variable, **reading score (read)**, and the independent variable of interest, **percent of students receiving free or reduced price lunch (lunch)**, and several other independent variables that serve as **control** variables.
-
-$$\text{read = f(lunch, teachers, computers, race, location, ....)}$$
-
-Since we are specifically interested in the influence of the lunch variable, we can **split** or **partition** the lunch variable into a smaller matrix and the remaining independent variables are assigned to the other matrix of independent variables.
-
-$$\boldsymbol{X = [X_1, X_2] = [\text{lunch}, \text{everything else}]}$$
-
-The control variables are independent variables that we believe significantly influence the dependent variable. If we excluded the control variables from the regression analysis, we would likely violate zero conditional mean and our parameter estimates would be biased (that is, deviate, on average, from the true parameter values).
-
-In our example, the percent of students receiving free or reduced price lunch is typically highly correlated with income, race, geographic location, and other variables. If we excluded these other variables from the regression analysis, the estimated coefficient for lunch would likely capture some of the influence of the **omitted variables**.
-
-We would only be able to omit the variables in $\boldsymbol{X_2}$ if and only if these variables were orthogonal to the variables in $\boldsymbol{X_1}$, which is very strong (and basically untenable) assumption.
-
-So, if we cannot omit the variables in $\boldsymbol{X_2}$, we need to develop the processes by which we can isolate the influence of $\boldsymbol{X_1}$ while controlling for the influence of the influence of the variables in $\boldsymbol{X_2}$.
-
-**Partitioned regression is that process**.
-
-## Partitioned Regression
-
-We start with the population regression function
-
-$$\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon}$$We partition the matrix of independent variables into two matrices or:
-
-$$\boldsymbol{X} = [\boldsymbol{X_1, X_2}]$$
-
-When we partition the matrix of independent variables, we must also partition the vector of coefficients for the independent variables or:
-
-$$
-\boldsymbol{\beta} = \begin{bmatrix} \boldsymbol{\beta_1} \\ \boldsymbol{\beta_2} \end{bmatrix}
-$$
-
-The population regression function can be partitioned into:
-
-$$\boldsymbol{y} = \boldsymbol{X \beta} + \boldsymbol{\epsilon} = \begin{bmatrix} \boldsymbol{X_1} & \boldsymbol{X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{\beta_1} \\ \boldsymbol{\beta_2} \end{bmatrix} + \boldsymbol{\epsilon} =\boldsymbol{X_1 \beta_1} + \boldsymbol{X_2 \beta_2} + \epsilon$$
-
-The normal equations can be partitioned in a similar manner so that:
-
-$$\boldsymbol{X^T X b} = \boldsymbol{X^T y}$$
-
-$$\boldsymbol{[X_1 X_2]^T [X_1 X_2]b = [X_1 X_2]^T y}$$
-
-$$\begin{bmatrix} \boldsymbol{X_1^T X_1} & \boldsymbol{X_1^T X_2} \\ \boldsymbol{X_2^T X_1} & \boldsymbol{X_2^T X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}$$
-
-## Orthogonal Partitioned Regression
-
-The Orthogonal Partitioned Regression theorem states that if you regress $\boldsymbol{y}$ on two sets of variables, $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$, then if (and only if) $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ are orthogonal, you can obtain the coefficient vectors for $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ by regressing $\boldsymbol{y}$ on $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ separately.
-
-What does this mean?
-
-You can exclude the variables in $\boldsymbol{X_2}$ if these variables are **irrelevant** to the dependent variable or **orthogonal** to the other independent variables contained in $\boldsymbol{X_1}$.
-
-If the variables in $\boldsymbol{X_2}$ are not irrelevant to the dependent variable, then the exclusion of these variables will change your estimates of $\boldsymbol{b_1}$.
-
-If the variables in $\boldsymbol{X_2}$ are not orthogonal to the variables in $\boldsymbol{X_1}$, then the exclusion of these variables will change your estimates of $\boldsymbol{b_1}$.
-
-## Block Diagonal Matrix
-
-We need to discuss the **Frisch-Waugh-Lovell Theorem**. It will take some work to get there.
-
-First, assume that any matrix or sub-matrix that is inverted is square.
-
-Second, assume that other matrices may be rectangular but that matrices are conformable.
-
-Thus, only square matrices are inverted.
-
-Direct multiplication tells us that
-
-$$\begin{bmatrix}
-A_{11} & 0 \\
-0 & A_{22} 
-\end{bmatrix}^{-1}=\begin{bmatrix}
-A_{11}^{-1} & 0 \\
-0 & A_{22}^{-1}
-\end{bmatrix}$$
-
-The two matrices above are **block diagonal**.
-
-A block diagonal matrix is a square matrix such that the main-diagonal blocks are square matrices and all off-diagonal blocks are zero matrices.
-
-## Non-Block Diagonal Matrix
-
-What happens it a matrix is not block diagonal?
-
-We again can use direct multiplication to show:
-
-$$\begin{bmatrix}
-A_{11} & A_{12} \\
-A_{21} & A_{22} 
-\end{bmatrix}^{-1}=\begin{bmatrix}
-A_{11}^{-1}(I + A_{12} F A_{21}A_{11}^{-1}) & -A_{11}^{-1} A_{12}F \\
--FA_{21}A_{11}^{-1} & F
-\end{bmatrix}$$
-
-$$F = (A_{22} - A_{21}A_{11}^{-1}A_{12})^{-1}$$
-
-The above shows what happens if the off-diagonal blocks in a matrix are non-zero.
-
-In other words, if we omit relevant variables or include too many variables, then the possibility exists the off-diagonal blocks will not be zero because the two sets of independent variables are not orthogonal to each other.
-
-So, to understand partitioned regression, we must understand whether the two sets of independent variables are orthogonal.
-
-## Orthogonal Partitions
-
-Assume that $\boldsymbol{X}$ consists of two sets of independent variables, $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$
-
-Assume that $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ are orthogonal.
-
-The orthogonality of $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ means that the sums of the cross products of the variables in $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ are zero.
-
-In other words, the $\boldsymbol{X^T X}$ matrix formed from $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ is block diagonal.
-
-$$\boldsymbol{X}=[\boldsymbol{X_1} \boldsymbol{X_2}]$$
-
-$$\boldsymbol{X^TX}=[\boldsymbol{X_1} \boldsymbol{X_2}]^T[\boldsymbol{X_1} \boldsymbol{X_2}] = \begin{bmatrix} \boldsymbol{X_1^T} \\ \boldsymbol{X_2^T} \end{bmatrix}\begin{bmatrix} \boldsymbol{X_1} & \boldsymbol{X_2} \end{bmatrix}$$ $$\boldsymbol{X^TX} = \begin{bmatrix}\boldsymbol{X_1^T X_1} & \boldsymbol{X_1^T X_2} \\ \boldsymbol{X_2^T X_1} & \boldsymbol{X_2^T X_2} \end{bmatrix} = 
-\begin{bmatrix}\boldsymbol{X_1^T X_1} & 0 \\ 0 & \boldsymbol{X_2^T X_2} \end{bmatrix}$$
-
-Since $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ are orthogonal, $\boldsymbol{X_1^T X_2} = 0$ and $\boldsymbol{X_2^T X_1} = 0$.
-
-## Orthogonal Regression
-
-In this case $\boldsymbol{X^T X}$ is block diagonal, so $(\boldsymbol{X^T X})^{-1}$ is equal to:
-
-$$(\boldsymbol{X^TX})^{-1} = \begin{bmatrix}\boldsymbol{X_1^T X_1} & 0 \\ 0 & \boldsymbol{X_2^T X_2} \end{bmatrix}^{-1} = \begin{bmatrix} (\boldsymbol{X_1^T X_1})^{-1} & 0 \\ 0 & (\boldsymbol{X_2^T X_2})^{-1} \end{bmatrix}$$
-
-Continuing to assume that $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ are orthogonal and using the normal equations:
-
-$$\begin{bmatrix} \boldsymbol{X_1^T X_1} & \boldsymbol{X_1^T X_2} \\ \boldsymbol{X_2^T X_1} & \boldsymbol{X_2^T X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}$$ $$\begin{bmatrix} \boldsymbol{X_1^T X_1} & \boldsymbol{0} \\ \boldsymbol{0} & \boldsymbol{X_2^T X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}$$ The partitioned least squares estimates can now be obtained:
+If the matrix of independent variables can be partitioned into two
+**orthogonal** matrices, then the partitioned least squares estimates
+are:
 
 $$\begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T X_1} & \boldsymbol{0} \\ \boldsymbol{0} & \boldsymbol{X_2^T X_2} \end{bmatrix}^{-1}  \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}$$
 
-$$\begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} (\boldsymbol{X_1^T X_1})^{-1} & 0 \\ 0 & (\boldsymbol{X_2^T X_2})^{-1} \end{bmatrix} \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}$$ $$\begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{(X_1^T X_1)^{-1}X_1^T y} \\ \boldsymbol{(X_2^T X_2)^{-1}X_2^T y} \end{bmatrix}$$
+$$\begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} (\boldsymbol{X_1^T X_1})^{-1} & 0 \\ 0 & (\boldsymbol{X_2^T X_2})^{-1} \end{bmatrix} \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}$$
+$$\begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{(X_1^T X_1)^{-1}X_1^T y} \\ \boldsymbol{(X_2^T X_2)^{-1}X_2^T y} \end{bmatrix}$$
 
-Since the $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ are orthogonal then $(\boldsymbol{X^T X})$ matrix is block diagonal.
+Since the $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ are orthogonal then
+$(\boldsymbol{X^T X})$ matrix is block diagonal.
 
-Since $(\boldsymbol{X^T X})$ matrix is block diagonal, the least squares estimates of the coefficients for the first set of independent variables from the regression of $\boldsymbol{y}$ on $\boldsymbol{X_1}$ are the same as the least squares estimates obtained from the regression of $\boldsymbol{y}$ on $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$.
+Since $(\boldsymbol{X^T X})$ matrix is block diagonal, the least squares
+estimates of the coefficients for the first set of independent variables
+from the regression of $\boldsymbol{y}$ on $\boldsymbol{X_1}$ are the
+same as the least squares estimates obtained from the regression of
+$\boldsymbol{y}$ on $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$.
 
-The Orthogonal Partitioned Regression theorem states that if you regress $\boldsymbol{y}$ on two sets of variables, $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$, then if (and only if) $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ are orthogonal, you can obtain the coefficient vectors for $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ by regressing $\boldsymbol{y}$ on $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ separately.
+**This, however, is not the usual case**.
 
-[**This, however, is not the general case.**]{.underline}
+## Non-Orthogonal Partitions
 
-In the next section, we will demonstrate why this is not the general case and how to obtain the partial regression coefficients.
+It is more likely that the partition of the matrix of independent
+variables will create two **non-orthogonal** matrices.
+
+If $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ are non-orthogonal, then
+the Orthogonal Partitioned Regression Theorem no longer applies. In
+other words, we cannot regress $\boldsymbol{y}$ separately on
+$\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ and obtain the same
+coefficients that we would obtain by regressing $\boldsymbol{y}$ on
+$\boldsymbol{X}$.
+
+Start with the partitioned normal equations:
+
+$$\begin{matrix} (1) \\ (2) \end{matrix} \begin{bmatrix} \boldsymbol{X_1^T X_1} & \boldsymbol{X_1^T X_2} \\ \boldsymbol{X_2^T X_1} & \boldsymbol{X_2^T X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}$$
+
+From the partitioned normal equations, we can solve (1) for
+$\boldsymbol{b_1}$.
+
+$$(\boldsymbol{X_1^T X_1}) \boldsymbol{b_1} + (\boldsymbol{X_1^T X_2}) \boldsymbol{b_2} = \boldsymbol{X_1^T y}$$
+
+$$\boldsymbol{b_1}  = (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T y} - (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T X_2} \boldsymbol{b_2}$$
+
+$$\boldsymbol{b_1}  = (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} (\boldsymbol{y}  - \boldsymbol{X_2} \boldsymbol{b_2})$$
+
+The coefficients $\boldsymbol{b_1}$ are obtained from the regression of
+$\boldsymbol{y}$ on $\boldsymbol{X_1}$ minus a correction vector
+
+The regression of $\boldsymbol{y}$ on $\boldsymbol{X_1}$:
+
+$$(\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{y}$$
+
+The correction vector is:
+
+$$(\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{X_2} \boldsymbol{b_2}$$
+
+What is the **correction vector**?
+
+The correction vector is the regression of the variables (done
+separately and put together in a matrix) in $\boldsymbol{X_2}$ on all
+the variables in $\boldsymbol{X_1}$.
+
+The correction vector will be zero if and only if the variables in
+$\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ are orthogonal.
+
+The second term $\boldsymbol{b_2}$ will be zero if the variables in
+$\boldsymbol{X_2}$ have no influence on $\boldsymbol{y}$, that is, the
+variables in $\boldsymbol{X_2}$ are irrelevant to $\boldsymbol{y}$.
+
+We can only omit $\boldsymbol{X_2}$ if the variables in
+$\boldsymbol{X_2}$ are irrelevant.
+
+If we omit relevant variables, then the parameter estimates in
+$\boldsymbol{b_1}$ are affected.
+
+If $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ are not orthogonal, then
+the parameter estimates in $\boldsymbol{b_1}$ are affected.
+
+## Deriving Estimates
+
+What if $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ are not orthogonal?
+Start with the partitioned normal equations:
+
+$$\begin{matrix} (1) \\ (2) \end{matrix} \begin{bmatrix} \boldsymbol{X_1^T X_1} & \boldsymbol{X_1^T X_2} \\ \boldsymbol{X_2^T X_1} & \boldsymbol{X_2^T X_2} \end{bmatrix} \begin{bmatrix} \boldsymbol{b_1} \\ \boldsymbol{b_2} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X_1^T y} \\ \boldsymbol{X_2^T y} \end{bmatrix}$$
+
+From the partitioned normal equations, we can solve (1) for
+$\boldsymbol{b_1}$:
+
+$$\boldsymbol{b_1}  = (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} (\boldsymbol{y}  - \boldsymbol{X_2} \boldsymbol{b_2})$$
+
+From the partitioned normal equations, we can use (2) to obtain:
+$$(\boldsymbol{X_2^T X_1}) \boldsymbol{b_1} + (\boldsymbol{X_2^T X_2}) \boldsymbol{b_2} = \boldsymbol{X_2^T y}$$
+
+Substituting $\boldsymbol{b_1}$ into the above yields:
+$$(\boldsymbol{X_2^T X_1})  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} (\boldsymbol{y}  - \boldsymbol{X_2} \boldsymbol{b_2}) + (\boldsymbol{X_2^T X_2}) \boldsymbol{b_2} = \boldsymbol{X_2^T y}$$
+$$(\boldsymbol{X_2^T X_1})  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{y}  - (\boldsymbol{X_2^T X_1})  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{X_2} \boldsymbol{b_2} + (\boldsymbol{X_2^T X_2}) \boldsymbol{b_2} = \boldsymbol{X_2^T y}$$
+
+We can collect like terms to obtain:
+
+$$\boldsymbol{X_2^T X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{y}  - \boldsymbol{X_2^T X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{X_2} \boldsymbol{b_2} + \boldsymbol{X_2^T X_2} \boldsymbol{b_2} = \boldsymbol{X_2^T y}$$
+
+$$\boldsymbol{X_2^T X_2} \boldsymbol{b_2} - \boldsymbol{X_2^T X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{X_2} \boldsymbol{b_2} = \boldsymbol{X_2^T y} - \boldsymbol{X_2^T X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T} \boldsymbol{y}$$
+$$[\boldsymbol{X_2^T}(\boldsymbol{I} - \boldsymbol{X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T}) \boldsymbol{X_2} ]\boldsymbol{b_2} = \boldsymbol{X_2^T}(\boldsymbol{I} - \boldsymbol{X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T}) \boldsymbol{y}$$
+
+Now solve for $\boldsymbol{b_2}$
+$$\boldsymbol{b_2} = [\boldsymbol{X_2^T}(\boldsymbol{I} - \boldsymbol{X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T}) \boldsymbol{X_2} ]^{-1}[\boldsymbol{X_2^T}(\boldsymbol{I} - \boldsymbol{X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T})\ \boldsymbol{y}]$$
+
+## Residual Maker
+
+Previously, we derived the **residual maker** matrix, **M**:
+
+$$\boldsymbol{I - X(X^T X)^{-1}X} = \boldsymbol{M}$$
+
+Remember that $\boldsymbol{M}$ is the residual maker, that is,
+$\boldsymbol{My} = \boldsymbol{e}$.
+
+In other words, $\boldsymbol{My}$ makes the residuals for the
+regressions of $\boldsymbol{y}$ on $\boldsymbol{X}$.
+
+The counterpart of **M** when for the partition $\boldsymbol{X_1}$ is:
+
+$$\boldsymbol{I - X_1(X_1^T X_1)^{-1}X_1} = \boldsymbol{M_1}$$
+
+This means that $\boldsymbol{M_1}$ is the residual maker for regressions
+on the $\boldsymbol{X_1}$ variables.
+
+$\boldsymbol{M_1 y}$ are the residuals from regressing $\boldsymbol{y}$
+on the $\boldsymbol{X_1}$ variables.
+
+$\boldsymbol{M_1 X_2}$ are the column by column residuals from
+regressing each variable in $\boldsymbol{X_2}$ on all the variables in
+$\boldsymbol{X_1}$.
+
+We can use $\boldsymbol{M_1}$ to simplify:
+
+$$\boldsymbol{b_2} = [\boldsymbol{X_2^T}(\boldsymbol{I} - \boldsymbol{X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T}) \boldsymbol{X_2} ]^{-1}[\boldsymbol{X_2^T}(\boldsymbol{I} - \boldsymbol{X_1}  (\boldsymbol{X_1^T X_1})^{-1} \boldsymbol{X_1^T})\ \boldsymbol{y}]$$
+
+$$\boldsymbol{b_2} = [\boldsymbol{X_2^T}\ \boldsymbol{M_1}\ \boldsymbol{X_2} ]^{-1}[\boldsymbol{X_2^T}\ \boldsymbol{M_1}\ \boldsymbol{y}]$$
+
+Since $\boldsymbol{M_1}$ is symmetric and idempotent,
+$\boldsymbol{M_1} = \boldsymbol{M_1^T M_1}$.
+
+$$\boldsymbol{b_2} = [\boldsymbol{X_2^T}\boldsymbol{M_1^T}\boldsymbol{M_1}  \boldsymbol{X_2} ]^{-1}[\boldsymbol{X_2^T}\boldsymbol{M_1^T}\boldsymbol{M_1} \boldsymbol{y}]$$
+
+Let $\boldsymbol{M_1 X_2} = \boldsymbol{X_2^*}$ and
+$\boldsymbol{M_1 y} = \boldsymbol{y^*}$
+
+$$\boldsymbol{b_2} = [\boldsymbol{{X_2^*}^T}  \boldsymbol{X_2^*} ]^{-1}[\boldsymbol{{X_2^*}^T} \boldsymbol{y^*}]$$
+
+## FWL Theorem
+
+The Frisch-Waugh-Lovell Theorem discusses a fundamental result in
+regression analysis.
+
+In the linear least squares regression model of vector $\boldsymbol{y}$
+on two sets of variables, $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$, the
+subvector $\boldsymbol{b_2}$ is the set of coefficients obtained when
+the residuals from a regression of $\boldsymbol{y}$ on
+$\boldsymbol{X_1}$ alone are regressed on the set of residuals obtained
+when each column of $\boldsymbol{X_2}$ is regressed on
+$\boldsymbol{X_1}$.
+
+The least squares coefficients $\boldsymbol{b_2}$ are obtained from
+regressing $\boldsymbol{y^*}$ on $\boldsymbol{X_2^*}$.
+
+$$\boldsymbol{b_2} = [\boldsymbol{{X_2^*}^T}  \boldsymbol{X_2^*} ]^{-1}[\boldsymbol{{X_2^*}^T} \boldsymbol{y^*}]$$
+
+But what are $\boldsymbol{y^*}$ and $\boldsymbol{X_2^*}$?
+
+$\boldsymbol{y^*}$ on $\boldsymbol{X_2^*}$ are just the residuals
+obtained from regressing on the $\boldsymbol{X_1}$ variables.
+
+The difference between regressing $\boldsymbol{y}$ only on
+$\boldsymbol{X_2}$ and $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ is that
+the latter first regresses the dependent variable and all the
+$\boldsymbol{X_2}$ variables on the $\boldsymbol{X_1}$ variables and
+then regresses the resulting residuals on each other.
+
+The smaller regression just regresses $\boldsymbol{y}$ on the
+$\boldsymbol{X_2}$ variables.
+
+## What is the FWL Theorem?
+
+The FWL theorem means that the multiple regression coefficient of any
+single variable can be obtained by first netting out the effect of the
+other variables in the regression model from the dependent variable and
+the independent variables.
+
+In practice this means taking the residuals from regressing
+$\boldsymbol{y}$ on $\boldsymbol{X_1}$ and regressing these residuals on
+the residuals from regressing $\boldsymbol{X_2}$ on $\boldsymbol{X_1}$.
+
+This process is known as **partialing out** or **netting out** the
+effect of $\boldsymbol{X_1}$.
+
+In other words, a multiple regression model partials out the influence
+of the the control variables.
+
+Assume that our regression model was:
+
+$$earnings = \beta_1 + \beta_2\ education + \beta_3\ age + \epsilon $$
+
+We could first regress earnings on age and obtain the residuals. We
+could then regress education on age and obtain the residuals.
+
+Regressing the residuals for earnings on the residuals for education
+would obtain the same coefficient as the full multiple regression model.
+
+## FWL Example
+
+In the example below, we first regress reading scores on the percentage
+of students receiving free and reduced price lunch and average income in
+the school district.
+
+$$
+reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
+$$
+
+We want to demonstrate the FWL Theorem. We do this by
+
+-   Regressing reading scores on income
+
+-   Obtaining the residuals from the regression of reading on income
+
+-   Regressing the lunch variable on income
+
+-   Obtaining the residuals from the regression of lunch on income
+
+-   Regressing the residuals from the regression of **y** on **income**
+    on the residuals from **lunch** on **income**
+
+When we regress **y** on income, the resulting residuals are the
+variation in **y** that is not explained by the income variable.
+
+When we regress **lunch** on income, the resulting residuals are the
+variation in **lunch** that are not explained by the income variable.
+
+We then regress the unexplained variation in **y** on the unexplained
+variation in **lunch**.
+
+We have **netted out** the influence of **income**. The result should be
+the partial coefficient that represents the marginal influence of lunch
+on reading scores.
+
+You can see in the table of regression estimates that the coefficient in
+the full model for lunch is also the coefficient the the lunch residuals
+in the regression of the **y residuals** on the **lunch residuals**.
+
+As stated by the FWL Theorem, the coefficient obtained from the
+regression of $\boldsymbol{M_1 y}$ on $\boldsymbol{M_1 X_2}$ is the same
+as the coefficient from the multiple linear regression model on
+$\boldsymbol{y}$ on $\boldsymbol{X}$.
+
+This is why coefficients in multiple linear regression models are often
+referred to as **partial regression coefficients.**
+
+```{r, message = FALSE, warning = FALSE}
+
+rm(list = ls())
+
+library(AER)
+
+data(CASchools)
+
+# Multiple Regression
+
+mod_1 <- lm(read ~ lunch + income, data = CASchools)
+
+# Regress Y on X1
+# Save residuals as m1_y
+
+mod_2 <- lm(read ~ income, data = CASchools)
+m1_y <- as.data.frame(mod_2$residuals)
+
+# Regression X2 on X1
+# Save residuals as m1_x1
+
+mod_3 <- lm(lunch ~ income, data = CASchools)
+m1_x1 <- as.data.frame(mod_3$residuals)
+
+# Bind columns of residuals together in a dataframe
+resids <- cbind(m1_y, m1_x1)
+
+# Regress m1_y on m1_x1
+
+fwl <- lm(mod_2$residuals ~ mod_3$residuals, data = resids)
+
+modelsummary::modelsummary(list(mod_1, fwl))
+
+
+```
+
+## Summary
+
+The Orthogonal Partitioned Regression theorem states that if you regress
+$\boldsymbol{y}$ on two sets of variables, $\boldsymbol{X_1}$ and
+$\boldsymbol{X_2}$, then if (and only if) $\boldsymbol{X_1}$ and
+$\boldsymbol{X_2}$ are orthogonal, you can obtain the coefficient
+vectors for $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$ by regressing
+$\boldsymbol{y}$ on $\boldsymbol{X_1}$ and $\boldsymbol{X_2}$
+separately.
+
+What does this mean?
+
+You can exclude the variables in $\boldsymbol{X_2}$ if these variables
+are **irrelevant** to the dependent variable or **orthogonal** to the
+other independent variables contained in $\boldsymbol{X_1}$.
+
+If the variables in $\boldsymbol{X_2}$ are not irrelevant to the
+dependent variable, then the exclusion of these variables will change
+your estimates of $\boldsymbol{b_1}$.
+
+If the variables in $\boldsymbol{X_2}$ are not orthogonal to the
+variables in $\boldsymbol{X_1}$, then the exclusion of these variables
+will change your estimates of $\boldsymbol{b_1}$.
+
+## Orthogonal Example
+
+In the R code, we create a large $\boldsymbol{X}$ matrix and estimate
+$\boldsymbol{b}$.
+
+Note that the elements of $\boldsymbol{X}$ are created randomly.
+
+There is no underlying data generating process to suggest that the
+elements of $\boldsymbol{X}$ violate the orthogonality assumption.
+
+We partition $\boldsymbol{X}$ into $\boldsymbol{X_1}$ and
+$\boldsymbol{X_2}$ and regress $\boldsymbol{y}$ on $\boldsymbol{X_1}$
+and $\boldsymbol{X_2}$ separately.
+
+Comparing the full and partitioned regression results for the
+coefficients of the independent variables illustrates the partitioned
+orthogonal regression theorem.
+
+```{r}
+rm(list = ls())
+nrows <- 10000
+ncols <- 7
+ 
+x <- matrix(0, nrows, ncols)
+      x[,1] <- 1
+      for (l in 2: ncols) {
+        x[,l] <- rnorm(nrows)
+        gc()
+      }
+      
+beta <- c(1,2,3,4,5,6,7)
+
+y <- x %*% beta + rnorm(nrows)
+
+bhat <- solve(t(x) %*% x) %*% t(x) %*% y
+
+x_1 <- x[,1:4]
+x_2 <- cbind(x[,1],x[,5:7])
+
+bhat_1 <- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y
+bhat_2 <- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y
+
+cbind(bhat[2:4],bhat_1[2:4])
+cbind(bhat[5:7], bhat_2[2:4])
+
+df <- data.frame(y = y, x = x)
+
+```
+
+## Non-Orthogonal Example
+
+```{r, message = FALSE}
+
+rm(list = ls())
+library(MASS,quietly = TRUE)
+
+nrows <- 10000
+ncols <- 5
+
+sigma_mat <- matrix(0, ncols-1, ncols-1) 
+ sigma_mat[lower.tri(sigma_mat)] <- 0.95
+ sigma_mat[upper.tri(sigma_mat)] <- 0.95
+ diag(sigma_mat) <- 1
+
+x <- matrix(0, nrows, ncols)
+  x[,1] <- 1
+  x[,2: ncols] <- mvrnorm(n = nrows, mu = c(1,2,3,4), 
+                          Sigma = sigma_mat)
+
+beta <- c(1,4,5,6,10)
+y <- x %*% beta + rnorm(nrows)
+bhat <- solve(t(x) %*% x) %*% t(x) %*% y
+
+bhat
+```
+
+```{r}
+x_1 <- x[,1:3]
+x_2 <- cbind(x[,1],x[,4:5])
+
+bhat_1 <- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y
+bhat_2 <- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y
+
+bhat_1
+bhat_2
+
+```
+
+## Wrapping Up
+
+If we omit independent variables that are not orthogonal to the other
+independent variables, the least squares coefficients are adversely
+impacted.
+
+If we omit independent variables that are relevant to the dependent
+variable, the least squares coefficients are adversely impacted.
+
+The least squares coefficients from the multiple regression model are
+partial regression coefficients.
+
+A partial regression coefficient estimates the influence of the
+independent variable after the influence of other independent variables
+has been controlled for or netted out.
+
+Hence, we preface our analysis with, "All else being equal" because we
+have (hopefully) controlled for the influence of other relevant
+variables of interest.
