@@ -1,0 +1,57 @@
+---
+title: "Module 4 Overview"
+---
+
+## Introduction
+
+Welcome to **Module 4** of ECON 706.
+
+Module 4 focuses on evaluating the performance of Ordinary Least Squares (OLS) regressions by examining measures of the "Goodness of Fit." The primary objective is to move beyond the simple minimization of squared residuals, which is a poor measure for comparing different models due to its sensitivity to scaling. Students are introduced to the **M0** matrix as a tool to calculate total variation and the coefficient of determination ($R^2$), which measures the proportion of variation in the dependent variable explained by the regression model.
+
+The module also addresses the limitations of $R^2$, specifically its tendency to never decrease as more variables are added to a model, regardless of their statistical significance. To provide a more accurate assessment, students learn about Adjusted $R^2$, which penalizes the inclusion of unnecessary variables. Through practical applications in **R**, students explore how to manually calculate these matrices and interpret standard statistical output to determine if adding new variables truly improves a model's explanatory power.
+
+## Learning Objectives
+
+By the end of this module, you should be able to:
+
+-   **MLO 1**: **Explain** the role of the **M0** matrix in measuring the total variation of a dependent variable within a regression framework.
+-   **MLO 2**: **Calculate and interpret** the coefficient of determination (\$R\^2\$) to evaluate the explained variation of a least squares regression.
+-   **MLO 3: Differentiate** between $R^2$ and Adjusted $R^2$, specifically regarding how each metric responds to the addition of statistically insignificant variables.
+-   **MLO 4: Analyze** standard statistical output to determine if the inclusion of a specific variable significantly improves the model's goodness of fit.
+-   **MLO 5: Implement** matrix calculations in R to derive the Sum of Squared Totals (SST) and verify results against standard regression packages.
+
+------------------------------------------------------------------------
+
+## Required Texts
+
+Please select the links provided to access material where applicable.
+
+-   William H. Greene. (2018). *Econometric Analysis, 8th Edition*. Available from Pearson. Chapters 3-5.
+
+-   Rafael Irizarry. (2025). [Introduction to Data Science: Data Wrangling and Visualization with R](https://rafalab.dfci.harvard.edu/dsbook-part-1/). Chapters 1-2.
+
+-   Hadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund. (2025) [R for Data Science](https://r4ds.hadley.nz/). Sections 1-19.
+
+-   [Online R documentation](https://cran.r-project.org/manuals.html)
+
+-   [RStudio Cheat Sheets](https://posit.co/resources/cheatsheets/)
+
+------------------------------------------------------------------------
+
+## Module To Do List
+
+-   Complete the hands-on coding exercises embedded in each lesson (MLO 1, 5)\
+-   Use WebR to experiment directly in your browser (MLO 1, 2, 3, 4, 5)\
+-   Complete the weekly class assignment (MLO 1, 2, 3, 4, 5)\
+-   Take the weekly knowledge quiz (MLO 1, 2, 3, 4, 5)\
+
+------------------------------------------------------------------------
+
+## Lessons in this Module
+
+-   [4.1 - The M0 Matrix](mod-4-1-means.qmd)
+-   [4.2 - R Squared](mod-4-2-rsquared.qmd)
+
+------------------------------------------------------------------------
+
+Next: Start with [**Measuring Variation**](mod-4-1-means.qmd).

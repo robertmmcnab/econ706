@@ -20,6 +20,34 @@ title: "ECON 706"
 
 </ul>
 
+## Module 02 – The Least Squares Estimator
+
+<ul>
+<li><a href="mod-2-0-overview.qmd">Module 2 Overview</a></li>
+<li><a href="mod-2-1-derivation.qmd">Deriving the Least Squares Estimator</a></li>
+<li><a href="mod-2-2-matrix.qmd">Matrix Operations</a></li>
+<li><a href="mod-2-3-orthogonality.qmd">Orthogonality</a></li>
+
+</ul>
+
+## Module 03 – Partitioned Regression
+
+<ul>
+<li><a href="mod-3-0-overview.qmd">Module 3 Overview</a></li>
+<li><a href="mod-3-1-orthogonal.qmd">Orthongonal Partitioned Regression</a></li>
+<li><a href="mod-3-2-partitioned.qmd">Partitioned Regression</a></li>
+
+</ul>
+
+## Module 04 - Goodness of Fit
+
+<ul>
+<li><a href="mod-4-0-overview.qmd">Module 4 Overview</a></li>
+<li><a href="mod-4-1-means.qmd">The M0 Matrix</a></li>
+<li><a href="mod-4-2-rsquared.qmd">R Squared</a></li>
+
+</ul>
+
 
 
 ------------------------------------------------------------------------

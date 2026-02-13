@@ -26,7 +26,40 @@
     "href": "index.html#module-01-introduction-to-linear-regression",
     "title": "ECON 706",
     "section": "0.2 Module 01 – Introduction to Linear Regression",
-    "text": "0.2 Module 01 – Introduction to Linear Regression\n\n\nModule 1 Overview\n\n\nMatrix Operations\n\n\nLinear Regression Models\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
+    "text": "0.2 Module 01 – Introduction to Linear Regression\n\n\nModule 1 Overview\n\n\nMatrix Operations\n\n\nLinear Regression Models",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#module-02-the-least-squares-estimator",
+    "href": "index.html#module-02-the-least-squares-estimator",
+    "title": "ECON 706",
+    "section": "0.3 Module 02 – The Least Squares Estimator",
+    "text": "0.3 Module 02 – The Least Squares Estimator\n\n\nModule 2 Overview\n\n\nDeriving the Least Squares Estimator\n\n\nMatrix Operations\n\n\nOrthogonality",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#module-03-partitioned-regression",
+    "href": "index.html#module-03-partitioned-regression",
+    "title": "ECON 706",
+    "section": "0.4 Module 03 – Partitioned Regression",
+    "text": "0.4 Module 03 – Partitioned Regression\n\n\nModule 3 Overview\n\n\nOrthongonal Partitioned Regression\n\n\nPartitioned Regression",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#module-04---goodness-of-fit",
+    "href": "index.html#module-04---goodness-of-fit",
+    "title": "ECON 706",
+    "section": "0.5 Module 04 - Goodness of Fit",
+    "text": "0.5 Module 04 - Goodness of Fit\n\n\nModule 4 Overview\n\n\nThe M0 Matrix\n\n\nR Squared\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
     "crumbs": [
       "Introduction",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
@@ -979,83 +1012,6 @@
     ]
   },
   {
-    "objectID": "mod-3-2-partitioned.html#the-problem",
-    "href": "mod-3-2-partitioned.html#the-problem",
-    "title": "13  Partitioned Regression",
-    "section": "13.2 The Problem",
-    "text": "13.2 The Problem\nLet the population regression function be\n\\[\\boldsymbol{y} = \\boldsymbol{X \\beta} + \\boldsymbol{\\epsilon}\\]\nWe can ‘split’ or partition the \\(\\boldsymbol{X}\\) matrix into two matrices of variables:\n\\[\\boldsymbol{X = [X_1, X_2]}\\]\nWe want to investigate the influence of the percentage of students receiving free and reduced priced lunch on schools’ performance on a standardized reading test.\nWe specify a functional relationship that includes the dependent variable, reading score (read), and the independent variable of interest, percent of students receiving free or reduced price lunch (lunch), and several other independent variables that serve as control variables.\n\\[\\text{read = f(lunch, teachers, computers, race, location, ....)}\\]\nSince we are specifically interested in the influence of the lunch variable, we can split or partition the lunch variable into a smaller matrix and the remaining independent variables are assigned to the other matrix of independent variables.\n\\[\\boldsymbol{X = [X_1, X_2] = [\\text{lunch}, \\text{everything else}]}\\]\nThe control variables are independent variables that we believe significantly influence the dependent variable. If we excluded the control variables from the regression analysis, we would likely violate zero conditional mean and our parameter estimates would be biased (that is, deviate, on average, from the true parameter values).\nIn our example, the percent of students receiving free or reduced price lunch is typically highly correlated with income, race, geographic location, and other variables. If we excluded these other variables from the regression analysis, the estimated coefficient for lunch would likely capture some of the influence of the omitted variables.\nWe would only be able to omit the variables in \\(\\boldsymbol{X_2}\\) if and only if these variables were orthogonal to the variables in \\(\\boldsymbol{X_1}\\), which is very strong (and basically untenable) assumption.\nSo, if we cannot omit the variables in \\(\\boldsymbol{X_2}\\), we need to develop the processes by which we can isolate the influence of \\(\\boldsymbol{X_1}\\) while controlling for the influence of the influence of the variables in \\(\\boldsymbol{X_2}\\).\nPartitioned regression is that process.",
-    "crumbs": [
-      "Partitioned Regression",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
-    ]
-  },
-  {
-    "objectID": "mod-3-2-partitioned.html#partitioned-regression",
-    "href": "mod-3-2-partitioned.html#partitioned-regression",
-    "title": "13  Partitioned Regression",
-    "section": "13.9 Partitioned Regression",
-    "text": "13.9 Partitioned Regression\nThe Orthogonal Partitioned Regression theorem states that if you regress \\(\\boldsymbol{y}\\) on two sets of variables, \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\), then if (and only if) \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal, you can obtain the coefficient vectors for \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) by regressing \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nWhat does this mean?\nYou can exclude the variables in \\(\\boldsymbol{X_2}\\) if these variables are irrelevant to the dependent variable or orthogonal to the other independent variables contained in \\(\\boldsymbol{X_1}\\).\nIf the variables in \\(\\boldsymbol{X_2}\\) are not irrelevant to the dependent variable, then the exclusion of these variables will change your estimates of \\(\\boldsymbol{b_1}\\).\nIf the variables in \\(\\boldsymbol{X_2}\\) are not orthogonal to the variables in \\(\\boldsymbol{X_1}\\), then the exclusion of these variables will change your estimates of \\(\\boldsymbol{b_1}\\).",
-    "crumbs": [
-      "Partitioned Regression",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
-    ]
-  },
-  {
-    "objectID": "mod-3-2-partitioned.html#orthogonal-partitioned-regression",
-    "href": "mod-3-2-partitioned.html#orthogonal-partitioned-regression",
-    "title": "13  Partitioned Regression",
-    "section": "13.4 Orthogonal Partitioned Regression",
-    "text": "13.4 Orthogonal Partitioned Regression\nThe Orthogonal Partitioned Regression theorem states that if you regress \\(\\boldsymbol{y}\\) on two sets of variables, \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\), then if (and only if) \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal, you can obtain the coefficient vectors for \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) by regressing \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nWhat does this mean?\nYou can exclude the variables in \\(\\boldsymbol{X_2}\\) if these variables are irrelevant to the dependent variable or orthogonal to the other independent variables contained in \\(\\boldsymbol{X_1}\\).\nIf the variables in \\(\\boldsymbol{X_2}\\) are not irrelevant to the dependent variable, then the exclusion of these variables will change your estimates of \\(\\boldsymbol{b_1}\\).\nIf the variables in \\(\\boldsymbol{X_2}\\) are not orthogonal to the variables in \\(\\boldsymbol{X_1}\\), then the exclusion of these variables will change your estimates of \\(\\boldsymbol{b_1}\\).",
-    "crumbs": [
-      "Partitioned Regression",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
-    ]
-  },
-  {
-    "objectID": "mod-3-2-partitioned.html#block-diagonal-matrix",
-    "href": "mod-3-2-partitioned.html#block-diagonal-matrix",
-    "title": "13  Partitioned Regression",
-    "section": "13.5 Block Diagonal Matrix",
-    "text": "13.5 Block Diagonal Matrix\nWe need to discuss the Frisch-Waugh-Lovell Theorem. It will take some work to get there.\nFirst, assume that any matrix or sub-matrix that is inverted is square.\nSecond, assume that other matrices may be rectangular but that matrices are conformable.\nThus, only square matrices are inverted.\nDirect multiplication tells us that\n\\[\\begin{bmatrix}\nA_{11} & 0 \\\\\n0 & A_{22}\n\\end{bmatrix}^{-1}=\\begin{bmatrix}\nA_{11}^{-1} & 0 \\\\\n0 & A_{22}^{-1}\n\\end{bmatrix}\\]\nThe two matrices above are block diagonal.\nA block diagonal matrix is a square matrix such that the main-diagonal blocks are square matrices and all off-diagonal blocks are zero matrices.",
-    "crumbs": [
-      "Partitioned Regression",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
-    ]
-  },
-  {
-    "objectID": "mod-3-2-partitioned.html#non-block-diagonal-matrix",
-    "href": "mod-3-2-partitioned.html#non-block-diagonal-matrix",
-    "title": "13  Partitioned Regression",
-    "section": "13.6 Non-Block Diagonal Matrix",
-    "text": "13.6 Non-Block Diagonal Matrix\nWhat happens it a matrix is not block diagonal?\nWe again can use direct multiplication to show:\n\\[\\begin{bmatrix}\nA_{11} & A_{12} \\\\\nA_{21} & A_{22}\n\\end{bmatrix}^{-1}=\\begin{bmatrix}\nA_{11}^{-1}(I + A_{12} F A_{21}A_{11}^{-1}) & -A_{11}^{-1} A_{12}F \\\\\n-FA_{21}A_{11}^{-1} & F\n\\end{bmatrix}\\]\n\\[F = (A_{22} - A_{21}A_{11}^{-1}A_{12})^{-1}\\]\nThe above shows what happens if the off-diagonal blocks in a matrix are non-zero.\nIn other words, if we omit relevant variables or include too many variables, then the possibility exists the off-diagonal blocks will not be zero because the two sets of independent variables are not orthogonal to each other.\nSo, to understand partitioned regression, we must understand whether the two sets of independent variables are orthogonal.",
-    "crumbs": [
-      "Partitioned Regression",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
-    ]
-  },
-  {
-    "objectID": "mod-3-2-partitioned.html#orthogonal-partitions",
-    "href": "mod-3-2-partitioned.html#orthogonal-partitions",
-    "title": "13  Partitioned Regression",
-    "section": "13.7 Orthogonal Partitions",
-    "text": "13.7 Orthogonal Partitions\nAssume that \\(\\boldsymbol{X}\\) consists of two sets of independent variables, \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\)\nAssume that \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal.\nThe orthogonality of \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) means that the sums of the cross products of the variables in \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are zero.\nIn other words, the \\(\\boldsymbol{X^T X}\\) matrix formed from \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) is block diagonal.\n\\[\\boldsymbol{X}=[\\boldsymbol{X_1} \\boldsymbol{X_2}]\\]\n\\[\\boldsymbol{X^TX}=[\\boldsymbol{X_1} \\boldsymbol{X_2}]^T[\\boldsymbol{X_1} \\boldsymbol{X_2}] = \\begin{bmatrix} \\boldsymbol{X_1^T} \\\\ \\boldsymbol{X_2^T} \\end{bmatrix}\\begin{bmatrix} \\boldsymbol{X_1} & \\boldsymbol{X_2} \\end{bmatrix}\\] \\[\\boldsymbol{X^TX} = \\begin{bmatrix}\\boldsymbol{X_1^T X_1} & \\boldsymbol{X_1^T X_2} \\\\ \\boldsymbol{X_2^T X_1} & \\boldsymbol{X_2^T X_2} \\end{bmatrix} =\n\\begin{bmatrix}\\boldsymbol{X_1^T X_1} & 0 \\\\ 0 & \\boldsymbol{X_2^T X_2} \\end{bmatrix}\\]\nSince \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal, \\(\\boldsymbol{X_1^T X_2} = 0\\) and \\(\\boldsymbol{X_2^T X_1} = 0\\).",
-    "crumbs": [
-      "Partitioned Regression",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
-    ]
-  },
-  {
-    "objectID": "mod-3-2-partitioned.html#orthogonal-regression",
-    "href": "mod-3-2-partitioned.html#orthogonal-regression",
-    "title": "13  Partitioned Regression",
-    "section": "13.8 Orthogonal Regression",
-    "text": "13.8 Orthogonal Regression\nIn this case \\(\\boldsymbol{X^T X}\\) is block diagonal, so \\((\\boldsymbol{X^T X})^{-1}\\) is equal to:\n\\[(\\boldsymbol{X^TX})^{-1} = \\begin{bmatrix}\\boldsymbol{X_1^T X_1} & 0 \\\\ 0 & \\boldsymbol{X_2^T X_2} \\end{bmatrix}^{-1} = \\begin{bmatrix} (\\boldsymbol{X_1^T X_1})^{-1} & 0 \\\\ 0 & (\\boldsymbol{X_2^T X_2})^{-1} \\end{bmatrix}\\]\nContinuing to assume that \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal and using the normal equations:\n\\[\\begin{bmatrix} \\boldsymbol{X_1^T X_1} & \\boldsymbol{X_1^T X_2} \\\\ \\boldsymbol{X_2^T X_1} & \\boldsymbol{X_2^T X_2} \\end{bmatrix} \\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} \\boldsymbol{X_1^T y} \\\\ \\boldsymbol{X_2^T y} \\end{bmatrix}\\] \\[\\begin{bmatrix} \\boldsymbol{X_1^T X_1} & \\boldsymbol{0} \\\\ \\boldsymbol{0} & \\boldsymbol{X_2^T X_2} \\end{bmatrix} \\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} \\boldsymbol{X_1^T y} \\\\ \\boldsymbol{X_2^T y} \\end{bmatrix}\\] The partitioned least squares estimates can now be obtained:\n\\[\\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} \\boldsymbol{X_1^T X_1} & \\boldsymbol{0} \\\\ \\boldsymbol{0} & \\boldsymbol{X_2^T X_2} \\end{bmatrix}^{-1}  \\begin{bmatrix} \\boldsymbol{X_1^T y} \\\\ \\boldsymbol{X_2^T y} \\end{bmatrix}\\]\n\\[\\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} (\\boldsymbol{X_1^T X_1})^{-1} & 0 \\\\ 0 & (\\boldsymbol{X_2^T X_2})^{-1} \\end{bmatrix} \\begin{bmatrix} \\boldsymbol{X_1^T y} \\\\ \\boldsymbol{X_2^T y} \\end{bmatrix}\\] \\[\\begin{bmatrix} \\boldsymbol{b_1} \\\\ \\boldsymbol{b_2} \\end{bmatrix} = \\begin{bmatrix} \\boldsymbol{(X_1^T X_1)^{-1}X_1^T y} \\\\ \\boldsymbol{(X_2^T X_2)^{-1}X_2^T y} \\end{bmatrix}\\]\nSince the \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal then \\((\\boldsymbol{X^T X})\\) matrix is block diagonal.\nSince \\((\\boldsymbol{X^T X})\\) matrix is block diagonal, the least squares estimates of the coefficients for the first set of independent variables from the regression of \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) are the same as the least squares estimates obtained from the regression of \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\).\nThe Orthogonal Partitioned Regression theorem states that if you regress \\(\\boldsymbol{y}\\) on two sets of variables, \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\), then if (and only if) \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) are orthogonal, you can obtain the coefficient vectors for \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) by regressing \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nThis, however, is not the general case.\nIn the next section, we will demonstrate why this is not the general case and how to obtain the partial regression coefficients.",
-    "crumbs": [
-      "Partitioned Regression",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
-    ]
-  },
-  {
     "objectID": "mod-3-2-partitioned.html#orthogonal-estimates",
     "href": "mod-3-2-partitioned.html#orthogonal-estimates",
     "title": "13  Partitioned Regression",
@@ -1133,39 +1089,6 @@
     ]
   },
   {
-    "objectID": "mod-3-2-partitioned.html#orthogonal-x1-and-x2",
-    "href": "mod-3-2-partitioned.html#orthogonal-x1-and-x2",
-    "title": "13  Partitioned Regression",
-    "section": "13.10 Orthogonal X1 and X2",
-    "text": "13.10 Orthogonal X1 and X2\nIn the R code, we create a large \\(\\boldsymbol{X}\\) matrix and estimate \\(\\boldsymbol{b}\\).\nNote that the elements of \\(\\boldsymbol{X}\\) are created randomly.\nThere is no underlying data generating process to suggest that the elements of \\(\\boldsymbol{X}\\) violate the orthogonality assumption.\nWe partition \\(\\boldsymbol{X}\\) into \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) and regress \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nComparing the full and partitioned regression results for the coefficients of the independent variables illustrates the partitioned orthogonal regression theorem.\n\nrm(list = ls())\nnrows &lt;- 10000\nncols &lt;- 7\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n      \nbeta &lt;- c(1,2,3,4,5,6,7)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nx_1 &lt;- x[,1:4]\nx_2 &lt;- cbind(x[,1],x[,5:7])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\ncbind(bhat[2:4],bhat_1[2:4])\n\n         [,1]     [,2]\n[1,] 1.968886 1.873940\n[2,] 2.991634 2.832614\n[3,] 3.992573 4.188932\n\ncbind(bhat[5:7], bhat_2[2:4])\n\n         [,1]     [,2]\n[1,] 5.002225 5.034613\n[2,] 6.010413 5.977885\n[3,] 6.988334 7.011064\n\ndf &lt;- data.frame(y = y, x = x)",
-    "crumbs": [
-      "Partitioned Regression",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
-    ]
-  },
-  {
-    "objectID": "mod-3-2-partitioned.html#non-orthogonal",
-    "href": "mod-3-2-partitioned.html#non-orthogonal",
-    "title": "13  Partitioned Regression",
-    "section": "13.11 Non-Orthogonal",
-    "text": "13.11 Non-Orthogonal\n\nrm(list = ls())\nlibrary(MASS,quietly = TRUE)\n\nnrows &lt;- 10000\nncols &lt;- 5\n\nsigma_mat &lt;- matrix(0, ncols-1, ncols-1) \n sigma_mat[lower.tri(sigma_mat)] &lt;- 0.95\n sigma_mat[upper.tri(sigma_mat)] &lt;- 0.95\n diag(sigma_mat) &lt;- 1\n\nx &lt;- matrix(0, nrows, ncols)\n  x[,1] &lt;- 1\n  x[,2: ncols] &lt;- mvrnorm(n = nrows, mu = c(1,2,3,4), \n                          Sigma = sigma_mat)\n\nbeta &lt;- c(1,4,5,6,10)\ny &lt;- x %*% beta + rnorm(nrows)\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nbhat\n\n         [,1]\n[1,] 1.060049\n[2,] 4.033379\n[3,] 4.960324\n[4,] 6.001993\n[5,] 9.995340\n\n\n\nx_1 &lt;- x[,1:3]\nx_2 &lt;- cbind(x[,1],x[,4:5])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\nbhat_1\n\n         [,1]\n[1,] 35.62373\n[2,] 11.83426\n[3,] 12.72780\n\nbhat_2\n\n          [,1]\n[1,] -15.52760\n[2,]  10.47334\n[3,]  14.29372",
-    "crumbs": [
-      "Partitioned Regression",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
-    ]
-  },
-  {
-    "objectID": "mod-3-2-partitioned.html#implications",
-    "href": "mod-3-2-partitioned.html#implications",
-    "title": "13  Partitioned Regression",
-    "section": "13.12 Implications",
-    "text": "13.12 Implications\nIf we omit independent variables that are not orthogonal to the other independent variables, the least squares coefficients are adversely impacted.\nIf we omit independent variables that are relevant to the dependent variable, the least squares coefficients are adversely impacted.\nThe least squares coefficients from the multiple regression model are partial regression coefficients.\nA partial regression coefficient estimates the influence of the independent variable after the influence of other independent variables has been controlled for or netted out.\nHence, we preface our analysis with, “All else being equal” because we have (hopefully) controlled for the influence of other relevant variables of interest.",
-    "crumbs": [
-      "Partitioned Regression",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
-    ]
-  },
-  {
     "objectID": "mod-3-2-partitioned.html#summary",
     "href": "mod-3-2-partitioned.html#summary",
     "title": "13  Partitioned Regression",
@@ -1181,7 +1104,7 @@
     "href": "mod-3-2-partitioned.html#orthogonal-example",
     "title": "13  Partitioned Regression",
     "section": "13.10 Orthogonal Example",
-    "text": "13.10 Orthogonal Example\nIn the R code, we create a large \\(\\boldsymbol{X}\\) matrix and estimate \\(\\boldsymbol{b}\\).\nNote that the elements of \\(\\boldsymbol{X}\\) are created randomly.\nThere is no underlying data generating process to suggest that the elements of \\(\\boldsymbol{X}\\) violate the orthogonality assumption.\nWe partition \\(\\boldsymbol{X}\\) into \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) and regress \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nComparing the full and partitioned regression results for the coefficients of the independent variables illustrates the partitioned orthogonal regression theorem.\n\nrm(list = ls())\nnrows &lt;- 10000\nncols &lt;- 7\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n      \nbeta &lt;- c(1,2,3,4,5,6,7)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nx_1 &lt;- x[,1:4]\nx_2 &lt;- cbind(x[,1],x[,5:7])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\ncbind(bhat[2:4],bhat_1[2:4])\n\n         [,1]     [,2]\n[1,] 1.986867 1.942166\n[2,] 3.003957 2.809226\n[3,] 4.001221 4.067400\n\ncbind(bhat[5:7], bhat_2[2:4])\n\n         [,1]     [,2]\n[1,] 4.981016 5.026624\n[2,] 5.995843 5.911455\n[3,] 6.996422 6.974757\n\ndf &lt;- data.frame(y = y, x = x)",
+    "text": "13.10 Orthogonal Example\nIn the R code, we create a large \\(\\boldsymbol{X}\\) matrix and estimate \\(\\boldsymbol{b}\\).\nNote that the elements of \\(\\boldsymbol{X}\\) are created randomly.\nThere is no underlying data generating process to suggest that the elements of \\(\\boldsymbol{X}\\) violate the orthogonality assumption.\nWe partition \\(\\boldsymbol{X}\\) into \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) and regress \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nComparing the full and partitioned regression results for the coefficients of the independent variables illustrates the partitioned orthogonal regression theorem.\n\nrm(list = ls())\nnrows &lt;- 10000\nncols &lt;- 7\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n      \nbeta &lt;- c(1,2,3,4,5,6,7)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nx_1 &lt;- x[,1:4]\nx_2 &lt;- cbind(x[,1],x[,5:7])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\ncbind(bhat[2:4],bhat_1[2:4])\n\n         [,1]     [,2]\n[1,] 2.002408 2.001009\n[2,] 2.990087 3.008054\n[3,] 4.012865 4.196215\n\ncbind(bhat[5:7], bhat_2[2:4])\n\n         [,1]     [,2]\n[1,] 4.990254 5.006316\n[2,] 6.011755 6.109551\n[3,] 6.998175 7.018261\n\ndf &lt;- data.frame(y = y, x = x)",
     "crumbs": [
       "Partitioned Regression",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
@@ -1192,7 +1115,7 @@
     "href": "mod-3-2-partitioned.html#non-orthogonal-example",
     "title": "13  Partitioned Regression",
     "section": "13.11 Non-Orthogonal Example",
-    "text": "13.11 Non-Orthogonal Example\n\nrm(list = ls())\nlibrary(MASS,quietly = TRUE)\n\nnrows &lt;- 10000\nncols &lt;- 5\n\nsigma_mat &lt;- matrix(0, ncols-1, ncols-1) \n sigma_mat[lower.tri(sigma_mat)] &lt;- 0.95\n sigma_mat[upper.tri(sigma_mat)] &lt;- 0.95\n diag(sigma_mat) &lt;- 1\n\nx &lt;- matrix(0, nrows, ncols)\n  x[,1] &lt;- 1\n  x[,2: ncols] &lt;- mvrnorm(n = nrows, mu = c(1,2,3,4), \n                          Sigma = sigma_mat)\n\nbeta &lt;- c(1,4,5,6,10)\ny &lt;- x %*% beta + rnorm(nrows)\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nbhat\n\n           [,1]\n[1,]  0.9038233\n[2,]  3.9557953\n[3,]  5.0301144\n[4,]  5.9670072\n[5,] 10.0451259\n\n\n\nx_1 &lt;- x[,1:3]\nx_2 &lt;- cbind(x[,1],x[,4:5])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\nbhat_1\n\n         [,1]\n[1,] 35.58081\n[2,] 11.77011\n[3,] 12.84251\n\nbhat_2\n\n          [,1]\n[1,] -15.56281\n[2,]  10.42312\n[3,]  14.31682",
+    "text": "13.11 Non-Orthogonal Example\n\nrm(list = ls())\nlibrary(MASS,quietly = TRUE)\n\nnrows &lt;- 10000\nncols &lt;- 5\n\nsigma_mat &lt;- matrix(0, ncols-1, ncols-1) \n sigma_mat[lower.tri(sigma_mat)] &lt;- 0.95\n sigma_mat[upper.tri(sigma_mat)] &lt;- 0.95\n diag(sigma_mat) &lt;- 1\n\nx &lt;- matrix(0, nrows, ncols)\n  x[,1] &lt;- 1\n  x[,2: ncols] &lt;- mvrnorm(n = nrows, mu = c(1,2,3,4), \n                          Sigma = sigma_mat)\n\nbeta &lt;- c(1,4,5,6,10)\ny &lt;- x %*% beta + rnorm(nrows)\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nbhat\n\n          [,1]\n[1,] 0.9990318\n[2,] 3.9710122\n[3,] 5.0509183\n[4,] 5.9803558\n[5,] 9.9951191\n\n\n\nx_1 &lt;- x[,1:3]\nx_2 &lt;- cbind(x[,1],x[,4:5])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\nbhat_1\n\n         [,1]\n[1,] 35.78547\n[2,] 12.03368\n[3,] 12.57151\n\nbhat_2\n\n          [,1]\n[1,] -15.68216\n[2,]  10.32803\n[3,]  14.42733",
     "crumbs": [
       "Partitioned Regression",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
@@ -1207,6 +1130,149 @@
     "crumbs": [
       "Partitioned Regression",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
+    ]
+  },
+  {
+    "objectID": "mod-4-0-overview.html",
+    "href": "mod-4-0-overview.html",
+    "title": "14  Module 4 Overview",
+    "section": "",
+    "text": "14.1 Introduction\nWelcome to Module 4 of ECON 706.\nModule 4 focuses on evaluating the performance of Ordinary Least Squares (OLS) regressions by examining measures of the “Goodness of Fit.” The primary objective is to move beyond the simple minimization of squared residuals, which is a poor measure for comparing different models due to its sensitivity to scaling. Students are introduced to the M0 matrix as a tool to calculate total variation and the coefficient of determination (\\(R^2\\)), which measures the proportion of variation in the dependent variable explained by the regression model.\nThe module also addresses the limitations of \\(R^2\\), specifically its tendency to never decrease as more variables are added to a model, regardless of their statistical significance. To provide a more accurate assessment, students learn about Adjusted \\(R^2\\), which penalizes the inclusion of unnecessary variables. Through practical applications in R, students explore how to manually calculate these matrices and interpret standard statistical output to determine if adding new variables truly improves a model’s explanatory power.",
+    "crumbs": [
+      "Goodness of Fit",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Module 4 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-4-0-overview.html#learning-objectives",
+    "href": "mod-4-0-overview.html#learning-objectives",
+    "title": "14  Module 4 Overview",
+    "section": "14.2 Learning Objectives",
+    "text": "14.2 Learning Objectives\nBy the end of this module, you should be able to:\n\nMLO 1: Explain the role of the M0 matrix in measuring the total variation of a dependent variable within a regression framework.\nMLO 2: Calculate and interpret the coefficient of determination ($R^2$) to evaluate the explained variation of a least squares regression.\nMLO 3: Differentiate between \\(R^2\\) and Adjusted \\(R^2\\), specifically regarding how each metric responds to the addition of statistically insignificant variables.\nMLO 4: Analyze standard statistical output to determine if the inclusion of a specific variable significantly improves the model’s goodness of fit.\nMLO 5: Implement matrix calculations in R to derive the Sum of Squared Totals (SST) and verify results against standard regression packages.",
+    "crumbs": [
+      "Goodness of Fit",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Module 4 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-4-0-overview.html#required-texts",
+    "href": "mod-4-0-overview.html#required-texts",
+    "title": "14  Module 4 Overview",
+    "section": "14.3 Required Texts",
+    "text": "14.3 Required Texts\nPlease select the links provided to access material where applicable.\n\nWilliam H. Greene. (2018). Econometric Analysis, 8th Edition. Available from Pearson. Chapters 3-5.\nRafael Irizarry. (2025). Introduction to Data Science: Data Wrangling and Visualization with R. Chapters 1-2.\nHadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund. (2025) R for Data Science. Sections 1-19.\nOnline R documentation\nRStudio Cheat Sheets",
+    "crumbs": [
+      "Goodness of Fit",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Module 4 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-4-0-overview.html#module-to-do-list",
+    "href": "mod-4-0-overview.html#module-to-do-list",
+    "title": "14  Module 4 Overview",
+    "section": "14.4 Module To Do List",
+    "text": "14.4 Module To Do List\n\nComplete the hands-on coding exercises embedded in each lesson (MLO 1, 5)\n\nUse WebR to experiment directly in your browser (MLO 1, 2, 3, 4, 5)\n\nComplete the weekly class assignment (MLO 1, 2, 3, 4, 5)\n\nTake the weekly knowledge quiz (MLO 1, 2, 3, 4, 5)",
+    "crumbs": [
+      "Goodness of Fit",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Module 4 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-4-0-overview.html#lessons-in-this-module",
+    "href": "mod-4-0-overview.html#lessons-in-this-module",
+    "title": "14  Module 4 Overview",
+    "section": "14.5 Lessons in this Module",
+    "text": "14.5 Lessons in this Module\n\n4.1 - The M0 Matrix\n4.2 - R Squared\n\n\nNext: Start with Measuring Variation.",
+    "crumbs": [
+      "Goodness of Fit",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Module 4 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-4-1-means.html",
+    "href": "mod-4-1-means.html",
+    "title": "15  The M0 Matrix",
+    "section": "",
+    "text": "15.1 Introduction\nThe goal of regression analysis is not just to find a line of best fit, but to determine how well our chosen independent variables explain the behavior of the dependent variable. Although OLS minimizes the sum of squared residuals, this value can be arbitrarily manipulated by scaling the data, making it a poor standalone measure of quality. Instead, a more effective approach is to evaluate the model based on the proportion of total variation it successfully “explains.”\nTo calculate this variation systematically, we utilize the M0 matrix, a symmetric and idempotent matrix designed to transform data into deviations from the mean. This introduction covers the algebraic properties of the centering matrix and demonstrates its application in R. By understanding the M0 matrix, we gain the ability to standardize our measures of model performance, moving beyond raw residuals toward a formal assessment of a model’s explanatory power.",
+    "crumbs": [
+      "Goodness of Fit",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>The M0 Matrix</span>"
+    ]
+  },
+  {
+    "objectID": "mod-4-1-means.html#scaling-residuals",
+    "href": "mod-4-1-means.html#scaling-residuals",
+    "title": "15  The M0 Matrix",
+    "section": "15.2 Scaling Residuals",
+    "text": "15.2 Scaling Residuals\nThe objective function of the least squares estimator is, subject to the selection of a vector of coefficients, \\(\\boldsymbol{b_0}\\), the minimization of the sum of the squared residuals.\n\\[\nmin_{b_0} \\, e^T e\n\\]\nConditional on the standard assumptions holding, we take the first derivative of the objective function and set the first derivative equal to 0 to obtain the normal equations and the vector of least squares coefficients:\nThe normal equations and the vector of the least squares coefficients are: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]\n\\[\\boldsymbol{b} = (\\boldsymbol{X^T\\ X})^{-1}\\ \\boldsymbol{X^T\\ y}\\]\nUsing the sum of the squared residuals are a measure of performance, however, is a poor choice because the sum of the squared residuals can be manipulated by scaling the residuals.\nIf we pre-multiply \\(\\boldsymbol{e}\\) by a scalar \\(k\\) that the sum of the squared residuals becomes:\n\\[\\boldsymbol{e^T}\\ k^Tk\\ \\boldsymbol{e} = (k^Tk)(\\boldsymbol{e^T e} )= k^2 \\boldsymbol{e^T e}\\]\nWe can arbitrarily scale the sum of squared residuals by multiplying \\(\\boldsymbol{y}\\) by a desired scale factor.\nThe code below does the following:\n\nCreates a matrix of independent variables that is \\((500 \\times 5)\\).\nSets a scalar \\(k = 2\\)\nDefines the true population coefficients as a sequence of integers from 1 to 5.\nGenerates \\(\\boldsymbol{y = X \\beta + \\epsilon}\\)\nDefines \\(\\boldsymbol{ky = 2 \\times y}\\)\nGenerates \\(\\boldsymbol{b}\\) for the regression of \\(\\boldsymbol{y}\\) and \\(\\boldsymbol{ky}\\) on \\(\\boldsymbol{X}\\)\nGenerates \\(\\boldsymbol{e}\\) for both regressions\nProduces a table of the first 5 observations of each vector of residuals to illustrate scaling.\n\n\nrm(list = ls())\n\nnrows &lt;- 500\nncols &lt;- 5\nk = 2\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nky &lt;- k*y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\nbhat2 &lt;- solve(t(x) %*% x) %*% t(x) %*% ky\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ne1 &lt;- M %*% y\ne2 &lt;- M %*% ky\n\ndf &lt;- tibble(e1, e2)\n\nkable(df[1:5,],\n      col.names = c('e(y)', 'e(ky)'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\ne(y)\ne(ky)\n\n\n\n\n0.167433984\n0.33486797\n\n\n0.006794621\n0.01358924\n\n\n-0.065797014\n-0.13159403\n\n\n1.460699186\n2.92139837\n\n\n2.112068581\n4.22413716",
+    "crumbs": [
+      "Goodness of Fit",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>The M0 Matrix</span>"
+    ]
+  },
+  {
+    "objectID": "mod-4-1-means.html#m0-matrix",
+    "href": "mod-4-1-means.html#m0-matrix",
+    "title": "15  The M0 Matrix",
+    "section": "15.3 M0 Matrix",
+    "text": "15.3 M0 Matrix\nA better measure of how “well” our model performs is to ask whether the variation in the independent variables predicts variation in the dependent variable.\nA model in which the independent variables “explain” more of the variation in the dependent variable should be preferred relative to a model in which the independent variables explain less of the variation in the dependent variable.\nThe question then becomes: how do we measure the variation in the dependent variable?\nTo do this, we will need a new matrix.\nA fundamental matrix in statistics is the “centering matrix” that is used to transform data to deviations from their mean.\nRecall that the mean deviations of a variable are:\n\\[\n(x_i - \\bar{x})\n\\]\nLet \\(\\boldsymbol{i}\\) be \\((n \\times 1\\)) and equal to:\n\\[\n\\boldsymbol{i} = \\begin{bmatrix} 1 \\\\ 1 \\\\ 1 \\\\ \\vdots \\\\ 1 \\end{bmatrix}\n\\]\nWe can pre-multiply the mean of the variable \\(\\boldsymbol{x}\\) by \\(\\boldsymbol{i}\\) to obtain\n\\[\n\\boldsymbol{i} \\bar{x} = \\begin{bmatrix} 1 \\\\ 1 \\\\ 1 \\\\ \\vdots \\\\ 1 \\end{bmatrix}\\bar{x} = \\begin{bmatrix} \\bar{x} \\\\ \\bar{x} \\\\ \\bar{x} \\\\ \\vdots \\\\ \\bar{x} \\end{bmatrix}\n\\]\nRecall that the sum of a variable can be expressed as:\n\\[\n\\sum_{i=1}^n x_i = \\boldsymbol{i^T x}\n\\]\n\\[\n\\boldsymbol{i^Tx} = \\begin{bmatrix} 1 & 1 & \\dots & 1 \\end{bmatrix} \\begin{bmatrix}x_1 \\\\ x_2 \\\\ \\vdots \\\\ x_n \\end{bmatrix} = x_1 + x_2 + \\dots + x_n\n\\]\nWhich means the mean of a variable can be expressed as:\n\\[\n\\bar{x} = \\frac{1}{n}\\sum_{i=1}^n x_i = \\frac{1}{n}\\boldsymbol{i^T x}\n\\]\n\\[\n\\frac{1}{n}\\boldsymbol{i^Tx} = \\begin{bmatrix} 1/n & 1/n & \\dots & 1/n \\end{bmatrix} \\begin{bmatrix}x_1 \\\\ x_2 \\\\ \\vdots \\\\ x_n \\end{bmatrix} = (x_1/n) + (x_2/n) + \\dots + (x_n/n)\n\\]\nWe can rearrange this to obtain:\n\\[\n\\begin{bmatrix} \\bar{x} \\\\ \\bar{x} \\\\ \\bar{x} \\\\ \\vdots \\\\ \\bar{x} \\end{bmatrix} = \\boldsymbol{i}\\bar{x} = \\boldsymbol{i}(\\frac{1}{n} \\boldsymbol{i^T}x)\n\\]\nWe can continue to rearrange to obtain:\n\\[\n\\begin{bmatrix} \\bar{x} \\\\ \\bar{x} \\\\ \\bar{x} \\\\ \\vdots \\\\ \\bar{x} \\end{bmatrix} = \\boldsymbol{i}\\bar{x} = \\boldsymbol{i}(\\frac{1}{n} \\boldsymbol{i^T}x) = \\frac{1}{n} \\boldsymbol{ii^T x}\n\\]\nThe matrix \\(\\frac{1}{n}\\boldsymbol{ii^T}\\) is an \\((n \\times n)\\) matrix with every element equal to \\(1/n\\).\nThe values in mean deviations form are:\n\\[\\begin{bmatrix} x_1 -\\bar{x} \\\\ x_2 - \\bar{x} \\\\ \\dots \\\\ x_n - \\bar{x} \\end{bmatrix} = [\\boldsymbol{x - i}\\bar{x}] = \\Bigg[\\boldsymbol{x} - \\frac{1}{n}\\boldsymbol{ii^T x} \\Bigg]\\]\nRecall that \\(\\boldsymbol{x} = \\boldsymbol{Ix}\\) then, \\[\\Bigg[\\boldsymbol{x} - \\frac{1}{n}\\boldsymbol{ii^T x} \\Bigg] =  \\Bigg[\\boldsymbol{Ix} - \\frac{1}{n}\\boldsymbol{ii^T x} \\Bigg] = \\Bigg[\\boldsymbol{I} - \\frac{1}{n}\\boldsymbol{ii^T} \\Bigg]\\boldsymbol{x} = \\boldsymbol{M^0x}\\]\nThe matrix \\(\\boldsymbol{M^0}\\) is the centering matrix and transforms a vector of data into a vector of deviations from the mean.\nThe matrix \\(\\boldsymbol{M^0}\\) is symmetric and idempotent and equal to:\n\\(\\boldsymbol{M^0}\\) is equal to:\n\\[\\boldsymbol{M^0} = \\begin{bmatrix} 1 - \\frac{1}{n} & - \\frac{1}{n} & \\dots & -\\frac{1}{n} \\\\ - \\frac{1}{n} & 1 - \\frac{1}{n} & \\dots & -\\frac{1}{n}\\\\ \\vdots & \\vdots & \\ddots & \\vdots \\\\ - \\frac{1}{n} & -\\frac{1}{n} & \\dots & 1- \\frac{1}{n}\\end{bmatrix}\\]\nConsider the case when we want to transform a single variable \\(\\boldsymbol{x}\\).\nThe mean deviations of \\(\\boldsymbol{x}\\) would be\n\\[(\\boldsymbol{x_i}^T - \\bar{\\boldsymbol{x}}) = \\boldsymbol{M^0 x} \\]\nThe sum of mean deviations should be approximately zero.\n\\[\\sum_{i=1}^{n} (\\boldsymbol{x_i}^T - \\bar{\\boldsymbol{x}}) = \\boldsymbol{M^0 x} = 0 \\]",
+    "crumbs": [
+      "Goodness of Fit",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>The M0 Matrix</span>"
+    ]
+  },
+  {
+    "objectID": "mod-4-1-means.html#r-example-of-m0",
+    "href": "mod-4-1-means.html#r-example-of-m0",
+    "title": "15  The M0 Matrix",
+    "section": "15.4 R Example of M0",
+    "text": "15.4 R Example of M0\nWe can create \\(\\boldsymbol{M^0}\\) in R to illustrate how it demeans \\(\\boldsymbol{X}\\).\nThe code below does the following:\n\nCreates a \\((200 \\times 5)\\) matrix and fills it with random numbers from a standard normal\nCreates a \\((200 \\times 5)\\) identity matrix, \\(\\boldsymbol{I}\\)\nCreates a \\((200 \\times 1)\\) vector of 1’s which is called \\(\\boldsymbol{i}\\)\nCreates the \\(M^0\\) matrix defined previous\nEstimates the mean deviations of \\(\\boldsymbol{X}\\) as \\(\\boldsymbol{M^0 X}\\)\nEstimates the mean deviations of the second column of \\(\\boldsymbol{X}\\)\nProduces a table of the first 5 observations of mean deviations\nProduces a table of the sum of mean deviations which are equal to zero\n\n\nrm(list = ls())\n\nnrows = 200\nncols = 5\n\nx &lt;- matrix(0,nrows,ncols)\n\nx[,1] &lt;- 1\n\nfor (l in 2:ncols) {\n  x[,l] &lt;- rnorm(nrows)\n}\n  \nI &lt;- diag(nrows)\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\nM0x &lt;- M0 %*% x\n\nx2_meandev &lt;- x[,2] - mean(x[,2])\n\ndf &lt;- tibble(M0x[,2], x2_meandev)\n\nkable(df[1:5,],\n      col.names = c('M0x for X2','Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nM0x for X2\nMean Deviations of X2\n\n\n\n\n-1.777\n-1.777\n\n\n1.837\n1.837\n\n\n1.645\n1.645\n\n\n1.439\n1.439\n\n\n1.331\n1.331\n\n\n\n\ndf2 &lt;- tibble(sum(M0x[,2]), sum(x2_meandev))\n\nkable(df2,\n      col.names = c('Sum of M0x for X2','Sum of Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nSum of M0x for X2\nSum of Mean Deviations of X2\n\n\n\n\n0\n0",
+    "crumbs": [
+      "Goodness of Fit",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>The M0 Matrix</span>"
+    ]
+  },
+  {
+    "objectID": "mod-4-2-rsquared.html",
+    "href": "mod-4-2-rsquared.html",
+    "title": "16  R Squared",
+    "section": "",
+    "text": "16.1 Introduction\nThe goal of regression analysis is not just to find a line of best fit, but to determine how well our chosen independent variables explain the behavior of the dependent variable. Although OLS minimizes the sum of squared residuals, this value can be arbitrarily manipulated by scaling the data, making it a poor standalone measure of quality. Instead, a more effective approach is to evaluate the model based on the proportion of total variation it successfully “explains.”\nTo calculate this variation systematically, we utilize the M0 matrix, a symmetric and idempotent matrix designed to transform data into deviations from the mean. This introduction covers the algebraic properties of the centering matrix and demonstrates its application in R. By understanding the M0 matrix, we gain the ability to standardize our measures of model performance, moving beyond raw residuals toward a formal assessment of a model’s explanatory power.",
+    "crumbs": [
+      "Goodness of Fit",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>R Squared</span>"
+    ]
+  },
+  {
+    "objectID": "mod-4-2-rsquared.html#scaling-residuals",
+    "href": "mod-4-2-rsquared.html#scaling-residuals",
+    "title": "16  R Squared",
+    "section": "16.2 Scaling Residuals",
+    "text": "16.2 Scaling Residuals\nThe objective function of the least squares estimator is, subject to the selection of a vector of coefficients, \\(\\boldsymbol{b_0}\\), the minimization of the sum of the squared residuals.\n\\[\nmin_{b_0} \\, e^T e\n\\]\nConditional on the standard assumptions holding, we take the first derivative of the objective function and set the first derivative equal to 0 to obtain the normal equations and the vector of least squares coefficients:\nThe normal equations and the vector of the least squares coefficients are: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]\n\\[\\boldsymbol{b} = (\\boldsymbol{X^T\\ X})^{-1}\\ \\boldsymbol{X^T\\ y}\\]\nUsing the sum of the squared residuals are a measure of performance, however, is a poor choice because the sum of the squared residuals can be manipulated by scaling the residuals.\nIf we pre-multiply \\(\\boldsymbol{e}\\) by a scalar \\(k\\) that the sum of the squared residuals becomes:\n\\[\\boldsymbol{e^T}\\ k^Tk\\ \\boldsymbol{e} = (k^Tk)(\\boldsymbol{e^T e} )= k^2 \\boldsymbol{e^T e}\\]\nWe can arbitrarily scale the sum of squared residuals by multiplying \\(\\boldsymbol{y}\\) by a desired scale factor.\nThe code below does the following:\n\nCreates a matrix of independent variables that is \\((500 \\times 5)\\).\nSets a scalar \\(k = 2\\)\nDefines the true population coefficients as a sequence of integers from 1 to 5.\nGenerates \\(\\boldsymbol{y = X \\beta + \\epsilon}\\)\nDefines \\(\\boldsymbol{ky = 2 \\times y}\\)\nGenerates \\(\\boldsymbol{b}\\) for the regression of \\(\\boldsymbol{y}\\) and \\(\\boldsymbol{ky}\\) on \\(\\boldsymbol{X}\\)\nGenerates \\(\\boldsymbol{e}\\) for both regressions\nProduces a table of the first 5 observations of each vector of residuals to illustrate scaling.\n\n\nrm(list = ls())\n\nnrows &lt;- 500\nncols &lt;- 5\nk = 2\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nky &lt;- k*y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\nbhat2 &lt;- solve(t(x) %*% x) %*% t(x) %*% ky\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ne1 &lt;- M %*% y\ne2 &lt;- M %*% ky\n\ndf &lt;- tibble(e1, e2)\n\nkable(df[1:5,],\n      col.names = c('e(y)', 'e(ky)'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\ne(y)\ne(ky)\n\n\n\n\n-0.6071789\n-1.2143578\n\n\n-0.9497510\n-1.8995021\n\n\n0.4747955\n0.9495909\n\n\n-0.6145462\n-1.2290925\n\n\n-0.0622836\n-0.1245672",
+    "crumbs": [
+      "Goodness of Fit",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>R Squared</span>"
+    ]
+  },
+  {
+    "objectID": "mod-4-2-rsquared.html#m0-matrix",
+    "href": "mod-4-2-rsquared.html#m0-matrix",
+    "title": "16  R Squared",
+    "section": "16.3 M0 Matrix",
+    "text": "16.3 M0 Matrix\nA better measure of how “well” our model performs is to ask whether the variation in the independent variables predicts variation in the dependent variable.\nA model in which the independent variables “explain” more of the variation in the dependent variable should be preferred relative to a model in which the independent variables explain less of the variation in the dependent variable.\nThe question then becomes: how do we measure the variation in the dependent variable?\nTo do this, we will need a new matrix.\nA fundamental matrix in statistics is the “centering matrix” that is used to transform data to deviations from their mean.\nRecall that the mean deviations of a variable are:\n\\[\n(x_i - \\bar{x})\n\\]\nLet \\(\\boldsymbol{i}\\) be \\((n \\times 1\\)) and equal to:\n\\[\n\\boldsymbol{i} = \\begin{bmatrix} 1 \\\\ 1 \\\\ 1 \\\\ \\vdots \\\\ 1 \\end{bmatrix}\n\\]\nWe can pre-multiply the mean of the variable \\(\\boldsymbol{x}\\) by \\(\\boldsymbol{i}\\) to obtain\n\\[\n\\boldsymbol{i} \\bar{x} = \\begin{bmatrix} 1 \\\\ 1 \\\\ 1 \\\\ \\vdots \\\\ 1 \\end{bmatrix}\\bar{x} = \\begin{bmatrix} \\bar{x} \\\\ \\bar{x} \\\\ \\bar{x} \\\\ \\vdots \\\\ \\bar{x} \\end{bmatrix}\n\\]\nRecall that the sum of a variable can be expressed as:\n\\[\n\\sum_{i=1}^n x_i = \\boldsymbol{i^T x}\n\\]\n\\[\n\\boldsymbol{i^Tx} = \\begin{bmatrix} 1 & 1 & \\dots & 1 \\end{bmatrix} \\begin{bmatrix}x_1 \\\\ x_2 \\\\ \\vdots \\\\ x_n \\end{bmatrix} = x_1 + x_2 + \\dots + x_n\n\\]\nWhich means the mean of a variable can be expressed as:\n\\[\n\\bar{x} = \\frac{1}{n}\\sum_{i=1}^n x_i = \\frac{1}{n}\\boldsymbol{i^T x}\n\\]\n\\[\n\\frac{1}{n}\\boldsymbol{i^Tx} = \\begin{bmatrix} 1/n & 1/n & \\dots & 1/n \\end{bmatrix} \\begin{bmatrix}x_1 \\\\ x_2 \\\\ \\vdots \\\\ x_n \\end{bmatrix} = (x_1/n) + (x_2/n) + \\dots + (x_n/n)\n\\]\nWe can rearrange this to obtain:\n\\[\n\\begin{bmatrix} \\bar{x} \\\\ \\bar{x} \\\\ \\bar{x} \\\\ \\vdots \\\\ \\bar{x} \\end{bmatrix} = \\boldsymbol{i}\\bar{x} = \\boldsymbol{i}(\\frac{1}{n} \\boldsymbol{i^T}x)\n\\]\nWe can continue to rearrange to obtain:\n\\[\n\\begin{bmatrix} \\bar{x} \\\\ \\bar{x} \\\\ \\bar{x} \\\\ \\vdots \\\\ \\bar{x} \\end{bmatrix} = \\boldsymbol{i}\\bar{x} = \\boldsymbol{i}(\\frac{1}{n} \\boldsymbol{i^T}x) = \\frac{1}{n} \\boldsymbol{ii^T x}\n\\]\nThe matrix \\(\\frac{1}{n}\\boldsymbol{ii^T}\\) is an \\((n \\times n)\\) matrix with every element equal to \\(1/n\\).\nThe values in mean deviations form are:\n\\[\\begin{bmatrix} x_1 -\\bar{x} \\\\ x_2 - \\bar{x} \\\\ \\dots \\\\ x_n - \\bar{x} \\end{bmatrix} = [\\boldsymbol{x - i}\\bar{x}] = \\Bigg[\\boldsymbol{x} - \\frac{1}{n}\\boldsymbol{ii^T x} \\Bigg]\\]\nRecall that \\(\\boldsymbol{x} = \\boldsymbol{Ix}\\) then, \\[\\Bigg[\\boldsymbol{x} - \\frac{1}{n}\\boldsymbol{ii^T x} \\Bigg] =  \\Bigg[\\boldsymbol{Ix} - \\frac{1}{n}\\boldsymbol{ii^T x} \\Bigg] = \\Bigg[\\boldsymbol{I} - \\frac{1}{n}\\boldsymbol{ii^T} \\Bigg]\\boldsymbol{x} = \\boldsymbol{M^0x}\\]\nThe matrix \\(\\boldsymbol{M^0}\\) is the centering matrix and transforms a vector of data into a vector of deviations from the mean.\nThe matrix \\(\\boldsymbol{M^0}\\) is symmetric and idempotent and equal to:\n\\(\\boldsymbol{M^0}\\) is equal to:\n\\[\\boldsymbol{M^0} = \\begin{bmatrix} 1 - \\frac{1}{n} & - \\frac{1}{n} & \\dots & -\\frac{1}{n} \\\\ - \\frac{1}{n} & 1 - \\frac{1}{n} & \\dots & -\\frac{1}{n}\\\\ \\vdots & \\vdots & \\ddots & \\vdots \\\\ - \\frac{1}{n} & -\\frac{1}{n} & \\dots & 1- \\frac{1}{n}\\end{bmatrix}\\]\nConsider the case when we want to transform a single variable \\(\\boldsymbol{x}\\).\nThe mean deviations of \\(\\boldsymbol{x}\\) would be\n\\[(\\boldsymbol{x_i}^T - \\bar{\\boldsymbol{x}}) = \\boldsymbol{M^0 x} \\]\nThe sum of mean deviations should be approximately zero.\n\\[\\sum_{i=1}^{n} (\\boldsymbol{x_i}^T - \\bar{\\boldsymbol{x}}) = \\boldsymbol{M^0 x} = 0 \\]",
+    "crumbs": [
+      "Goodness of Fit",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>R Squared</span>"
+    ]
+  },
+  {
+    "objectID": "mod-4-2-rsquared.html#r-example-of-m0",
+    "href": "mod-4-2-rsquared.html#r-example-of-m0",
+    "title": "16  R Squared",
+    "section": "16.4 R Example of M0",
+    "text": "16.4 R Example of M0\nWe can create \\(\\boldsymbol{M^0}\\) in R to illustrate how it demeans \\(\\boldsymbol{X}\\).\nThe code below does the following:\n\nCreates a \\((200 \\times 5)\\) matrix and fills it with random numbers from a standard normal\nCreates a \\((200 \\times 5)\\) identity matrix, \\(\\boldsymbol{I}\\)\nCreates a \\((200 \\times 1)\\) vector of 1’s which is called \\(\\boldsymbol{i}\\)\nCreates the \\(M^0\\) matrix defined previous\nEstimates the mean deviations of \\(\\boldsymbol{X}\\) as \\(\\boldsymbol{M^0 X}\\)\nEstimates the mean deviations of the second column of \\(\\boldsymbol{X}\\)\nProduces a table of the first 5 observations of mean deviations\nProduces a table of the sum of mean deviations which are equal to zero\n\n\nrm(list = ls())\n\nnrows = 200\nncols = 5\n\nx &lt;- matrix(0,nrows,ncols)\n\nx[,1] &lt;- 1\n\nfor (l in 2:ncols) {\n  x[,l] &lt;- rnorm(nrows)\n}\n  \nI &lt;- diag(nrows)\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\nM0x &lt;- M0 %*% x\n\nx2_meandev &lt;- x[,2] - mean(x[,2])\n\ndf &lt;- tibble(M0x[,2], x2_meandev)\n\nkable(df[1:5,],\n      col.names = c('M0x for X2','Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nM0x for X2\nMean Deviations of X2\n\n\n\n\n0.486\n0.486\n\n\n0.930\n0.930\n\n\n0.379\n0.379\n\n\n-1.730\n-1.730\n\n\n0.480\n0.480\n\n\n\n\ndf2 &lt;- tibble(sum(M0x[,2]), sum(x2_meandev))\n\nkable(df2,\n      col.names = c('Sum of M0x for X2','Sum of Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nSum of M0x for X2\nSum of Mean Deviations of X2\n\n\n\n\n0\n0",
+    "crumbs": [
+      "Goodness of Fit",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>R Squared</span>"
     ]
   }
 ]

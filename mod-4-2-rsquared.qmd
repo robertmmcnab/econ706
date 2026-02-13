@@ -1,0 +1,262 @@
+---
+title: "R Squared"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    self-contained: false     # must be false when using webr
+urlcolor: blue
+filters:
+  - webr
+execute:
+  webR: true
+---
+
+```{r setup, echo = FALSE, message = FALSE}
+
+library(dplyr, quietly = TRUE)
+library(ggplot2, quietly = TRUE)
+library(kableExtra, quietly = TRUE)
+library(lubridate, quietly = TRUE)
+library(tidyquant, quietly = TRUE)
+
+```
+
+## Introduction
+
+The goal of regression analysis is not just to find a line of best fit, but to determine how well our chosen independent variables explain the behavior of the dependent variable. Although OLS minimizes the sum of squared residuals, this value can be arbitrarily manipulated by scaling the data, making it a poor standalone measure of quality. Instead, a more effective approach is to evaluate the model based on the proportion of total variation it successfully "explains."
+
+To calculate this variation systematically, we utilize the **M0** matrix, a symmetric and idempotent matrix designed to transform data into deviations from the mean. This introduction covers the algebraic properties of the centering matrix and demonstrates its application in R. By understanding the **M0** matrix, we gain the ability to standardize our measures of model performance, moving beyond raw residuals toward a formal assessment of a model's explanatory power.
+
+## Scaling Residuals
+
+The objective function of the least squares estimator is, subject to the selection of a vector of coefficients, $\boldsymbol{b_0}$, the minimization of the sum of the squared residuals.
+
+$$
+min_{b_0} \, e^T e
+$$
+
+Conditional on the standard assumptions holding, we take the first derivative of the objective function and set the first derivative equal to 0 to obtain the **normal equations** and the vector of least squares coefficients:
+
+The **normal equations** and the vector of the least squares coefficients are: $$\boldsymbol{X^T\ X\ b} = \boldsymbol{X^T\ y}$$
+
+$$\boldsymbol{b} = (\boldsymbol{X^T\ X})^{-1}\ \boldsymbol{X^T\ y}$$
+
+Using the **sum of the squared residuals** are a measure of performance, however, is a poor choice because the sum of the squared residuals can be manipulated by scaling the residuals.
+
+If we pre-multiply $\boldsymbol{e}$ by a scalar $k$ that the sum of the squared residuals becomes:
+
+$$\boldsymbol{e^T}\ k^Tk\ \boldsymbol{e} = (k^Tk)(\boldsymbol{e^T e} )= k^2 \boldsymbol{e^T e}$$
+
+We can arbitrarily scale the sum of squared residuals by multiplying $\boldsymbol{y}$ by a desired scale factor.
+
+The code below does the following:
+
+-   Creates a matrix of independent variables that is $(500 \times 5)$.
+
+-   Sets a scalar $k = 2$
+
+-   Defines the true population coefficients as a sequence of integers from 1 to 5.
+
+-   Generates $\boldsymbol{y = X \beta + \epsilon}$
+
+-   Defines $\boldsymbol{ky = 2 \times y}$
+
+-   Generates $\boldsymbol{b}$ for the regression of $\boldsymbol{y}$ and $\boldsymbol{ky}$ on $\boldsymbol{X}$
+
+-   Generates $\boldsymbol{e}$ for both regressions
+
+-   Produces a table of the first 5 observations of each vector of residuals to illustrate scaling.
+
+```{r}
+
+rm(list = ls())
+
+nrows <- 500
+ncols <- 5
+k = 2
+ 
+x <- matrix(0, nrows, ncols)
+      x[,1] <- 1
+      for (l in 2: ncols) {
+        x[,l] <- rnorm(nrows)
+        gc()
+      }
+
+beta <- seq(1,ncols)
+
+y <- x %*% beta + rnorm(nrows)
+
+ky <- k*y
+
+bhat <- solve(t(x) %*% x) %*% t(x) %*% y
+bhat2 <- solve(t(x) %*% x) %*% t(x) %*% ky
+
+I <- diag(nrows)
+
+M <- I - x %*% solve(t(x) %*% x) %*% t(x)
+
+e1 <- M %*% y
+e2 <- M %*% ky
+
+df <- tibble(e1, e2)
+
+kable(df[1:5,],
+      col.names = c('e(y)', 'e(ky)'),
+      align     = 'c',
+      digits    = 3) %>%
+kable_classic()
+```
+
+## M0 Matrix
+
+A better measure of how "well" our model performs is to ask whether the variation in the independent variables predicts variation in the dependent variable.
+
+**A model in which the independent variables "explain" more of the variation in the dependent variable should be preferred relative to a model in which the independent variables explain less of the variation in the dependent variable.**
+
+The question then becomes: how do we measure the variation in the dependent variable?
+
+To do this, we will need a new matrix.
+
+A fundamental matrix in statistics is the “centering matrix” that is used to transform data to deviations from their mean.
+
+Recall that the mean deviations of a variable are:
+
+$$
+(x_i - \bar{x})
+$$
+
+Let $\boldsymbol{i}$ be $(n \times 1$) and equal to:
+
+$$
+\boldsymbol{i} = \begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix}
+$$
+
+We can pre-multiply the mean of the variable $\boldsymbol{x}$ by $\boldsymbol{i}$ to obtain
+
+$$
+\boldsymbol{i} \bar{x} = \begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix}\bar{x} = \begin{bmatrix} \bar{x} \\ \bar{x} \\ \bar{x} \\ \vdots \\ \bar{x} \end{bmatrix}
+$$
+
+Recall that the sum of a variable can be expressed as:
+
+$$
+\sum_{i=1}^n x_i = \boldsymbol{i^T x}
+$$
+
+$$
+\boldsymbol{i^Tx} = \begin{bmatrix} 1 & 1 & \dots & 1 \end{bmatrix} \begin{bmatrix}x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix} = x_1 + x_2 + \dots + x_n 
+$$
+
+Which means the mean of a variable can be expressed as:
+
+$$
+\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i = \frac{1}{n}\boldsymbol{i^T x}
+$$
+
+$$
+\frac{1}{n}\boldsymbol{i^Tx} = \begin{bmatrix} 1/n & 1/n & \dots & 1/n \end{bmatrix} \begin{bmatrix}x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix} = (x_1/n) + (x_2/n) + \dots + (x_n/n)
+$$
+
+We can rearrange this to obtain:
+
+$$
+\begin{bmatrix} \bar{x} \\ \bar{x} \\ \bar{x} \\ \vdots \\ \bar{x} \end{bmatrix} = \boldsymbol{i}\bar{x} = \boldsymbol{i}(\frac{1}{n} \boldsymbol{i^T}x)
+$$
+
+We can continue to rearrange to obtain:
+
+$$
+\begin{bmatrix} \bar{x} \\ \bar{x} \\ \bar{x} \\ \vdots \\ \bar{x} \end{bmatrix} = \boldsymbol{i}\bar{x} = \boldsymbol{i}(\frac{1}{n} \boldsymbol{i^T}x) = \frac{1}{n} \boldsymbol{ii^T x}
+$$
+
+The matrix $\frac{1}{n}\boldsymbol{ii^T}$ is an $(n \times n)$ matrix with every element equal to $1/n$.
+
+The values in mean deviations form are:
+
+$$\begin{bmatrix} x_1 -\bar{x} \\ x_2 - \bar{x} \\ \dots \\ x_n - \bar{x} \end{bmatrix} = [\boldsymbol{x - i}\bar{x}] = \Bigg[\boldsymbol{x} - \frac{1}{n}\boldsymbol{ii^T x} \Bigg]$$
+
+Recall that $\boldsymbol{x} = \boldsymbol{Ix}$ then, $$\Bigg[\boldsymbol{x} - \frac{1}{n}\boldsymbol{ii^T x} \Bigg] =  \Bigg[\boldsymbol{Ix} - \frac{1}{n}\boldsymbol{ii^T x} \Bigg] = \Bigg[\boldsymbol{I} - \frac{1}{n}\boldsymbol{ii^T} \Bigg]\boldsymbol{x} = \boldsymbol{M^0x}$$
+
+The matrix $\boldsymbol{M^0}$ is the **centering matrix** and transforms a vector of data into a vector of deviations from the mean.
+
+The matrix $\boldsymbol{M^0}$ is symmetric and idempotent and equal to:
+
+$\boldsymbol{M^0}$ is equal to:
+
+$$\boldsymbol{M^0} = \begin{bmatrix} 1 - \frac{1}{n} & - \frac{1}{n} & \dots & -\frac{1}{n} \\ - \frac{1}{n} & 1 - \frac{1}{n} & \dots & -\frac{1}{n}\\ \vdots & \vdots & \ddots & \vdots \\ - \frac{1}{n} & -\frac{1}{n} & \dots & 1- \frac{1}{n}\end{bmatrix}$$
+
+Consider the case when we want to transform a single variable $\boldsymbol{x}$.
+
+The mean deviations of $\boldsymbol{x}$ would be
+
+$$(\boldsymbol{x_i}^T - \bar{\boldsymbol{x}}) = \boldsymbol{M^0 x} $$
+
+The sum of mean deviations should be approximately zero.
+
+$$\sum_{i=1}^{n} (\boldsymbol{x_i}^T - \bar{\boldsymbol{x}}) = \boldsymbol{M^0 x} = 0 $$
+
+## R Example of M0
+
+We can create $\boldsymbol{M^0}$ in R to illustrate how it demeans $\boldsymbol{X}$.
+
+The code below does the following:
+
+-   Creates a $(200 \times 5)$ matrix and fills it with random numbers from a standard normal
+
+-   Creates a $(200 \times 5)$ identity matrix, $\boldsymbol{I}$
+
+-   Creates a $(200 \times 1)$ vector of 1's which is called $\boldsymbol{i}$
+
+-   Creates the $M^0$ matrix defined previous
+
+-   Estimates the mean deviations of $\boldsymbol{X}$ as $\boldsymbol{M^0 X}$
+
+-   Estimates the mean deviations of the second column of $\boldsymbol{X}$
+
+-   Produces a table of the first 5 observations of mean deviations
+
+-   Produces a table of the sum of mean deviations which are equal to zero
+
+```{r}
+
+rm(list = ls())
+
+nrows = 200
+ncols = 5
+
+x <- matrix(0,nrows,ncols)
+
+x[,1] <- 1
+
+for (l in 2:ncols) {
+  x[,l] <- rnorm(nrows)
+}
+  
+I <- diag(nrows)
+i <- matrix(1,nrows,1)
+
+M0 <- I - 1/nrows * i %*% t(i)
+M0x <- M0 %*% x
+
+x2_meandev <- x[,2] - mean(x[,2])
+
+df <- tibble(M0x[,2], x2_meandev)
+
+kable(df[1:5,],
+      col.names = c('M0x for X2','Mean Deviations of X2'),
+      align     = 'c',
+      digits    = 3) %>%
+kable_classic()
+
+df2 <- tibble(sum(M0x[,2]), sum(x2_meandev))
+
+kable(df2,
+      col.names = c('Sum of M0x for X2','Sum of Mean Deviations of X2'),
+      align     = 'c',
+      digits    = 3) %>%
+kable_classic()
+
+
+```

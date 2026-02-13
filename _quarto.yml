@@ -27,6 +27,11 @@ book:
         - mod-3-0-overview.qmd
         - mod-3-1-orthogonal.qmd
         - mod-3-2-partitioned.qmd
+    - part: "Goodness of Fit"
+      chapters:
+        - mod-4-0-overview.qmd
+        - mod-4-1-means.qmd
+        - mod-4-2-rsquared.qmd
 
 execute:
   webR: true            # enables WebR chunks for interactive R in the browser
