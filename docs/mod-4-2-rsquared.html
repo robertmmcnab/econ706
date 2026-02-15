@@ -339,9 +339,16 @@ window.Quarto = {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">16.1</span> Introduction</a></li>
-  <li><a href="#scaling-residuals" id="toc-scaling-residuals" class="nav-link" data-scroll-target="#scaling-residuals"><span class="header-section-number">16.2</span> Scaling Residuals</a></li>
-  <li><a href="#m0-matrix" id="toc-m0-matrix" class="nav-link" data-scroll-target="#m0-matrix"><span class="header-section-number">16.3</span> M0 Matrix</a></li>
-  <li><a href="#r-example-of-m0" id="toc-r-example-of-m0" class="nav-link" data-scroll-target="#r-example-of-m0"><span class="header-section-number">16.4</span> R Example of M0</a></li>
+  <li><a href="#total-sum-of-squares-for-x" id="toc-total-sum-of-squares-for-x" class="nav-link" data-scroll-target="#total-sum-of-squares-for-x"><span class="header-section-number">16.2</span> Total Sum of Squares for x</a></li>
+  <li><a href="#total-sum-of-squares-for-x-1" id="toc-total-sum-of-squares-for-x-1" class="nav-link" data-scroll-target="#total-sum-of-squares-for-x-1"><span class="header-section-number">16.3</span> Total Sum of Squares for X</a></li>
+  <li><a href="#sum-of-squares" id="toc-sum-of-squares" class="nav-link" data-scroll-target="#sum-of-squares"><span class="header-section-number">16.4</span> Sum of Squares</a></li>
+  <li><a href="#decomposition-in-r" id="toc-decomposition-in-r" class="nav-link" data-scroll-target="#decomposition-in-r"><span class="header-section-number">16.5</span> Decomposition in R</a></li>
+  <li><a href="#r-squared" id="toc-r-squared" class="nav-link" data-scroll-target="#r-squared"><span class="header-section-number">16.6</span> R-Squared</a></li>
+  <li><a href="#r-squared-in-r" id="toc-r-squared-in-r" class="nav-link" data-scroll-target="#r-squared-in-r"><span class="header-section-number">16.7</span> R-Squared in R</a></li>
+  <li><a href="#r-squared-increases-in-x" id="toc-r-squared-increases-in-x" class="nav-link" data-scroll-target="#r-squared-increases-in-x"><span class="header-section-number">16.8</span> R-Squared Increases in X</a></li>
+  <li><a href="#constant-term-required" id="toc-constant-term-required" class="nav-link" data-scroll-target="#constant-term-required"><span class="header-section-number">16.9</span> Constant Term Required</a></li>
+  <li><a href="#adjusted-r-squared" id="toc-adjusted-r-squared" class="nav-link" data-scroll-target="#adjusted-r-squared"><span class="header-section-number">16.10</span> Adjusted R-Squared</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">16.11</span> Example</a></li>
   </ul>
 </nav>
     </div>
@@ -369,39 +376,106 @@ window.Quarto = {
 
 <section id="introduction" class="level2" data-number="16.1">
 <h2 data-number="16.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">16.1</span> Introduction</h2>
-<p>The goal of regression analysis is not just to find a line of best fit, but to determine how well our chosen independent variables explain the behavior of the dependent variable. Although OLS minimizes the sum of squared residuals, this value can be arbitrarily manipulated by scaling the data, making it a poor standalone measure of quality. Instead, a more effective approach is to evaluate the model based on the proportion of total variation it successfully “explains.”</p>
-<p>To calculate this variation systematically, we utilize the <strong>M0</strong> matrix, a symmetric and idempotent matrix designed to transform data into deviations from the mean. This introduction covers the algebraic properties of the centering matrix and demonstrates its application in R. By understanding the <strong>M0</strong> matrix, we gain the ability to standardize our measures of model performance, moving beyond raw residuals toward a formal assessment of a model’s explanatory power.</p>
+<p>In evaluating the performance of Ordinary Least Squares regressions, the total variation of the dependent variable is measured by the Total Sum of Squares (SST), which is calculated using the symmetric and idempotent centering matrix. This framework allows for the decomposition of SST into the Explained Sum of Squares (SSE) and the Residual Sum of Squares (SSR). From this decomposition, the coefficient of determination, <span class="math inline">\(R^2\)</span> is derived to represent the proportion of total variation explained by the independent variables. However, <span class="math inline">\(R^2\)</span> is only bounded between 0 and 1 when the model includes a constant term; without an intercept, the mathematical properties that simplify the SST decomposition fail to hold, making an unpredictable and unreliable metric.</p>
+<p>A significant limitation of <span class="math inline">\(R^2\)</span> is its mathematical property of non-decrease; adding any additional explanatory variable to a model will mechanically increase <span class="math inline">\(R^2\)</span>, even if the variable has no meaningful relationship with the dependent variable. To correct for this, the Adjusted <span class="math inline">\(R^2\)</span> incorporates a penalty for each added regressor based on the degrees of freedom. Unlike the standard <span class="math inline">\(R^2\)</span>, the adjusted version will only increase if the new variable’s contribution to the model’s explanatory power is sufficient to offset the loss in degrees of freedom.</p>
 </section>
-<section id="scaling-residuals" class="level2" data-number="16.2">
-<h2 data-number="16.2" class="anchored" data-anchor-id="scaling-residuals"><span class="header-section-number">16.2</span> Scaling Residuals</h2>
-<p>The objective function of the least squares estimator is, subject to the selection of a vector of coefficients, <span class="math inline">\(\boldsymbol{b_0}\)</span>, the minimization of the sum of the squared residuals.</p>
+<section id="total-sum-of-squares-for-x" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="total-sum-of-squares-for-x"><span class="header-section-number">16.2</span> Total Sum of Squares for x</h2>
+<p>We can use <span class="math inline">\(\boldsymbol{M^0}\)</span> to calculate the sum of the squared mean deviations of <span class="math inline">\(\boldsymbol{x}\)</span>.</p>
+<p>For one variable <span class="math inline">\(\boldsymbol{x}\)</span>, the sum of squared mean deviations is:</p>
+<p><span class="math display">\[\sum_{i=1}^{n}(x_i - \bar{x})^2 = (x_i - \bar{x})^T(x_i - \bar{x}) = (M^0 x)^T (M^0 x)\]</span></p>
+<p><span class="math display">\[\sum_{i=1}^{n}(x_i - \bar{x})^2 = (M^0 x)^T (M^0 x) = x^T M^{0T}M^0x\]</span> Recall that <span class="math inline">\(M^0\)</span> is symmetric or</p>
+<p><span class="math display">\[M^{0T} = M^0\]</span></p>
+<p>Recall that <span class="math inline">\(M^0\)</span> is idempotent or</p>
+<p><span class="math display">\[M^{0T}M^{0} = M^0\]</span></p>
+<p>The sum of squared mean deviations for a single variable becomes:</p>
+<p><span class="math display">\[\sum_{i=1}^{n}(x_i - \bar{x})^2  = x^T M^{0T}M^0x = x^T M^0 x\]</span></p>
+</section>
+<section id="total-sum-of-squares-for-x-1" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="total-sum-of-squares-for-x-1"><span class="header-section-number">16.3</span> Total Sum of Squares for X</h2>
+<p>First, the transformation of the <span class="math inline">\(\boldsymbol{X}\)</span> matrix into mean deviations is:</p>
 <p><span class="math display">\[
-min_{b_0} \, e^T e
+\boldsymbol{M^0 X}
 \]</span></p>
-<p>Conditional on the standard assumptions holding, we take the first derivative of the objective function and set the first derivative equal to 0 to obtain the <strong>normal equations</strong> and the vector of least squares coefficients:</p>
-<p>The <strong>normal equations</strong> and the vector of the least squares coefficients are: <span class="math display">\[\boldsymbol{X^T\ X\ b} = \boldsymbol{X^T\ y}\]</span></p>
-<p><span class="math display">\[\boldsymbol{b} = (\boldsymbol{X^T\ X})^{-1}\ \boldsymbol{X^T\ y}\]</span></p>
-<p>Using the <strong>sum of the squared residuals</strong> are a measure of performance, however, is a poor choice because the sum of the squared residuals can be manipulated by scaling the residuals.</p>
-<p>If we pre-multiply <span class="math inline">\(\boldsymbol{e}\)</span> by a scalar <span class="math inline">\(k\)</span> that the sum of the squared residuals becomes:</p>
-<p><span class="math display">\[\boldsymbol{e^T}\ k^Tk\ \boldsymbol{e} = (k^Tk)(\boldsymbol{e^T e} )= k^2 \boldsymbol{e^T e}\]</span></p>
-<p>We can arbitrarily scale the sum of squared residuals by multiplying <span class="math inline">\(\boldsymbol{y}\)</span> by a desired scale factor.</p>
-<p>The code below does the following:</p>
-<ul>
-<li><p>Creates a matrix of independent variables that is <span class="math inline">\((500 \times 5)\)</span>.</p></li>
-<li><p>Sets a scalar <span class="math inline">\(k = 2\)</span></p></li>
-<li><p>Defines the true population coefficients as a sequence of integers from 1 to 5.</p></li>
-<li><p>Generates <span class="math inline">\(\boldsymbol{y = X \beta + \epsilon}\)</span></p></li>
-<li><p>Defines <span class="math inline">\(\boldsymbol{ky = 2 \times y}\)</span></p></li>
-<li><p>Generates <span class="math inline">\(\boldsymbol{b}\)</span> for the regression of <span class="math inline">\(\boldsymbol{y}\)</span> and <span class="math inline">\(\boldsymbol{ky}\)</span> on <span class="math inline">\(\boldsymbol{X}\)</span></p></li>
-<li><p>Generates <span class="math inline">\(\boldsymbol{e}\)</span> for both regressions</p></li>
-<li><p>Produces a table of the first 5 observations of each vector of residuals to illustrate scaling.</p></li>
-</ul>
+<p>The sum of squares and cross-products of the mean deviations for <span class="math inline">\(\boldsymbol{X}\)</span> is:</p>
+<p><span class="math display">\[
+\boldsymbol{(M^0 X)^T (M^0 X)}
+\]</span></p>
+<p><span class="math display">\[
+\boldsymbol{X^T M^{0T} M^0 X}
+\]</span></p>
+<p>Since <span class="math inline">\(\boldsymbol{M^0}\)</span> is symmetric and idempotent, this can be simplified to:</p>
+<p><span class="math display">\[
+\boldsymbol{X^T M^0 X}
+\]</span></p>
+<p>While the single variable case for <span class="math inline">\(\boldsymbol{x^T M^0 x}\)</span> yields a scalar which is the Total Sum of Squares for that variable, the matrix operation yields:</p>
+<p><span class="math display">\[ \boldsymbol{X^T M^0 X} \sim (K \times K) \]</span></p>
+<p>The diagonal elements of <span class="math inline">\(\boldsymbol{X^T M^0 X}\)</span> are the sum of the squared deviations (SST) for each individual variable in the <span class="math inline">\(\boldsymbol{X}\)</span> matrix. The off-diagonal elements represent the sum of the squared cross-products (SSCP) between different variables and are used to calculate covariances or:</p>
+<p><span class="math display">\[
+\boldsymbol{X^T M^0 X} = \begin{bmatrix} SST_{x1} &amp; SSCP_{x1,x2} &amp; \dots &amp; SST_{x1,xK} \\
+SSCP_{x2,x1} &amp; SST_{x2} &amp; \dots &amp; SSCP_{x2,xK} \\
+\vdots &amp; \ddots &amp; \dots &amp; \vdots \\
+SSCP_{xk,x1} &amp; SST_{xk,x2} &amp; \dots &amp; SST_{xk} \\
+\end{bmatrix}
+\]</span></p>
+<p>However, recall that the first column of <span class="math inline">\(\boldsymbol{X}\)</span> consists of 1’s and so every observation of <span class="math inline">\(\boldsymbol{x_1}\)</span> is equal to its mean and thus the mean deviation of every observation in <span class="math inline">\(\boldsymbol{x_1}\)</span> is 0. Also, since the off-diagonal elements represent the shared variation between variables (cross-products) and since <span class="math inline">\(\boldsymbol{x_1}\)</span> does not vary, the sum of the squared cross-product between <span class="math inline">\(\boldsymbol{x_1}\)</span> and any other variable is 0.</p>
+<p><span class="math display">\[
+\boldsymbol{X^T M^0 X} = \begin{bmatrix} 0 &amp; 0 &amp; \dots &amp; 0 \\
+0 &amp; SST_{x2} &amp; \dots &amp; SSCP_{x2,xK} \\
+\vdots &amp; \ddots &amp; \dots &amp; \vdots \\
+0 &amp; SST_{xk,x2} &amp; \dots &amp; SST_{xk} \\
+\end{bmatrix}
+\]</span></p>
+</section>
+<section id="sum-of-squares" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="sum-of-squares"><span class="header-section-number">16.4</span> Sum of Squares</h2>
+<p>For the dependent variable <span class="math inline">\(y\)</span>, the <strong>total sum of squares</strong>, <span class="math inline">\(SST_y\)</span>, is equal to the sum of squared mean deviations.</p>
+<p><span class="math display">\[
+SST_y = \boldsymbol{y^T M^0 y}
+\]</span></p>
+<p>Given the relationship, <span class="math inline">\(\boldsymbol{y = Xb + e}\)</span>, we can pre-multiply by the centering matrix, <span class="math inline">\(\boldsymbol{M^0}\)</span> or:</p>
+<p><span class="math display">\[
+\boldsymbol{y = Xb +e}
+\]</span></p>
+<p><span class="math display">\[
+\boldsymbol{M^0 y = M^0 Xb + M^0e}
+\]</span></p>
+<p>If the model contains a constant term and the other assumptions hold, then the mean of the residuals is equal to zero, that is, <span class="math inline">\(\boldsymbol{\bar{e} = 0}\)</span> this implies that:</p>
+<p><span class="math display">\[
+\boldsymbol{M^0 e = e}
+\]</span><br>
+<span class="math display">\[
+\boldsymbol{M^0 y = M^0 Xb + e}
+\]</span></p>
+<p>And we can pre-multiply by <span class="math inline">\(\boldsymbol{y^T}\)</span> to obtain:</p>
+<p><span class="math display">\[
+\boldsymbol{y^T M^0 y = (M^0 Xb +e)^T  (M^{0}Xb + e)}
+\]</span></p>
+<p><span class="math display">\[
+\boldsymbol{y^T M^0 y = b^T X^T M^{0T}M^0Xb + b^T X^T M^{0T}e + e^TM^0Xb + e^Te}
+\]</span></p>
+<p>Because the residuals, <span class="math inline">\(\boldsymbol{e}\)</span> are orthogonal to the regressors, <span class="math inline">\(\boldsymbol{X}\)</span> and, by extension, to the centered regressors, <span class="math inline">\(\boldsymbol{M^0X}\)</span>, the cross-product terms drop out. We can also rely on the fact that the centering matrix is symmetric and idempotent.</p>
+<p>This leaves us with a fundamental identity:</p>
+<p><span class="math display">\[
+\boldsymbol{y^T M^0 y = b^T X^T M^0 Xb + e^T e}
+\]</span></p>
+<p>Which can be expressed as:</p>
+<p><span class="math display">\[
+SST = SSE + SSR
+\]</span></p>
+<p>That is, the total sum of squares of the dependent variable (SST) is equal to the explained sum of squares (SSE) and the residual sum of squares (SSR).</p>
+</section>
+<section id="decomposition-in-r" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="decomposition-in-r"><span class="header-section-number">16.5</span> Decomposition in R</h2>
+<p>Building upon our previous examples, we can use simulated data to create our independent variables, population coefficients, and the dependent variable. We can estimate the least squares coefficients and construct the projection and residual maker matrices.</p>
+<p>We then construct the <span class="math inline">\(\boldsymbol{M^0}\)</span> matrix and use this matrix to estimate SST, SSE, and SSR.</p>
+<p>The output table demonstrates the equality, that the total sum of squares can be decomposed into the explained sum of squares and the residual sum of squares.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>nrows <span class="ot">&lt;-</span> <span class="dv">500</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ncols <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">2</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>nrows <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ncols <span class="ot">&lt;-</span> <span class="dv">5</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, nrows, ncols)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      x[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
@@ -414,211 +488,357 @@ min_{b_0} \, e^T e
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">%*%</span> beta <span class="sc">+</span> <span class="fu">rnorm</span>(nrows)</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>ky <span class="ot">&lt;-</span> k<span class="sc">*</span>y</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>bhat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>bhat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>bhat2 <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> ky</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(nrows)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> I <span class="sc">-</span> x <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>e1 <span class="ot">&lt;-</span> M <span class="sc">%*%</span> y</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>e2 <span class="ot">&lt;-</span> M <span class="sc">%*%</span> ky</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(e1, e2)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(nrows)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> x <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> I <span class="sc">-</span> x <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>,nrows,<span class="dv">1</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>M0 <span class="ot">&lt;-</span> I <span class="sc">-</span> <span class="dv">1</span><span class="sc">/</span>nrows <span class="sc">*</span> i <span class="sc">%*%</span> <span class="fu">t</span>(i)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> P <span class="sc">%*%</span> y</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> M <span class="sc">%*%</span> y</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,],</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">'e(y)'</span>, <span class="st">'e(ky)'</span>),</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">align     =</span> <span class="st">'c'</span>,</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">digits    =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>sst <span class="ot">&lt;-</span> <span class="fu">t</span>(y) <span class="sc">%*%</span> M0 <span class="sc">%*%</span> y</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>sse <span class="ot">&lt;-</span> <span class="fu">t</span>(bhat) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> M0 <span class="sc">%*%</span> x <span class="sc">%*%</span> bhat</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>ssr <span class="ot">&lt;-</span> <span class="fu">t</span>(e) <span class="sc">%*%</span> e</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">SST =</span> <span class="fu">as.numeric</span>(sst),</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>             <span class="at">SSE =</span> <span class="fu">as.numeric</span>(sse),</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>             <span class="at">SSR =</span> <span class="fu">as.numeric</span>(ssr))</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">'SST'</span>, <span class="st">'SSE'</span>, <span class="st">'SSR'</span>),</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>      <span class="at">align     =</span> <span class="st">'c'</span>,</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>      <span class="at">digits    =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="lightable-classic caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th style="text-align: center;" data-quarto-table-cell-role="th">e(y)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">e(ky)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">SST</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">SSE</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">SSR</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;">-0.6071789</td>
-<td style="text-align: center;">-1.2143578</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">-0.9497510</td>
-<td style="text-align: center;">-1.8995021</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0.4747955</td>
-<td style="text-align: center;">0.9495909</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">-0.6145462</td>
-<td style="text-align: center;">-1.2290925</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">-0.0622836</td>
-<td style="text-align: center;">-0.1245672</td>
+<td style="text-align: center;">107611.6</td>
+<td style="text-align: center;">105621.9</td>
+<td style="text-align: center;">1989.72</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </section>
-<section id="m0-matrix" class="level2" data-number="16.3">
-<h2 data-number="16.3" class="anchored" data-anchor-id="m0-matrix"><span class="header-section-number">16.3</span> M0 Matrix</h2>
-<p>A better measure of how “well” our model performs is to ask whether the variation in the independent variables predicts variation in the dependent variable.</p>
-<p><strong>A model in which the independent variables “explain” more of the variation in the dependent variable should be preferred relative to a model in which the independent variables explain less of the variation in the dependent variable.</strong></p>
-<p>The question then becomes: how do we measure the variation in the dependent variable?</p>
-<p>To do this, we will need a new matrix.</p>
-<p>A fundamental matrix in statistics is the “centering matrix” that is used to transform data to deviations from their mean.</p>
-<p>Recall that the mean deviations of a variable are:</p>
+<section id="r-squared" class="level2" data-number="16.6">
+<h2 data-number="16.6" class="anchored" data-anchor-id="r-squared"><span class="header-section-number">16.6</span> R-Squared</h2>
+<p>The total sum of squares (SST) can be decomposed into the regression (or explained) sum of squares (SSE) and the residual sum of squares (SSR).</p>
+<p><span class="math display">\[\boldsymbol{y^T M^0 y} = (\boldsymbol{b^T X^T M^0Xb}) + (\boldsymbol{e^T e})\]</span> <span class="math display">\[SST = SSE + SSR\]</span>The <strong>coefficient of determination</strong> is a measure of how well a regression fits the data, where: <span class="math display">\[R^2 = \frac{SSE}{SST} = \frac{(\boldsymbol{b^T X^T M^0Xb})}{\boldsymbol{y^T M^0 y}} = 1 - \frac{\boldsymbol{e^Te}}{\boldsymbol{y^T M^0 y}} = 1 - \frac{SSR}{SST}\]</span></p>
 <p><span class="math display">\[
-(x_i - \bar{x})
+0 \le R^2 \le 1
 \]</span></p>
-<p>Let <span class="math inline">\(\boldsymbol{i}\)</span> be <span class="math inline">\((n \times 1\)</span>) and equal to:</p>
-<p><span class="math display">\[
-\boldsymbol{i} = \begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix}
-\]</span></p>
-<p>We can pre-multiply the mean of the variable <span class="math inline">\(\boldsymbol{x}\)</span> by <span class="math inline">\(\boldsymbol{i}\)</span> to obtain</p>
-<p><span class="math display">\[
-\boldsymbol{i} \bar{x} = \begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix}\bar{x} = \begin{bmatrix} \bar{x} \\ \bar{x} \\ \bar{x} \\ \vdots \\ \bar{x} \end{bmatrix}
-\]</span></p>
-<p>Recall that the sum of a variable can be expressed as:</p>
-<p><span class="math display">\[
-\sum_{i=1}^n x_i = \boldsymbol{i^T x}
-\]</span></p>
-<p><span class="math display">\[
-\boldsymbol{i^Tx} = \begin{bmatrix} 1 &amp; 1 &amp; \dots &amp; 1 \end{bmatrix} \begin{bmatrix}x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix} = x_1 + x_2 + \dots + x_n
-\]</span></p>
-<p>Which means the mean of a variable can be expressed as:</p>
-<p><span class="math display">\[
-\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i = \frac{1}{n}\boldsymbol{i^T x}
-\]</span></p>
-<p><span class="math display">\[
-\frac{1}{n}\boldsymbol{i^Tx} = \begin{bmatrix} 1/n &amp; 1/n &amp; \dots &amp; 1/n \end{bmatrix} \begin{bmatrix}x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix} = (x_1/n) + (x_2/n) + \dots + (x_n/n)
-\]</span></p>
-<p>We can rearrange this to obtain:</p>
-<p><span class="math display">\[
-\begin{bmatrix} \bar{x} \\ \bar{x} \\ \bar{x} \\ \vdots \\ \bar{x} \end{bmatrix} = \boldsymbol{i}\bar{x} = \boldsymbol{i}(\frac{1}{n} \boldsymbol{i^T}x)
-\]</span></p>
-<p>We can continue to rearrange to obtain:</p>
-<p><span class="math display">\[
-\begin{bmatrix} \bar{x} \\ \bar{x} \\ \bar{x} \\ \vdots \\ \bar{x} \end{bmatrix} = \boldsymbol{i}\bar{x} = \boldsymbol{i}(\frac{1}{n} \boldsymbol{i^T}x) = \frac{1}{n} \boldsymbol{ii^T x}
-\]</span></p>
-<p>The matrix <span class="math inline">\(\frac{1}{n}\boldsymbol{ii^T}\)</span> is an <span class="math inline">\((n \times n)\)</span> matrix with every element equal to <span class="math inline">\(1/n\)</span>.</p>
-<p>The values in mean deviations form are:</p>
-<p><span class="math display">\[\begin{bmatrix} x_1 -\bar{x} \\ x_2 - \bar{x} \\ \dots \\ x_n - \bar{x} \end{bmatrix} = [\boldsymbol{x - i}\bar{x}] = \Bigg[\boldsymbol{x} - \frac{1}{n}\boldsymbol{ii^T x} \Bigg]\]</span></p>
-<p>Recall that <span class="math inline">\(\boldsymbol{x} = \boldsymbol{Ix}\)</span> then, <span class="math display">\[\Bigg[\boldsymbol{x} - \frac{1}{n}\boldsymbol{ii^T x} \Bigg] =  \Bigg[\boldsymbol{Ix} - \frac{1}{n}\boldsymbol{ii^T x} \Bigg] = \Bigg[\boldsymbol{I} - \frac{1}{n}\boldsymbol{ii^T} \Bigg]\boldsymbol{x} = \boldsymbol{M^0x}\]</span></p>
-<p>The matrix <span class="math inline">\(\boldsymbol{M^0}\)</span> is the <strong>centering matrix</strong> and transforms a vector of data into a vector of deviations from the mean.</p>
-<p>The matrix <span class="math inline">\(\boldsymbol{M^0}\)</span> is symmetric and idempotent and equal to:</p>
-<p><span class="math inline">\(\boldsymbol{M^0}\)</span> is equal to:</p>
-<p><span class="math display">\[\boldsymbol{M^0} = \begin{bmatrix} 1 - \frac{1}{n} &amp; - \frac{1}{n} &amp; \dots &amp; -\frac{1}{n} \\ - \frac{1}{n} &amp; 1 - \frac{1}{n} &amp; \dots &amp; -\frac{1}{n}\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ - \frac{1}{n} &amp; -\frac{1}{n} &amp; \dots &amp; 1- \frac{1}{n}\end{bmatrix}\]</span></p>
-<p>Consider the case when we want to transform a single variable <span class="math inline">\(\boldsymbol{x}\)</span>.</p>
-<p>The mean deviations of <span class="math inline">\(\boldsymbol{x}\)</span> would be</p>
-<p><span class="math display">\[(\boldsymbol{x_i}^T - \bar{\boldsymbol{x}}) = \boldsymbol{M^0 x} \]</span></p>
-<p>The sum of mean deviations should be approximately zero.</p>
-<p><span class="math display">\[\sum_{i=1}^{n} (\boldsymbol{x_i}^T - \bar{\boldsymbol{x}}) = \boldsymbol{M^0 x} = 0 \]</span></p>
+<p>When <span class="math inline">\(R^2 = 0\)</span> the predicted values of <span class="math inline">\(y\)</span> are <span class="math inline">\(\bar{y}\)</span> so <span class="math inline">\(\boldsymbol{X}\)</span> has no explanatory power.</p>
+<p>When <span class="math inline">\(R^2 = 1\)</span>, the values of <span class="math inline">\(y\)</span> and <span class="math inline">\(\boldsymbol{x}\)</span> are such that the predicted values and actual values are the same.</p>
 </section>
-<section id="r-example-of-m0" class="level2" data-number="16.4">
-<h2 data-number="16.4" class="anchored" data-anchor-id="r-example-of-m0"><span class="header-section-number">16.4</span> R Example of M0</h2>
-<p>We can create <span class="math inline">\(\boldsymbol{M^0}\)</span> in R to illustrate how it demeans <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
-<p>The code below does the following:</p>
-<ul>
-<li><p>Creates a <span class="math inline">\((200 \times 5)\)</span> matrix and fills it with random numbers from a standard normal</p></li>
-<li><p>Creates a <span class="math inline">\((200 \times 5)\)</span> identity matrix, <span class="math inline">\(\boldsymbol{I}\)</span></p></li>
-<li><p>Creates a <span class="math inline">\((200 \times 1)\)</span> vector of 1’s which is called <span class="math inline">\(\boldsymbol{i}\)</span></p></li>
-<li><p>Creates the <span class="math inline">\(M^0\)</span> matrix defined previous</p></li>
-<li><p>Estimates the mean deviations of <span class="math inline">\(\boldsymbol{X}\)</span> as <span class="math inline">\(\boldsymbol{M^0 X}\)</span></p></li>
-<li><p>Estimates the mean deviations of the second column of <span class="math inline">\(\boldsymbol{X}\)</span></p></li>
-<li><p>Produces a table of the first 5 observations of mean deviations</p></li>
-<li><p>Produces a table of the sum of mean deviations which are equal to zero</p></li>
-</ul>
+<section id="r-squared-in-r" class="level2" data-number="16.7">
+<h2 data-number="16.7" class="anchored" data-anchor-id="r-squared-in-r"><span class="header-section-number">16.7</span> R-Squared in R</h2>
+<p>First, we can show that <span class="math inline">\(\boldsymbol{M^0 e = e}\)</span>.</p>
+<p>We can then calculate the total sum of squares, estimated sum of squares, and residual sum of squares.</p>
+<p><span class="math inline">\(R^2\)</span> is equivalent whether obtained using the estimated or residual sum of squares.</p>
+<p>One problem, however, is that one can continue to increase <span class="math inline">\(R^2\)</span> by adding explanatory variables to the regression model.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>nrows <span class="ot">=</span> <span class="dv">200</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>ncols <span class="ot">=</span> <span class="dv">5</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,nrows,ncols)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>x[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>ncols) {</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  x[,l] <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(nrows)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(nrows)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>,nrows,<span class="dv">1</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>M0 <span class="ot">&lt;-</span> I <span class="sc">-</span> <span class="dv">1</span><span class="sc">/</span>nrows <span class="sc">*</span> i <span class="sc">%*%</span> <span class="fu">t</span>(i)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>M0x <span class="ot">&lt;-</span> M0 <span class="sc">%*%</span> x</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>nrows <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ncols <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, nrows, ncols)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      x[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span> ncols) {</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        x[,l] <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(nrows)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">gc</span>()</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>,ncols)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">%*%</span> beta <span class="sc">+</span> <span class="fu">rnorm</span>(nrows)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>bhat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>x2_meandev <span class="ot">&lt;-</span> x[,<span class="dv">2</span>] <span class="sc">-</span> <span class="fu">mean</span>(x[,<span class="dv">2</span>])</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(M0x[,<span class="dv">2</span>], x2_meandev)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(nrows)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> x <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> I <span class="sc">-</span> x <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x)</span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,],</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">'M0x for X2'</span>,<span class="st">'Mean Deviations of X2'</span>),</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>      <span class="at">align     =</span> <span class="st">'c'</span>,</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">digits    =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<table class="lightable-classic caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: center;" data-quarto-table-cell-role="th">M0x for X2</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">Mean Deviations of X2</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">0.486</td>
-<td style="text-align: center;">0.486</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0.930</td>
-<td style="text-align: center;">0.930</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0.379</td>
-<td style="text-align: center;">0.379</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">-1.730</td>
-<td style="text-align: center;">-1.730</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0.480</td>
-<td style="text-align: center;">0.480</td>
-</tr>
-</tbody>
-</table>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>,nrows,<span class="dv">1</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>M0 <span class="ot">&lt;-</span> I <span class="sc">-</span> <span class="dv">1</span><span class="sc">/</span>nrows <span class="sc">*</span> i <span class="sc">%*%</span> <span class="fu">t</span>(i)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> P <span class="sc">%*%</span> y</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> M <span class="sc">%*%</span> y</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>y_cal <span class="ot">&lt;-</span> yhat <span class="sc">+</span> e</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>M0_e <span class="ot">&lt;-</span> M0 <span class="sc">%*%</span> e</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>e[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  2.46805894 -0.05559465  0.31263368  1.82448467</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="fu">sum</span>(M0x[,<span class="dv">2</span>]), <span class="fu">sum</span>(x2_meandev))</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df2,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">'Sum of M0x for X2'</span>,<span class="st">'Sum of Mean Deviations of X2'</span>),</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">align     =</span> <span class="st">'c'</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">digits    =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>M0_e[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  2.46805894 -0.05559465  0.31263368  1.82448467</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>SST <span class="ot">&lt;-</span> <span class="fu">t</span>(y) <span class="sc">%*%</span> M0 <span class="sc">%*%</span> y</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>SSE <span class="ot">&lt;-</span> <span class="fu">t</span>(bhat) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> M0 <span class="sc">%*%</span> x <span class="sc">%*%</span> bhat</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>R2 <span class="ot">&lt;-</span> SSE <span class="sc">/</span> SST</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>R2_r <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> (<span class="fu">t</span>(e) <span class="sc">%*%</span> e) <span class="sc">/</span> (<span class="fu">t</span>(y) <span class="sc">%*%</span> M0 <span class="sc">%*%</span> y)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(R2, R2_r)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]      [,2]
+[1,] 0.9814314 0.9814314</code></pre>
+</div>
+</div>
+</section>
+<section id="r-squared-increases-in-x" class="level2" data-number="16.8">
+<h2 data-number="16.8" class="anchored" data-anchor-id="r-squared-increases-in-x"><span class="header-section-number">16.8</span> R-Squared Increases in X</h2>
+<p>When we add a new variable <span class="math inline">\(\boldsymbol{z}\)</span> to a regression already containing $, we can express the new residual sum of squares in terms of the old residual sum of squares or:</p>
+<p><span class="math display">\[
+u^T u = e^T e (1- r_{yz}^2)
+\]</span> where <span class="math inline">\(r_{yz}^2\)</span> is the squared correlation between <span class="math inline">\(\boldsymbol{y}\)</span> and <span class="math inline">\(\boldsymbol{z}\)</span> after both have been ‘purged’ of the influence of <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
+<p>Since <span class="math inline">\(r^2\)</span> must be between 0 and 1, it follows that</p>
+<p><span class="math display">\[
+u^T u \le e^T e
+\]</span> In terms of <span class="math inline">\(R^2\)</span>, this relationship simplifies to:</p>
+<p><span class="math display">\[
+R_{Xz}^2 = R_X^2 +(1-R_X^2)r_{yz}^2
+\]</span> What does this mean?</p>
+<p>The new <span class="math inline">\(R^2\)</span> will always be greater than or equal to the old <span class="math inline">\(R^2\)</span>.</p>
+<p><strong>In other words, adding an additional explanatory variable will never lower</strong> <span class="math inline">\(R^2\)</span><strong>.</strong></p>
+</section>
+<section id="constant-term-required" class="level2" data-number="16.9">
+<h2 data-number="16.9" class="anchored" data-anchor-id="constant-term-required"><span class="header-section-number">16.9</span> Constant Term Required</h2>
+<p>For <span class="math inline">\(R^2\)</span> to be a reliable measure bounded between 0 and 1, the <span class="math inline">\(\boldsymbol{X}\)</span> matrix must include a constant term (the column of 1’s).</p>
+<p>With a constant term, we know:</p>
+<p><span class="math display">\[
+\boldsymbol{M^0 e = e}
+\]</span> <span class="math display">\[
+\boldsymbol{e^T X = 0}
+\]</span>Without a constant term, the mean of the residuals is not zero and the residuals are no longer orthogonal to the centered regressors.</p>
+<p>Without an intercept, the cross-product term does not drop out. This breaks the SST=SSE+SSR identity, potentially leading to an “unpredictable” R2 that can even be negative.</p>
+</section>
+<section id="adjusted-r-squared" class="level2" data-number="16.10">
+<h2 data-number="16.10" class="anchored" data-anchor-id="adjusted-r-squared"><span class="header-section-number">16.10</span> Adjusted R-Squared</h2>
+<p>Given that one can increase <span class="math inline">\(R^2\)</span> to 1 by adding independent variables, we can use <strong>adjusted</strong> <span class="math inline">\(R^2\)</span> to examine the impact of the addition (or deletion) of an independent variable.</p>
+<p><span class="math display">\[\bar{R^2} = 1 - \frac{\boldsymbol{e^Te}}{\boldsymbol{y^T M^0 y}}\frac{(n-1)}{(n-K)} = 1 - (1-R^2)\frac{(n-1)}{(n-K)} \]</span> <span class="math inline">\(\bar{R^2}\)</span> will fall (rise) when the variable <span class="math inline">\(x\)</span> is deleted from the regression if the square of the t-ratio associated with this variable is greater (less) than 1.</p>
+<p>In other words, the greater the statistical significance of a variable that is removed, the more significant the fall in adjusted <span class="math inline">\(R^2\)</span>.</p>
+<p>The standard statistical output will include both <span class="math inline">\(R^2\)</span> and <span class="math inline">\(\bar{R^2}\)</span> in the output.</p>
+</section>
+<section id="example" class="level2" data-number="16.11">
+<h2 data-number="16.11" class="anchored" data-anchor-id="example"><span class="header-section-number">16.11</span> Example</h2>
+<p>In the results to the right, we regress reading scores by school on the school characteristics.</p>
+<p>We then add a variable that is statistically significant.</p>
+<p>Note how adding this variable increases <span class="math inline">\(R^2\)</span> and <span class="math inline">\(\bar{R^2}\)</span>.</p>
+<p>We then add a variable that is not statistically significant.</p>
+<p>While <span class="math inline">\(R^2\)</span> increses, <span class="math inline">\(\bar{R^2}\)</span> does not.</p>
+<div class="cell" data-warings="false">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(CASchools)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>mod_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(read <span class="sc">~</span> income <span class="sc">+</span> lunch <span class="sc">+</span> teachers, <span class="at">data =</span> CASchools)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>mod_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(read <span class="sc">~</span> income <span class="sc">+</span> lunch <span class="sc">+</span> english, <span class="at">data =</span> CASchools)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>mod_4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(read <span class="sc">~</span> income <span class="sc">+</span> lunch <span class="sc">+</span> english <span class="sc">+</span> computer, <span class="at">data =</span> CASchools)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(mod_2, mod_3, mod_4))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="lightable-classic caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: center;" data-quarto-table-cell-role="th">Sum of M0x for X2</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">Sum of Mean Deviations of X2</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-</tr>
-</tbody>
-</table>
+<!-- preamble start -->
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_pqj8iz69u2c8ok02jrkh = TinyTable.createTableFunctions("tinytable_pqj8iz69u2c8ok02jrkh");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '20', j: 2 }, { i: '20', j: 3 }, { i: '20', j: 4 } ], css_id: 'tinytable_css_2u7ctzvnkazg0luoz1qm',}, 
+          { positions: [ { i: '12', j: 2 }, { i: '12', j: 3 }, { i: '12', j: 4 } ], css_id: 'tinytable_css_ug968s1cdqyzttvsb2xb',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '16', j: 2 }, { i: '17', j: 2 }, { i: '18', j: 2 }, { i: '19', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '13', j: 3 }, { i: '14', j: 3 }, { i: '15', j: 3 }, { i: '16', j: 3 }, { i: '17', j: 3 }, { i: '18', j: 3 }, { i: '19', j: 3 }, { i: '1', j: 4 }, { i: '2', j: 4 }, { i: '3', j: 4 }, { i: '4', j: 4 }, { i: '5', j: 4 }, { i: '6', j: 4 }, { i: '7', j: 4 }, { i: '8', j: 4 }, { i: '9', j: 4 }, { i: '10', j: 4 }, { i: '11', j: 4 }, { i: '13', j: 4 }, { i: '14', j: 4 }, { i: '15', j: 4 }, { i: '16', j: 4 }, { i: '17', j: 4 }, { i: '18', j: 4 }, { i: '19', j: 4 } ], css_id: 'tinytable_css_k1unoi1ka48j4xw680su',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 } ], css_id: 'tinytable_css_5j5oiwvc1qck2e76hkg9',}, 
+          { positions: [ { i: '20', j: 1 } ], css_id: 'tinytable_css_1295ezmk3hazw4tjyrp4',}, 
+          { positions: [ { i: '12', j: 1 } ], css_id: 'tinytable_css_cd2txkw1n78v9wo84wfh',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 }, { i: '16', j: 1 }, { i: '17', j: 1 }, { i: '18', j: 1 }, { i: '19', j: 1 } ], css_id: 'tinytable_css_go1bnrcdls63m4n54wx4',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_nchkts4dy52mkqyz8hrp',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_pqj8iz69u2c8ok02jrkh.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_pqj8iz69u2c8ok02jrkh td.tinytable_css_2u7ctzvnkazg0luoz1qm, #tinytable_pqj8iz69u2c8ok02jrkh th.tinytable_css_2u7ctzvnkazg0luoz1qm {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_pqj8iz69u2c8ok02jrkh td.tinytable_css_ug968s1cdqyzttvsb2xb, #tinytable_pqj8iz69u2c8ok02jrkh th.tinytable_css_ug968s1cdqyzttvsb2xb {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_pqj8iz69u2c8ok02jrkh td.tinytable_css_k1unoi1ka48j4xw680su, #tinytable_pqj8iz69u2c8ok02jrkh th.tinytable_css_k1unoi1ka48j4xw680su { text-align: center }
+    #tinytable_pqj8iz69u2c8ok02jrkh td.tinytable_css_5j5oiwvc1qck2e76hkg9, #tinytable_pqj8iz69u2c8ok02jrkh th.tinytable_css_5j5oiwvc1qck2e76hkg9 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_pqj8iz69u2c8ok02jrkh td.tinytable_css_1295ezmk3hazw4tjyrp4, #tinytable_pqj8iz69u2c8ok02jrkh th.tinytable_css_1295ezmk3hazw4tjyrp4 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_pqj8iz69u2c8ok02jrkh td.tinytable_css_cd2txkw1n78v9wo84wfh, #tinytable_pqj8iz69u2c8ok02jrkh th.tinytable_css_cd2txkw1n78v9wo84wfh {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_pqj8iz69u2c8ok02jrkh td.tinytable_css_go1bnrcdls63m4n54wx4, #tinytable_pqj8iz69u2c8ok02jrkh th.tinytable_css_go1bnrcdls63m4n54wx4 { text-align: left }
+    #tinytable_pqj8iz69u2c8ok02jrkh td.tinytable_css_nchkts4dy52mkqyz8hrp, #tinytable_pqj8iz69u2c8ok02jrkh th.tinytable_css_nchkts4dy52mkqyz8hrp {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_pqj8iz69u2c8ok02jrkh" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1"> </th>
+                <th scope="col" data-row="0" data-col="2">(1)</th>
+                <th scope="col" data-row="0" data-col="3">(2)</th>
+                <th scope="col" data-row="0" data-col="4">(3)</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">(Intercept)</td>
+                  <td data-row="1" data-col="2">671.671</td>
+                  <td data-row="1" data-col="3">666.601</td>
+                  <td data-row="1" data-col="4">666.696</td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1"></td>
+                  <td data-row="2" data-col="2">(2.150)</td>
+                  <td data-row="2" data-col="3">(2.077)</td>
+                  <td data-row="2" data-col="4">(2.077)</td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="1">income</td>
+                  <td data-row="3" data-col="2">0.570</td>
+                  <td data-row="3" data-col="3">0.697</td>
+                  <td data-row="3" data-col="4">0.708</td>
+                </tr>
+                <tr>
+                  <td data-row="4" data-col="1"></td>
+                  <td data-row="4" data-col="2">(0.085)</td>
+                  <td data-row="4" data-col="3">(0.080)</td>
+                  <td data-row="4" data-col="4">(0.081)</td>
+                </tr>
+                <tr>
+                  <td data-row="5" data-col="1">lunch</td>
+                  <td data-row="5" data-col="2">-0.539</td>
+                  <td data-row="5" data-col="3">-0.397</td>
+                  <td data-row="5" data-col="4">-0.399</td>
+                </tr>
+                <tr>
+                  <td data-row="6" data-col="1"></td>
+                  <td data-row="6" data-col="2">(0.023)</td>
+                  <td data-row="6" data-col="3">(0.027)</td>
+                  <td data-row="6" data-col="4">(0.027)</td>
+                </tr>
+                <tr>
+                  <td data-row="7" data-col="1">teachers</td>
+                  <td data-row="7" data-col="2">-0.010</td>
+                  <td data-row="7" data-col="3"></td>
+                  <td data-row="7" data-col="4"></td>
+                </tr>
+                <tr>
+                  <td data-row="8" data-col="1"></td>
+                  <td data-row="8" data-col="2">(0.002)</td>
+                  <td data-row="8" data-col="3"></td>
+                  <td data-row="8" data-col="4"></td>
+                </tr>
+                <tr>
+                  <td data-row="9" data-col="1">english</td>
+                  <td data-row="9" data-col="2"></td>
+                  <td data-row="9" data-col="3">-0.290</td>
+                  <td data-row="9" data-col="4">-0.279</td>
+                </tr>
+                <tr>
+                  <td data-row="10" data-col="1"></td>
+                  <td data-row="10" data-col="2"></td>
+                  <td data-row="10" data-col="3">(0.031)</td>
+                  <td data-row="10" data-col="4">(0.032)</td>
+                </tr>
+                <tr>
+                  <td data-row="11" data-col="1">computer</td>
+                  <td data-row="11" data-col="2"></td>
+                  <td data-row="11" data-col="3"></td>
+                  <td data-row="11" data-col="4">-0.001</td>
+                </tr>
+                <tr>
+                  <td data-row="12" data-col="1"></td>
+                  <td data-row="12" data-col="2"></td>
+                  <td data-row="12" data-col="3"></td>
+                  <td data-row="12" data-col="4">(0.001)</td>
+                </tr>
+                <tr>
+                  <td data-row="13" data-col="1">Num.Obs.</td>
+                  <td data-row="13" data-col="2">420</td>
+                  <td data-row="13" data-col="3">420</td>
+                  <td data-row="13" data-col="4">420</td>
+                </tr>
+                <tr>
+                  <td data-row="14" data-col="1">R2</td>
+                  <td data-row="14" data-col="2">0.799</td>
+                  <td data-row="14" data-col="3">0.827</td>
+                  <td data-row="14" data-col="4">0.828</td>
+                </tr>
+                <tr>
+                  <td data-row="15" data-col="1">R2 Adj.</td>
+                  <td data-row="15" data-col="2">0.797</td>
+                  <td data-row="15" data-col="3">0.826</td>
+                  <td data-row="15" data-col="4">0.826</td>
+                </tr>
+                <tr>
+                  <td data-row="16" data-col="1">AIC</td>
+                  <td data-row="16" data-col="2">3048.3</td>
+                  <td data-row="16" data-col="3">2984.6</td>
+                  <td data-row="16" data-col="4">2985.2</td>
+                </tr>
+                <tr>
+                  <td data-row="17" data-col="1">BIC</td>
+                  <td data-row="17" data-col="2">3068.5</td>
+                  <td data-row="17" data-col="3">3004.8</td>
+                  <td data-row="17" data-col="4">3009.4</td>
+                </tr>
+                <tr>
+                  <td data-row="18" data-col="1">Log.Lik.</td>
+                  <td data-row="18" data-col="2">-1519.149</td>
+                  <td data-row="18" data-col="3">-1487.315</td>
+                  <td data-row="18" data-col="4">-1486.584</td>
+                </tr>
+                <tr>
+                  <td data-row="19" data-col="1">F</td>
+                  <td data-row="19" data-col="2">550.689</td>
+                  <td data-row="19" data-col="3">663.525</td>
+                  <td data-row="19" data-col="4">498.540</td>
+                </tr>
+                <tr>
+                  <td data-row="20" data-col="1">RMSE</td>
+                  <td data-row="20" data-col="2">9.01</td>
+                  <td data-row="20" data-col="3">8.35</td>
+                  <td data-row="20" data-col="4">8.34</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 

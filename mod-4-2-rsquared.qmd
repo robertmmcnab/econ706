@@ -11,6 +11,9 @@ filters:
   - webr
 execute:
   webR: true
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, echo = FALSE, message = FALSE}
@@ -25,57 +28,198 @@ library(tidyquant, quietly = TRUE)
 
 ## Introduction
 
-The goal of regression analysis is not just to find a line of best fit, but to determine how well our chosen independent variables explain the behavior of the dependent variable. Although OLS minimizes the sum of squared residuals, this value can be arbitrarily manipulated by scaling the data, making it a poor standalone measure of quality. Instead, a more effective approach is to evaluate the model based on the proportion of total variation it successfully "explains."
+In evaluating the performance of Ordinary Least Squares regressions, the
+total variation of the dependent variable is measured by the Total Sum
+of Squares (SST), which is calculated using the symmetric and idempotent
+centering matrix. This framework allows for the decomposition of SST
+into the Explained Sum of Squares (SSE) and the Residual Sum of Squares
+(SSR). From this decomposition, the coefficient of determination, $R^2$
+is derived to represent the proportion of total variation explained by
+the independent variables. However, $R^2$ is only bounded between 0 and
+1 when the model includes a constant term; without an intercept, the
+mathematical properties that simplify the SST decomposition fail to
+hold, making an unpredictable and unreliable metric.
 
-To calculate this variation systematically, we utilize the **M0** matrix, a symmetric and idempotent matrix designed to transform data into deviations from the mean. This introduction covers the algebraic properties of the centering matrix and demonstrates its application in R. By understanding the **M0** matrix, we gain the ability to standardize our measures of model performance, moving beyond raw residuals toward a formal assessment of a model's explanatory power.
+A significant limitation of $R^2$ is its mathematical property of
+non-decrease; adding any additional explanatory variable to a model will
+mechanically increase $R^2$, even if the variable has no meaningful
+relationship with the dependent variable. To correct for this, the
+Adjusted $R^2$ incorporates a penalty for each added regressor based on
+the degrees of freedom. Unlike the standard $R^2$, the adjusted version
+will only increase if the new variable’s contribution to the model's
+explanatory power is sufficient to offset the loss in degrees of
+freedom.
 
-## Scaling Residuals
+## Total Sum of Squares for x
 
-The objective function of the least squares estimator is, subject to the selection of a vector of coefficients, $\boldsymbol{b_0}$, the minimization of the sum of the squared residuals.
+We can use $\boldsymbol{M^0}$ to calculate the sum of the squared mean
+deviations of $\boldsymbol{x}$.
+
+For one variable $\boldsymbol{x}$, the sum of squared mean deviations
+is:
+
+$$\sum_{i=1}^{n}(x_i - \bar{x})^2 = (x_i - \bar{x})^T(x_i - \bar{x}) = (M^0 x)^T (M^0 x)$$
+
+$$\sum_{i=1}^{n}(x_i - \bar{x})^2 = (M^0 x)^T (M^0 x) = x^T M^{0T}M^0x$$
+Recall that $M^0$ is symmetric or
+
+$$M^{0T} = M^0$$
+
+Recall that $M^0$ is idempotent or
+
+$$M^{0T}M^{0} = M^0$$
+
+The sum of squared mean deviations for a single variable becomes:
+
+$$\sum_{i=1}^{n}(x_i - \bar{x})^2  = x^T M^{0T}M^0x = x^T M^0 x$$
+
+## Total Sum of Squares for X
+
+First, the transformation of the $\boldsymbol{X}$ matrix into mean
+deviations is:
 
 $$
-min_{b_0} \, e^T e
+\boldsymbol{M^0 X}
 $$
 
-Conditional on the standard assumptions holding, we take the first derivative of the objective function and set the first derivative equal to 0 to obtain the **normal equations** and the vector of least squares coefficients:
+The sum of squares and cross-products of the mean deviations for
+$\boldsymbol{X}$ is:
 
-The **normal equations** and the vector of the least squares coefficients are: $$\boldsymbol{X^T\ X\ b} = \boldsymbol{X^T\ y}$$
+$$
+\boldsymbol{(M^0 X)^T (M^0 X)}
+$$
 
-$$\boldsymbol{b} = (\boldsymbol{X^T\ X})^{-1}\ \boldsymbol{X^T\ y}$$
+$$
+\boldsymbol{X^T M^{0T} M^0 X}
+$$
 
-Using the **sum of the squared residuals** are a measure of performance, however, is a poor choice because the sum of the squared residuals can be manipulated by scaling the residuals.
+Since $\boldsymbol{M^0}$ is symmetric and idempotent, this can be
+simplified to:
 
-If we pre-multiply $\boldsymbol{e}$ by a scalar $k$ that the sum of the squared residuals becomes:
+$$
+\boldsymbol{X^T M^0 X}
+$$
 
-$$\boldsymbol{e^T}\ k^Tk\ \boldsymbol{e} = (k^Tk)(\boldsymbol{e^T e} )= k^2 \boldsymbol{e^T e}$$
+While the single variable case for $\boldsymbol{x^T M^0 x}$ yields a
+scalar which is the Total Sum of Squares for that variable, the matrix
+operation yields:
 
-We can arbitrarily scale the sum of squared residuals by multiplying $\boldsymbol{y}$ by a desired scale factor.
+$$ \boldsymbol{X^T M^0 X} \sim (K \times K) $$
 
-The code below does the following:
+The diagonal elements of $\boldsymbol{X^T M^0 X}$ are the sum of the
+squared deviations (SST) for each individual variable in the
+$\boldsymbol{X}$ matrix. The off-diagonal elements represent the sum of
+the squared cross-products (SSCP) between different variables and are
+used to calculate covariances or:
 
--   Creates a matrix of independent variables that is $(500 \times 5)$.
+$$
+\boldsymbol{X^T M^0 X} = \begin{bmatrix} SST_{x1} & SSCP_{x1,x2} & \dots & SST_{x1,xK} \\
+SSCP_{x2,x1} & SST_{x2} & \dots & SSCP_{x2,xK} \\
+\vdots & \ddots & \dots & \vdots \\
+SSCP_{xk,x1} & SST_{xk,x2} & \dots & SST_{xk} \\
+\end{bmatrix}
+$$
 
--   Sets a scalar $k = 2$
+However, recall that the first column of $\boldsymbol{X}$ consists of
+1's and so every observation of $\boldsymbol{x_1}$ is equal to its mean
+and thus the mean deviation of every observation in $\boldsymbol{x_1}$
+is 0. Also, since the off-diagonal elements represent the shared
+variation between variables (cross-products) and since
+$\boldsymbol{x_1}$ does not vary, the sum of the squared cross-product
+between $\boldsymbol{x_1}$ and any other variable is 0.
 
--   Defines the true population coefficients as a sequence of integers from 1 to 5.
+$$
+\boldsymbol{X^T M^0 X} = \begin{bmatrix} 0 & 0 & \dots & 0 \\
+0 & SST_{x2} & \dots & SSCP_{x2,xK} \\
+\vdots & \ddots & \dots & \vdots \\
+0 & SST_{xk,x2} & \dots & SST_{xk} \\
+\end{bmatrix}
+$$
 
--   Generates $\boldsymbol{y = X \beta + \epsilon}$
+## Sum of Squares
 
--   Defines $\boldsymbol{ky = 2 \times y}$
+For the dependent variable $y$, the **total sum of squares**, $SST_y$,
+is equal to the sum of squared mean deviations.
 
--   Generates $\boldsymbol{b}$ for the regression of $\boldsymbol{y}$ and $\boldsymbol{ky}$ on $\boldsymbol{X}$
+$$
+SST_y = \boldsymbol{y^T M^0 y}
+$$
 
--   Generates $\boldsymbol{e}$ for both regressions
+Given the relationship, $\boldsymbol{y = Xb + e}$, we can pre-multiply
+by the centering matrix, $\boldsymbol{M^0}$ or:
 
--   Produces a table of the first 5 observations of each vector of residuals to illustrate scaling.
+$$
+\boldsymbol{y = Xb +e}
+$$
+
+$$
+\boldsymbol{M^0 y = M^0 Xb + M^0e}
+$$
+
+If the model contains a constant term and the other assumptions hold,
+then the mean of the residuals is equal to zero, that is,
+$\boldsymbol{\bar{e} = 0}$ this implies that:
+
+$$
+\boldsymbol{M^0 e = e}
+$$\
+$$
+\boldsymbol{M^0 y = M^0 Xb + e}
+$$
+
+And we can pre-multiply by $\boldsymbol{y^T}$ to obtain:
+
+$$
+\boldsymbol{y^T M^0 y = (M^0 Xb +e)^T  (M^{0}Xb + e)}
+$$
+
+$$
+\boldsymbol{y^T M^0 y = b^T X^T M^{0T}M^0Xb + b^T X^T M^{0T}e + e^TM^0Xb + e^Te}
+$$
+
+Because the residuals, $\boldsymbol{e}$ are orthogonal to the
+regressors, $\boldsymbol{X}$ and, by extension, to the centered
+regressors, $\boldsymbol{M^0X}$, the cross-product terms drop out. We
+can also rely on the fact that the centering matrix is symmetric and
+idempotent.
+
+This leaves us with a fundamental identity:
+
+$$
+\boldsymbol{y^T M^0 y = b^T X^T M^0 Xb + e^T e}
+$$
+
+Which can be expressed as:
+
+$$
+SST = SSE + SSR
+$$
+
+That is, the total sum of squares of the dependent variable (SST) is
+equal to the explained sum of squares (SSE) and the residual sum of
+squares (SSR).
+
+## Decomposition in R
+
+Building upon our previous examples, we can use simulated data to create
+our independent variables, population coefficients, and the dependent
+variable. We can estimate the least squares coefficients and construct
+the projection and residual maker matrices.
+
+We then construct the $\boldsymbol{M^0}$ matrix and use this matrix to
+estimate SST, SSE, and SSR.
+
+The output table demonstrates the equality, that the total sum of
+squares can be decomposed into the explained sum of squares and the
+residual sum of squares.
 
 ```{r}
 
 rm(list = ls())
+library(kableExtra)
 
-nrows <- 500
+nrows <- 2000
 ncols <- 5
-k = 2
  
 x <- matrix(0, nrows, ncols)
       x[,1] <- 1
@@ -88,175 +232,204 @@ beta <- seq(1,ncols)
 
 y <- x %*% beta + rnorm(nrows)
 
-ky <- k*y
-
 bhat <- solve(t(x) %*% x) %*% t(x) %*% y
-bhat2 <- solve(t(x) %*% x) %*% t(x) %*% ky
 
 I <- diag(nrows)
-
+P <- x %*% solve(t(x) %*% x) %*% t(x)
 M <- I - x %*% solve(t(x) %*% x) %*% t(x)
 
-e1 <- M %*% y
-e2 <- M %*% ky
+i <- matrix(1,nrows,1)
 
-df <- tibble(e1, e2)
+M0 <- I - 1/nrows * i %*% t(i)
 
-kable(df[1:5,],
-      col.names = c('e(y)', 'e(ky)'),
+yhat <- P %*% y
+e <- M %*% y
+
+
+sst <- t(y) %*% M0 %*% y
+sse <- t(bhat) %*% t(x) %*% M0 %*% x %*% bhat
+ssr <- t(e) %*% e
+
+df <- tibble(SST = as.numeric(sst),
+             SSE = as.numeric(sse),
+             SSR = as.numeric(ssr))
+
+kable(df,
+      col.names = c('SST', 'SSE', 'SSR'),
       align     = 'c',
-      digits    = 3) %>%
+      digits    = 2) %>%
 kable_classic()
+
 ```
 
-## M0 Matrix
+## R-Squared
 
-A better measure of how "well" our model performs is to ask whether the variation in the independent variables predicts variation in the dependent variable.
+The total sum of squares (SST) can be decomposed into the regression (or
+explained) sum of squares (SSE) and the residual sum of squares (SSR).
 
-**A model in which the independent variables "explain" more of the variation in the dependent variable should be preferred relative to a model in which the independent variables explain less of the variation in the dependent variable.**
-
-The question then becomes: how do we measure the variation in the dependent variable?
-
-To do this, we will need a new matrix.
-
-A fundamental matrix in statistics is the “centering matrix” that is used to transform data to deviations from their mean.
-
-Recall that the mean deviations of a variable are:
+$$\boldsymbol{y^T M^0 y} = (\boldsymbol{b^T X^T M^0Xb}) + (\boldsymbol{e^T e})$$
+$$SST = SSE + SSR$$The **coefficient of determination** is a measure of
+how well a regression fits the data, where:
+$$R^2 = \frac{SSE}{SST} = \frac{(\boldsymbol{b^T X^T M^0Xb})}{\boldsymbol{y^T M^0 y}} = 1 - \frac{\boldsymbol{e^Te}}{\boldsymbol{y^T M^0 y}} = 1 - \frac{SSR}{SST}$$
 
 $$
-(x_i - \bar{x})
+0 \le R^2 \le 1
 $$
 
-Let $\boldsymbol{i}$ be $(n \times 1$) and equal to:
+When $R^2 = 0$ the predicted values of $y$ are $\bar{y}$ so
+$\boldsymbol{X}$ has no explanatory power.
 
-$$
-\boldsymbol{i} = \begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix}
-$$
+When $R^2 = 1$, the values of $y$ and $\boldsymbol{x}$ are such that the
+predicted values and actual values are the same.
 
-We can pre-multiply the mean of the variable $\boldsymbol{x}$ by $\boldsymbol{i}$ to obtain
+## R-Squared in R
 
-$$
-\boldsymbol{i} \bar{x} = \begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix}\bar{x} = \begin{bmatrix} \bar{x} \\ \bar{x} \\ \bar{x} \\ \vdots \\ \bar{x} \end{bmatrix}
-$$
+First, we can show that $\boldsymbol{M^0 e = e}$.
 
-Recall that the sum of a variable can be expressed as:
+We can then calculate the total sum of squares, estimated sum of
+squares, and residual sum of squares.
 
-$$
-\sum_{i=1}^n x_i = \boldsymbol{i^T x}
-$$
+$R^2$ is equivalent whether obtained using the estimated or residual sum
+of squares.
 
-$$
-\boldsymbol{i^Tx} = \begin{bmatrix} 1 & 1 & \dots & 1 \end{bmatrix} \begin{bmatrix}x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix} = x_1 + x_2 + \dots + x_n 
-$$
-
-Which means the mean of a variable can be expressed as:
-
-$$
-\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i = \frac{1}{n}\boldsymbol{i^T x}
-$$
-
-$$
-\frac{1}{n}\boldsymbol{i^Tx} = \begin{bmatrix} 1/n & 1/n & \dots & 1/n \end{bmatrix} \begin{bmatrix}x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix} = (x_1/n) + (x_2/n) + \dots + (x_n/n)
-$$
-
-We can rearrange this to obtain:
-
-$$
-\begin{bmatrix} \bar{x} \\ \bar{x} \\ \bar{x} \\ \vdots \\ \bar{x} \end{bmatrix} = \boldsymbol{i}\bar{x} = \boldsymbol{i}(\frac{1}{n} \boldsymbol{i^T}x)
-$$
-
-We can continue to rearrange to obtain:
-
-$$
-\begin{bmatrix} \bar{x} \\ \bar{x} \\ \bar{x} \\ \vdots \\ \bar{x} \end{bmatrix} = \boldsymbol{i}\bar{x} = \boldsymbol{i}(\frac{1}{n} \boldsymbol{i^T}x) = \frac{1}{n} \boldsymbol{ii^T x}
-$$
-
-The matrix $\frac{1}{n}\boldsymbol{ii^T}$ is an $(n \times n)$ matrix with every element equal to $1/n$.
-
-The values in mean deviations form are:
-
-$$\begin{bmatrix} x_1 -\bar{x} \\ x_2 - \bar{x} \\ \dots \\ x_n - \bar{x} \end{bmatrix} = [\boldsymbol{x - i}\bar{x}] = \Bigg[\boldsymbol{x} - \frac{1}{n}\boldsymbol{ii^T x} \Bigg]$$
-
-Recall that $\boldsymbol{x} = \boldsymbol{Ix}$ then, $$\Bigg[\boldsymbol{x} - \frac{1}{n}\boldsymbol{ii^T x} \Bigg] =  \Bigg[\boldsymbol{Ix} - \frac{1}{n}\boldsymbol{ii^T x} \Bigg] = \Bigg[\boldsymbol{I} - \frac{1}{n}\boldsymbol{ii^T} \Bigg]\boldsymbol{x} = \boldsymbol{M^0x}$$
-
-The matrix $\boldsymbol{M^0}$ is the **centering matrix** and transforms a vector of data into a vector of deviations from the mean.
-
-The matrix $\boldsymbol{M^0}$ is symmetric and idempotent and equal to:
-
-$\boldsymbol{M^0}$ is equal to:
-
-$$\boldsymbol{M^0} = \begin{bmatrix} 1 - \frac{1}{n} & - \frac{1}{n} & \dots & -\frac{1}{n} \\ - \frac{1}{n} & 1 - \frac{1}{n} & \dots & -\frac{1}{n}\\ \vdots & \vdots & \ddots & \vdots \\ - \frac{1}{n} & -\frac{1}{n} & \dots & 1- \frac{1}{n}\end{bmatrix}$$
-
-Consider the case when we want to transform a single variable $\boldsymbol{x}$.
-
-The mean deviations of $\boldsymbol{x}$ would be
-
-$$(\boldsymbol{x_i}^T - \bar{\boldsymbol{x}}) = \boldsymbol{M^0 x} $$
-
-The sum of mean deviations should be approximately zero.
-
-$$\sum_{i=1}^{n} (\boldsymbol{x_i}^T - \bar{\boldsymbol{x}}) = \boldsymbol{M^0 x} = 0 $$
-
-## R Example of M0
-
-We can create $\boldsymbol{M^0}$ in R to illustrate how it demeans $\boldsymbol{X}$.
-
-The code below does the following:
-
--   Creates a $(200 \times 5)$ matrix and fills it with random numbers from a standard normal
-
--   Creates a $(200 \times 5)$ identity matrix, $\boldsymbol{I}$
-
--   Creates a $(200 \times 1)$ vector of 1's which is called $\boldsymbol{i}$
-
--   Creates the $M^0$ matrix defined previous
-
--   Estimates the mean deviations of $\boldsymbol{X}$ as $\boldsymbol{M^0 X}$
-
--   Estimates the mean deviations of the second column of $\boldsymbol{X}$
-
--   Produces a table of the first 5 observations of mean deviations
-
--   Produces a table of the sum of mean deviations which are equal to zero
+One problem, however, is that one can continue to increase $R^2$ by
+adding explanatory variables to the regression model.
 
 ```{r}
 
 rm(list = ls())
+library(kableExtra)
 
-nrows = 200
-ncols = 5
+nrows <- 2000
+ncols <- 5
+ 
+x <- matrix(0, nrows, ncols)
+      x[,1] <- 1
+      for (l in 2: ncols) {
+        x[,l] <- rnorm(nrows)
+        gc()
+      }
 
-x <- matrix(0,nrows,ncols)
+beta <- seq(1,ncols)
 
-x[,1] <- 1
+y <- x %*% beta + rnorm(nrows)
 
-for (l in 2:ncols) {
-  x[,l] <- rnorm(nrows)
-}
-  
+bhat <- solve(t(x) %*% x) %*% t(x) %*% y
+
 I <- diag(nrows)
+P <- x %*% solve(t(x) %*% x) %*% t(x)
+M <- I - x %*% solve(t(x) %*% x) %*% t(x)
+
 i <- matrix(1,nrows,1)
 
 M0 <- I - 1/nrows * i %*% t(i)
-M0x <- M0 %*% x
 
-x2_meandev <- x[,2] - mean(x[,2])
+yhat <- P %*% y
+e <- M %*% y
 
-df <- tibble(M0x[,2], x2_meandev)
+y_cal <- yhat + e
 
-kable(df[1:5,],
-      col.names = c('M0x for X2','Mean Deviations of X2'),
-      align     = 'c',
-      digits    = 3) %>%
-kable_classic()
+M0_e <- M0 %*% e
 
-df2 <- tibble(sum(M0x[,2]), sum(x2_meandev))
+e[1:4]
+M0_e[1:4]
 
-kable(df2,
-      col.names = c('Sum of M0x for X2','Sum of Mean Deviations of X2'),
-      align     = 'c',
-      digits    = 3) %>%
-kable_classic()
+SST <- t(y) %*% M0 %*% y
+SSE <- t(bhat) %*% t(x) %*% M0 %*% x %*% bhat
+R2 <- SSE / SST
 
+R2_r = 1 - (t(e) %*% e) / (t(y) %*% M0 %*% y)
 
+cbind(R2, R2_r)
+
+```
+
+## R-Squared Increases in X
+
+When we add a new variable $\boldsymbol{z}$ to a regression already
+containing \$\boldsymbol{X}, we can express the new residual sum of
+squares in terms of the old residual sum of squares or:
+
+$$
+u^T u = e^T e (1- r_{yz}^2)
+$$ where $r_{yz}^2$ is the squared correlation between $\boldsymbol{y}$
+and $\boldsymbol{z}$ after both have been 'purged' of the influence of
+$\boldsymbol{X}$.
+
+Since $r^2$ must be between 0 and 1, it follows that
+
+$$
+u^T u \le e^T e
+$$ In terms of $R^2$, this relationship simplifies to:
+
+$$
+R_{Xz}^2 = R_X^2 +(1-R_X^2)r_{yz}^2
+$$ What does this mean?
+
+The new $R^2$ will always be greater than or equal to the old $R^2$.
+
+**In other words, adding an additional explanatory variable will never
+lower** $R^2$**.**
+
+## Constant Term Required
+
+For $R^2$ to be a reliable measure bounded between 0 and 1, the
+$\boldsymbol{X}$ matrix must include a constant term (the column of
+1's).
+
+With a constant term, we know:
+
+$$
+\boldsymbol{M^0 e = e}
+$$ $$
+\boldsymbol{e^T X = 0}
+$$Without a constant term, the mean of the residuals is not zero and the
+residuals are no longer orthogonal to the centered regressors.
+
+Without an intercept, the cross-product term does not drop out. This
+breaks the SST=SSE+SSR identity, potentially leading to an
+"unpredictable" R2 that can even be negative.
+
+## Adjusted R-Squared
+
+Given that one can increase $R^2$ to 1 by adding independent variables,
+we can use **adjusted** $R^2$ to examine the impact of the addition (or
+deletion) of an independent variable.
+
+$$\bar{R^2} = 1 - \frac{\boldsymbol{e^Te}}{\boldsymbol{y^T M^0 y}}\frac{(n-1)}{(n-K)} = 1 - (1-R^2)\frac{(n-1)}{(n-K)} $$
+$\bar{R^2}$ will fall (rise) when the variable $x$ is deleted from the
+regression if the square of the t-ratio associated with this variable is
+greater (less) than 1.
+
+In other words, the greater the statistical significance of a variable
+that is removed, the more significant the fall in adjusted $R^2$.
+
+The standard statistical output will include both $R^2$ and $\bar{R^2}$
+in the output.
+
+## Example
+
+In the results to the right, we regress reading scores by school on the
+school characteristics.
+
+We then add a variable that is statistically significant.
+
+Note how adding this variable increases $R^2$ and $\bar{R^2}$.
+
+We then add a variable that is not statistically significant.
+
+While $R^2$ increses, $\bar{R^2}$ does not.
+
+```{r, message = FALSE, warings = FALSE}
+
+rm(list = ls())
+library(AER)
+library(modelsummary)
+data(CASchools)
+
+mod_2 <- lm(read ~ income + lunch + teachers, data = CASchools)
+mod_3 <- lm(read ~ income + lunch + english, data = CASchools)
+mod_4 <- lm(read ~ income + lunch + english + computer, data = CASchools)
+
+modelsummary(list(mod_2, mod_3, mod_4))
 ```
