@@ -418,7 +418,7 @@ Note how adding this variable increases $R^2$ and $\bar{R^2}$.
 
 We then add a variable that is not statistically significant.
 
-While $R^2$ increses, $\bar{R^2}$ does not.
+While $R^2$ increases, $\bar{R^2}$ does not.
 
 ```{r, message = FALSE, warings = FALSE}
 
