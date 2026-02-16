@@ -18,7 +18,7 @@ By the end of this module, you should be able to:
 -   **MLO 2**: **Calculate and interpret** the coefficient of determination (\$R\^2\$) to evaluate the explained variation of a least squares regression.
 -   **MLO 3: Differentiate** between $R^2$ and Adjusted $R^2$, specifically regarding how each metric responds to the addition of statistically insignificant variables.
 -   **MLO 4: Analyze** standard statistical output to determine if the inclusion of a specific variable significantly improves the model's goodness of fit.
--   **MLO 5: Implement** matrix calculations in R to derive the Sum of Squared Totals (SST) and verify results against standard regression packages.
+-   **MLO 5: Implement** matrix calculations in R to derive the Total Sum of Squares (SST) and verify results against standard regression packages.
 
 ------------------------------------------------------------------------
 
@@ -54,4 +54,4 @@ Please select the links provided to access material where applicable.
 
 ------------------------------------------------------------------------
 
-Next: Start with [**Measuring Variation**](mod-4-1-means.qmd).
+Next: Start with [**The M0 Matrix**](mod-4-1-means.qmd).
