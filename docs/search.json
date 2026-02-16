@@ -59,7 +59,7 @@
     "href": "index.html#module-04---goodness-of-fit",
     "title": "ECON 706",
     "section": "0.5 Module 04 - Goodness of Fit",
-    "text": "0.5 Module 04 - Goodness of Fit\n\n\nModule 4 Overview\n\n\nThe M0 Matrix\n\n\nR Squared\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
+    "text": "0.5 Module 04 - Goodness of Fit\n\n\nModule 4 Overview\n\n\nThe M0 Matrix\n\n\nR Squared",
     "crumbs": [
       "Introduction",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
@@ -1350,6 +1350,204 @@
     "crumbs": [
       "Goodness of Fit",
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>R Squared</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html",
+    "href": "mod-5-1-unbiased.html",
+    "title": "18  Unbiasedness",
+    "section": "",
+    "text": "18.1 Introduction\nIn Module 5 of ECON 706, we examine the finite sample properties of the Ordinary Least Squares (OLS) estimator. Using numerical sampling experiments and R-based simulations, we verify that under the classical assumptions—linearity, full column rank, and strict exogeneity—the OLS estimator is unbiased, meaning its expected value centers exactly on the true population parameters.\nWe also analyze the critical impact of model specification on estimator performance. Through mathematical derivations and simulations, we demonstrate how omitting relevant variables introduces bias, while including irrelevant variables, though maintaining unbiasedness, unnecessarily increases the variance of our estimates. These lessons establish the foundational “Best Linear Unbiased Estimator” (BLUE) properties essential for reliable statistical inference.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#population-estimates",
+    "href": "mod-5-1-unbiased.html#population-estimates",
+    "title": "18  Unbiasedness",
+    "section": "18.2 Population Estimates",
+    "text": "18.2 Population Estimates\nWe can use a sampling experiment to illustrate the sampling distribution of the least square estimates.\nThe \\(\\boldsymbol{X}\\) matrix consists of our standard column of 1’s and a set of independent variables drawn from a random uniform distribution bounded between the values of 0 and 20.\nThe disturbance is drawn from a random normal such that \\(\\epsilon \\sim N(0, 100)\\)\nWe use the population parameters to construct \\(\\boldsymbol{y}\\) and then generate the least squares estimates using the population data.\n\nrm(list = ls())\nnrows &lt;- 1000000\nncols &lt;- 3\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1,2,4)\n\ny &lt;- x %*% beta + rnorm(nrows, sd = 10)\n\nbhat_pop &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nbhat_pop\n\n          [,1]\n[1,] 0.9821515\n[2,] 2.0007793\n[3,] 4.0027942",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#sampling-distributions",
+    "href": "mod-5-1-unbiased.html#sampling-distributions",
+    "title": "18  Unbiasedness",
+    "section": "18.3 Sampling Distributions",
+    "text": "18.3 Sampling Distributions\nNow, we repeatedly draw a random sample from the sample data.\nFor each sample, we generate the least squares coefficients.\nAs our sample size increases and number of samples increases, the distribution of the least squares estimates ‘centers’ on the true population parameter.\nThe mean and median of the distribution is roughly equal to the true population parameter.\n\n#Set Sample and Repetitions\n\nrm(list = ls())\nnrows &lt;- 1000000\nncols &lt;- 3\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1,2,4)\n\ny &lt;- x %*% beta + rnorm(nrows, sd = 10)\n\nbhat_pop &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\npopdata &lt;- data.frame(y,x)\n\nnsample &lt;- 1000\nnreps &lt;- 10000\n\nbhat &lt;- matrix(ncol = ncols, nrow = nreps)\n\nfor(i in 1:nreps){\n  sample &lt;- popdata[sample(1:nrows,nsample),]\n  bhat[i,] &lt;- lm(y ~ X2 + X3, data = sample)$coefficients\n   \n}\n\nhist(bhat[,2],\n cex.main = 1,\n     main = bquote(The ~ Distribution  ~ of ~ 100000 ~ b[2] ~ Estimates), \n     xlab = bquote(b[2]), \n     freq = F)",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#sampling-distributions-1",
+    "href": "mod-5-1-unbiased.html#sampling-distributions-1",
+    "title": "18  Unbiasedness",
+    "section": "18.4 Sampling Distributions",
+    "text": "18.4 Sampling Distributions\nThe sampling distribution of \\(\\boldsymbol{b_2}\\) and \\(\\boldsymbol{b_3}\\) highlight some important points.\nEach least square’s coefficient is, in fact, a random variable drawn from an underlying distribution.\nWith repeated sampling, the central tendency of the distribution of each parameter estimate equals the population parameter.\nThe parameter estimates appear to be unbiased, that is, on average, the parameter estimates are equal to the population parameters.\nEach distribution displays variance, underlying the point that the least squares estimates are random variables.\nThe parameter estimates also appear to follow a normal distribution as \\(nreps\\) and \\(N\\) increase.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#finite-sample-properties",
+    "href": "mod-5-1-unbiased.html#finite-sample-properties",
+    "title": "18  Unbiasedness",
+    "section": "18.5 Finite Sample Properties",
+    "text": "18.5 Finite Sample Properties\nAn estimator is a strategy, formula, or algorithm for using sample data drawn from a population to estimate the parameters in the population.\nThe finite sample properties of the least square estimator require the underlying assumptions to hold.\nThe finite sample properties are based on repeated sampling from the population.\nThe concept of unbiasedness, for example, depends on repeated sampling of the population.\nAn estimator is considered to be unbiased if the average of the estimator is equal to the population parameter.\nWhile one estimate may be too high or too low, on average, the estimates for an unbiased estimator gravitate to the value of the population parameter.\nThe asymptotic properties of the estimator are obtained from “large” samples or the complete population.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#unbiased-estimator",
+    "href": "mod-5-1-unbiased.html#unbiased-estimator",
+    "title": "18  Unbiasedness",
+    "section": "18.6 Unbiased Estimator",
+    "text": "18.6 Unbiased Estimator\nRecall, under the assumption of linearity, full column rank, and strict exogeneity that we can obtain and expand upon the least squares estimator: \\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ y}\\]\n\\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ y = (X^T\\ X)^{-1}\\ X^T\\ (X\\ \\beta + \\epsilon)}\\]\n\\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ X\\ \\beta + (X^T\\ X)^{-1}\\ X^T\\ \\epsilon}\\]\nTaking the expectation of the least squares estimator conditional on \\(\\boldsymbol{X}\\) yields \\[\\boldsymbol{E[b\\ |\\ X] = E[(X^T\\ X)^{-1}\\ X^T\\ X\\ \\beta + (X^T\\ X)^{-1}\\ X^T\\ \\epsilon\\ |\\ X]}\\]\n\\[\\boldsymbol{E[b\\ |\\ X] = E[\\beta] + E[(X^T\\ X)^{-1}\\ X^T\\ \\epsilon\\ |\\ X]}\\]\n\\[\\boldsymbol{E[b\\ |\\ X] = E[\\beta] + (X^T\\ X)^{-1}\\ E[X^T\\ \\epsilon\\ |\\ X]}\\]\nIf the assumption of strict exogeneity holds, then \\(\\boldsymbol{E[X^T\\ \\epsilon\\ |\\ X]=0}\\) and \\[\\boldsymbol{E[b\\ |\\ X] = \\beta}\\]",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#unbiased-estimation",
+    "href": "mod-5-1-unbiased.html#unbiased-estimation",
+    "title": "18  Unbiasedness",
+    "section": "18.7 Unbiased Estimation",
+    "text": "18.7 Unbiased Estimation\nGiven the assumptions of the least squares estimator, we can show that the estimator is unbiased. \\[\\boldsymbol{E[b\\ |\\ X] = \\beta}\\]\nWhat does this mean for a particular sample of the population?\nFor any sample of the population, the least squares estimator has the expectation \\(\\boldsymbol{\\beta}\\). \\[\\boldsymbol{E[b] = E_X[E[b\\ |\\ x]] = \\beta}\\] When we average this expectation over all the possible values of \\(\\boldsymbol{X}\\), we obtain the unconditional mean is \\(\\boldsymbol{\\beta}\\).\n\\[\\boldsymbol{E[b] = E_X[E[b\\ |\\ x]] = E_x[\\beta] = \\beta}\\]\nGiven that the expectation of \\(\\boldsymbol{b}\\) conditional on \\(\\boldsymbol{X}\\) is equal to \\(\\boldsymbol{\\beta}\\), then the least squares estimator is unbiased in every sample.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#omitted-variable-bias",
+    "href": "mod-5-1-unbiased.html#omitted-variable-bias",
+    "title": "18  Unbiasedness",
+    "section": "18.8 Omitted Variable Bias",
+    "text": "18.8 Omitted Variable Bias\nLet the correct model specification be:\n\\[\\boldsymbol{y = X\\ \\beta + z\\ \\gamma + \\epsilon}\\]\nLet \\(\\boldsymbol{X}\\) be \\((n \\times K)\\) and \\(\\boldsymbol{z}\\) is \\((n \\times 1)\\).\n\\(\\boldsymbol{z}\\) is a relevant variable, that is, \\(\\boldsymbol{\\gamma \\ne 0}\\)?\nWhat happens if we omit \\(\\boldsymbol{z}\\) from the regression?\nStart and expand the least squares estimator\n\\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ y}\\]\n\\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ (X\\ \\beta + z\\ \\gamma + \\epsilon)}\\]\n\\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ X\\ \\beta + (X^T\\ X)^{-1}\\ X^Tz\\ \\gamma + (X^T\\ X)^{-1}\\ X^T\\epsilon}\\]\n\\[\\boldsymbol{b = \\beta + (X^T\\ X)^{-1}\\ X^Tz\\ \\gamma + (X^T\\ X)^{-1}\\ X^T\\epsilon}\\]",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#omitted-variable-bias-1",
+    "href": "mod-5-1-unbiased.html#omitted-variable-bias-1",
+    "title": "18  Unbiasedness",
+    "section": "18.9 Omitted Variable Bias",
+    "text": "18.9 Omitted Variable Bias\nGiven the least squares estimator that results from the omission of the relevant variable \\(\\boldsymbol{z}\\), we can take the expectation of the estimator to show\n\\[\\boldsymbol{b = \\beta + (X^T\\ X)^{-1}\\ X^Tz\\ \\gamma + (X^T\\ X)^{-1}\\ X^T\\epsilon}\\] \\[\\boldsymbol{E[b|X,z] = E[\\beta|X,z] + E[(X^T\\ X)^{-1}\\ X^Tz\\ \\gamma|X,z]\\ +}\\] \\[\\boldsymbol{E[(X^T\\ X)^{-1}\\ X^T\\epsilon|X,z]}\\] \\[\\boldsymbol{E[b|X,z] = \\beta + E[(X^T\\ X)^{-1}\\ X^Tz\\ \\gamma|X,z]}\\]\nIf \\(\\boldsymbol{X}\\) and \\(\\boldsymbol{z}\\) are orthogonal, then \\(\\boldsymbol{X^T z}= 0\\).\nIn other words, if \\(\\boldsymbol{z}\\) is not relevant, then the least squares estimator is unbiased: \\[\\boldsymbol{E[b|X,z] = \\beta + (X^T\\ X)^{-1}\\ E[X^Tz\\ \\gamma|X,z] = \\beta}\\]\nBut, if \\(\\boldsymbol{X}\\) and \\(\\boldsymbol{z}\\) are not orthogonal, then the least squares estimator is biased.\nLet \\(\\boldsymbol{p_{x,z}}\\) equal:\n\\[\\boldsymbol{p_{x,z} = (X^T\\ X)^{-1}\\ X^Tz}\\]\nIn other words, \\(\\boldsymbol{p_{x,z}}\\) is a column vector containing the coefficients of the least squares regressions of \\(\\boldsymbol{z}\\) on \\(\\boldsymbol{X}\\).\nThe extent of omitted variable bias can be determined as:\n\\[\\boldsymbol{E[b|X,z] = \\beta + (X^T\\ X)^{-1}\\ E[X^Tz\\ \\gamma|X,z]}\\]\n\\[\\boldsymbol{E[b|X,z] = \\beta + p_{x,z} \\gamma}\\]\nFor each coefficient in \\(b\\), we can see that \\[E[b_k|\\boldsymbol{X,z} = \\beta_K + \\gamma \\frac{Cov(z,x_k | \\text{all other x's})}{Var(x_k | \\text{all other x's)}}\\]\nWhile helpful, this is only helpful when there is a single included variable and a single omitted variable. As more regressors are added and omitted, the sign of the bias is no longer obvious.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#irrelevant-variables",
+    "href": "mod-5-1-unbiased.html#irrelevant-variables",
+    "title": "18  Unbiasedness",
+    "section": "18.10 Irrelevant Variables",
+    "text": "18.10 Irrelevant Variables\nWhile omitting a relevant variable leads to omitted variable bias, what does the inclusion of an irrelevant variable do to the least squares estimator?\nAssume that the true regression model is \\(\\boldsymbol{y = X\\beta + \\epsilon}\\) but we instead instead we estimate \\(\\boldsymbol{y = X\\ \\beta + z\\ \\gamma + \\epsilon}\\).\nIn this case, \\(\\boldsymbol{z}\\) is an irrelevant variable, that is, \\(\\gamma = 0\\). We, however, fail to impose the restriction that \\(\\gamma = 0\\).\nThe least squares estimator is still unbiased.\nSince \\(\\boldsymbol{z}\\) is irrelevant, \\(\\boldsymbol{X^T z} = 0\\). This implies the expectation of \\(\\boldsymbol{b}\\) is\n\\[\\boldsymbol{E[b|X,z] = E[\\beta|X,z] + E[(X^T\\ X)^{-1}\\ X^Tz\\ \\gamma|X,z]\\ +}\\]\n\\[\\boldsymbol{E[(X^T\\ X)^{-1}\\ X^T\\epsilon|X,z]}\\]\n\\[\\boldsymbol{E[b|X,z] = \\beta + 0 + 0 = \\beta}\\]\nWhile the least squares estimator is unbiased with the inclusion of the irrelevant variable, the variance of the estimator is adversely affected.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#irrelevant-variables-in-r",
+    "href": "mod-5-1-unbiased.html#irrelevant-variables-in-r",
+    "title": "18  Unbiasedness",
+    "section": "18.11 Irrelevant Variables in R",
+    "text": "18.11 Irrelevant Variables in R\n\nrm(list = ls())\nnrows &lt;- 100000\nncols &lt;- 6\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1,3,5,9,10,0)\n\ny &lt;- x %*% beta + rnorm(nrows, sd = 10)\n\npopdata &lt;- data.frame(y,x)\n\nnsample &lt;- 1000\nnreps &lt;- 1000\n\nbhat &lt;- matrix(ncol = ncols, nrow = nreps)\n\nfor(i in 1:nreps){\n  sample &lt;- popdata[sample(1:nrows,nsample),]\n  bhat[i,] &lt;- lm(y ~ X2 + X3 + X4 + X5 + X6, \n                 data = sample)$coefficients\n   \n}\n\nmean(bhat[,2])\n\n[1] 2.99904\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWe can now move to the variance of the least squares estimator.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#module-05---least-squares-variance",
+    "href": "index.html#module-05---least-squares-variance",
+    "title": "ECON 706",
+    "section": "0.6 Module 05 - Least Squares Variance",
+    "text": "0.6 Module 05 - Least Squares Variance\n\n\nModule 5 Overview\n\n\nUnbiasedness of the Least Squares Estimator\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-0-overview.html",
+    "href": "mod-5-0-overview.html",
+    "title": "17  Module 5 Overview",
+    "section": "",
+    "text": "17.1 Introduction\nWelcome to Module 5 of ECON 706.\nIn Module 5 of ECON 706, we explore the finite sample properties of the least squares estimator, focusing on its behavior in practical, real-world data settings. The primary objective is to demonstrate that under the core classical assumptions—linearity, full column rank, strict exogeneity, and homoscedasticity—the least squares estimator \\(\\boldsymbol{b}\\) serves as the minimum variance unbiased estimator of $. Through numerical experiments and sampling distributions, the module illustrates how the estimator remains unbiased on average while achieving the highest possible efficiency among linear unbiased estimators.\nThe second half of the module delves into the practical implications of model specification, specifically addressing the roles of relevant and irrelevant variables. It introduces students to the complexities of measuring model performance, highlighting how the variance of the least squares estimator is influenced by the inclusion of different regressors. By utilizing R-based simulations and population estimates, students gain a hands-on understanding of how theoretical properties like unbiasedness and minimum variance manifest in finite samples, providing a critical foundation for conducting reliable statistical inference.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Module 5 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-0-overview.html#learning-objectives",
+    "href": "mod-5-0-overview.html#learning-objectives",
+    "title": "17  Module 5 Overview",
+    "section": "17.2 Learning Objectives",
+    "text": "17.2 Learning Objectives\nBy the end of this module, you should be able to:\n\nMLO 1: Demonstrate the unbiasedness of the least squares estimator through the use of numerical sampling experiments and population estimates in R.\nMLO 2: Evaluate the finite sample properties of the OLS estimator—specifically linearity, unbiasedness, and efficiency—under the five core classical assumptions.\nMLO 3: Analyze the impact of model specification on estimator variance, specifically comparing the effects of including irrelevant variables versus omitting relevant variables.\nMLO 4: Apply the Gauss-Markov Theorem to justify why the least squares estimator is the Best Linear Unbiased Estimator (BLUE) in a finite sample context.\nMLO 5: Calculate the exact distribution and variance of the least squares estimator (b) given the assumption of normally distributed disturbances.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Module 5 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-0-overview.html#required-texts",
+    "href": "mod-5-0-overview.html#required-texts",
+    "title": "17  Module 5 Overview",
+    "section": "17.3 Required Texts",
+    "text": "17.3 Required Texts\nPlease select the links provided to access material where applicable.\n\nWilliam H. Greene. (2018). Econometric Analysis, 8th Edition. Available from Pearson. Chapters 3-5.\nRafael Irizarry. (2025). Introduction to Data Science: Data Wrangling and Visualization with R. Chapters 1-2.\nHadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund. (2025) R for Data Science. Sections 1-19.\nOnline R documentation\nRStudio Cheat Sheets",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Module 5 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-0-overview.html#module-to-do-list",
+    "href": "mod-5-0-overview.html#module-to-do-list",
+    "title": "17  Module 5 Overview",
+    "section": "17.4 Module To Do List",
+    "text": "17.4 Module To Do List\n\nComplete the hands-on coding exercises embedded in each lesson (MLO 1, 5)\n\nUse WebR to experiment directly in your browser (MLO 1, 2, 3, 4, 5)\n\nComplete the weekly class assignment (MLO 1, 2, 3, 4, 5)\n\nTake the weekly knowledge quiz (MLO 1, 2, 3, 4, 5)",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Module 5 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-0-overview.html#lessons-in-this-module",
+    "href": "mod-5-0-overview.html#lessons-in-this-module",
+    "title": "17  Module 5 Overview",
+    "section": "17.5 Lessons in this Module",
+    "text": "17.5 Lessons in this Module\n\n5.1 - Unbiasedness\n\n\nNext: Start with Unbiasedness.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Module 5 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#unbiasedness",
+    "href": "mod-5-1-unbiased.html#unbiasedness",
+    "title": "18  Unbiasedness",
+    "section": "18.4 Unbiasedness",
+    "text": "18.4 Unbiasedness\nThe sampling distribution of \\(\\boldsymbol{b_2}\\) and \\(\\boldsymbol{b_3}\\) highlight some important points.\nEach least square’s coefficient is, in fact, a random variable drawn from an underlying distribution.\nWith repeated sampling, the central tendency of the distribution of each parameter estimate equals the population parameter.\nThe parameter estimates appear to be unbiased, that is, on average, the parameter estimates are equal to the population parameters.\nEach distribution displays variance, underlying the point that the least squares estimates are random variables.\nThe parameter estimates also appear to follow a normal distribution as \\(nreps\\) and \\(N\\) increase.\n\n#Set Sample and Repetitions\n\nrm(list = ls())\nnrows &lt;- 1000000\nncols &lt;- 3\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1,2,4)\n\ny &lt;- x %*% beta + rnorm(nrows, sd = 10)\n\nbhat_pop &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\npopdata &lt;- data.frame(y,x)\n\nnsample &lt;- 1000\nnreps &lt;- 10000\n\nbhat &lt;- matrix(ncol = ncols, nrow = nreps)\n\nfor(i in 1:nreps){\n  sample &lt;- popdata[sample(1:nrows,nsample),]\n  bhat[i,] &lt;- lm(y ~ X2 + X3, data = sample)$coefficients\n   \n}\n\nhist(bhat[,3],\n cex.main = 1,\n     main = bquote(The ~ Distribution  ~ of ~ 10000 ~ b[3] ~ Estimates), \n     xlab = bquote(b[3]), \n     freq = F)",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
     ]
   }
 ]

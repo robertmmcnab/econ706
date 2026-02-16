@@ -32,6 +32,10 @@ book:
         - mod-4-0-overview.qmd
         - mod-4-1-means.qmd
         - mod-4-2-rsquared.qmd
+    - part: "Least Squares Variance"
+      chapters:
+        - mod-5-0-overview.qmd
+        - mod-5-1-unbiased.qmd
 
 execute:
   webR: true            # enables WebR chunks for interactive R in the browser

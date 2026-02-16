@@ -48,6 +48,14 @@ title: "ECON 706"
 
 </ul>
 
+## Module 05 - Least Squares Variance
+
+<ul>
+<li><a href="mod-5-0-overview.qmd">Module 5 Overview</a></li>
+<li><a href="mod-5-1-unbiased.qmd">Unbiasedness of the Least Squares Estimator</a></li>
+
+</ul>
+
 
 
 ------------------------------------------------------------------------

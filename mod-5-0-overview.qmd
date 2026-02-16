@@ -1,0 +1,56 @@
+---
+title: "Module 5 Overview"
+---
+
+## Introduction
+
+Welcome to **Module 5** of ECON 706.
+
+In Module 5 of ECON 706, we explore the finite sample properties of the least squares estimator, focusing on its behavior in practical, real-world data settings. The primary objective is to demonstrate that under the core classical assumptions—linearity, full column rank, strict exogeneity, and homoscedasticity—the least squares estimator $\boldsymbol{b}$ serves as the minimum variance unbiased estimator of \$\boldsymbol{\beta}. Through numerical experiments and sampling distributions, the module illustrates how the estimator remains unbiased on average while achieving the highest possible efficiency among linear unbiased estimators.
+
+The second half of the module delves into the practical implications of model specification, specifically addressing the roles of relevant and irrelevant variables. It introduces students to the complexities of measuring model performance, highlighting how the variance of the least squares estimator is influenced by the inclusion of different regressors. By utilizing R-based simulations and population estimates, students gain a hands-on understanding of how theoretical properties like unbiasedness and minimum variance manifest in finite samples, providing a critical foundation for conducting reliable statistical inference.
+
+## Learning Objectives
+
+By the end of this module, you should be able to:
+
+-   **MLO 1**: **Demonstrate** the unbiasedness of the least squares estimator through the use of numerical sampling experiments and population estimates in R.
+-   **MLO 2**: **Evaluate** the finite sample properties of the OLS estimator—specifically linearity, unbiasedness, and efficiency—under the five core classical assumptions.
+-   **MLO 3:** **Analyze** the impact of model specification on estimator variance, specifically comparing the effects of including irrelevant variables versus omitting relevant variables.
+-   **MLO 4: Apply** the Gauss-Markov Theorem to justify why the least squares estimator is the Best Linear Unbiased Estimator (BLUE) in a finite sample context.
+-   **MLO 5: Calculate** the exact distribution and variance of the least squares estimator (b) given the assumption of normally distributed disturbances.
+
+------------------------------------------------------------------------
+
+## Required Texts
+
+Please select the links provided to access material where applicable.
+
+-   William H. Greene. (2018). *Econometric Analysis, 8th Edition*. Available from Pearson. Chapters 3-5.
+
+-   Rafael Irizarry. (2025). [Introduction to Data Science: Data Wrangling and Visualization with R](https://rafalab.dfci.harvard.edu/dsbook-part-1/). Chapters 1-2.
+
+-   Hadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund. (2025) [R for Data Science](https://r4ds.hadley.nz/). Sections 1-19.
+
+-   [Online R documentation](https://cran.r-project.org/manuals.html)
+
+-   [RStudio Cheat Sheets](https://posit.co/resources/cheatsheets/)
+
+------------------------------------------------------------------------
+
+## Module To Do List
+
+-   Complete the hands-on coding exercises embedded in each lesson (MLO 1, 5)\
+-   Use WebR to experiment directly in your browser (MLO 1, 2, 3, 4, 5)\
+-   Complete the weekly class assignment (MLO 1, 2, 3, 4, 5)\
+-   Take the weekly knowledge quiz (MLO 1, 2, 3, 4, 5)\
+
+------------------------------------------------------------------------
+
+## Lessons in this Module
+
+-   [5.1 - Unbiasedness](mod-5-1-unbiased.qmd)
+
+------------------------------------------------------------------------
+
+Next: Start with [**Unbiasedness**](mod-5-1-unbiased.qmd).
