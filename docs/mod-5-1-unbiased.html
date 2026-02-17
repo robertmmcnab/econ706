@@ -104,6 +104,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -365,7 +369,7 @@ window.Quarto = {
   <li><a href="#unbiased-estimator" id="toc-unbiased-estimator" class="nav-link" data-scroll-target="#unbiased-estimator"><span class="header-section-number">18.6</span> Unbiased Estimator</a></li>
   <li><a href="#unbiased-estimation" id="toc-unbiased-estimation" class="nav-link" data-scroll-target="#unbiased-estimation"><span class="header-section-number">18.7</span> Unbiased Estimation</a></li>
   <li><a href="#omitted-variable-bias" id="toc-omitted-variable-bias" class="nav-link" data-scroll-target="#omitted-variable-bias"><span class="header-section-number">18.8</span> Omitted Variable Bias</a></li>
-  <li><a href="#omitted-variable-bias-1" id="toc-omitted-variable-bias-1" class="nav-link" data-scroll-target="#omitted-variable-bias-1"><span class="header-section-number">18.9</span> Omitted Variable Bias</a></li>
+  <li><a href="#omitted-variables-in-r" id="toc-omitted-variables-in-r" class="nav-link" data-scroll-target="#omitted-variables-in-r"><span class="header-section-number">18.9</span> Omitted Variables in R</a></li>
   <li><a href="#irrelevant-variables" id="toc-irrelevant-variables" class="nav-link" data-scroll-target="#irrelevant-variables"><span class="header-section-number">18.10</span> Irrelevant Variables</a></li>
   <li><a href="#irrelevant-variables-in-r" id="toc-irrelevant-variables-in-r" class="nav-link" data-scroll-target="#irrelevant-variables-in-r"><span class="header-section-number">18.11</span> Irrelevant Variables in R</a></li>
   </ul>
@@ -406,37 +410,131 @@ window.Quarto = {
 <p>We use the population parameters to construct <span class="math inline">\(\boldsymbol{y}\)</span> and then generate the least squares estimates using the population data.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>nrows <span class="ot">&lt;-</span> <span class="dv">1000000</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ncols <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, nrows, ncols)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      x[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span> ncols) {</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        x[,l] <span class="ot">&lt;-</span> <span class="fu">runif</span>(nrows, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">20</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">gc</span>()</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">%*%</span> beta <span class="sc">+</span> <span class="fu">rnorm</span>(nrows, <span class="at">sd =</span> <span class="dv">10</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>bhat_pop <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>bhat_pop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          [,1]
-[1,] 0.9821515
-[2,] 2.0007793
-[3,] 4.0027942</code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>nrows <span class="ot">&lt;-</span> <span class="dv">1000000</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>ncols <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, nrows, ncols)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      x[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span> ncols) {</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        x[,l] <span class="ot">&lt;-</span> <span class="fu">runif</span>(nrows, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">20</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">gc</span>()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">%*%</span> beta <span class="sc">+</span> <span class="fu">rnorm</span>(nrows, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>bhat_pop <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(beta, bhat_pop)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">'Beta'</span>, <span class="st">'Beta Hat'</span>),</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">align     =</span> <span class="st">'c'</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      <span class="at">digits    =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="lightable-classic caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Beta</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Beta Hat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.9562871</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2.0023119</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">4.0008451</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
 <section id="sampling-distributions" class="level2" data-number="18.3">
 <h2 data-number="18.3" class="anchored" data-anchor-id="sampling-distributions"><span class="header-section-number">18.3</span> Sampling Distributions</h2>
-<p>Now, we repeatedly draw a random sample from the sample data.</p>
+<p>In the previous code chunk, we had access to the population of observations. In reality, we must often use sample data as population data are available or costly to obtain.</p>
+<p><strong>How representative are the least squares estimates when sample data are used?</strong></p>
+<p>In the code chunk below, we repeatedly draw a random sample from the data.</p>
 <p>For each sample, we generate the least squares coefficients.</p>
+<p>We then construct a histogram of the estimates.</p>
 <p>As our sample size increases and number of samples increases, the distribution of the least squares estimates ‘centers’ on the true population parameter.</p>
-<p>The mean and median of the distribution is roughly equal to the true population parameter.</p>
+<p>The mean and median of the distribution are roughly equal to the true population parameter.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>nrows <span class="ot">&lt;-</span> <span class="dv">1000000</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ncols <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, nrows, ncols)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      x[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span> ncols) {</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        x[,l] <span class="ot">&lt;-</span> <span class="fu">runif</span>(nrows, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">20</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">gc</span>()</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">%*%</span> beta <span class="sc">+</span> <span class="fu">rnorm</span>(nrows, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>bhat_pop <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>popdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y,x)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Sample size = 1000</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#Number of samples = 10000</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>nsample <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>nreps <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>bhat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> ncols, <span class="at">nrow =</span> nreps)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nreps){</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  sample <span class="ot">&lt;-</span> popdata[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>nrows,nsample),]</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  bhat[i,] <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> X2 <span class="sc">+</span> X3, <span class="at">data =</span> sample)<span class="sc">$</span>coefficients</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">#Histogram of b2</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(bhat[,<span class="dv">2</span>],</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a> <span class="at">cex.main =</span> <span class="dv">1</span>,</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">bquote</span>(The <span class="sc">~</span> Distribution  <span class="sc">~</span> of <span class="sc">~</span> <span class="dv">100000</span> <span class="sc">~</span> b[<span class="dv">2</span>] <span class="sc">~</span> Estimates), </span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">bquote</span>(b[<span class="dv">2</span>]), </span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>     <span class="at">freq =</span> F)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mod-5-1-unbiased_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="unbiasedness" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="unbiasedness"><span class="header-section-number">18.4</span> Unbiasedness</h2>
+<p>The sampling distribution of <span class="math inline">\(\boldsymbol{b_2}\)</span> suggests that the coefficients are “centered” at the true population parameter, that is, on average, the estimates are equal to the true parameter or</p>
+<p><span class="math display">\[
+\frac{1}{n}\sum_{i = 1}^n b_{2i} = \beta_2
+\]</span></p>
+<p>Each least square’s coefficient is, in fact, a <strong>random</strong> variable drawn from an underlying distribution.</p>
+<p>With repeated sampling, the central tendency of the distribution of each parameter estimate equals the population parameter.</p>
+<p>The parameter estimates appear to be <strong>unbiased</strong>, that is, on average, the parameter estimates are equal to the population parameters.</p>
+<p>The distribution has a variance, underlying the point that the least squares estimates are random variables.</p>
+<p>The parameter estimates also appear to follow a normal distribution as <span class="math inline">\(nreps\)</span> and <span class="math inline">\(N\)</span> increase.</p>
+<p>In the code chunk below, we estimate the sampling distribution for <span class="math inline">\(\boldsymbol{b_3}\)</span> with a sample size of 100 and 20,000 samples. The sampling distribution appears to be centered at <span class="math inline">\(\boldsymbol{\beta_3}\)</span>. If we changed the sample size, the variance of the sampling distribution would also change.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Set Sample and Repetitions</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -459,8 +557,8 @@ window.Quarto = {
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>popdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y,x)</span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>nsample <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>nreps <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>nsample <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>nreps <span class="ot">&lt;-</span> <span class="dv">20000</span></span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>bhat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> ncols, <span class="at">nrow =</span> nreps)</span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
@@ -470,66 +568,11 @@ window.Quarto = {
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>   </span>
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(bhat[,<span class="dv">2</span>],</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(bhat[,<span class="dv">3</span>],</span>
 <span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a> <span class="at">cex.main =</span> <span class="dv">1</span>,</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">bquote</span>(The <span class="sc">~</span> Distribution  <span class="sc">~</span> of <span class="sc">~</span> <span class="dv">100000</span> <span class="sc">~</span> b[<span class="dv">2</span>] <span class="sc">~</span> Estimates), </span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">bquote</span>(b[<span class="dv">2</span>]), </span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">bquote</span>(The <span class="sc">~</span> Distribution  <span class="sc">~</span> of <span class="sc">~</span> <span class="dv">10000</span> <span class="sc">~</span> b[<span class="dv">3</span>] <span class="sc">~</span> Estimates), </span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">bquote</span>(b[<span class="dv">3</span>]), </span>
 <span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>     <span class="at">freq =</span> F)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="mod-5-1-unbiased_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="unbiasedness" class="level2" data-number="18.4">
-<h2 data-number="18.4" class="anchored" data-anchor-id="unbiasedness"><span class="header-section-number">18.4</span> Unbiasedness</h2>
-<p>The sampling distribution of <span class="math inline">\(\boldsymbol{b_2}\)</span> and <span class="math inline">\(\boldsymbol{b_3}\)</span> highlight some important points.</p>
-<p>Each least square’s coefficient is, in fact, a <strong>random</strong> variable drawn from an underlying distribution.</p>
-<p>With repeated sampling, the central tendency of the distribution of each parameter estimate equals the population parameter.</p>
-<p>The parameter estimates appear to be <strong>unbiased</strong>, that is, on average, the parameter estimates are equal to the population parameters.</p>
-<p>Each distribution displays variance, underlying the point that the least squares estimates are random variables.</p>
-<p>The parameter estimates also appear to follow a normal distribution as <span class="math inline">\(nreps\)</span> and <span class="math inline">\(N\)</span> increase.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Set Sample and Repetitions</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>nrows <span class="ot">&lt;-</span> <span class="dv">1000000</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ncols <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, nrows, ncols)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>      x[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span> ncols) {</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        x[,l] <span class="ot">&lt;-</span> <span class="fu">runif</span>(nrows, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">20</span>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">gc</span>()</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">%*%</span> beta <span class="sc">+</span> <span class="fu">rnorm</span>(nrows, <span class="at">sd =</span> <span class="dv">10</span>)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>bhat_pop <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>popdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y,x)</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>nsample <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>nreps <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>bhat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> ncols, <span class="at">nrow =</span> nreps)</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nreps){</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  sample <span class="ot">&lt;-</span> popdata[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>nrows,nsample),]</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  bhat[i,] <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> X2 <span class="sc">+</span> X3, <span class="at">data =</span> sample)<span class="sc">$</span>coefficients</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(bhat[,<span class="dv">3</span>],</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a> <span class="at">cex.main =</span> <span class="dv">1</span>,</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">bquote</span>(The <span class="sc">~</span> Distribution  <span class="sc">~</span> of <span class="sc">~</span> <span class="dv">10000</span> <span class="sc">~</span> b[<span class="dv">3</span>] <span class="sc">~</span> Estimates), </span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">bquote</span>(b[<span class="dv">3</span>]), </span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>     <span class="at">freq =</span> F)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -579,32 +622,219 @@ window.Quarto = {
 <p><span class="math display">\[\boldsymbol{b = (X^T\ X)^{-1}\ X^T\ (X\ \beta + z\ \gamma + \epsilon)}\]</span></p>
 <p><span class="math display">\[\boldsymbol{b = (X^T\ X)^{-1}\ X^T\ X\ \beta + (X^T\ X)^{-1}\ X^Tz\ \gamma + (X^T\ X)^{-1}\ X^T\epsilon}\]</span></p>
 <p><span class="math display">\[\boldsymbol{b = \beta + (X^T\ X)^{-1}\ X^Tz\ \gamma + (X^T\ X)^{-1}\ X^T\epsilon}\]</span></p>
-</section>
-<section id="omitted-variable-bias-1" class="level2" data-number="18.9">
-<h2 data-number="18.9" class="anchored" data-anchor-id="omitted-variable-bias-1"><span class="header-section-number">18.9</span> Omitted Variable Bias</h2>
-<p>Given the least squares estimator that results from the omission of the relevant variable <span class="math inline">\(\boldsymbol{z}\)</span>, we can take the expectation of the estimator to show</p>
-<p><span class="math display">\[\boldsymbol{b = \beta + (X^T\ X)^{-1}\ X^Tz\ \gamma + (X^T\ X)^{-1}\ X^T\epsilon}\]</span> <span class="math display">\[\boldsymbol{E[b|X,z] = E[\beta|X,z] + E[(X^T\ X)^{-1}\ X^Tz\ \gamma|X,z]\ +}\]</span> <span class="math display">\[\boldsymbol{E[(X^T\ X)^{-1}\ X^T\epsilon|X,z]}\]</span> <span class="math display">\[\boldsymbol{E[b|X,z] = \beta + E[(X^T\ X)^{-1}\ X^Tz\ \gamma|X,z]}\]</span></p>
+<p>We can now take the expectation of <span class="math inline">\(\boldsymbol{b}\)</span> with respect to <span class="math inline">\(\boldsymbol{X, z}\)</span>.<br>
+<br>
+<span class="math display">\[\boldsymbol{E[b|X,z] = E[\beta|X,z] + E[(X^T\ X)^{-1}\ X^Tz\ \gamma|X,z] + E[(X^T\ X)^{-1}\ X^T\epsilon|X,z]}\]</span></p>
+<p><span class="math display">\[\boldsymbol{E[b|X,z] = \beta + E[(X^T\ X)^{-1}\ X^Tz\ \gamma|X,z]}\]</span></p>
 <p>If <span class="math inline">\(\boldsymbol{X}\)</span> and <span class="math inline">\(\boldsymbol{z}\)</span> are orthogonal, then <span class="math inline">\(\boldsymbol{X^T z}= 0\)</span>.</p>
 <p>In other words, if <span class="math inline">\(\boldsymbol{z}\)</span> is not relevant, then the least squares estimator is unbiased: <span class="math display">\[\boldsymbol{E[b|X,z] = \beta + (X^T\ X)^{-1}\ E[X^Tz\ \gamma|X,z] = \beta}\]</span></p>
 <p>But, if <span class="math inline">\(\boldsymbol{X}\)</span> and <span class="math inline">\(\boldsymbol{z}\)</span> are not orthogonal, then the least squares estimator is biased.</p>
-<p>Let <span class="math inline">\(\boldsymbol{p_{x,z}}\)</span> equal:</p>
-<p><span class="math display">\[\boldsymbol{p_{x,z} = (X^T\ X)^{-1}\ X^Tz}\]</span></p>
-<p>In other words, <span class="math inline">\(\boldsymbol{p_{x,z}}\)</span> is a column vector containing the coefficients of the least squares regressions of <span class="math inline">\(\boldsymbol{z}\)</span> on <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
-<p>The extent of omitted variable bias can be determined as:</p>
-<p><span class="math display">\[\boldsymbol{E[b|X,z] = \beta + (X^T\ X)^{-1}\ E[X^Tz\ \gamma|X,z]}\]</span></p>
-<p><span class="math display">\[\boldsymbol{E[b|X,z] = \beta + p_{x,z} \gamma}\]</span></p>
-<p>For each coefficient in <span class="math inline">\(b\)</span>, we can see that <span class="math display">\[E[b_k|\boldsymbol{X,z} = \beta_K + \gamma \frac{Cov(z,x_k | \text{all other x's})}{Var(x_k | \text{all other x's)}}\]</span></p>
-<p>While helpful, this is only helpful when there is a single included variable and a single omitted variable. As more regressors are added and omitted, the sign of the bias is no longer obvious.</p>
+</section>
+<section id="omitted-variables-in-r" class="level2" data-number="18.9">
+<h2 data-number="18.9" class="anchored" data-anchor-id="omitted-variables-in-r"><span class="header-section-number">18.9</span> Omitted Variables in R</h2>
+<p>In the code chunk below, we create an example of omitted variable bias.</p>
+<p>The code chunk does the following:</p>
+<ul>
+<li><p>Creates <span class="math inline">\(\boldsymbol{X_1}\)</span> as a normally distributed variable with <span class="math inline">\(\mu = 50\)</span> and <span class="math inline">\(\sigma = 10\)</span></p></li>
+<li><p>Creates <span class="math inline">\(\boldsymbol{X_2}\)</span> as a variable that is highly correlated with <span class="math inline">\(\boldsymbol{X_1}\)</span></p></li>
+<li><p>Defines <span class="math inline">\(\beta_1 = 2\)</span> and <span class="math inline">\(\beta_2 = -1\)</span></p></li>
+<li><p>Defines <span class="math inline">\(\epsilon \sim  N(0,25)\)</span></p></li>
+<li><p>Defines <span class="math inline">\(y = 100 + \beta_1 x_1 + \beta_2 x_2 + \epsilon\)</span></p></li>
+<li><p>Estimates <span class="math inline">\(\hat{y} = b_0 + b_1 x_1 + b_2 x_2\)</span></p></li>
+<li><p>Estimates <span class="math inline">\(\hat{y} = b_0 + b_1 x_1\)</span></p></li>
+<li><p>Estimates <span class="math inline">\(\hat{y} = b_0 + b_2 x_2\)</span></p></li>
+<li><p>Compares the resulting estimates</p></li>
+</ul>
+<p>As you can see, by omitting <span class="math inline">\(\boldsymbol{X_2}\)</span> from the second regression, the estimated coefficient, <span class="math inline">\(b_1\)</span>, is biased downward. When we omit <span class="math inline">\(\boldsymbol{X_1}\)</span>, the estimated coefficient, <span class="math inline">\(b_2\)</span>, is biased upward.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>n_pop <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X1 and X2 so X1 and X2 are correlated</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_pop, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fl">0.7</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="fu">rnorm</span>(n_pop, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>beta_1 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>beta_2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_pop, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">+</span> (beta_1 <span class="sc">*</span> x1) <span class="sc">+</span> (beta_2 <span class="sc">*</span> x2) <span class="sc">+</span> epsilon</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>pop_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(y, x1, x2)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>mod_correct <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> pop_data)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>mod_omit_x2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1, <span class="at">data =</span> pop_data)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>mod_omit_x1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x2, <span class="at">data =</span> pop_data)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(mod_correct, mod_omit_x2, mod_omit_x1))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<!-- preamble start -->
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_kkgmiz52saea765jay33 = TinyTable.createTableFunctions("tinytable_kkgmiz52saea765jay33");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '14', j: 2 }, { i: '14', j: 3 }, { i: '14', j: 4 } ], css_id: 'tinytable_css_xj85tu65c5kjmj6fdjwx',}, 
+          { positions: [ { i: '6', j: 2 }, { i: '6', j: 3 }, { i: '6', j: 4 } ], css_id: 'tinytable_css_x7c9ebjauw9zxkln1l0n',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 }, { i: '13', j: 3 }, { i: '1', j: 4 }, { i: '2', j: 4 }, { i: '3', j: 4 }, { i: '4', j: 4 }, { i: '5', j: 4 }, { i: '7', j: 4 }, { i: '8', j: 4 }, { i: '9', j: 4 }, { i: '10', j: 4 }, { i: '11', j: 4 }, { i: '12', j: 4 }, { i: '13', j: 4 } ], css_id: 'tinytable_css_vhp1jgm884wv2kwtyeu7',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 } ], css_id: 'tinytable_css_eohewk17dvnd0hzsbxuc',}, 
+          { positions: [ { i: '14', j: 1 } ], css_id: 'tinytable_css_td4fo16wteq56qa4gluz',}, 
+          { positions: [ { i: '6', j: 1 } ], css_id: 'tinytable_css_jazfcj9zvkwufsspb7p4',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 } ], css_id: 'tinytable_css_lyg2o84tmbdxmw9npz27',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_ww0gl8gvrji1aco8ewfy',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_kkgmiz52saea765jay33.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_kkgmiz52saea765jay33 td.tinytable_css_xj85tu65c5kjmj6fdjwx, #tinytable_kkgmiz52saea765jay33 th.tinytable_css_xj85tu65c5kjmj6fdjwx {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_kkgmiz52saea765jay33 td.tinytable_css_x7c9ebjauw9zxkln1l0n, #tinytable_kkgmiz52saea765jay33 th.tinytable_css_x7c9ebjauw9zxkln1l0n {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_kkgmiz52saea765jay33 td.tinytable_css_vhp1jgm884wv2kwtyeu7, #tinytable_kkgmiz52saea765jay33 th.tinytable_css_vhp1jgm884wv2kwtyeu7 { text-align: center }
+    #tinytable_kkgmiz52saea765jay33 td.tinytable_css_eohewk17dvnd0hzsbxuc, #tinytable_kkgmiz52saea765jay33 th.tinytable_css_eohewk17dvnd0hzsbxuc {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_kkgmiz52saea765jay33 td.tinytable_css_td4fo16wteq56qa4gluz, #tinytable_kkgmiz52saea765jay33 th.tinytable_css_td4fo16wteq56qa4gluz {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_kkgmiz52saea765jay33 td.tinytable_css_jazfcj9zvkwufsspb7p4, #tinytable_kkgmiz52saea765jay33 th.tinytable_css_jazfcj9zvkwufsspb7p4 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_kkgmiz52saea765jay33 td.tinytable_css_lyg2o84tmbdxmw9npz27, #tinytable_kkgmiz52saea765jay33 th.tinytable_css_lyg2o84tmbdxmw9npz27 { text-align: left }
+    #tinytable_kkgmiz52saea765jay33 td.tinytable_css_ww0gl8gvrji1aco8ewfy, #tinytable_kkgmiz52saea765jay33 th.tinytable_css_ww0gl8gvrji1aco8ewfy {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_kkgmiz52saea765jay33" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1"> </th>
+                <th scope="col" data-row="0" data-col="2">(1)</th>
+                <th scope="col" data-row="0" data-col="3">(2)</th>
+                <th scope="col" data-row="0" data-col="4">(3)</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">(Intercept)</td>
+                  <td data-row="1" data-col="2">100.013</td>
+                  <td data-row="1" data-col="3">90.049</td>
+                  <td data-row="1" data-col="4">114.671</td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1"></td>
+                  <td data-row="2" data-col="2">(0.087)</td>
+                  <td data-row="2" data-col="3">(0.114)</td>
+                  <td data-row="2" data-col="4">(0.213)</td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="1">x1</td>
+                  <td data-row="3" data-col="2">2.001</td>
+                  <td data-row="3" data-col="3">1.299</td>
+                  <td data-row="3" data-col="4"></td>
+                </tr>
+                <tr>
+                  <td data-row="4" data-col="1"></td>
+                  <td data-row="4" data-col="2">(0.003)</td>
+                  <td data-row="4" data-col="3">(0.002)</td>
+                  <td data-row="4" data-col="4"></td>
+                </tr>
+                <tr>
+                  <td data-row="5" data-col="1">x2</td>
+                  <td data-row="5" data-col="2">-1.001</td>
+                  <td data-row="5" data-col="3"></td>
+                  <td data-row="5" data-col="4">0.896</td>
+                </tr>
+                <tr>
+                  <td data-row="6" data-col="1"></td>
+                  <td data-row="6" data-col="2">(0.003)</td>
+                  <td data-row="6" data-col="3"></td>
+                  <td data-row="6" data-col="4">(0.005)</td>
+                </tr>
+                <tr>
+                  <td data-row="7" data-col="1">Num.Obs.</td>
+                  <td data-row="7" data-col="2">100000</td>
+                  <td data-row="7" data-col="3">100000</td>
+                  <td data-row="7" data-col="4">100000</td>
+                </tr>
+                <tr>
+                  <td data-row="8" data-col="1">R2</td>
+                  <td data-row="8" data-col="2">0.884</td>
+                  <td data-row="8" data-col="3">0.771</td>
+                  <td data-row="8" data-col="4">0.271</td>
+                </tr>
+                <tr>
+                  <td data-row="9" data-col="1">R2 Adj.</td>
+                  <td data-row="9" data-col="2">0.884</td>
+                  <td data-row="9" data-col="3">0.771</td>
+                  <td data-row="9" data-col="4">0.271</td>
+                </tr>
+                <tr>
+                  <td data-row="10" data-col="1">AIC</td>
+                  <td data-row="10" data-col="2">606768.9</td>
+                  <td data-row="10" data-col="3">675125.6</td>
+                  <td data-row="10" data-col="4">790853.3</td>
+                </tr>
+                <tr>
+                  <td data-row="11" data-col="1">BIC</td>
+                  <td data-row="11" data-col="2">606807.0</td>
+                  <td data-row="11" data-col="3">675154.1</td>
+                  <td data-row="11" data-col="4">790881.9</td>
+                </tr>
+                <tr>
+                  <td data-row="12" data-col="1">Log.Lik.</td>
+                  <td data-row="12" data-col="2">-303380.466</td>
+                  <td data-row="12" data-col="3">-337559.788</td>
+                  <td data-row="12" data-col="4">-395423.662</td>
+                </tr>
+                <tr>
+                  <td data-row="13" data-col="1">F</td>
+                  <td data-row="13" data-col="2">382474.005</td>
+                  <td data-row="13" data-col="3">336633.456</td>
+                  <td data-row="13" data-col="4">37253.088</td>
+                </tr>
+                <tr>
+                  <td data-row="14" data-col="1">RMSE</td>
+                  <td data-row="14" data-col="2">5.03</td>
+                  <td data-row="14" data-col="3">7.08</td>
+                  <td data-row="14" data-col="4">12.62</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
 </section>
 <section id="irrelevant-variables" class="level2" data-number="18.10">
 <h2 data-number="18.10" class="anchored" data-anchor-id="irrelevant-variables"><span class="header-section-number">18.10</span> Irrelevant Variables</h2>
 <p>While omitting a relevant variable leads to omitted variable bias, what does the inclusion of an irrelevant variable do to the least squares estimator?</p>
-<p>Assume that the true regression model is <span class="math inline">\(\boldsymbol{y = X\beta + \epsilon}\)</span> but we instead instead we estimate <span class="math inline">\(\boldsymbol{y = X\ \beta + z\ \gamma + \epsilon}\)</span>.</p>
-<p>In this case, <span class="math inline">\(\boldsymbol{z}\)</span> is an irrelevant variable, that is, <span class="math inline">\(\gamma = 0\)</span>. We, however, fail to impose the restriction that <span class="math inline">\(\gamma = 0\)</span>.</p>
-<p>The least squares estimator is still unbiased.</p>
-<p>Since <span class="math inline">\(\boldsymbol{z}\)</span> is irrelevant, <span class="math inline">\(\boldsymbol{X^T z} = 0\)</span>. This implies the expectation of <span class="math inline">\(\boldsymbol{b}\)</span> is</p>
-<p><span class="math display">\[\boldsymbol{E[b|X,z] = E[\beta|X,z] + E[(X^T\ X)^{-1}\ X^Tz\ \gamma|X,z]\ +}\]</span></p>
-<p><span class="math display">\[\boldsymbol{E[(X^T\ X)^{-1}\ X^T\epsilon|X,z]}\]</span></p>
+<p>Let the true regression model be:</p>
+<p><span class="math display">\[\boldsymbol{y = X\beta + \epsilon}\]</span></p>
+<p>We add a variable, <span class="math inline">\(\boldsymbol{z}\)</span>, so the regression model becomes:</p>
+<p><span class="math display">\[\boldsymbol{y = X\ \beta + z\ \gamma + \epsilon}\]</span></p>
+<p>Assume that <span class="math inline">\(\boldsymbol{z}\)</span> is an irrelevant variable, that is, <span class="math inline">\(\gamma = 0\)</span>.</p>
+<p>We, however, fail to impose the restriction that <span class="math inline">\(\gamma = 0\)</span>.</p>
+<p><strong>The least squares estimator remains unbiased.</strong></p>
+<p>Since <span class="math inline">\(\boldsymbol{z}\)</span> is irrelevant, <span class="math inline">\(\boldsymbol{X^T z} = 0\)</span>.</p>
+<p>This implies the expectation of <span class="math inline">\(\boldsymbol{b}\)</span> is</p>
+<p><span class="math display">\[\boldsymbol{E[b|X,z] = E[\beta|X,z] + E[(X^T\ X)^{-1}\ X^Tz\ \gamma|X,z]\ + E[(X^T\ X)^{-1}\ X^T\epsilon|X,z]}\]</span></p>
 <p><span class="math display">\[\boldsymbol{E[b|X,z] = \beta + 0 + 0 = \beta}\]</span></p>
 <p>While the least squares estimator is unbiased with the inclusion of the irrelevant variable, the variance of the estimator is adversely affected.</p>
 </section>
@@ -642,21 +872,21 @@ window.Quarto = {
 <span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bhat[,<span class="dv">2</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.99904</code></pre>
+<pre><code>[1] 3.00714</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="mod-5-1-unbiased_files/figure-html/unnamed-chunk-5-1.png" style="width:70.0%;height:70.0%" class="figure-img"></p>
+<p><img src="mod-5-1-unbiased_files/figure-html/unnamed-chunk-6-1.png" style="width:70.0%;height:70.0%" class="figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="mod-5-1-unbiased_files/figure-html/unnamed-chunk-5-2.png" style="width:70.0%;height:70.0%" class="figure-img"></p>
+<p><img src="mod-5-1-unbiased_files/figure-html/unnamed-chunk-6-2.png" style="width:70.0%;height:70.0%" class="figure-img"></p>
 </figure>
 </div>
 </div>

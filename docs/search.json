@@ -66,6 +66,17 @@
     ]
   },
   {
+    "objectID": "index.html#module-05---least-squares-variance",
+    "href": "index.html#module-05---least-squares-variance",
+    "title": "ECON 706",
+    "section": "0.6 Module 05 - Least Squares Variance",
+    "text": "0.6 Module 05 - Least Squares Variance\n\n\nModule 5 Overview\n\n\nUnbiasedness of the Least Squares Estimator\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
+    ]
+  },
+  {
     "objectID": "mcnab.html",
     "href": "mcnab.html",
     "title": "2  Meet Your Instructor",
@@ -1104,7 +1115,7 @@
     "href": "mod-3-2-partitioned.html#orthogonal-example",
     "title": "13  Partitioned Regression",
     "section": "13.10 Orthogonal Example",
-    "text": "13.10 Orthogonal Example\nIn the R code, we create a large \\(\\boldsymbol{X}\\) matrix and estimate \\(\\boldsymbol{b}\\).\nNote that the elements of \\(\\boldsymbol{X}\\) are created randomly.\nThere is no underlying data generating process to suggest that the elements of \\(\\boldsymbol{X}\\) violate the orthogonality assumption.\nWe partition \\(\\boldsymbol{X}\\) into \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) and regress \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nComparing the full and partitioned regression results for the coefficients of the independent variables illustrates the partitioned orthogonal regression theorem.\n\nrm(list = ls())\nnrows &lt;- 10000\nncols &lt;- 7\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n      \nbeta &lt;- c(1,2,3,4,5,6,7)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nx_1 &lt;- x[,1:4]\nx_2 &lt;- cbind(x[,1],x[,5:7])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\ncbind(bhat[2:4],bhat_1[2:4])\n\n         [,1]     [,2]\n[1,] 1.992042 2.200677\n[2,] 3.011718 2.858495\n[3,] 3.993375 4.051569\n\ncbind(bhat[5:7], bhat_2[2:4])\n\n         [,1]    [,2]\n[1,] 4.992159 5.00467\n[2,] 6.010549 6.02315\n[3,] 6.982582 6.98654\n\ndf &lt;- data.frame(y = y, x = x)",
+    "text": "13.10 Orthogonal Example\nIn the R code, we create a large \\(\\boldsymbol{X}\\) matrix and estimate \\(\\boldsymbol{b}\\).\nNote that the elements of \\(\\boldsymbol{X}\\) are created randomly.\nThere is no underlying data generating process to suggest that the elements of \\(\\boldsymbol{X}\\) violate the orthogonality assumption.\nWe partition \\(\\boldsymbol{X}\\) into \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) and regress \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nComparing the full and partitioned regression results for the coefficients of the independent variables illustrates the partitioned orthogonal regression theorem.\n\nrm(list = ls())\nnrows &lt;- 10000\nncols &lt;- 7\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n      \nbeta &lt;- c(1,2,3,4,5,6,7)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nx_1 &lt;- x[,1:4]\nx_2 &lt;- cbind(x[,1],x[,5:7])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\ncbind(bhat[2:4],bhat_1[2:4])\n\n         [,1]     [,2]\n[1,] 2.003778 1.966575\n[2,] 2.994738 2.929698\n[3,] 3.984320 4.027559\n\ncbind(bhat[5:7], bhat_2[2:4])\n\n         [,1]     [,2]\n[1,] 4.976293 4.936374\n[2,] 6.000362 6.015249\n[3,] 6.994749 6.995936\n\ndf &lt;- data.frame(y = y, x = x)",
     "crumbs": [
       "Partitioned Regression",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
@@ -1115,7 +1126,7 @@
     "href": "mod-3-2-partitioned.html#non-orthogonal-example",
     "title": "13  Partitioned Regression",
     "section": "13.11 Non-Orthogonal Example",
-    "text": "13.11 Non-Orthogonal Example\n\nrm(list = ls())\nlibrary(MASS,quietly = TRUE)\n\nnrows &lt;- 10000\nncols &lt;- 5\n\nsigma_mat &lt;- matrix(0, ncols-1, ncols-1) \n sigma_mat[lower.tri(sigma_mat)] &lt;- 0.95\n sigma_mat[upper.tri(sigma_mat)] &lt;- 0.95\n diag(sigma_mat) &lt;- 1\n\nx &lt;- matrix(0, nrows, ncols)\n  x[,1] &lt;- 1\n  x[,2: ncols] &lt;- mvrnorm(n = nrows, mu = c(1,2,3,4), \n                          Sigma = sigma_mat)\n\nbeta &lt;- c(1,4,5,6,10)\ny &lt;- x %*% beta + rnorm(nrows)\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nbhat\n\n          [,1]\n[1,]  1.043461\n[2,]  4.026844\n[3,]  4.982397\n[4,]  5.933705\n[5,] 10.049814\n\n\n\nx_1 &lt;- x[,1:3]\nx_2 &lt;- cbind(x[,1],x[,4:5])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\nbhat_1\n\n         [,1]\n[1,] 35.49448\n[2,] 11.62383\n[3,] 12.93597\n\nbhat_2\n\n          [,1]\n[1,] -15.74452\n[2,]  10.27780\n[3,]  14.49473",
+    "text": "13.11 Non-Orthogonal Example\n\nrm(list = ls())\nlibrary(MASS,quietly = TRUE)\n\nnrows &lt;- 10000\nncols &lt;- 5\n\nsigma_mat &lt;- matrix(0, ncols-1, ncols-1) \n sigma_mat[lower.tri(sigma_mat)] &lt;- 0.95\n sigma_mat[upper.tri(sigma_mat)] &lt;- 0.95\n diag(sigma_mat) &lt;- 1\n\nx &lt;- matrix(0, nrows, ncols)\n  x[,1] &lt;- 1\n  x[,2: ncols] &lt;- mvrnorm(n = nrows, mu = c(1,2,3,4), \n                          Sigma = sigma_mat)\n\nbeta &lt;- c(1,4,5,6,10)\ny &lt;- x %*% beta + rnorm(nrows)\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nbhat\n\n         [,1]\n[1,] 1.040704\n[2,] 4.037039\n[3,] 4.997631\n[4,] 5.995202\n[5,] 9.986211\n\n\n\nx_1 &lt;- x[,1:3]\nx_2 &lt;- cbind(x[,1],x[,4:5])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\nbhat_1\n\n         [,1]\n[1,] 35.76461\n[2,] 11.95818\n[3,] 12.64721\n\nbhat_2\n\n          [,1]\n[1,] -15.70838\n[2,]  10.41868\n[3,]  14.36063",
     "crumbs": [
       "Partitioned Regression",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
@@ -1203,7 +1214,7 @@
     "href": "mod-4-1-means.html#scaling-residuals",
     "title": "15  The M0 Matrix",
     "section": "15.2 Scaling Residuals",
-    "text": "15.2 Scaling Residuals\nThe objective function of the least squares estimator is, subject to the selection of a vector of coefficients, \\(\\boldsymbol{b_0}\\), the minimization of the sum of the squared residuals.\n\\[\nmin_{b_0} \\, e^T e\n\\]\nConditional on the standard assumptions holding, we take the first derivative of the objective function and set the first derivative equal to 0 to obtain the normal equations and the vector of least squares coefficients:\nThe normal equations and the vector of the least squares coefficients are: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]\n\\[\\boldsymbol{b} = (\\boldsymbol{X^T\\ X})^{-1}\\ \\boldsymbol{X^T\\ y}\\]\nUsing the sum of the squared residuals are a measure of performance, however, is a poor choice because the sum of the squared residuals can be manipulated by scaling the residuals.\nIf we pre-multiply \\(\\boldsymbol{e}\\) by a scalar \\(k\\) that the sum of the squared residuals becomes:\n\\[\\boldsymbol{e^T}\\ k^Tk\\ \\boldsymbol{e} = (k^Tk)(\\boldsymbol{e^T e} )= k^2 \\boldsymbol{e^T e}\\]\nWe can arbitrarily scale the sum of squared residuals by multiplying \\(\\boldsymbol{y}\\) by a desired scale factor.\nThe code below does the following:\n\nCreates a matrix of independent variables that is \\((500 \\times 5)\\).\nSets a scalar \\(k = 2\\)\nDefines the true population coefficients as a sequence of integers from 1 to 5.\nGenerates \\(\\boldsymbol{y = X \\beta + \\epsilon}\\)\nDefines \\(\\boldsymbol{ky = 2 \\times y}\\)\nGenerates \\(\\boldsymbol{b}\\) for the regression of \\(\\boldsymbol{y}\\) and \\(\\boldsymbol{ky}\\) on \\(\\boldsymbol{X}\\)\nGenerates \\(\\boldsymbol{e}\\) for both regressions\nProduces a table of the first 5 observations of each vector of residuals to illustrate scaling.\n\n\nrm(list = ls())\n\nnrows &lt;- 500\nncols &lt;- 5\nk = 2\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nky &lt;- k*y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\nbhat2 &lt;- solve(t(x) %*% x) %*% t(x) %*% ky\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ne1 &lt;- M %*% y\ne2 &lt;- M %*% ky\n\ndf &lt;- tibble(e1, e2)\n\nkable(df[1:5,],\n      col.names = c('e(y)', 'e(ky)'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\ne(y)\ne(ky)\n\n\n\n\n-0.13038235\n-0.2607647\n\n\n-0.08590774\n-0.1718155\n\n\n-1.48258016\n-2.9651603\n\n\n-0.73305473\n-1.4661095\n\n\n-0.59499978\n-1.1899996",
+    "text": "15.2 Scaling Residuals\nThe objective function of the least squares estimator is, subject to the selection of a vector of coefficients, \\(\\boldsymbol{b_0}\\), the minimization of the sum of the squared residuals.\n\\[\nmin_{b_0} \\, e^T e\n\\]\nConditional on the standard assumptions holding, we take the first derivative of the objective function and set the first derivative equal to 0 to obtain the normal equations and the vector of least squares coefficients:\nThe normal equations and the vector of the least squares coefficients are: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]\n\\[\\boldsymbol{b} = (\\boldsymbol{X^T\\ X})^{-1}\\ \\boldsymbol{X^T\\ y}\\]\nUsing the sum of the squared residuals are a measure of performance, however, is a poor choice because the sum of the squared residuals can be manipulated by scaling the residuals.\nIf we pre-multiply \\(\\boldsymbol{e}\\) by a scalar \\(k\\) that the sum of the squared residuals becomes:\n\\[\\boldsymbol{e^T}\\ k^Tk\\ \\boldsymbol{e} = (k^Tk)(\\boldsymbol{e^T e} )= k^2 \\boldsymbol{e^T e}\\]\nWe can arbitrarily scale the sum of squared residuals by multiplying \\(\\boldsymbol{y}\\) by a desired scale factor.\nThe code below does the following:\n\nCreates a matrix of independent variables that is \\((500 \\times 5)\\).\nSets a scalar \\(k = 2\\)\nDefines the true population coefficients as a sequence of integers from 1 to 5.\nGenerates \\(\\boldsymbol{y = X \\beta + \\epsilon}\\)\nDefines \\(\\boldsymbol{ky = 2 \\times y}\\)\nGenerates \\(\\boldsymbol{b}\\) for the regression of \\(\\boldsymbol{y}\\) and \\(\\boldsymbol{ky}\\) on \\(\\boldsymbol{X}\\)\nGenerates \\(\\boldsymbol{e}\\) for both regressions\nProduces a table of the first 5 observations of each vector of residuals to illustrate scaling.\n\n\nrm(list = ls())\n\nnrows &lt;- 500\nncols &lt;- 5\nk = 2\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nky &lt;- k*y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\nbhat2 &lt;- solve(t(x) %*% x) %*% t(x) %*% ky\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ne1 &lt;- M %*% y\ne2 &lt;- M %*% ky\n\ndf &lt;- tibble(e1, e2)\n\nkable(df[1:5,],\n      col.names = c('e(y)', 'e(ky)'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\ne(y)\ne(ky)\n\n\n\n\n-0.9951901\n-1.9903802\n\n\n-0.9513884\n-1.9027768\n\n\n-1.1003125\n-2.2006250\n\n\n-0.3138618\n-0.6277236\n\n\n-1.7274052\n-3.4548104",
     "crumbs": [
       "Goodness of Fit",
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>The M0 Matrix</span>"
@@ -1225,7 +1236,7 @@
     "href": "mod-4-1-means.html#r-example-of-m0",
     "title": "15  The M0 Matrix",
     "section": "15.4 R Example of M0",
-    "text": "15.4 R Example of M0\nWe can create \\(\\boldsymbol{M^0}\\) in R to illustrate how it demeans \\(\\boldsymbol{X}\\).\nThe code below does the following:\n\nCreates a \\((200 \\times 5)\\) matrix and fills it with random numbers from a standard normal\nCreates a \\((200 \\times 5)\\) identity matrix, \\(\\boldsymbol{I}\\)\nCreates a \\((200 \\times 1)\\) vector of 1’s which is called \\(\\boldsymbol{i}\\)\nCreates the \\(M^0\\) matrix defined previous\nEstimates the mean deviations of \\(\\boldsymbol{X}\\) as \\(\\boldsymbol{M^0 X}\\)\nEstimates the mean deviations of the second column of \\(\\boldsymbol{X}\\)\nProduces a table of the first 5 observations of mean deviations\nProduces a table of the sum of mean deviations which are equal to zero\n\n\nrm(list = ls())\n\nnrows = 200\nncols = 5\n\nx &lt;- matrix(0,nrows,ncols)\n\nx[,1] &lt;- 1\n\nfor (l in 2:ncols) {\n  x[,l] &lt;- rnorm(nrows)\n}\n  \nI &lt;- diag(nrows)\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\nM0x &lt;- M0 %*% x\n\nx2_meandev &lt;- x[,2] - mean(x[,2])\n\ndf &lt;- tibble(M0x[,2], x2_meandev)\n\nkable(df[1:5,],\n      col.names = c('M0x for X2','Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nM0x for X2\nMean Deviations of X2\n\n\n\n\n-0.689\n-0.689\n\n\n0.387\n0.387\n\n\n-0.602\n-0.602\n\n\n-1.209\n-1.209\n\n\n-0.145\n-0.145\n\n\n\n\ndf2 &lt;- tibble(sum(M0x[,2]), sum(x2_meandev))\n\nkable(df2,\n      col.names = c('Sum of M0x for X2','Sum of Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nSum of M0x for X2\nSum of Mean Deviations of X2\n\n\n\n\n0\n0\n\n\n\n\n\nNow that we have formed the \\(\\boldsymbol{M^0}\\) matrix, we can move to estimating a measure of performance in the next section.",
+    "text": "15.4 R Example of M0\nWe can create \\(\\boldsymbol{M^0}\\) in R to illustrate how it demeans \\(\\boldsymbol{X}\\).\nThe code below does the following:\n\nCreates a \\((200 \\times 5)\\) matrix and fills it with random numbers from a standard normal\nCreates a \\((200 \\times 5)\\) identity matrix, \\(\\boldsymbol{I}\\)\nCreates a \\((200 \\times 1)\\) vector of 1’s which is called \\(\\boldsymbol{i}\\)\nCreates the \\(M^0\\) matrix defined previous\nEstimates the mean deviations of \\(\\boldsymbol{X}\\) as \\(\\boldsymbol{M^0 X}\\)\nEstimates the mean deviations of the second column of \\(\\boldsymbol{X}\\)\nProduces a table of the first 5 observations of mean deviations\nProduces a table of the sum of mean deviations which are equal to zero\n\n\nrm(list = ls())\n\nnrows = 200\nncols = 5\n\nx &lt;- matrix(0,nrows,ncols)\n\nx[,1] &lt;- 1\n\nfor (l in 2:ncols) {\n  x[,l] &lt;- rnorm(nrows)\n}\n  \nI &lt;- diag(nrows)\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\nM0x &lt;- M0 %*% x\n\nx2_meandev &lt;- x[,2] - mean(x[,2])\n\ndf &lt;- tibble(M0x[,2], x2_meandev)\n\nkable(df[1:5,],\n      col.names = c('M0x for X2','Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nM0x for X2\nMean Deviations of X2\n\n\n\n\n-2.187\n-2.187\n\n\n0.698\n0.698\n\n\n0.105\n0.105\n\n\n1.606\n1.606\n\n\n2.027\n2.027\n\n\n\n\ndf2 &lt;- tibble(sum(M0x[,2]), sum(x2_meandev))\n\nkable(df2,\n      col.names = c('Sum of M0x for X2','Sum of Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nSum of M0x for X2\nSum of Mean Deviations of X2\n\n\n\n\n0\n0\n\n\n\n\n\nNow that we have formed the \\(\\boldsymbol{M^0}\\) matrix, we can move to estimating a measure of performance in the next section.",
     "crumbs": [
       "Goodness of Fit",
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>The M0 Matrix</span>"
@@ -1280,7 +1291,7 @@
     "href": "mod-4-2-rsquared.html#decomposition-in-r",
     "title": "16  R Squared",
     "section": "16.5 Decomposition in R",
-    "text": "16.5 Decomposition in R\nBuilding upon our previous examples, we can use simulated data to create our independent variables, population coefficients, and the dependent variable. We can estimate the least squares coefficients and construct the projection and residual maker matrices.\nWe then construct the \\(\\boldsymbol{M^0}\\) matrix and use this matrix to estimate SST, SSE, and SSR.\nThe output table demonstrates the equality, that the total sum of squares can be decomposed into the explained sum of squares and the residual sum of squares.\n\nrm(list = ls())\nlibrary(kableExtra)\n\nnrows &lt;- 2000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nI &lt;- diag(nrows)\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\n\nyhat &lt;- P %*% y\ne &lt;- M %*% y\n\n\nsst &lt;- t(y) %*% M0 %*% y\nsse &lt;- t(bhat) %*% t(x) %*% M0 %*% x %*% bhat\nssr &lt;- t(e) %*% e\n\ndf &lt;- tibble(SST = as.numeric(sst),\n             SSE = as.numeric(sse),\n             SSR = as.numeric(ssr))\n\nkable(df,\n      col.names = c('SST', 'SSE', 'SSR'),\n      align     = 'c',\n      digits    = 2) %&gt;%\nkable_classic()\n\n\n\n\nSST\nSSE\nSSR\n\n\n\n\n107989.7\n105931.7\n2057.95",
+    "text": "16.5 Decomposition in R\nBuilding upon our previous examples, we can use simulated data to create our independent variables, population coefficients, and the dependent variable. We can estimate the least squares coefficients and construct the projection and residual maker matrices.\nWe then construct the \\(\\boldsymbol{M^0}\\) matrix and use this matrix to estimate SST, SSE, and SSR.\nThe output table demonstrates the equality, that the total sum of squares can be decomposed into the explained sum of squares and the residual sum of squares.\n\nrm(list = ls())\nlibrary(kableExtra)\n\nnrows &lt;- 2000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nI &lt;- diag(nrows)\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\n\nyhat &lt;- P %*% y\ne &lt;- M %*% y\n\n\nsst &lt;- t(y) %*% M0 %*% y\nsse &lt;- t(bhat) %*% t(x) %*% M0 %*% x %*% bhat\nssr &lt;- t(e) %*% e\n\ndf &lt;- tibble(SST = as.numeric(sst),\n             SSE = as.numeric(sse),\n             SSR = as.numeric(ssr))\n\nkable(df,\n      col.names = c('SST', 'SSE', 'SSR'),\n      align     = 'c',\n      digits    = 2) %&gt;%\nkable_classic()\n\n\n\n\nSST\nSSE\nSSR\n\n\n\n\n108141.7\n106100.4\n2041.34",
     "crumbs": [
       "Goodness of Fit",
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>R Squared</span>"
@@ -1302,7 +1313,7 @@
     "href": "mod-4-2-rsquared.html#r-squared-in-r",
     "title": "16  R Squared",
     "section": "16.7 R-Squared in R",
-    "text": "16.7 R-Squared in R\nFirst, we can show that \\(\\boldsymbol{M^0 e = e}\\).\nWe can then calculate the total sum of squares, estimated sum of squares, and residual sum of squares.\n\\(R^2\\) is equivalent whether obtained using the estimated or residual sum of squares.\nOne problem, however, is that one can continue to increase \\(R^2\\) by adding explanatory variables to the regression model.\n\nrm(list = ls())\nlibrary(kableExtra)\n\nnrows &lt;- 2000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nI &lt;- diag(nrows)\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\n\nyhat &lt;- P %*% y\ne &lt;- M %*% y\n\ny_cal &lt;- yhat + e\n\nM0_e &lt;- M0 %*% e\n\ne[1:4]\n\n[1] -0.9320741  0.3048654 -0.8317213  0.4916154\n\nM0_e[1:4]\n\n[1] -0.9320741  0.3048654 -0.8317213  0.4916154\n\nSST &lt;- t(y) %*% M0 %*% y\nSSE &lt;- t(bhat) %*% t(x) %*% M0 %*% x %*% bhat\nR2 &lt;- SSE / SST\n\nR2_r = 1 - (t(e) %*% e) / (t(y) %*% M0 %*% y)\n\ncbind(R2, R2_r)\n\n          [,1]      [,2]\n[1,] 0.9820297 0.9820297",
+    "text": "16.7 R-Squared in R\nFirst, we can show that \\(\\boldsymbol{M^0 e = e}\\).\nWe can then calculate the total sum of squares, estimated sum of squares, and residual sum of squares.\n\\(R^2\\) is equivalent whether obtained using the estimated or residual sum of squares.\nOne problem, however, is that one can continue to increase \\(R^2\\) by adding explanatory variables to the regression model.\n\nrm(list = ls())\nlibrary(kableExtra)\n\nnrows &lt;- 2000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nI &lt;- diag(nrows)\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\n\nyhat &lt;- P %*% y\ne &lt;- M %*% y\n\ny_cal &lt;- yhat + e\n\nM0_e &lt;- M0 %*% e\n\ne[1:4]\n\n[1] -0.9604034 -0.5294807  0.2600861  1.3583747\n\nM0_e[1:4]\n\n[1] -0.9604034 -0.5294807  0.2600861  1.3583747\n\nSST &lt;- t(y) %*% M0 %*% y\nSSE &lt;- t(bhat) %*% t(x) %*% M0 %*% x %*% bhat\nR2 &lt;- SSE / SST\n\nR2_r = 1 - (t(e) %*% e) / (t(y) %*% M0 %*% y)\n\ncbind(R2, R2_r)\n\n         [,1]     [,2]\n[1,] 0.981271 0.981271",
     "crumbs": [
       "Goodness of Fit",
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>R Squared</span>"
@@ -1350,138 +1361,6 @@
     "crumbs": [
       "Goodness of Fit",
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>R Squared</span>"
-    ]
-  },
-  {
-    "objectID": "mod-5-1-unbiased.html",
-    "href": "mod-5-1-unbiased.html",
-    "title": "18  Unbiasedness",
-    "section": "",
-    "text": "18.1 Introduction\nIn Module 5 of ECON 706, we examine the finite sample properties of the Ordinary Least Squares (OLS) estimator. Using numerical sampling experiments and R-based simulations, we verify that under the classical assumptions—linearity, full column rank, and strict exogeneity—the OLS estimator is unbiased, meaning its expected value centers exactly on the true population parameters.\nWe also analyze the critical impact of model specification on estimator performance. Through mathematical derivations and simulations, we demonstrate how omitting relevant variables introduces bias, while including irrelevant variables, though maintaining unbiasedness, unnecessarily increases the variance of our estimates. These lessons establish the foundational “Best Linear Unbiased Estimator” (BLUE) properties essential for reliable statistical inference.",
-    "crumbs": [
-      "Least Squares Variance",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
-    ]
-  },
-  {
-    "objectID": "mod-5-1-unbiased.html#population-estimates",
-    "href": "mod-5-1-unbiased.html#population-estimates",
-    "title": "18  Unbiasedness",
-    "section": "18.2 Population Estimates",
-    "text": "18.2 Population Estimates\nWe can use a sampling experiment to illustrate the sampling distribution of the least square estimates.\nThe \\(\\boldsymbol{X}\\) matrix consists of our standard column of 1’s and a set of independent variables drawn from a random uniform distribution bounded between the values of 0 and 20.\nThe disturbance is drawn from a random normal such that \\(\\epsilon \\sim N(0, 100)\\)\nWe use the population parameters to construct \\(\\boldsymbol{y}\\) and then generate the least squares estimates using the population data.\n\nrm(list = ls())\nnrows &lt;- 1000000\nncols &lt;- 3\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1,2,4)\n\ny &lt;- x %*% beta + rnorm(nrows, sd = 10)\n\nbhat_pop &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nbhat_pop\n\n          [,1]\n[1,] 0.9821515\n[2,] 2.0007793\n[3,] 4.0027942",
-    "crumbs": [
-      "Least Squares Variance",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
-    ]
-  },
-  {
-    "objectID": "mod-5-1-unbiased.html#sampling-distributions",
-    "href": "mod-5-1-unbiased.html#sampling-distributions",
-    "title": "18  Unbiasedness",
-    "section": "18.3 Sampling Distributions",
-    "text": "18.3 Sampling Distributions\nNow, we repeatedly draw a random sample from the sample data.\nFor each sample, we generate the least squares coefficients.\nAs our sample size increases and number of samples increases, the distribution of the least squares estimates ‘centers’ on the true population parameter.\nThe mean and median of the distribution is roughly equal to the true population parameter.\n\n#Set Sample and Repetitions\n\nrm(list = ls())\nnrows &lt;- 1000000\nncols &lt;- 3\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1,2,4)\n\ny &lt;- x %*% beta + rnorm(nrows, sd = 10)\n\nbhat_pop &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\npopdata &lt;- data.frame(y,x)\n\nnsample &lt;- 1000\nnreps &lt;- 10000\n\nbhat &lt;- matrix(ncol = ncols, nrow = nreps)\n\nfor(i in 1:nreps){\n  sample &lt;- popdata[sample(1:nrows,nsample),]\n  bhat[i,] &lt;- lm(y ~ X2 + X3, data = sample)$coefficients\n   \n}\n\nhist(bhat[,2],\n cex.main = 1,\n     main = bquote(The ~ Distribution  ~ of ~ 100000 ~ b[2] ~ Estimates), \n     xlab = bquote(b[2]), \n     freq = F)",
-    "crumbs": [
-      "Least Squares Variance",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
-    ]
-  },
-  {
-    "objectID": "mod-5-1-unbiased.html#sampling-distributions-1",
-    "href": "mod-5-1-unbiased.html#sampling-distributions-1",
-    "title": "18  Unbiasedness",
-    "section": "18.4 Sampling Distributions",
-    "text": "18.4 Sampling Distributions\nThe sampling distribution of \\(\\boldsymbol{b_2}\\) and \\(\\boldsymbol{b_3}\\) highlight some important points.\nEach least square’s coefficient is, in fact, a random variable drawn from an underlying distribution.\nWith repeated sampling, the central tendency of the distribution of each parameter estimate equals the population parameter.\nThe parameter estimates appear to be unbiased, that is, on average, the parameter estimates are equal to the population parameters.\nEach distribution displays variance, underlying the point that the least squares estimates are random variables.\nThe parameter estimates also appear to follow a normal distribution as \\(nreps\\) and \\(N\\) increase.",
-    "crumbs": [
-      "Least Squares Variance",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
-    ]
-  },
-  {
-    "objectID": "mod-5-1-unbiased.html#finite-sample-properties",
-    "href": "mod-5-1-unbiased.html#finite-sample-properties",
-    "title": "18  Unbiasedness",
-    "section": "18.5 Finite Sample Properties",
-    "text": "18.5 Finite Sample Properties\nAn estimator is a strategy, formula, or algorithm for using sample data drawn from a population to estimate the parameters in the population.\nThe finite sample properties of the least square estimator require the underlying assumptions to hold.\nThe finite sample properties are based on repeated sampling from the population.\nThe concept of unbiasedness, for example, depends on repeated sampling of the population.\nAn estimator is considered to be unbiased if the average of the estimator is equal to the population parameter.\nWhile one estimate may be too high or too low, on average, the estimates for an unbiased estimator gravitate to the value of the population parameter.\nThe asymptotic properties of the estimator are obtained from “large” samples or the complete population.",
-    "crumbs": [
-      "Least Squares Variance",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
-    ]
-  },
-  {
-    "objectID": "mod-5-1-unbiased.html#unbiased-estimator",
-    "href": "mod-5-1-unbiased.html#unbiased-estimator",
-    "title": "18  Unbiasedness",
-    "section": "18.6 Unbiased Estimator",
-    "text": "18.6 Unbiased Estimator\nRecall, under the assumption of linearity, full column rank, and strict exogeneity that we can obtain and expand upon the least squares estimator: \\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ y}\\]\n\\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ y = (X^T\\ X)^{-1}\\ X^T\\ (X\\ \\beta + \\epsilon)}\\]\n\\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ X\\ \\beta + (X^T\\ X)^{-1}\\ X^T\\ \\epsilon}\\]\nTaking the expectation of the least squares estimator conditional on \\(\\boldsymbol{X}\\) yields \\[\\boldsymbol{E[b\\ |\\ X] = E[(X^T\\ X)^{-1}\\ X^T\\ X\\ \\beta + (X^T\\ X)^{-1}\\ X^T\\ \\epsilon\\ |\\ X]}\\]\n\\[\\boldsymbol{E[b\\ |\\ X] = E[\\beta] + E[(X^T\\ X)^{-1}\\ X^T\\ \\epsilon\\ |\\ X]}\\]\n\\[\\boldsymbol{E[b\\ |\\ X] = E[\\beta] + (X^T\\ X)^{-1}\\ E[X^T\\ \\epsilon\\ |\\ X]}\\]\nIf the assumption of strict exogeneity holds, then \\(\\boldsymbol{E[X^T\\ \\epsilon\\ |\\ X]=0}\\) and \\[\\boldsymbol{E[b\\ |\\ X] = \\beta}\\]",
-    "crumbs": [
-      "Least Squares Variance",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
-    ]
-  },
-  {
-    "objectID": "mod-5-1-unbiased.html#unbiased-estimation",
-    "href": "mod-5-1-unbiased.html#unbiased-estimation",
-    "title": "18  Unbiasedness",
-    "section": "18.7 Unbiased Estimation",
-    "text": "18.7 Unbiased Estimation\nGiven the assumptions of the least squares estimator, we can show that the estimator is unbiased. \\[\\boldsymbol{E[b\\ |\\ X] = \\beta}\\]\nWhat does this mean for a particular sample of the population?\nFor any sample of the population, the least squares estimator has the expectation \\(\\boldsymbol{\\beta}\\). \\[\\boldsymbol{E[b] = E_X[E[b\\ |\\ x]] = \\beta}\\] When we average this expectation over all the possible values of \\(\\boldsymbol{X}\\), we obtain the unconditional mean is \\(\\boldsymbol{\\beta}\\).\n\\[\\boldsymbol{E[b] = E_X[E[b\\ |\\ x]] = E_x[\\beta] = \\beta}\\]\nGiven that the expectation of \\(\\boldsymbol{b}\\) conditional on \\(\\boldsymbol{X}\\) is equal to \\(\\boldsymbol{\\beta}\\), then the least squares estimator is unbiased in every sample.",
-    "crumbs": [
-      "Least Squares Variance",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
-    ]
-  },
-  {
-    "objectID": "mod-5-1-unbiased.html#omitted-variable-bias",
-    "href": "mod-5-1-unbiased.html#omitted-variable-bias",
-    "title": "18  Unbiasedness",
-    "section": "18.8 Omitted Variable Bias",
-    "text": "18.8 Omitted Variable Bias\nLet the correct model specification be:\n\\[\\boldsymbol{y = X\\ \\beta + z\\ \\gamma + \\epsilon}\\]\nLet \\(\\boldsymbol{X}\\) be \\((n \\times K)\\) and \\(\\boldsymbol{z}\\) is \\((n \\times 1)\\).\n\\(\\boldsymbol{z}\\) is a relevant variable, that is, \\(\\boldsymbol{\\gamma \\ne 0}\\)?\nWhat happens if we omit \\(\\boldsymbol{z}\\) from the regression?\nStart and expand the least squares estimator\n\\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ y}\\]\n\\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ (X\\ \\beta + z\\ \\gamma + \\epsilon)}\\]\n\\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ X\\ \\beta + (X^T\\ X)^{-1}\\ X^Tz\\ \\gamma + (X^T\\ X)^{-1}\\ X^T\\epsilon}\\]\n\\[\\boldsymbol{b = \\beta + (X^T\\ X)^{-1}\\ X^Tz\\ \\gamma + (X^T\\ X)^{-1}\\ X^T\\epsilon}\\]",
-    "crumbs": [
-      "Least Squares Variance",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
-    ]
-  },
-  {
-    "objectID": "mod-5-1-unbiased.html#omitted-variable-bias-1",
-    "href": "mod-5-1-unbiased.html#omitted-variable-bias-1",
-    "title": "18  Unbiasedness",
-    "section": "18.9 Omitted Variable Bias",
-    "text": "18.9 Omitted Variable Bias\nGiven the least squares estimator that results from the omission of the relevant variable \\(\\boldsymbol{z}\\), we can take the expectation of the estimator to show\n\\[\\boldsymbol{b = \\beta + (X^T\\ X)^{-1}\\ X^Tz\\ \\gamma + (X^T\\ X)^{-1}\\ X^T\\epsilon}\\] \\[\\boldsymbol{E[b|X,z] = E[\\beta|X,z] + E[(X^T\\ X)^{-1}\\ X^Tz\\ \\gamma|X,z]\\ +}\\] \\[\\boldsymbol{E[(X^T\\ X)^{-1}\\ X^T\\epsilon|X,z]}\\] \\[\\boldsymbol{E[b|X,z] = \\beta + E[(X^T\\ X)^{-1}\\ X^Tz\\ \\gamma|X,z]}\\]\nIf \\(\\boldsymbol{X}\\) and \\(\\boldsymbol{z}\\) are orthogonal, then \\(\\boldsymbol{X^T z}= 0\\).\nIn other words, if \\(\\boldsymbol{z}\\) is not relevant, then the least squares estimator is unbiased: \\[\\boldsymbol{E[b|X,z] = \\beta + (X^T\\ X)^{-1}\\ E[X^Tz\\ \\gamma|X,z] = \\beta}\\]\nBut, if \\(\\boldsymbol{X}\\) and \\(\\boldsymbol{z}\\) are not orthogonal, then the least squares estimator is biased.\nLet \\(\\boldsymbol{p_{x,z}}\\) equal:\n\\[\\boldsymbol{p_{x,z} = (X^T\\ X)^{-1}\\ X^Tz}\\]\nIn other words, \\(\\boldsymbol{p_{x,z}}\\) is a column vector containing the coefficients of the least squares regressions of \\(\\boldsymbol{z}\\) on \\(\\boldsymbol{X}\\).\nThe extent of omitted variable bias can be determined as:\n\\[\\boldsymbol{E[b|X,z] = \\beta + (X^T\\ X)^{-1}\\ E[X^Tz\\ \\gamma|X,z]}\\]\n\\[\\boldsymbol{E[b|X,z] = \\beta + p_{x,z} \\gamma}\\]\nFor each coefficient in \\(b\\), we can see that \\[E[b_k|\\boldsymbol{X,z} = \\beta_K + \\gamma \\frac{Cov(z,x_k | \\text{all other x's})}{Var(x_k | \\text{all other x's)}}\\]\nWhile helpful, this is only helpful when there is a single included variable and a single omitted variable. As more regressors are added and omitted, the sign of the bias is no longer obvious.",
-    "crumbs": [
-      "Least Squares Variance",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
-    ]
-  },
-  {
-    "objectID": "mod-5-1-unbiased.html#irrelevant-variables",
-    "href": "mod-5-1-unbiased.html#irrelevant-variables",
-    "title": "18  Unbiasedness",
-    "section": "18.10 Irrelevant Variables",
-    "text": "18.10 Irrelevant Variables\nWhile omitting a relevant variable leads to omitted variable bias, what does the inclusion of an irrelevant variable do to the least squares estimator?\nAssume that the true regression model is \\(\\boldsymbol{y = X\\beta + \\epsilon}\\) but we instead instead we estimate \\(\\boldsymbol{y = X\\ \\beta + z\\ \\gamma + \\epsilon}\\).\nIn this case, \\(\\boldsymbol{z}\\) is an irrelevant variable, that is, \\(\\gamma = 0\\). We, however, fail to impose the restriction that \\(\\gamma = 0\\).\nThe least squares estimator is still unbiased.\nSince \\(\\boldsymbol{z}\\) is irrelevant, \\(\\boldsymbol{X^T z} = 0\\). This implies the expectation of \\(\\boldsymbol{b}\\) is\n\\[\\boldsymbol{E[b|X,z] = E[\\beta|X,z] + E[(X^T\\ X)^{-1}\\ X^Tz\\ \\gamma|X,z]\\ +}\\]\n\\[\\boldsymbol{E[(X^T\\ X)^{-1}\\ X^T\\epsilon|X,z]}\\]\n\\[\\boldsymbol{E[b|X,z] = \\beta + 0 + 0 = \\beta}\\]\nWhile the least squares estimator is unbiased with the inclusion of the irrelevant variable, the variance of the estimator is adversely affected.",
-    "crumbs": [
-      "Least Squares Variance",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
-    ]
-  },
-  {
-    "objectID": "mod-5-1-unbiased.html#irrelevant-variables-in-r",
-    "href": "mod-5-1-unbiased.html#irrelevant-variables-in-r",
-    "title": "18  Unbiasedness",
-    "section": "18.11 Irrelevant Variables in R",
-    "text": "18.11 Irrelevant Variables in R\n\nrm(list = ls())\nnrows &lt;- 100000\nncols &lt;- 6\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1,3,5,9,10,0)\n\ny &lt;- x %*% beta + rnorm(nrows, sd = 10)\n\npopdata &lt;- data.frame(y,x)\n\nnsample &lt;- 1000\nnreps &lt;- 1000\n\nbhat &lt;- matrix(ncol = ncols, nrow = nreps)\n\nfor(i in 1:nreps){\n  sample &lt;- popdata[sample(1:nrows,nsample),]\n  bhat[i,] &lt;- lm(y ~ X2 + X3 + X4 + X5 + X6, \n                 data = sample)$coefficients\n   \n}\n\nmean(bhat[,2])\n\n[1] 2.99904\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWe can now move to the variance of the least squares estimator.",
-    "crumbs": [
-      "Least Squares Variance",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
-    ]
-  },
-  {
-    "objectID": "index.html#module-05---least-squares-variance",
-    "href": "index.html#module-05---least-squares-variance",
-    "title": "ECON 706",
-    "section": "0.6 Module 05 - Least Squares Variance",
-    "text": "0.6 Module 05 - Least Squares Variance\n\n\nModule 5 Overview\n\n\nUnbiasedness of the Least Squares Estimator\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
-    "crumbs": [
-      "Introduction",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
     ]
   },
   {
@@ -1540,11 +1419,121 @@
     ]
   },
   {
+    "objectID": "mod-5-1-unbiased.html",
+    "href": "mod-5-1-unbiased.html",
+    "title": "18  Unbiasedness",
+    "section": "",
+    "text": "18.1 Introduction\nIn Module 5 of ECON 706, we examine the finite sample properties of the Ordinary Least Squares (OLS) estimator. Using numerical sampling experiments and R-based simulations, we verify that under the classical assumptions—linearity, full column rank, and strict exogeneity—the OLS estimator is unbiased, meaning its expected value centers exactly on the true population parameters.\nWe also analyze the critical impact of model specification on estimator performance. Through mathematical derivations and simulations, we demonstrate how omitting relevant variables introduces bias, while including irrelevant variables, though maintaining unbiasedness, unnecessarily increases the variance of our estimates. These lessons establish the foundational “Best Linear Unbiased Estimator” (BLUE) properties essential for reliable statistical inference.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#population-estimates",
+    "href": "mod-5-1-unbiased.html#population-estimates",
+    "title": "18  Unbiasedness",
+    "section": "18.2 Population Estimates",
+    "text": "18.2 Population Estimates\nWe can use a sampling experiment to illustrate the sampling distribution of the least square estimates.\nThe \\(\\boldsymbol{X}\\) matrix consists of our standard column of 1’s and a set of independent variables drawn from a random uniform distribution bounded between the values of 0 and 20.\nThe disturbance is drawn from a random normal such that \\(\\epsilon \\sim N(0, 100)\\)\nWe use the population parameters to construct \\(\\boldsymbol{y}\\) and then generate the least squares estimates using the population data.\n\nrm(list = ls())\nset.seed(1234)\n\nnrows &lt;- 1000000\n\nncols &lt;- 3\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1,2,4)\n\ny &lt;- x %*% beta + rnorm(nrows, sd = 10)\n\nbhat_pop &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\ndf &lt;- tibble(beta, bhat_pop)\n\nkable(df,\n      col.names = c('Beta', 'Beta Hat'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nBeta\nBeta Hat\n\n\n\n\n1\n0.9562871\n\n\n2\n2.0023119\n\n\n4\n4.0008451",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#sampling-distributions",
+    "href": "mod-5-1-unbiased.html#sampling-distributions",
+    "title": "18  Unbiasedness",
+    "section": "18.3 Sampling Distributions",
+    "text": "18.3 Sampling Distributions\nIn the previous code chunk, we had access to the population of observations. In reality, we must often use sample data as population data are available or costly to obtain.\nHow representative are the least squares estimates when sample data are used?\nIn the code chunk below, we repeatedly draw a random sample from the data.\nFor each sample, we generate the least squares coefficients.\nWe then construct a histogram of the estimates.\nAs our sample size increases and number of samples increases, the distribution of the least squares estimates ‘centers’ on the true population parameter.\nThe mean and median of the distribution are roughly equal to the true population parameter.\n\nrm(list = ls())\nset.seed(1234)\n\nnrows &lt;- 1000000\nncols &lt;- 3\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1,2,4)\n\ny &lt;- x %*% beta + rnorm(nrows, sd = 10)\n\nbhat_pop &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\npopdata &lt;- data.frame(y,x)\n\n#Sample size = 1000\n#Number of samples = 10000\n\nnsample &lt;- 1000\nnreps &lt;- 10000\n\nbhat &lt;- matrix(ncol = ncols, nrow = nreps)\n\nfor(i in 1:nreps){\n  sample &lt;- popdata[sample(1:nrows,nsample),]\n  bhat[i,] &lt;- lm(y ~ X2 + X3, data = sample)$coefficients\n   \n}\n\n#Histogram of b2\n\nhist(bhat[,2],\n cex.main = 1,\n     main = bquote(The ~ Distribution  ~ of ~ 100000 ~ b[2] ~ Estimates), \n     xlab = bquote(b[2]), \n     freq = F)",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
     "objectID": "mod-5-1-unbiased.html#unbiasedness",
     "href": "mod-5-1-unbiased.html#unbiasedness",
     "title": "18  Unbiasedness",
     "section": "18.4 Unbiasedness",
-    "text": "18.4 Unbiasedness\nThe sampling distribution of \\(\\boldsymbol{b_2}\\) and \\(\\boldsymbol{b_3}\\) highlight some important points.\nEach least square’s coefficient is, in fact, a random variable drawn from an underlying distribution.\nWith repeated sampling, the central tendency of the distribution of each parameter estimate equals the population parameter.\nThe parameter estimates appear to be unbiased, that is, on average, the parameter estimates are equal to the population parameters.\nEach distribution displays variance, underlying the point that the least squares estimates are random variables.\nThe parameter estimates also appear to follow a normal distribution as \\(nreps\\) and \\(N\\) increase.\n\n#Set Sample and Repetitions\n\nrm(list = ls())\nnrows &lt;- 1000000\nncols &lt;- 3\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1,2,4)\n\ny &lt;- x %*% beta + rnorm(nrows, sd = 10)\n\nbhat_pop &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\npopdata &lt;- data.frame(y,x)\n\nnsample &lt;- 1000\nnreps &lt;- 10000\n\nbhat &lt;- matrix(ncol = ncols, nrow = nreps)\n\nfor(i in 1:nreps){\n  sample &lt;- popdata[sample(1:nrows,nsample),]\n  bhat[i,] &lt;- lm(y ~ X2 + X3, data = sample)$coefficients\n   \n}\n\nhist(bhat[,3],\n cex.main = 1,\n     main = bquote(The ~ Distribution  ~ of ~ 10000 ~ b[3] ~ Estimates), \n     xlab = bquote(b[3]), \n     freq = F)",
+    "text": "18.4 Unbiasedness\nThe sampling distribution of \\(\\boldsymbol{b_2}\\) suggests that the coefficients are “centered” at the true population parameter, that is, on average, the estimates are equal to the true parameter or\n\\[\n\\frac{1}{n}\\sum_{i = 1}^n b_{2i} = \\beta_2\n\\]\nEach least square’s coefficient is, in fact, a random variable drawn from an underlying distribution.\nWith repeated sampling, the central tendency of the distribution of each parameter estimate equals the population parameter.\nThe parameter estimates appear to be unbiased, that is, on average, the parameter estimates are equal to the population parameters.\nThe distribution has a variance, underlying the point that the least squares estimates are random variables.\nThe parameter estimates also appear to follow a normal distribution as \\(nreps\\) and \\(N\\) increase.\nIn the code chunk below, we estimate the sampling distribution for \\(\\boldsymbol{b_3}\\) with a sample size of 100 and 20,000 samples. The sampling distribution appears to be centered at \\(\\boldsymbol{\\beta_3}\\). If we changed the sample size, the variance of the sampling distribution would also change.\n\n#Set Sample and Repetitions\n\nrm(list = ls())\nnrows &lt;- 1000000\nncols &lt;- 3\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1,2,4)\n\ny &lt;- x %*% beta + rnorm(nrows, sd = 10)\n\nbhat_pop &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\npopdata &lt;- data.frame(y,x)\n\nnsample &lt;- 100\nnreps &lt;- 20000\n\nbhat &lt;- matrix(ncol = ncols, nrow = nreps)\n\nfor(i in 1:nreps){\n  sample &lt;- popdata[sample(1:nrows,nsample),]\n  bhat[i,] &lt;- lm(y ~ X2 + X3, data = sample)$coefficients\n   \n}\n\nhist(bhat[,3],\n cex.main = 1,\n     main = bquote(The ~ Distribution  ~ of ~ 10000 ~ b[3] ~ Estimates), \n     xlab = bquote(b[3]), \n     freq = F)",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#finite-sample-properties",
+    "href": "mod-5-1-unbiased.html#finite-sample-properties",
+    "title": "18  Unbiasedness",
+    "section": "18.5 Finite Sample Properties",
+    "text": "18.5 Finite Sample Properties\nAn estimator is a strategy, formula, or algorithm for using sample data drawn from a population to estimate the parameters in the population.\nThe finite sample properties of the least square estimator require the underlying assumptions to hold.\nThe finite sample properties are based on repeated sampling from the population.\nThe concept of unbiasedness, for example, depends on repeated sampling of the population.\nAn estimator is considered to be unbiased if the average of the estimator is equal to the population parameter.\nWhile one estimate may be too high or too low, on average, the estimates for an unbiased estimator gravitate to the value of the population parameter.\nThe asymptotic properties of the estimator are obtained from “large” samples or the complete population.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#unbiased-estimator",
+    "href": "mod-5-1-unbiased.html#unbiased-estimator",
+    "title": "18  Unbiasedness",
+    "section": "18.6 Unbiased Estimator",
+    "text": "18.6 Unbiased Estimator\nRecall, under the assumption of linearity, full column rank, and strict exogeneity that we can obtain and expand upon the least squares estimator: \\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ y}\\]\n\\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ y = (X^T\\ X)^{-1}\\ X^T\\ (X\\ \\beta + \\epsilon)}\\]\n\\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ X\\ \\beta + (X^T\\ X)^{-1}\\ X^T\\ \\epsilon}\\]\nTaking the expectation of the least squares estimator conditional on \\(\\boldsymbol{X}\\) yields \\[\\boldsymbol{E[b\\ |\\ X] = E[(X^T\\ X)^{-1}\\ X^T\\ X\\ \\beta + (X^T\\ X)^{-1}\\ X^T\\ \\epsilon\\ |\\ X]}\\]\n\\[\\boldsymbol{E[b\\ |\\ X] = E[\\beta] + E[(X^T\\ X)^{-1}\\ X^T\\ \\epsilon\\ |\\ X]}\\]\n\\[\\boldsymbol{E[b\\ |\\ X] = E[\\beta] + (X^T\\ X)^{-1}\\ E[X^T\\ \\epsilon\\ |\\ X]}\\]\nIf the assumption of strict exogeneity holds, then \\(\\boldsymbol{E[X^T\\ \\epsilon\\ |\\ X]=0}\\) and \\[\\boldsymbol{E[b\\ |\\ X] = \\beta}\\]",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#unbiased-estimation",
+    "href": "mod-5-1-unbiased.html#unbiased-estimation",
+    "title": "18  Unbiasedness",
+    "section": "18.7 Unbiased Estimation",
+    "text": "18.7 Unbiased Estimation\nGiven the assumptions of the least squares estimator, we can show that the estimator is unbiased. \\[\\boldsymbol{E[b\\ |\\ X] = \\beta}\\]\nWhat does this mean for a particular sample of the population?\nFor any sample of the population, the least squares estimator has the expectation \\(\\boldsymbol{\\beta}\\). \\[\\boldsymbol{E[b] = E_X[E[b\\ |\\ x]] = \\beta}\\] When we average this expectation over all the possible values of \\(\\boldsymbol{X}\\), we obtain the unconditional mean is \\(\\boldsymbol{\\beta}\\).\n\\[\\boldsymbol{E[b] = E_X[E[b\\ |\\ x]] = E_x[\\beta] = \\beta}\\]\nGiven that the expectation of \\(\\boldsymbol{b}\\) conditional on \\(\\boldsymbol{X}\\) is equal to \\(\\boldsymbol{\\beta}\\), then the least squares estimator is unbiased in every sample.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#omitted-variable-bias",
+    "href": "mod-5-1-unbiased.html#omitted-variable-bias",
+    "title": "18  Unbiasedness",
+    "section": "18.8 Omitted Variable Bias",
+    "text": "18.8 Omitted Variable Bias\nLet the correct model specification be:\n\\[\\boldsymbol{y = X\\ \\beta + z\\ \\gamma + \\epsilon}\\]\nLet \\(\\boldsymbol{X}\\) be \\((n \\times K)\\) and \\(\\boldsymbol{z}\\) is \\((n \\times 1)\\).\n\\(\\boldsymbol{z}\\) is a relevant variable, that is, \\(\\boldsymbol{\\gamma \\ne 0}\\)?\nWhat happens if we omit \\(\\boldsymbol{z}\\) from the regression?\nStart and expand the least squares estimator\n\\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ y}\\]\n\\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ (X\\ \\beta + z\\ \\gamma + \\epsilon)}\\]\n\\[\\boldsymbol{b = (X^T\\ X)^{-1}\\ X^T\\ X\\ \\beta + (X^T\\ X)^{-1}\\ X^Tz\\ \\gamma + (X^T\\ X)^{-1}\\ X^T\\epsilon}\\]\n\\[\\boldsymbol{b = \\beta + (X^T\\ X)^{-1}\\ X^Tz\\ \\gamma + (X^T\\ X)^{-1}\\ X^T\\epsilon}\\]\nWe can now take the expectation of \\(\\boldsymbol{b}\\) with respect to \\(\\boldsymbol{X, z}\\).\n\n\\[\\boldsymbol{E[b|X,z] = E[\\beta|X,z] + E[(X^T\\ X)^{-1}\\ X^Tz\\ \\gamma|X,z] + E[(X^T\\ X)^{-1}\\ X^T\\epsilon|X,z]}\\]\n\\[\\boldsymbol{E[b|X,z] = \\beta + E[(X^T\\ X)^{-1}\\ X^Tz\\ \\gamma|X,z]}\\]\nIf \\(\\boldsymbol{X}\\) and \\(\\boldsymbol{z}\\) are orthogonal, then \\(\\boldsymbol{X^T z}= 0\\).\nIn other words, if \\(\\boldsymbol{z}\\) is not relevant, then the least squares estimator is unbiased: \\[\\boldsymbol{E[b|X,z] = \\beta + (X^T\\ X)^{-1}\\ E[X^Tz\\ \\gamma|X,z] = \\beta}\\]\nBut, if \\(\\boldsymbol{X}\\) and \\(\\boldsymbol{z}\\) are not orthogonal, then the least squares estimator is biased.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#omitted-variables-in-r",
+    "href": "mod-5-1-unbiased.html#omitted-variables-in-r",
+    "title": "18  Unbiasedness",
+    "section": "18.9 Omitted Variables in R",
+    "text": "18.9 Omitted Variables in R\nIn the code chunk below, we create an example of omitted variable bias.\nThe code chunk does the following:\n\nCreates \\(\\boldsymbol{X_1}\\) as a normally distributed variable with \\(\\mu = 50\\) and \\(\\sigma = 10\\)\nCreates \\(\\boldsymbol{X_2}\\) as a variable that is highly correlated with \\(\\boldsymbol{X_1}\\)\nDefines \\(\\beta_1 = 2\\) and \\(\\beta_2 = -1\\)\nDefines \\(\\epsilon \\sim  N(0,25)\\)\nDefines \\(y = 100 + \\beta_1 x_1 + \\beta_2 x_2 + \\epsilon\\)\nEstimates \\(\\hat{y} = b_0 + b_1 x_1 + b_2 x_2\\)\nEstimates \\(\\hat{y} = b_0 + b_1 x_1\\)\nEstimates \\(\\hat{y} = b_0 + b_2 x_2\\)\nCompares the resulting estimates\n\nAs you can see, by omitting \\(\\boldsymbol{X_2}\\) from the second regression, the estimated coefficient, \\(b_1\\), is biased downward. When we omit \\(\\boldsymbol{X_1}\\), the estimated coefficient, \\(b_2\\), is biased upward.\n\nrm(list = ls())\nset.seed(1234)\n\nlibrary(modelsummary)\n\nn_pop &lt;- 100000\n\n# Create X1 and X2 so X1 and X2 are correlated\n\nx1 &lt;- rnorm(n_pop, mean = 50, sd = 10)\nx2 &lt;- 0.7 * x1 + rnorm(n_pop, mean = 10, sd = 5)\n\nbeta_1 &lt;- 2\nbeta_2 &lt;- -1\n\nepsilon &lt;- rnorm(n_pop, mean = 0, sd = 5)\n\ny &lt;- 100 + (beta_1 * x1) + (beta_2 * x2) + epsilon\n\npop_data &lt;- tibble(y, x1, x2)\n\nmod_correct &lt;- lm(y ~ x1 + x2, data = pop_data)\n\nmod_omit_x2 &lt;- lm(y ~ x1, data = pop_data)\n\nmod_omit_x1 &lt;- lm(y ~ x2, data = pop_data)\n\nmodelsummary(list(mod_correct, mod_omit_x2, mod_omit_x1))\n\n\n\n    \n\n    \n\n    \n    \n    \n      \n        \n        \n              \n                 \n                (1)\n                (2)\n                (3)\n              \n        \n        \n        \n                \n                  (Intercept)\n                  100.013\n                  90.049\n                  114.671\n                \n                \n                  \n                  (0.087)\n                  (0.114)\n                  (0.213)\n                \n                \n                  x1\n                  2.001\n                  1.299\n                  \n                \n                \n                  \n                  (0.003)\n                  (0.002)\n                  \n                \n                \n                  x2\n                  -1.001\n                  \n                  0.896\n                \n                \n                  \n                  (0.003)\n                  \n                  (0.005)\n                \n                \n                  Num.Obs.\n                  100000\n                  100000\n                  100000\n                \n                \n                  R2\n                  0.884\n                  0.771\n                  0.271\n                \n                \n                  R2 Adj.\n                  0.884\n                  0.771\n                  0.271\n                \n                \n                  AIC\n                  606768.9\n                  675125.6\n                  790853.3\n                \n                \n                  BIC\n                  606807.0\n                  675154.1\n                  790881.9\n                \n                \n                  Log.Lik.\n                  -303380.466\n                  -337559.788\n                  -395423.662\n                \n                \n                  F\n                  382474.005\n                  336633.456\n                  37253.088\n                \n                \n                  RMSE\n                  5.03\n                  7.08\n                  12.62",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#irrelevant-variables",
+    "href": "mod-5-1-unbiased.html#irrelevant-variables",
+    "title": "18  Unbiasedness",
+    "section": "18.10 Irrelevant Variables",
+    "text": "18.10 Irrelevant Variables\nWhile omitting a relevant variable leads to omitted variable bias, what does the inclusion of an irrelevant variable do to the least squares estimator?\nLet the true regression model be:\n\\[\\boldsymbol{y = X\\beta + \\epsilon}\\]\nWe add a variable, \\(\\boldsymbol{z}\\), so the regression model becomes:\n\\[\\boldsymbol{y = X\\ \\beta + z\\ \\gamma + \\epsilon}\\]\nAssume that \\(\\boldsymbol{z}\\) is an irrelevant variable, that is, \\(\\gamma = 0\\).\nWe, however, fail to impose the restriction that \\(\\gamma = 0\\).\nThe least squares estimator remains unbiased.\nSince \\(\\boldsymbol{z}\\) is irrelevant, \\(\\boldsymbol{X^T z} = 0\\).\nThis implies the expectation of \\(\\boldsymbol{b}\\) is\n\\[\\boldsymbol{E[b|X,z] = E[\\beta|X,z] + E[(X^T\\ X)^{-1}\\ X^Tz\\ \\gamma|X,z]\\ + E[(X^T\\ X)^{-1}\\ X^T\\epsilon|X,z]}\\]\n\\[\\boldsymbol{E[b|X,z] = \\beta + 0 + 0 = \\beta}\\]\nWhile the least squares estimator is unbiased with the inclusion of the irrelevant variable, the variance of the estimator is adversely affected.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-1-unbiased.html#irrelevant-variables-in-r",
+    "href": "mod-5-1-unbiased.html#irrelevant-variables-in-r",
+    "title": "18  Unbiasedness",
+    "section": "18.11 Irrelevant Variables in R",
+    "text": "18.11 Irrelevant Variables in R\n\nrm(list = ls())\nnrows &lt;- 100000\nncols &lt;- 6\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1,3,5,9,10,0)\n\ny &lt;- x %*% beta + rnorm(nrows, sd = 10)\n\npopdata &lt;- data.frame(y,x)\n\nnsample &lt;- 1000\nnreps &lt;- 1000\n\nbhat &lt;- matrix(ncol = ncols, nrow = nreps)\n\nfor(i in 1:nreps){\n  sample &lt;- popdata[sample(1:nrows,nsample),]\n  bhat[i,] &lt;- lm(y ~ X2 + X3 + X4 + X5 + X6, \n                 data = sample)$coefficients\n   \n}\n\nmean(bhat[,2])\n\n[1] 3.00714\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWe can now move to the variance of the least squares estimator.",
     "crumbs": [
       "Least Squares Variance",
       "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"

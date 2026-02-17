@@ -42,7 +42,10 @@ We use the population parameters to construct $\boldsymbol{y}$ and then generate
 ```{r}
 
 rm(list = ls())
+set.seed(1234)
+
 nrows <- 1000000
+
 ncols <- 3
  
 x <- matrix(0, nrows, ncols)
@@ -58,26 +61,37 @@ y <- x %*% beta + rnorm(nrows, sd = 10)
 
 bhat_pop <- solve(t(x) %*% x) %*% t(x) %*% y
 
-bhat_pop
+df <- tibble(beta, bhat_pop)
 
+kable(df,
+      col.names = c('Beta', 'Beta Hat'),
+      align     = 'c',
+      digits    = 3) %>%
+kable_classic()
 
 ```
 
 ## Sampling Distributions
 
-Now, we repeatedly draw a random sample from the sample data.
+In the previous code chunk, we had access to the population of observations. In reality, we must often use sample data as population data are available or costly to obtain.
+
+**How representative are the least squares estimates when sample data are used?**
+
+In the code chunk below, we repeatedly draw a random sample from the data.
 
 For each sample, we generate the least squares coefficients.
 
+We then construct a histogram of the estimates.
+
 As our sample size increases and number of samples increases, the distribution of the least squares estimates 'centers' on the true population parameter.
 
-The mean and median of the distribution is roughly equal to the true population parameter.
+The mean and median of the distribution are roughly equal to the true population parameter.
 
 ```{r}
 
-#Set Sample and Repetitions
-
 rm(list = ls())
+set.seed(1234)
+
 nrows <- 1000000
 ncols <- 3
  
@@ -95,6 +109,9 @@ y <- x %*% beta + rnorm(nrows, sd = 10)
 bhat_pop <- solve(t(x) %*% x) %*% t(x) %*% y
 
 popdata <- data.frame(y,x)
+
+#Sample size = 1000
+#Number of samples = 10000
 
 nsample <- 1000
 nreps <- 10000
@@ -107,6 +124,8 @@ for(i in 1:nreps){
    
 }
 
+#Histogram of b2
+
 hist(bhat[,2],
  cex.main = 1,
      main = bquote(The ~ Distribution  ~ of ~ 100000 ~ b[2] ~ Estimates), 
@@ -117,7 +136,11 @@ hist(bhat[,2],
 
 ## Unbiasedness
 
-The sampling distribution of $\boldsymbol{b_2}$ and $\boldsymbol{b_3}$ highlight some important points.
+The sampling distribution of $\boldsymbol{b_2}$ suggests that the coefficients are "centered" at the true population parameter, that is, on average, the estimates are equal to the true parameter or
+
+$$
+\frac{1}{n}\sum_{i = 1}^n b_{2i} = \beta_2
+$$
 
 Each least square's coefficient is, in fact, a **random** variable drawn from an underlying distribution.
 
@@ -125,9 +148,11 @@ With repeated sampling, the central tendency of the distribution of each paramet
 
 The parameter estimates appear to be **unbiased**, that is, on average, the parameter estimates are equal to the population parameters.
 
-Each distribution displays variance, underlying the point that the least squares estimates are random variables.
+The distribution has a variance, underlying the point that the least squares estimates are random variables.
 
 The parameter estimates also appear to follow a normal distribution as $nreps$ and $N$ increase.
+
+In the code chunk below, we estimate the sampling distribution for $\boldsymbol{b_3}$ with a sample size of 100 and 20,000 samples. The sampling distribution appears to be centered at $\boldsymbol{\beta_3}$. If we changed the sample size, the variance of the sampling distribution would also change.
 
 ```{r}
 
@@ -152,8 +177,8 @@ bhat_pop <- solve(t(x) %*% x) %*% t(x) %*% y
 
 popdata <- data.frame(y,x)
 
-nsample <- 1000
-nreps <- 10000
+nsample <- 100
+nreps <- 20000
 
 bhat <- matrix(ncol = ncols, nrow = nreps)
 
@@ -236,11 +261,11 @@ $$\boldsymbol{b = (X^T\ X)^{-1}\ X^T\ X\ \beta + (X^T\ X)^{-1}\ X^Tz\ \gamma + (
 
 $$\boldsymbol{b = \beta + (X^T\ X)^{-1}\ X^Tz\ \gamma + (X^T\ X)^{-1}\ X^T\epsilon}$$
 
-## Omitted Variable Bias
+We can now take the expectation of $\boldsymbol{b}$ with respect to $\boldsymbol{X, z}$.\
+\
+$$\boldsymbol{E[b|X,z] = E[\beta|X,z] + E[(X^T\ X)^{-1}\ X^Tz\ \gamma|X,z] + E[(X^T\ X)^{-1}\ X^T\epsilon|X,z]}$$
 
-Given the least squares estimator that results from the omission of the relevant variable $\boldsymbol{z}$, we can take the expectation of the estimator to show
-
-$$\boldsymbol{b = \beta + (X^T\ X)^{-1}\ X^Tz\ \gamma + (X^T\ X)^{-1}\ X^T\epsilon}$$ $$\boldsymbol{E[b|X,z] = E[\beta|X,z] + E[(X^T\ X)^{-1}\ X^Tz\ \gamma|X,z]\ +}$$ $$\boldsymbol{E[(X^T\ X)^{-1}\ X^T\epsilon|X,z]}$$ $$\boldsymbol{E[b|X,z] = \beta + E[(X^T\ X)^{-1}\ X^Tz\ \gamma|X,z]}$$
+$$\boldsymbol{E[b|X,z] = \beta + E[(X^T\ X)^{-1}\ X^Tz\ \gamma|X,z]}$$
 
 If $\boldsymbol{X}$ and $\boldsymbol{z}$ are orthogonal, then $\boldsymbol{X^T z}= 0$.
 
@@ -248,37 +273,88 @@ In other words, if $\boldsymbol{z}$ is not relevant, then the least squares esti
 
 But, if $\boldsymbol{X}$ and $\boldsymbol{z}$ are not orthogonal, then the least squares estimator is biased.
 
-Let $\boldsymbol{p_{x,z}}$ equal:
+## Omitted Variables in R
 
-$$\boldsymbol{p_{x,z} = (X^T\ X)^{-1}\ X^Tz}$$
+In the code chunk below, we create an example of omitted variable bias.
 
-In other words, $\boldsymbol{p_{x,z}}$ is a column vector containing the coefficients of the least squares regressions of $\boldsymbol{z}$ on $\boldsymbol{X}$.
+The code chunk does the following:
 
-The extent of omitted variable bias can be determined as:
+-   Creates $\boldsymbol{X_1}$ as a normally distributed variable with $\mu = 50$ and $\sigma = 10$
 
-$$\boldsymbol{E[b|X,z] = \beta + (X^T\ X)^{-1}\ E[X^Tz\ \gamma|X,z]}$$
+-   Creates $\boldsymbol{X_2}$ as a variable that is highly correlated with $\boldsymbol{X_1}$
 
-$$\boldsymbol{E[b|X,z] = \beta + p_{x,z} \gamma}$$
+-   Defines $\beta_1 = 2$ and $\beta_2 = -1$
 
-For each coefficient in $b$, we can see that $$E[b_k|\boldsymbol{X,z} = \beta_K + \gamma \frac{Cov(z,x_k | \text{all other x's})}{Var(x_k | \text{all other x's)}}$$
+-   Defines $\epsilon \sim  N(0,25)$
 
-While helpful, this is only helpful when there is a single included variable and a single omitted variable. As more regressors are added and omitted, the sign of the bias is no longer obvious.
+-   Defines $y = 100 + \beta_1 x_1 + \beta_2 x_2 + \epsilon$
+
+-   Estimates $\hat{y} = b_0 + b_1 x_1 + b_2 x_2$
+
+-   Estimates $\hat{y} = b_0 + b_1 x_1$
+
+-   Estimates $\hat{y} = b_0 + b_2 x_2$
+
+-   Compares the resulting estimates
+
+As you can see, by omitting $\boldsymbol{X_2}$ from the second regression, the estimated coefficient, $b_1$, is biased downward. When we omit $\boldsymbol{X_1}$, the estimated coefficient, $b_2$, is biased upward.
+
+```{r}
+
+rm(list = ls())
+set.seed(1234)
+
+library(modelsummary)
+
+n_pop <- 100000
+
+# Create X1 and X2 so X1 and X2 are correlated
+
+x1 <- rnorm(n_pop, mean = 50, sd = 10)
+x2 <- 0.7 * x1 + rnorm(n_pop, mean = 10, sd = 5)
+
+beta_1 <- 2
+beta_2 <- -1
+
+epsilon <- rnorm(n_pop, mean = 0, sd = 5)
+
+y <- 100 + (beta_1 * x1) + (beta_2 * x2) + epsilon
+
+pop_data <- tibble(y, x1, x2)
+
+mod_correct <- lm(y ~ x1 + x2, data = pop_data)
+
+mod_omit_x2 <- lm(y ~ x1, data = pop_data)
+
+mod_omit_x1 <- lm(y ~ x2, data = pop_data)
+
+modelsummary(list(mod_correct, mod_omit_x2, mod_omit_x1))
+
+```
 
 ## Irrelevant Variables
 
 While omitting a relevant variable leads to omitted variable bias, what does the inclusion of an irrelevant variable do to the least squares estimator?
 
-Assume that the true regression model is $\boldsymbol{y = X\beta + \epsilon}$ but we instead instead we estimate $\boldsymbol{y = X\ \beta + z\ \gamma + \epsilon}$.
+Let the true regression model be:
 
-In this case, $\boldsymbol{z}$ is an irrelevant variable, that is, $\gamma = 0$. We, however, fail to impose the restriction that $\gamma = 0$.
+$$\boldsymbol{y = X\beta + \epsilon}$$
 
-The least squares estimator is still unbiased.
+We add a variable, $\boldsymbol{z}$, so the regression model becomes:
 
-Since $\boldsymbol{z}$ is irrelevant, $\boldsymbol{X^T z} = 0$. This implies the expectation of $\boldsymbol{b}$ is
+$$\boldsymbol{y = X\ \beta + z\ \gamma + \epsilon}$$
 
-$$\boldsymbol{E[b|X,z] = E[\beta|X,z] + E[(X^T\ X)^{-1}\ X^Tz\ \gamma|X,z]\ +}$$
+Assume that $\boldsymbol{z}$ is an irrelevant variable, that is, $\gamma = 0$.
 
-$$\boldsymbol{E[(X^T\ X)^{-1}\ X^T\epsilon|X,z]}$$
+We, however, fail to impose the restriction that $\gamma = 0$.
+
+**The least squares estimator remains unbiased.**
+
+Since $\boldsymbol{z}$ is irrelevant, $\boldsymbol{X^T z} = 0$.
+
+This implies the expectation of $\boldsymbol{b}$ is
+
+$$\boldsymbol{E[b|X,z] = E[\beta|X,z] + E[(X^T\ X)^{-1}\ X^Tz\ \gamma|X,z]\ + E[(X^T\ X)^{-1}\ X^T\epsilon|X,z]}$$
 
 $$\boldsymbol{E[b|X,z] = \beta + 0 + 0 = \beta}$$
 
