@@ -182,16 +182,43 @@ $$H_A:\ \boldsymbol{R\ \beta\ - \ q \ne 0}$$
 
 ## One Hypothesis
 
-Assume that $\boldsymbol{y = X\beta + \epsilon}$ and we hypothesize that
-$\beta_3 = 0$ then
+Assume that the regression model is:
 
 $$
-H_0: \beta_3 = 0 \\
-H_A: \beta_3 \ne 0$$
+\boldsymbol{y = \beta_1 + \beta_2 x_2 + \beta_3 x_3 + \dots + \beta_k x_k + \epsilon}
+$$
+
+and we hypothesize that $\beta_3 = 0$ so that:
+
+$$
+H_0: \beta_3 = 0
+$$
+
+$$H_A: \beta_3 \ne 0$$
 
 This means that the **R** matrix has 0's for every element EXCEPT for
-$\beta_3$.\
+$\beta_3$
 $$\boldsymbol{R} = [0\quad 0\quad 1\quad 0\quad \dots\quad 0];\quad \boldsymbol{q} = 0$$
+
+So, we can restate the null:
+
+$$
+H_0: \boldsymbol{R \beta - q = 0}
+$$
+
+$$H_0: \boldsymbol{R\beta} = [0\quad 0\quad 1\quad 0\quad \dots\quad 0]\begin{bmatrix}{\beta_1 \\ \beta_2 \\ \beta_3 \\ \vdots \\ \beta_k}\end{bmatrix}= 0 = \boldsymbol{q}$$
+
+If we multiply this out, we find:
+
+$$
+H_0: (0 \times\beta_1)+(0 \times \beta_2)+(1 \times \beta_3) + \dots + (0 \times \beta_k) = 0
+$$
+
+$$
+H_0: \beta_3 = 0
+$$
+
+## Multiple Hypotheses
 
 Assume that $\boldsymbol{y = X\beta + \epsilon}$ and we hypothesize that
 $\beta_3 = \beta_4$ then
@@ -239,10 +266,6 @@ $\boldsymbol{\beta = R^{-1}\ q}$.
 
 The restriction $\boldsymbol{R\ \beta = q}$ imposes $J$ restrictions on
 $K$ otherwise free parameters.
-
-In other words, $\boldsymbol{R}$ can consist of a one restriction,
-$\beta_2 = 0$ or it may have many restrictions
-$\beta_2 = 0, \beta_3 = 1, \beta_4 + \beta_5 = 2$.
 
 ## The F-Statistic
 
