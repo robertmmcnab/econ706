@@ -346,6 +346,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Unbiasedness</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mod-5-2-variance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Variance of LS Estimator</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -544,25 +550,25 @@ reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_a1vu529xrkgb7ag39obc = TinyTable.createTableFunctions("tinytable_a1vu529xrkgb7ag39obc");
+      const tableFns_gscj8eoirr4bpf3q44da = TinyTable.createTableFunctions("tinytable_gscj8eoirr4bpf3q44da");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '16', j: 2 }, { i: '16', j: 3 } ], css_id: 'tinytable_css_zyimpuwddw7nfdtldnz1',}, 
-          { positions: [ { i: '8', j: 2 }, { i: '8', j: 3 } ], css_id: 'tinytable_css_p6hyei1utt2y2v2wkrc9',}, 
-          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 }, { i: '13', j: 3 }, { i: '14', j: 3 }, { i: '15', j: 3 } ], css_id: 'tinytable_css_yp3xk1my75ttjw3ywa71',}, 
-          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_oco5bxycrf8vj97zy3jd',}, 
-          { positions: [ { i: '16', j: 1 } ], css_id: 'tinytable_css_q2xmaithdvghos2n0hlg',}, 
-          { positions: [ { i: '8', j: 1 } ], css_id: 'tinytable_css_90qyz6u8moib4a3hijlf',}, 
-          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 } ], css_id: 'tinytable_css_ew5p4meuyx52muim2icf',}, 
-          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_sdekjvuc6s9fd4t3ihi9',}, 
+          { positions: [ { i: '16', j: 2 }, { i: '16', j: 3 } ], css_id: 'tinytable_css_3h14uwsky65goctiw2wp',}, 
+          { positions: [ { i: '8', j: 2 }, { i: '8', j: 3 } ], css_id: 'tinytable_css_uk6zurnx0lh7zqssvd23',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 }, { i: '13', j: 3 }, { i: '14', j: 3 }, { i: '15', j: 3 } ], css_id: 'tinytable_css_5slwvnood9ik0r89bgje',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_38v9mojlga4yb8v6qx49',}, 
+          { positions: [ { i: '16', j: 1 } ], css_id: 'tinytable_css_q6ef7ctc1pqzpoz07doc',}, 
+          { positions: [ { i: '8', j: 1 } ], css_id: 'tinytable_css_wqgg1b4wxvev75m1z5id',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 } ], css_id: 'tinytable_css_v04v7mrw2kun8cpvvgf9',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_6mob4pm9lfog1f6vccja',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_a1vu529xrkgb7ag39obc.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_gscj8eoirr4bpf3q44da.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -571,17 +577,17 @@ reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
     <style>
     /* tinytable css entries after */
-    #tinytable_a1vu529xrkgb7ag39obc td.tinytable_css_zyimpuwddw7nfdtldnz1, #tinytable_a1vu529xrkgb7ag39obc th.tinytable_css_zyimpuwddw7nfdtldnz1 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_a1vu529xrkgb7ag39obc td.tinytable_css_p6hyei1utt2y2v2wkrc9, #tinytable_a1vu529xrkgb7ag39obc th.tinytable_css_p6hyei1utt2y2v2wkrc9 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_a1vu529xrkgb7ag39obc td.tinytable_css_yp3xk1my75ttjw3ywa71, #tinytable_a1vu529xrkgb7ag39obc th.tinytable_css_yp3xk1my75ttjw3ywa71 { text-align: center }
-    #tinytable_a1vu529xrkgb7ag39obc td.tinytable_css_oco5bxycrf8vj97zy3jd, #tinytable_a1vu529xrkgb7ag39obc th.tinytable_css_oco5bxycrf8vj97zy3jd {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_a1vu529xrkgb7ag39obc td.tinytable_css_q2xmaithdvghos2n0hlg, #tinytable_a1vu529xrkgb7ag39obc th.tinytable_css_q2xmaithdvghos2n0hlg {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_a1vu529xrkgb7ag39obc td.tinytable_css_90qyz6u8moib4a3hijlf, #tinytable_a1vu529xrkgb7ag39obc th.tinytable_css_90qyz6u8moib4a3hijlf {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_a1vu529xrkgb7ag39obc td.tinytable_css_ew5p4meuyx52muim2icf, #tinytable_a1vu529xrkgb7ag39obc th.tinytable_css_ew5p4meuyx52muim2icf { text-align: left }
-    #tinytable_a1vu529xrkgb7ag39obc td.tinytable_css_sdekjvuc6s9fd4t3ihi9, #tinytable_a1vu529xrkgb7ag39obc th.tinytable_css_sdekjvuc6s9fd4t3ihi9 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_gscj8eoirr4bpf3q44da td.tinytable_css_3h14uwsky65goctiw2wp, #tinytable_gscj8eoirr4bpf3q44da th.tinytable_css_3h14uwsky65goctiw2wp {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_gscj8eoirr4bpf3q44da td.tinytable_css_uk6zurnx0lh7zqssvd23, #tinytable_gscj8eoirr4bpf3q44da th.tinytable_css_uk6zurnx0lh7zqssvd23 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_gscj8eoirr4bpf3q44da td.tinytable_css_5slwvnood9ik0r89bgje, #tinytable_gscj8eoirr4bpf3q44da th.tinytable_css_5slwvnood9ik0r89bgje { text-align: center }
+    #tinytable_gscj8eoirr4bpf3q44da td.tinytable_css_38v9mojlga4yb8v6qx49, #tinytable_gscj8eoirr4bpf3q44da th.tinytable_css_38v9mojlga4yb8v6qx49 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_gscj8eoirr4bpf3q44da td.tinytable_css_q6ef7ctc1pqzpoz07doc, #tinytable_gscj8eoirr4bpf3q44da th.tinytable_css_q6ef7ctc1pqzpoz07doc {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_gscj8eoirr4bpf3q44da td.tinytable_css_wqgg1b4wxvev75m1z5id, #tinytable_gscj8eoirr4bpf3q44da th.tinytable_css_wqgg1b4wxvev75m1z5id {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_gscj8eoirr4bpf3q44da td.tinytable_css_v04v7mrw2kun8cpvvgf9, #tinytable_gscj8eoirr4bpf3q44da th.tinytable_css_v04v7mrw2kun8cpvvgf9 { text-align: left }
+    #tinytable_gscj8eoirr4bpf3q44da td.tinytable_css_6mob4pm9lfog1f6vccja, #tinytable_gscj8eoirr4bpf3q44da th.tinytable_css_6mob4pm9lfog1f6vccja {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
     </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_a1vu529xrkgb7ag39obc" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_gscj8eoirr4bpf3q44da" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
@@ -721,16 +727,16 @@ reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(bhat[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>],bhat_1[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]     [,2]
-[1,] 2.003778 1.966575
-[2,] 2.994738 2.929698
-[3,] 3.984320 4.027559</code></pre>
+[1,] 1.998665 1.931352
+[2,] 3.008601 2.905447
+[3,] 3.988951 3.984265</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(bhat[<span class="dv">5</span><span class="sc">:</span><span class="dv">7</span>], bhat_2[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]     [,2]
-[1,] 4.976293 4.936374
-[2,] 6.000362 6.015249
-[3,] 6.994749 6.995936</code></pre>
+[1,] 5.004849 5.082641
+[2,] 6.010656 5.936437
+[3,] 6.990739 6.930546</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> y, <span class="at">x =</span> x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -761,11 +767,11 @@ reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>bhat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]
-[1,] 1.040704
-[2,] 4.037039
-[3,] 4.997631
-[4,] 5.995202
-[5,] 9.986211</code></pre>
+[1,] 1.114104
+[2,] 3.979198
+[3,] 5.054068
+[4,] 6.045036
+[5,] 9.914499</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -778,16 +784,16 @@ reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>bhat_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]
-[1,] 35.76461
-[2,] 11.95818
-[3,] 12.64721</code></pre>
+[1,] 35.58745
+[2,] 11.68859
+[3,] 12.86582</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bhat_2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]
-[1,] -15.70838
-[2,]  10.41868
-[3,]  14.36063</code></pre>
+[1,] -15.66437
+[2,]  10.44120
+[3,]  14.33431</code></pre>
 </div>
 </div>
 </section>
