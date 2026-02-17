@@ -36,6 +36,7 @@ book:
       chapters:
         - mod-5-0-overview.qmd
         - mod-5-1-unbiased.qmd
+        - mod-5-2-variance.qmd
 
 execute:
   webR: true            # enables WebR chunks for interactive R in the browser

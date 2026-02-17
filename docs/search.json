@@ -70,7 +70,7 @@
     "href": "index.html#module-05---least-squares-variance",
     "title": "ECON 706",
     "section": "0.6 Module 05 - Least Squares Variance",
-    "text": "0.6 Module 05 - Least Squares Variance\n\n\nModule 5 Overview\n\n\nUnbiasedness of the Least Squares Estimator\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
+    "text": "0.6 Module 05 - Least Squares Variance\n\n\nModule 5 Overview\n\n\nUnbiasedness of the Least Squares Estimator\n\n\nVariance of the Least Squares Estimator\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
     "crumbs": [
       "Introduction",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
@@ -1412,7 +1412,7 @@
     "href": "mod-5-0-overview.html#lessons-in-this-module",
     "title": "17  Module 5 Overview",
     "section": "17.5 Lessons in this Module",
-    "text": "17.5 Lessons in this Module\n\n5.1 - Unbiasedness\n\n\nNext: Start with Unbiasedness.",
+    "text": "17.5 Lessons in this Module\n\n5.1 - Unbiasedness\n5.2 - Variance of Least Squares Estimator\n\n\nNext: Start with Unbiasedness.",
     "crumbs": [
       "Least Squares Variance",
       "<span class='chapter-number'>17</span>  <span class='chapter-title'>Module 5 Overview</span>"
@@ -1537,6 +1537,138 @@
     "crumbs": [
       "Least Squares Variance",
       "<span class='chapter-number'>18</span>  <span class='chapter-title'>Unbiasedness</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-2-variance.html",
+    "href": "mod-5-2-variance.html",
+    "title": "19  Variance of LS Estimator",
+    "section": "",
+    "text": "19.1 Introduction\nIn this second segment of Module 5, we shift our focus from the central tendency of the least squares estimator to its precision and reliability. By deriving the variance-covariance matrix of \\(\\boldsymbol{b}\\), we establish a formal measure of the “spread” of our estimates around the true population parameters. This derivation relies on the assumption of homoscedasticity, allowing us to quantify how the noise in the disturbances and the structure of our independent variables combined to determine the stability of our coefficients.\nBecause the true disturbance variance, \\(\\boldsymbol{\\sigma^2}\\), is typically unknown, we introduce an unbiased estimator, \\(\\boldsymbol{s^2}\\), derived from the residual sum of squares and the model’s degrees of freedom. This allows for the calculation of standard errors. The module concludes with the Gauss-Markov Theorem, proving that under the classical assumptions, the least squares estimator is the Best Linear Unbiased Estimator (BLUE).",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Variance of LS Estimator</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-2-variance.html#least-squares-variance",
+    "href": "mod-5-2-variance.html#least-squares-variance",
+    "title": "19  Variance of LS Estimator",
+    "section": "19.2 Least Squares Variance",
+    "text": "19.2 Least Squares Variance\nGiven the standard assumptions, recall:\n\\[E[\\boldsymbol{b|X}] = \\boldsymbol{\\beta}\\]\nThe variance of a random variable, \\(\\boldsymbol{X}\\), can be expressed as the expectation of the squared deviations from its expected value or:\n\\[var(\\boldsymbol{X}) = E[(\\boldsymbol{X} - E[\\boldsymbol{X}])^2]\\]\nFor a random vector, such as the least squares estimates, \\(\\boldsymbol{b}\\), the concept is similar except that squaring has to be replaced with the matrix counterpart: multiplication of a vector into its own transpose.\nThe variance of the least squares estimator \\(\\boldsymbol{b}\\) can be expressed as: \\[var(\\boldsymbol{b|X}) = E[(\\boldsymbol{b - E[b]})^2 | X]\\]\n\\[var(\\boldsymbol{b|X}) = E[\\boldsymbol{(b - \\beta)(b - \\beta)^T) | X}]\\]\nGiven that \\[\\boldsymbol{b} = \\boldsymbol{\\beta + (X^T X)^{-1} X^T \\epsilon}\\] \\[\\boldsymbol{b - \\beta} = \\boldsymbol{(X^T X)^{-1} X^T \\epsilon}\\]\nThe variance of the least squares estimator is: \\[var(\\boldsymbol{b|X}) = E[\\boldsymbol{(b - \\beta)(b - \\beta)^T) | X}]\\] \\[var(\\boldsymbol{b|X}) = E[\\boldsymbol{[(X^T X)^{-1} X^T \\epsilon]\\ [(X^T X)^{-1} X^T \\epsilon]^T | X}]\\] \\[var(\\boldsymbol{b|X}) = E[\\boldsymbol{(X^T X)^{-1} X^T \\epsilon \\epsilon^T X (X^T X)^{-1} | X}]\\] \\[var(\\boldsymbol{b|X}) = \\boldsymbol{(X^T X)^{-1} X^T\\ E[\\epsilon \\epsilon^T|X]\\ X (X^T X)^{-1} }\\]\nRecall we have assumed that \\(E[\\boldsymbol{\\epsilon \\epsilon^T | X}] = E[\\boldsymbol{\\epsilon \\epsilon^T}] = \\sigma^2 \\boldsymbol{I}\\).\n\\[var(\\boldsymbol{b|X}) = \\sigma^2 \\boldsymbol{(X^T X)^{-1} X^TX (X^T X)^{-1}}\\] \\[var(\\boldsymbol{b|X}) = \\sigma^2 \\boldsymbol{(X^T X)^{-1}}\\]",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Variance of LS Estimator</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-2-variance.html#unknown-variance",
+    "href": "mod-5-2-variance.html#unknown-variance",
+    "title": "19  Variance of LS Estimator",
+    "section": "19.3 Unknown Variance",
+    "text": "19.3 Unknown Variance\nThe problem is that the variance-covariance matrix involves the disturbance variance, \\(\\sigma^2\\), which is unknown.\nNote that the residuals, \\(\\boldsymbol{e}\\) are:\n\\[\n\\boldsymbol{e = y - Xb}\n\\]\n\\[\n\\boldsymbol{e = y - X(X^T X)^{-1}X^Ty}\n\\]\n\\[\n\\boldsymbol{e = (I - X(X^T X)^{-1}X^T)y = My}\n\\]\n\\[\n\\boldsymbol{e = M(X \\beta + \\epsilon) = MX\\beta + M\\epsilon}\n\\]\nRecall that \\(\\boldsymbol{MX = 0}\\) so:\n\\[\n\\boldsymbol{e = M \\epsilon}\n\\]\nWe can use \\(\\boldsymbol{e} = \\boldsymbol{M \\epsilon}\\) to form the sum of the squared residuals or: \\[\\boldsymbol{e^T e} = \\boldsymbol{(M \\epsilon)^T M \\epsilon}\\] \\[\\boldsymbol{e^T e} = \\boldsymbol{\\epsilon^T M^T M \\epsilon}\\] \\[\\boldsymbol{e^T e} = \\boldsymbol{\\epsilon^T M \\epsilon}\\]\nSince \\(\\boldsymbol{\\epsilon^T M \\epsilon}\\) is a \\((1 \\times 1)\\) scalar, it is equal to its trace.\nThe trace of an \\((n \\times n)\\) square matrix \\(\\boldsymbol{A}\\) is defined as: \\[\\sum_{i=1}^n a_{ii} = a_{11} + a_{22} + \\dots + a_{nn}\\]\nIn other words, the trace of a square matrix \\(\\boldsymbol{A}\\), denoted \\(tr(\\boldsymbol{A})\\), is the sum of the elements on the main diagonal of \\(\\boldsymbol{A}\\).",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Variance of LS Estimator</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-2-variance.html#using-the-trace",
+    "href": "mod-5-2-variance.html#using-the-trace",
+    "title": "19  Variance of LS Estimator",
+    "section": "19.4 Using the Trace",
+    "text": "19.4 Using the Trace\nSince the trace of a scalar is just itself and \\(\\boldsymbol{e^T e} = \\boldsymbol{\\epsilon^T M \\epsilon}\\) is a scalar: \\[\\boldsymbol{e^T e} = tr(\\boldsymbol{\\epsilon^T M \\epsilon})\\]\nThe expectation of \\(\\boldsymbol{e^T e}\\) conditional on \\(\\boldsymbol{X}\\) is: \\[E[\\boldsymbol{e^T e|X}] = E[tr(\\boldsymbol{\\epsilon^T M\\ \\epsilon})|X]\\]\nSince \\(\\boldsymbol{\\epsilon^T M\\ \\epsilon | X}]\\) is a scalar and \\(\\boldsymbol{M}\\) is square, we can rearrange so: \\[E[\\boldsymbol{e^T e|X}]  = E[tr(\\boldsymbol{M\\ \\epsilon^T \\epsilon})|X]\\]\nGiven that \\(E[\\boldsymbol{M |X}] = \\boldsymbol{M}\\), we can restate this as:\n\\[E[\\boldsymbol{e^T e|X}]  = tr(\\boldsymbol{M}\\ E[\\boldsymbol{\\epsilon^T \\epsilon |X}])]\\]\nRecall the assumption of homoscedasticity means that \\(E[\\boldsymbol{\\epsilon^T \\epsilon |X}] = \\sigma^2 \\boldsymbol{I}\\) so that: \\[E[\\boldsymbol{e^T e|X}]  = tr(\\boldsymbol{M}\\ \\sigma^2 \\boldsymbol{I})\\]\nGiven that \\(\\sigma^2\\) is a scalar, then \\(tr(\\sigma^2) = \\sigma^2\\) and we also know that \\(\\boldsymbol{MI} = \\boldsymbol{M}\\) so: \\[E[\\boldsymbol{e^T e|X}]  = tr(\\boldsymbol{M}\\ \\sigma^2 \\boldsymbol{I})\\] \\[E[\\boldsymbol{e^T e|X}]  = \\sigma^2 tr(\\boldsymbol{M})\\]\nWhat is the trace of \\(\\boldsymbol{M = I - X(X^T X)^{-1}X^T}\\)?\nThe trace of \\(\\boldsymbol{I}\\) is the sum of its diagonal elements.\nSince the diagonal elements are all equal to 1 and \\(\\boldsymbol{I}\\) is \\((n \\times n)\\): \\[tr(\\boldsymbol{I}) = n\\]\nThe trace of \\(\\boldsymbol{X(X^T X)^{-1}X^T}\\) is the trace of \\(\\boldsymbol{P}\\).\nThe trace of a projection matrix is the dimension of its target space or: \\[tr(\\boldsymbol{P}) = tr(\\boldsymbol{X(X^T X)^{-1}X^T}) = rank(\\boldsymbol{X}) = k.\\]",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Variance of LS Estimator</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-2-variance.html#s-squared",
+    "href": "mod-5-2-variance.html#s-squared",
+    "title": "19  Variance of LS Estimator",
+    "section": "19.5 S-Squared",
+    "text": "19.5 S-Squared\nThis means that the trace of \\(\\boldsymbol{M}\\) is:\n\\[tr(\\boldsymbol{M}) = tr(\\boldsymbol{I}) - tr(\\boldsymbol{X(X^T X)^{-1}X^T}) = n - k\\]\nPutting this all together: \\[E[\\boldsymbol{e^T e|X}]  = \\sigma^2 tr(\\boldsymbol{M})\\]\n\\[E[\\boldsymbol{e^T e|X}]  = \\sigma^2(n - K)\\] An unbiased estimator of \\(\\sigma^2\\) is thus: \\[s^2 = \\frac{\\boldsymbol{e^T e}}{(n-K)}\\]\n\\(s^2\\) is an unbiased estimator of \\(\\sigma^2\\) conditionally and unconditionally as: \\[E[s^2] = E_X[E[s^2|\\boldsymbol{X}] = E_X[\\sigma^2] = \\sigma^2\\]",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Variance of LS Estimator</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-2-variance.html#standard-errors",
+    "href": "mod-5-2-variance.html#standard-errors",
+    "title": "19  Variance of LS Estimator",
+    "section": "19.7 Standard Errors",
+    "text": "19.7 Standard Errors\nGiven that the sampling variance of the least squares estimator is:\n\\[Est.Var[\\boldsymbol{b|X}] = s^2\\boldsymbol{(X^T X)^{-1}}\\]\n\\(s^2\\boldsymbol{(X^T X)^{-1}}\\) is square and \\((k \\times k)\\).\nIf we take the square root of the diagonal elements, we obtain the standard errors of the least squares estimators or: \\[se(b_k) = [[s^2\\boldsymbol{(X^T X)^{-1}}]_{kk}]^{1/2}\\]\nThe standard error of \\(b_k\\) is akin to the standard deviation of a randomly distributed normal variable.\nFor example, for \\(b_2\\), the standard error is equal to the square root of \\(s^2\\boldsymbol{(X^T X)^{-1}}]_{22}\\).",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Variance of LS Estimator</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-2-variance.html#standard-errors-1",
+    "href": "mod-5-2-variance.html#standard-errors-1",
+    "title": "19  Variance of LS Estimator",
+    "section": "19.7 Standard Errors",
+    "text": "19.7 Standard Errors\nGiven that the sampling variance of the least squares estimator is:\n\\[Est.Var[\\boldsymbol{b|X}] = s^2\\boldsymbol{(X^T X)^{-1}}\\]\n\\(s^2\\boldsymbol{(X^T X)^{-1}}\\) is square and \\((k \\times k)\\).\nIf we take the square root of the diagonal elements, we obtain the standard errors of the least squares estimators or: \\[se(b_k) = [[s^2\\boldsymbol{(X^T X)^{-1}}]_{kk}]^{1/2}\\]\nThe standard error of \\(b_k\\) is akin to the standard deviation of a randomly distributed normal variable.\nFor example, for \\(b_2\\), the standard error is equal to the square root of \\(s^2\\boldsymbol{(X^T X)^{-1}}]_{22}\\).",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Variance of LS Estimator</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-2-variance.html#standard-errors-2",
+    "href": "mod-5-2-variance.html#standard-errors-2",
+    "title": "19  Variance of LS Estimator",
+    "section": "19.8 Standard Errors",
+    "text": "19.8 Standard Errors\n\nrm(list = ls())\nnrows &lt;- 10000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1, 3, 5, 7, 12)\n\ny &lt;- x %*% beta + rnorm(nrows, sd = 10)\n\nbhat_pop &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nI &lt;- diag(nrows)\nM &lt;- (I - x^T %*% solve(t(x) %*% x) %*% t(x))\nP &lt;- x^T %*% solve(t(x) %*% x) %*% t(x)\n\ne &lt;- M %*% y\n\ns2 &lt;- as.numeric((t(e) %*% e)/(nrows - ncols))\nvar_cov_b &lt;- s2 * solve(t(x) %*% x)\nse_b &lt;- sqrt(diag(var_cov_b))\n\nvar_cov_b\n\n             [,1]          [,2]          [,3]          [,4]          [,5]\n[1,]  0.128937055 -2.907564e-03 -2.922805e-03 -3.020570e-03 -3.029331e-03\n[2,] -0.002907564  2.917472e-04 -1.342400e-06  2.035356e-06 -1.749050e-06\n[3,] -0.002922805 -1.342400e-06  2.952937e-04 -2.115518e-06  4.282426e-07\n[4,] -0.003020570  2.035356e-06 -2.115518e-06  2.961066e-04  5.044066e-06\n[5,] -0.003029331 -1.749050e-06  4.282426e-07  5.044066e-06  2.977296e-04\n\n\n\nOur estimate for \\(b_2 = 2.996038\\).\nThe second element on the diagonal of the variance-covariance matrix for \\(\\boldsymbol{b}\\) is \\(s^2(\\boldsymbol{X^X}_22)^{-1} = 0.0002901079\\).\nThe standard error for \\(b_2\\) is the square root of the second element on the diagonal of the variance-covariance matrix for \\(\\boldsymbol{b} = 0.01703256\\).",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Variance of LS Estimator</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-2-variance.html#gauss-markov-theorem",
+    "href": "mod-5-2-variance.html#gauss-markov-theorem",
+    "title": "19  Variance of LS Estimator",
+    "section": "19.9 Gauss Markov Theorem",
+    "text": "19.9 Gauss Markov Theorem\nGiven that \\(\\boldsymbol{b | X} = \\boldsymbol{A y}\\) where \\(\\boldsymbol{A = (X^T X) X^T}\\) is a linear function of \\(\\boldsymbol{\\epsilon}\\), then \\(\\boldsymbol{b}\\) is a linear estimator of \\(\\boldsymbol{\\beta}\\).\nBecause \\(E[\\boldsymbol{A\\epsilon | X}] = \\boldsymbol{0}\\), regardless of the distribution of \\(\\boldsymbol{\\epsilon}\\), under the other standard assumptions, \\(\\boldsymbol{b}\\) is a linear, unbiased estimator of \\(\\boldsymbol{\\beta}\\).\nGiven the assumptions of Linearity, Full column rank, Strict exogeneity, Homoscedasticity, and Stochastic or non-stochastic data or Assumptions 1-5, we can state the Gauss-Markov Theorem.\nGauss-Markov Theorem: In the linear regression model with given regressor matrix \\(\\boldsymbol{X}\\), the least squares estimator, \\(\\boldsymbol{b}\\) is the minimum variance unbiased estimator of \\(\\boldsymbol{\\beta}\\) and, for any vector of constants, \\(\\boldsymbol{w}\\), the minimum variance linear unbiased estimator of \\(\\boldsymbol{w^T \\beta}\\) is \\(\\boldsymbol{w^T b}\\).\nThe Gauss-Markov theorem implies that under assumptions 1 - 5 that \\(\\boldsymbol{b}\\) is the not only unbiased (on average, equal to the population parameters) but also the most efficient (minimum variance) estimator of \\(\\boldsymbol{\\beta}\\)",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Variance of LS Estimator</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-2-variance.html#normality",
+    "href": "mod-5-2-variance.html#normality",
+    "title": "19  Variance of LS Estimator",
+    "section": "19.10 Normality",
+    "text": "19.10 Normality\nWhile the Gauss-Markov theorem does not rely on the assumption of normality, we often use this assumption to obtain useful results regarding the distribution of the least square estimator.\nAssume that \\(\\boldsymbol{\\epsilon}\\) has a multivariate normal distribution such that \\(\\boldsymbol{e \\sim N(0,\\sigma^2)}\\).\nGiven that \\(\\boldsymbol{b}\\) is a linear function of \\(\\boldsymbol{\\epsilon}\\) then we can use the previous results to state \\[\\boldsymbol{b|X} \\sim N[\\boldsymbol{\\beta},\\sigma^2\\ \\boldsymbol{(X^T X)^{-1}}]\\] \\[b_k|\\boldsymbol{X} \\sim N[\\beta_k,\\sigma^2\\ \\boldsymbol{(X^T X)_{kk}^{-1}}]\\]\nThe exact distribution of \\(\\boldsymbol{b}\\) is conditioned on \\(\\boldsymbol{X}\\) and the normal distribution of \\(\\boldsymbol{b}\\) in a finite sample in a result of the specific assumption of normally distributed disturbances.\nWhile the normality assumption is useful for confidence intervals and test statistics, we will be able to conduct inference about \\(\\boldsymbol{\\beta}\\) based on the sampling behavior of the statistics independent of the normality assumption.",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Variance of LS Estimator</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-2-variance.html#variance-covariance-matrix",
+    "href": "mod-5-2-variance.html#variance-covariance-matrix",
+    "title": "19  Variance of LS Estimator",
+    "section": "19.6 Variance-Covariance Matrix",
+    "text": "19.6 Variance-Covariance Matrix\nGiven the assumptions of linearity, full column rank, strict exogeneity, and homoscedasticity, we know that: \\[var(\\boldsymbol{b|X}) = \\sigma^2 \\boldsymbol{(X^T X)^{-1}}\\]\nWe have also determined that an unbiased estimator of \\(\\sigma^2\\) is: \\[s^2 = \\frac{\\boldsymbol{e^T e}}{(n-K)}\\]\nLet \\(Est.Var[\\boldsymbol{b|X}]\\) be the sample variance-covariance matrix of \\(\\boldsymbol{b}\\) \\[Est.Var[\\boldsymbol{b|X}] = s^2\\boldsymbol{(X^T X)^{-1}}\\]\nThe diagonal elements represent the variance of each least squares estimator, \\(b_k\\).",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Variance of LS Estimator</span>"
+    ]
+  },
+  {
+    "objectID": "mod-5-2-variance.html#standard-errors-in-r",
+    "href": "mod-5-2-variance.html#standard-errors-in-r",
+    "title": "19  Variance of LS Estimator",
+    "section": "19.8 Standard Errors in R",
+    "text": "19.8 Standard Errors in R\n\nrm(list = ls())\nset.seed(1234)\n\nnrows &lt;- 10000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1, 3, 5, 7, 12)\n\ny &lt;- x %*% beta + rnorm(nrows, sd = 10)\n\nbhat_pop &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nI &lt;- diag(nrows)\nM &lt;- (I - x^T %*% solve(t(x) %*% x) %*% t(x))\nP &lt;- x^T %*% solve(t(x) %*% x) %*% t(x)\n\ne &lt;- M %*% y\n\ns2 &lt;- as.numeric((t(e) %*% e)/(nrows - ncols))\n\nvar_cov_b &lt;- s2 * solve(t(x) %*% x)\n\nse_b &lt;- sqrt(diag(var_cov_b))\n\nvar_cov_b\n\n             [,1]          [,2]          [,3]          [,4]          [,5]\n[1,]  0.128410719 -3.003580e-03 -2.985010e-03 -2.972126e-03 -2.868880e-03\n[2,] -0.003003580  3.030185e-04 -3.312542e-06 -2.626395e-06  3.190171e-06\n[3,] -0.002985010 -3.312542e-06  3.038847e-04 -4.633743e-07 -4.445819e-06\n[4,] -0.002972126 -2.626395e-06 -4.633743e-07  2.996088e-04 -2.002753e-06\n[5,] -0.002868880  3.190171e-06 -4.445819e-06 -2.002753e-06  2.945696e-04\n\n\n\nOur estimate for \\(b_2 = 2.996038\\).\nThe second element on the diagonal of the variance-covariance matrix for \\(\\boldsymbol{b}\\) is \\(s^2(\\boldsymbol{X^X}_22)^{-1} = 0.0002901079\\).\nThe standard error for \\(b_2\\) is the square root of the second element on the diagonal of the variance-covariance matrix for \\(\\boldsymbol{b} = 0.01703256\\).",
+    "crumbs": [
+      "Least Squares Variance",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Variance of LS Estimator</span>"
     ]
   }
 ]

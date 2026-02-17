@@ -50,6 +50,7 @@ Please select the links provided to access material where applicable.
 ## Lessons in this Module
 
 -   [5.1 - Unbiasedness](mod-5-1-unbiased.qmd)
+-   [5.2 - Variance of Least Squares Estimator](mod-5-2-variance.qmd)
 
 ------------------------------------------------------------------------
 

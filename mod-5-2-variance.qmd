@@ -1,0 +1,324 @@
+---
+title: "Variance of LS Estimator"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    self-contained: false     # must be false when using webr
+urlcolor: blue
+filters:
+  - webr
+execute:
+  webR: true
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, echo = FALSE, message = FALSE}
+
+library(dplyr, quietly = TRUE)
+library(ggplot2, quietly = TRUE)
+library(kableExtra, quietly = TRUE)
+library(lubridate, quietly = TRUE)
+library(tidyquant, quietly = TRUE)
+
+```
+
+## Introduction
+
+In this second segment of Module 5, we shift our focus from the central
+tendency of the least squares estimator to its precision and
+reliability. By deriving the variance-covariance matrix of
+$\boldsymbol{b}$, we establish a formal measure of the "spread" of our
+estimates around the true population parameters. This derivation relies
+on the assumption of homoscedasticity, allowing us to quantify how the
+noise in the disturbances and the structure of our independent variables
+combined to determine the stability of our coefficients.
+
+Because the true disturbance variance, $\boldsymbol{\sigma^2}$, is
+typically unknown, we introduce an unbiased estimator,
+$\boldsymbol{s^2}$, derived from the residual sum of squares and the
+model's degrees of freedom. This allows for the calculation of standard
+errors. The module concludes with the Gauss-Markov Theorem, proving that
+under the classical assumptions, the least squares estimator is the Best
+Linear Unbiased Estimator (BLUE).
+
+## Least Squares Variance
+
+Given the standard assumptions, recall:
+
+$$E[\boldsymbol{b|X}] = \boldsymbol{\beta}$$
+
+The variance of a random variable, $\boldsymbol{X}$, can be expressed as
+the expectation of the squared deviations from its expected value or:
+
+$$var(\boldsymbol{X}) = E[(\boldsymbol{X} - E[\boldsymbol{X}])^2]$$
+
+For a random vector, such as the least squares estimates,
+$\boldsymbol{b}$, the concept is similar except that squaring has to be
+replaced with the matrix counterpart: multiplication of a vector into
+its own transpose.
+
+The variance of the least squares estimator $\boldsymbol{b}$ can be
+expressed as:
+$$var(\boldsymbol{b|X}) = E[(\boldsymbol{b - E[b]})^2 | X]$$
+
+$$var(\boldsymbol{b|X}) = E[\boldsymbol{(b - \beta)(b - \beta)^T) | X}]$$
+
+Given that
+$$\boldsymbol{b} = \boldsymbol{\beta + (X^T X)^{-1} X^T \epsilon}$$
+$$\boldsymbol{b - \beta} = \boldsymbol{(X^T X)^{-1} X^T \epsilon}$$
+
+The variance of the least squares estimator is:
+$$var(\boldsymbol{b|X}) = E[\boldsymbol{(b - \beta)(b - \beta)^T) | X}]$$
+$$var(\boldsymbol{b|X}) = E[\boldsymbol{[(X^T X)^{-1} X^T \epsilon]\ [(X^T X)^{-1} X^T \epsilon]^T | X}]$$
+$$var(\boldsymbol{b|X}) = E[\boldsymbol{(X^T X)^{-1} X^T \epsilon \epsilon^T X (X^T X)^{-1} | X}]$$
+$$var(\boldsymbol{b|X}) = \boldsymbol{(X^T X)^{-1} X^T\ E[\epsilon \epsilon^T|X]\ X (X^T X)^{-1} }$$
+
+Recall we have assumed that
+$E[\boldsymbol{\epsilon \epsilon^T | X}] = E[\boldsymbol{\epsilon \epsilon^T}] = \sigma^2 \boldsymbol{I}$.
+
+$$var(\boldsymbol{b|X}) = \sigma^2 \boldsymbol{(X^T X)^{-1} X^TX (X^T X)^{-1}}$$
+$$var(\boldsymbol{b|X}) = \sigma^2 \boldsymbol{(X^T X)^{-1}}$$
+
+## Unknown Variance
+
+The problem is that the variance-covariance matrix involves the
+disturbance variance, $\sigma^2$, which is unknown.
+
+Note that the residuals, $\boldsymbol{e}$ are:
+
+$$
+\boldsymbol{e = y - Xb}
+$$
+
+$$
+\boldsymbol{e = y - X(X^T X)^{-1}X^Ty}
+$$
+
+$$
+\boldsymbol{e = (I - X(X^T X)^{-1}X^T)y = My}
+$$
+
+$$
+\boldsymbol{e = M(X \beta + \epsilon) = MX\beta + M\epsilon}
+$$
+
+Recall that $\boldsymbol{MX = 0}$ so:
+
+$$
+\boldsymbol{e = M \epsilon}
+$$
+
+We can use $\boldsymbol{e} = \boldsymbol{M \epsilon}$ to form the sum of
+the squared residuals or:
+$$\boldsymbol{e^T e} = \boldsymbol{(M \epsilon)^T M \epsilon}$$
+$$\boldsymbol{e^T e} = \boldsymbol{\epsilon^T M^T M \epsilon}$$
+$$\boldsymbol{e^T e} = \boldsymbol{\epsilon^T M \epsilon}$$
+
+Since $\boldsymbol{\epsilon^T M \epsilon}$ is a $(1 \times 1)$ scalar,
+it is equal to its **trace**.
+
+The trace of an $(n \times n)$ square matrix $\boldsymbol{A}$ is defined
+as: $$\sum_{i=1}^n a_{ii} = a_{11} + a_{22} + \dots + a_{nn}$$
+
+In other words, the trace of a square matrix $\boldsymbol{A}$, denoted
+$tr(\boldsymbol{A})$, is the sum of the elements on the main diagonal of
+$\boldsymbol{A}$.
+
+## Using the Trace
+
+Since the trace of a scalar is just itself and
+$\boldsymbol{e^T e} = \boldsymbol{\epsilon^T M \epsilon}$ is a scalar:
+$$\boldsymbol{e^T e} = tr(\boldsymbol{\epsilon^T M \epsilon})$$
+
+The expectation of $\boldsymbol{e^T e}$ conditional on $\boldsymbol{X}$
+is:
+$$E[\boldsymbol{e^T e|X}] = E[tr(\boldsymbol{\epsilon^T M\ \epsilon})|X]$$
+
+Since $\boldsymbol{\epsilon^T M\ \epsilon | X}]$ is a scalar and
+$\boldsymbol{M}$ is square, we can rearrange so:
+$$E[\boldsymbol{e^T e|X}]  = E[tr(\boldsymbol{M\ \epsilon^T \epsilon})|X]$$
+
+Given that $E[\boldsymbol{M |X}] = \boldsymbol{M}$, we can restate this
+as:
+
+$$E[\boldsymbol{e^T e|X}]  = tr(\boldsymbol{M}\ E[\boldsymbol{\epsilon^T \epsilon |X}])]$$
+
+Recall the assumption of homoscedasticity means that
+$E[\boldsymbol{\epsilon^T \epsilon |X}] = \sigma^2 \boldsymbol{I}$ so
+that:
+$$E[\boldsymbol{e^T e|X}]  = tr(\boldsymbol{M}\ \sigma^2 \boldsymbol{I})$$
+
+Given that $\sigma^2$ is a scalar, then $tr(\sigma^2) = \sigma^2$ and we
+also know that $\boldsymbol{MI} = \boldsymbol{M}$ so:
+$$E[\boldsymbol{e^T e|X}]  = tr(\boldsymbol{M}\ \sigma^2 \boldsymbol{I})$$
+$$E[\boldsymbol{e^T e|X}]  = \sigma^2 tr(\boldsymbol{M})$$
+
+What is the trace of $\boldsymbol{M = I - X(X^T X)^{-1}X^T}$?
+
+The trace of $\boldsymbol{I}$ is the sum of its diagonal elements.
+
+Since the diagonal elements are all equal to 1 and $\boldsymbol{I}$ is
+$(n \times n)$: $$tr(\boldsymbol{I}) = n$$
+
+The trace of $\boldsymbol{X(X^T X)^{-1}X^T}$ is the trace of
+$\boldsymbol{P}$.
+
+The trace of a projection matrix is the dimension of its target space
+or:
+$$tr(\boldsymbol{P}) = tr(\boldsymbol{X(X^T X)^{-1}X^T}) = rank(\boldsymbol{X}) = k.$$
+
+## S-Squared
+
+This means that the trace of $\boldsymbol{M}$ is:
+
+$$tr(\boldsymbol{M}) = tr(\boldsymbol{I}) - tr(\boldsymbol{X(X^T X)^{-1}X^T}) = n - k$$
+
+Putting this all together:
+$$E[\boldsymbol{e^T e|X}]  = \sigma^2 tr(\boldsymbol{M})$$
+
+$$E[\boldsymbol{e^T e|X}]  = \sigma^2(n - K)$$ An unbiased estimator of
+$\sigma^2$ is thus: $$s^2 = \frac{\boldsymbol{e^T e}}{(n-K)}$$
+
+$s^2$ is an unbiased estimator of $\sigma^2$ conditionally and
+unconditionally as:
+$$E[s^2] = E_X[E[s^2|\boldsymbol{X}] = E_X[\sigma^2] = \sigma^2$$
+
+## Variance-Covariance Matrix
+
+Given the assumptions of linearity, full column rank, strict exogeneity,
+and homoscedasticity, we know that:
+$$var(\boldsymbol{b|X}) = \sigma^2 \boldsymbol{(X^T X)^{-1}}$$
+
+We have also determined that an unbiased estimator of $\sigma^2$ is:
+$$s^2 = \frac{\boldsymbol{e^T e}}{(n-K)}$$
+
+Let $Est.Var[\boldsymbol{b|X}]$ be the sample **variance-covariance
+matrix** of $\boldsymbol{b}$
+$$Est.Var[\boldsymbol{b|X}] = s^2\boldsymbol{(X^T X)^{-1}}$$
+
+The diagonal elements represent the variance of each least squares
+estimator, $b_k$.
+
+## Standard Errors
+
+Given that the sampling variance of the least squares estimator is:
+
+$$Est.Var[\boldsymbol{b|X}] = s^2\boldsymbol{(X^T X)^{-1}}$$
+
+$s^2\boldsymbol{(X^T X)^{-1}}$ is square and $(k \times k)$.
+
+If we take the square root of the diagonal elements, we obtain the
+**standard errors** of the least squares estimators or:
+$$se(b_k) = [[s^2\boldsymbol{(X^T X)^{-1}}]_{kk}]^{1/2}$$
+
+The standard error of $b_k$ is akin to the standard deviation of a
+randomly distributed normal variable.
+
+For example, for $b_2$, the standard error is equal to the square root
+of $s^2\boldsymbol{(X^T X)^{-1}}]_{22}$.
+
+## Standard Errors in R
+
+```{r}
+
+rm(list = ls())
+set.seed(1234)
+
+nrows <- 10000
+ncols <- 5
+ 
+x <- matrix(0, nrows, ncols)
+      x[,1] <- 1
+      for (l in 2: ncols) {
+        x[,l] <- runif(nrows, min = 0, max = 20)
+        gc()
+      }
+
+beta <- c(1, 3, 5, 7, 12)
+
+y <- x %*% beta + rnorm(nrows, sd = 10)
+
+bhat_pop <- solve(t(x) %*% x) %*% t(x) %*% y
+
+I <- diag(nrows)
+M <- (I - x^T %*% solve(t(x) %*% x) %*% t(x))
+P <- x^T %*% solve(t(x) %*% x) %*% t(x)
+
+e <- M %*% y
+
+s2 <- as.numeric((t(e) %*% e)/(nrows - ncols))
+
+var_cov_b <- s2 * solve(t(x) %*% x)
+
+se_b <- sqrt(diag(var_cov_b))
+
+var_cov_b
+
+
+```
+
+-   Our estimate for $b_2 = 2.996038$.
+
+-   The second element on the diagonal of the variance-covariance matrix
+    for $\boldsymbol{b}$ is
+    $s^2(\boldsymbol{X^X}_22)^{-1} = 0.0002901079$.
+
+-   The standard error for $b_2$ is the square root of the second
+    element on the diagonal of the variance-covariance matrix for
+    $\boldsymbol{b} = 0.01703256$.
+
+## Gauss Markov Theorem
+
+Given that $\boldsymbol{b | X} = \boldsymbol{A y}$ where
+$\boldsymbol{A = (X^T X) X^T}$ is a linear function of
+$\boldsymbol{\epsilon}$, then $\boldsymbol{b}$ is a linear estimator of
+$\boldsymbol{\beta}$.
+
+Because $E[\boldsymbol{A\epsilon | X}] = \boldsymbol{0}$, regardless of
+the distribution of $\boldsymbol{\epsilon}$, under the other standard
+assumptions, $\boldsymbol{b}$ is a linear, unbiased estimator of
+$\boldsymbol{\beta}$.
+
+Given the assumptions of Linearity, Full column rank, Strict exogeneity,
+Homoscedasticity, and Stochastic or non-stochastic data or Assumptions
+1-5, we can state the **Gauss-Markov Theorem**.
+
+*Gauss-Markov Theorem*: In the linear regression model with given
+regressor matrix $\boldsymbol{X}$, the least squares estimator,
+$\boldsymbol{b}$ is the minimum variance unbiased estimator of
+$\boldsymbol{\beta}$ and, for any vector of constants, $\boldsymbol{w}$,
+the minimum variance linear unbiased estimator of
+$\boldsymbol{w^T \beta}$ is $\boldsymbol{w^T b}$.
+
+The Gauss-Markov theorem implies that under assumptions 1 - 5 that
+$\boldsymbol{b}$ is the not only unbiased (on average, equal to the
+population parameters) but also the most efficient (minimum variance)
+estimator of $\boldsymbol{\beta}$
+
+## Normality
+
+While the Gauss-Markov theorem does not rely on the assumption of
+normality, we often use this assumption to obtain useful results
+regarding the distribution of the least square estimator.
+
+Assume that $\boldsymbol{\epsilon}$ has a multivariate normal
+distribution such that $\boldsymbol{e \sim N(0,\sigma^2)}$.
+
+Given that $\boldsymbol{b}$ is a linear function of
+$\boldsymbol{\epsilon}$ then we can use the previous results to state
+$$\boldsymbol{b|X} \sim N[\boldsymbol{\beta},\sigma^2\ \boldsymbol{(X^T X)^{-1}}]$$
+$$b_k|\boldsymbol{X} \sim N[\beta_k,\sigma^2\ \boldsymbol{(X^T X)_{kk}^{-1}}]$$
+
+The exact distribution of $\boldsymbol{b}$ is conditioned on
+$\boldsymbol{X}$ and the normal distribution of $\boldsymbol{b}$ in a
+finite sample in a result of the specific assumption of normally
+distributed disturbances.
+
+While the normality assumption is useful for confidence intervals and
+test statistics, we will be able to conduct inference about
+$\boldsymbol{\beta}$ based on the sampling behavior of the statistics
+independent of the normality assumption.

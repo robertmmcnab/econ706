@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>17&nbsp; Module 5 Overview – ECON 706</title>
+<title>19&nbsp; Variance of LS Estimator – ECON 706</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./mod-5-1-unbiased.html" rel="next">
-<link href="./mod-4-2-rsquared.html" rel="prev">
+<link href="./mod-5-1-unbiased.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -112,7 +146,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-5-0-overview.html">Least Squares Variance</a></li><li class="breadcrumb-item"><a href="./mod-5-0-overview.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Module 5 Overview</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-5-0-overview.html">Least Squares Variance</a></li><li class="breadcrumb-item"><a href="./mod-5-2-variance.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Variance of LS Estimator</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -301,7 +335,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mod-5-0-overview.html" class="sidebar-item-text sidebar-link active">
+  <a href="./mod-5-0-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Module 5 Overview</span></span></a>
   </div>
 </li>
@@ -313,7 +347,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mod-5-2-variance.html" class="sidebar-item-text sidebar-link">
+  <a href="./mod-5-2-variance.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Variance of LS Estimator</span></span></a>
   </div>
 </li>
@@ -329,20 +363,25 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">17.1</span> Introduction</a></li>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">17.2</span> Learning Objectives</a></li>
-  <li><a href="#required-texts" id="toc-required-texts" class="nav-link" data-scroll-target="#required-texts"><span class="header-section-number">17.3</span> Required Texts</a></li>
-  <li><a href="#module-to-do-list" id="toc-module-to-do-list" class="nav-link" data-scroll-target="#module-to-do-list"><span class="header-section-number">17.4</span> Module To Do List</a></li>
-  <li><a href="#lessons-in-this-module" id="toc-lessons-in-this-module" class="nav-link" data-scroll-target="#lessons-in-this-module"><span class="header-section-number">17.5</span> Lessons in this Module</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">19.1</span> Introduction</a></li>
+  <li><a href="#least-squares-variance" id="toc-least-squares-variance" class="nav-link" data-scroll-target="#least-squares-variance"><span class="header-section-number">19.2</span> Least Squares Variance</a></li>
+  <li><a href="#unknown-variance" id="toc-unknown-variance" class="nav-link" data-scroll-target="#unknown-variance"><span class="header-section-number">19.3</span> Unknown Variance</a></li>
+  <li><a href="#using-the-trace" id="toc-using-the-trace" class="nav-link" data-scroll-target="#using-the-trace"><span class="header-section-number">19.4</span> Using the Trace</a></li>
+  <li><a href="#s-squared" id="toc-s-squared" class="nav-link" data-scroll-target="#s-squared"><span class="header-section-number">19.5</span> S-Squared</a></li>
+  <li><a href="#variance-covariance-matrix" id="toc-variance-covariance-matrix" class="nav-link" data-scroll-target="#variance-covariance-matrix"><span class="header-section-number">19.6</span> Variance-Covariance Matrix</a></li>
+  <li><a href="#standard-errors" id="toc-standard-errors" class="nav-link" data-scroll-target="#standard-errors"><span class="header-section-number">19.7</span> Standard Errors</a></li>
+  <li><a href="#standard-errors-in-r" id="toc-standard-errors-in-r" class="nav-link" data-scroll-target="#standard-errors-in-r"><span class="header-section-number">19.8</span> Standard Errors in R</a></li>
+  <li><a href="#gauss-markov-theorem" id="toc-gauss-markov-theorem" class="nav-link" data-scroll-target="#gauss-markov-theorem"><span class="header-section-number">19.9</span> Gauss Markov Theorem</a></li>
+  <li><a href="#normality" id="toc-normality" class="nav-link" data-scroll-target="#normality"><span class="header-section-number">19.10</span> Normality</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-5-0-overview.html">Least Squares Variance</a></li><li class="breadcrumb-item"><a href="./mod-5-0-overview.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Module 5 Overview</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-5-0-overview.html">Least Squares Variance</a></li><li class="breadcrumb-item"><a href="./mod-5-2-variance.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Variance of LS Estimator</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Module 5 Overview</span></h1>
+<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Variance of LS Estimator</span></h1>
 </div>
 
 
@@ -359,58 +398,154 @@ window.Quarto = {
 </header>
 
 
-<section id="introduction" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">17.1</span> Introduction</h2>
-<p>Welcome to <strong>Module 5</strong> of ECON 706.</p>
-<p>In Module 5 of ECON 706, we explore the finite sample properties of the least squares estimator, focusing on its behavior in practical, real-world data settings. The primary objective is to demonstrate that under the core classical assumptions—linearity, full column rank, strict exogeneity, and homoscedasticity—the least squares estimator <span class="math inline">\(\boldsymbol{b}\)</span> serves as the minimum variance unbiased estimator of $. Through numerical experiments and sampling distributions, the module illustrates how the estimator remains unbiased on average while achieving the highest possible efficiency among linear unbiased estimators.</p>
-<p>The second half of the module delves into the practical implications of model specification, specifically addressing the roles of relevant and irrelevant variables. It introduces students to the complexities of measuring model performance, highlighting how the variance of the least squares estimator is influenced by the inclusion of different regressors. By utilizing R-based simulations and population estimates, students gain a hands-on understanding of how theoretical properties like unbiasedness and minimum variance manifest in finite samples, providing a critical foundation for conducting reliable statistical inference.</p>
+<section id="introduction" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">19.1</span> Introduction</h2>
+<p>In this second segment of Module 5, we shift our focus from the central tendency of the least squares estimator to its precision and reliability. By deriving the variance-covariance matrix of <span class="math inline">\(\boldsymbol{b}\)</span>, we establish a formal measure of the “spread” of our estimates around the true population parameters. This derivation relies on the assumption of homoscedasticity, allowing us to quantify how the noise in the disturbances and the structure of our independent variables combined to determine the stability of our coefficients.</p>
+<p>Because the true disturbance variance, <span class="math inline">\(\boldsymbol{\sigma^2}\)</span>, is typically unknown, we introduce an unbiased estimator, <span class="math inline">\(\boldsymbol{s^2}\)</span>, derived from the residual sum of squares and the model’s degrees of freedom. This allows for the calculation of standard errors. The module concludes with the Gauss-Markov Theorem, proving that under the classical assumptions, the least squares estimator is the Best Linear Unbiased Estimator (BLUE).</p>
 </section>
-<section id="learning-objectives" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">17.2</span> Learning Objectives</h2>
-<p>By the end of this module, you should be able to:</p>
-<ul>
-<li><strong>MLO 1</strong>: <strong>Demonstrate</strong> the unbiasedness of the least squares estimator through the use of numerical sampling experiments and population estimates in R.</li>
-<li><strong>MLO 2</strong>: <strong>Evaluate</strong> the finite sample properties of the OLS estimator—specifically linearity, unbiasedness, and efficiency—under the five core classical assumptions.</li>
-<li><strong>MLO 3:</strong> <strong>Analyze</strong> the impact of model specification on estimator variance, specifically comparing the effects of including irrelevant variables versus omitting relevant variables.</li>
-<li><strong>MLO 4: Apply</strong> the Gauss-Markov Theorem to justify why the least squares estimator is the Best Linear Unbiased Estimator (BLUE) in a finite sample context.</li>
-<li><strong>MLO 5: Calculate</strong> the exact distribution and variance of the least squares estimator (b) given the assumption of normally distributed disturbances.</li>
-</ul>
-<hr>
+<section id="least-squares-variance" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="least-squares-variance"><span class="header-section-number">19.2</span> Least Squares Variance</h2>
+<p>Given the standard assumptions, recall:</p>
+<p><span class="math display">\[E[\boldsymbol{b|X}] = \boldsymbol{\beta}\]</span></p>
+<p>The variance of a random variable, <span class="math inline">\(\boldsymbol{X}\)</span>, can be expressed as the expectation of the squared deviations from its expected value or:</p>
+<p><span class="math display">\[var(\boldsymbol{X}) = E[(\boldsymbol{X} - E[\boldsymbol{X}])^2]\]</span></p>
+<p>For a random vector, such as the least squares estimates, <span class="math inline">\(\boldsymbol{b}\)</span>, the concept is similar except that squaring has to be replaced with the matrix counterpart: multiplication of a vector into its own transpose.</p>
+<p>The variance of the least squares estimator <span class="math inline">\(\boldsymbol{b}\)</span> can be expressed as: <span class="math display">\[var(\boldsymbol{b|X}) = E[(\boldsymbol{b - E[b]})^2 | X]\]</span></p>
+<p><span class="math display">\[var(\boldsymbol{b|X}) = E[\boldsymbol{(b - \beta)(b - \beta)^T) | X}]\]</span></p>
+<p>Given that <span class="math display">\[\boldsymbol{b} = \boldsymbol{\beta + (X^T X)^{-1} X^T \epsilon}\]</span> <span class="math display">\[\boldsymbol{b - \beta} = \boldsymbol{(X^T X)^{-1} X^T \epsilon}\]</span></p>
+<p>The variance of the least squares estimator is: <span class="math display">\[var(\boldsymbol{b|X}) = E[\boldsymbol{(b - \beta)(b - \beta)^T) | X}]\]</span> <span class="math display">\[var(\boldsymbol{b|X}) = E[\boldsymbol{[(X^T X)^{-1} X^T \epsilon]\ [(X^T X)^{-1} X^T \epsilon]^T | X}]\]</span> <span class="math display">\[var(\boldsymbol{b|X}) = E[\boldsymbol{(X^T X)^{-1} X^T \epsilon \epsilon^T X (X^T X)^{-1} | X}]\]</span> <span class="math display">\[var(\boldsymbol{b|X}) = \boldsymbol{(X^T X)^{-1} X^T\ E[\epsilon \epsilon^T|X]\ X (X^T X)^{-1} }\]</span></p>
+<p>Recall we have assumed that <span class="math inline">\(E[\boldsymbol{\epsilon \epsilon^T | X}] = E[\boldsymbol{\epsilon \epsilon^T}] = \sigma^2 \boldsymbol{I}\)</span>.</p>
+<p><span class="math display">\[var(\boldsymbol{b|X}) = \sigma^2 \boldsymbol{(X^T X)^{-1} X^TX (X^T X)^{-1}}\]</span> <span class="math display">\[var(\boldsymbol{b|X}) = \sigma^2 \boldsymbol{(X^T X)^{-1}}\]</span></p>
 </section>
-<section id="required-texts" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="required-texts"><span class="header-section-number">17.3</span> Required Texts</h2>
-<p>Please select the links provided to access material where applicable.</p>
-<ul>
-<li><p>William H. Greene. (2018). <em>Econometric Analysis, 8th Edition</em>. Available from Pearson. Chapters 3-5.</p></li>
-<li><p>Rafael Irizarry. (2025). <a href="https://rafalab.dfci.harvard.edu/dsbook-part-1/">Introduction to Data Science: Data Wrangling and Visualization with R</a>. Chapters 1-2.</p></li>
-<li><p>Hadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund. (2025) <a href="https://r4ds.hadley.nz/">R for Data Science</a>. Sections 1-19.</p></li>
-<li><p><a href="https://cran.r-project.org/manuals.html">Online R documentation</a></p></li>
-<li><p><a href="https://posit.co/resources/cheatsheets/">RStudio Cheat Sheets</a></p></li>
-</ul>
-<hr>
+<section id="unknown-variance" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="unknown-variance"><span class="header-section-number">19.3</span> Unknown Variance</h2>
+<p>The problem is that the variance-covariance matrix involves the disturbance variance, <span class="math inline">\(\sigma^2\)</span>, which is unknown.</p>
+<p>Note that the residuals, <span class="math inline">\(\boldsymbol{e}\)</span> are:</p>
+<p><span class="math display">\[
+\boldsymbol{e = y - Xb}
+\]</span></p>
+<p><span class="math display">\[
+\boldsymbol{e = y - X(X^T X)^{-1}X^Ty}
+\]</span></p>
+<p><span class="math display">\[
+\boldsymbol{e = (I - X(X^T X)^{-1}X^T)y = My}
+\]</span></p>
+<p><span class="math display">\[
+\boldsymbol{e = M(X \beta + \epsilon) = MX\beta + M\epsilon}
+\]</span></p>
+<p>Recall that <span class="math inline">\(\boldsymbol{MX = 0}\)</span> so:</p>
+<p><span class="math display">\[
+\boldsymbol{e = M \epsilon}
+\]</span></p>
+<p>We can use <span class="math inline">\(\boldsymbol{e} = \boldsymbol{M \epsilon}\)</span> to form the sum of the squared residuals or: <span class="math display">\[\boldsymbol{e^T e} = \boldsymbol{(M \epsilon)^T M \epsilon}\]</span> <span class="math display">\[\boldsymbol{e^T e} = \boldsymbol{\epsilon^T M^T M \epsilon}\]</span> <span class="math display">\[\boldsymbol{e^T e} = \boldsymbol{\epsilon^T M \epsilon}\]</span></p>
+<p>Since <span class="math inline">\(\boldsymbol{\epsilon^T M \epsilon}\)</span> is a <span class="math inline">\((1 \times 1)\)</span> scalar, it is equal to its <strong>trace</strong>.</p>
+<p>The trace of an <span class="math inline">\((n \times n)\)</span> square matrix <span class="math inline">\(\boldsymbol{A}\)</span> is defined as: <span class="math display">\[\sum_{i=1}^n a_{ii} = a_{11} + a_{22} + \dots + a_{nn}\]</span></p>
+<p>In other words, the trace of a square matrix <span class="math inline">\(\boldsymbol{A}\)</span>, denoted <span class="math inline">\(tr(\boldsymbol{A})\)</span>, is the sum of the elements on the main diagonal of <span class="math inline">\(\boldsymbol{A}\)</span>.</p>
 </section>
-<section id="module-to-do-list" class="level2" data-number="17.4">
-<h2 data-number="17.4" class="anchored" data-anchor-id="module-to-do-list"><span class="header-section-number">17.4</span> Module To Do List</h2>
-<ul>
-<li>Complete the hands-on coding exercises embedded in each lesson (MLO 1, 5)<br>
-</li>
-<li>Use WebR to experiment directly in your browser (MLO 1, 2, 3, 4, 5)<br>
-</li>
-<li>Complete the weekly class assignment (MLO 1, 2, 3, 4, 5)<br>
-</li>
-<li>Take the weekly knowledge quiz (MLO 1, 2, 3, 4, 5)<br>
-</li>
-</ul>
-<hr>
+<section id="using-the-trace" class="level2" data-number="19.4">
+<h2 data-number="19.4" class="anchored" data-anchor-id="using-the-trace"><span class="header-section-number">19.4</span> Using the Trace</h2>
+<p>Since the trace of a scalar is just itself and <span class="math inline">\(\boldsymbol{e^T e} = \boldsymbol{\epsilon^T M \epsilon}\)</span> is a scalar: <span class="math display">\[\boldsymbol{e^T e} = tr(\boldsymbol{\epsilon^T M \epsilon})\]</span></p>
+<p>The expectation of <span class="math inline">\(\boldsymbol{e^T e}\)</span> conditional on <span class="math inline">\(\boldsymbol{X}\)</span> is: <span class="math display">\[E[\boldsymbol{e^T e|X}] = E[tr(\boldsymbol{\epsilon^T M\ \epsilon})|X]\]</span></p>
+<p>Since <span class="math inline">\(\boldsymbol{\epsilon^T M\ \epsilon | X}]\)</span> is a scalar and <span class="math inline">\(\boldsymbol{M}\)</span> is square, we can rearrange so: <span class="math display">\[E[\boldsymbol{e^T e|X}]  = E[tr(\boldsymbol{M\ \epsilon^T \epsilon})|X]\]</span></p>
+<p>Given that <span class="math inline">\(E[\boldsymbol{M |X}] = \boldsymbol{M}\)</span>, we can restate this as:</p>
+<p><span class="math display">\[E[\boldsymbol{e^T e|X}]  = tr(\boldsymbol{M}\ E[\boldsymbol{\epsilon^T \epsilon |X}])]\]</span></p>
+<p>Recall the assumption of homoscedasticity means that <span class="math inline">\(E[\boldsymbol{\epsilon^T \epsilon |X}] = \sigma^2 \boldsymbol{I}\)</span> so that: <span class="math display">\[E[\boldsymbol{e^T e|X}]  = tr(\boldsymbol{M}\ \sigma^2 \boldsymbol{I})\]</span></p>
+<p>Given that <span class="math inline">\(\sigma^2\)</span> is a scalar, then <span class="math inline">\(tr(\sigma^2) = \sigma^2\)</span> and we also know that <span class="math inline">\(\boldsymbol{MI} = \boldsymbol{M}\)</span> so: <span class="math display">\[E[\boldsymbol{e^T e|X}]  = tr(\boldsymbol{M}\ \sigma^2 \boldsymbol{I})\]</span> <span class="math display">\[E[\boldsymbol{e^T e|X}]  = \sigma^2 tr(\boldsymbol{M})\]</span></p>
+<p>What is the trace of <span class="math inline">\(\boldsymbol{M = I - X(X^T X)^{-1}X^T}\)</span>?</p>
+<p>The trace of <span class="math inline">\(\boldsymbol{I}\)</span> is the sum of its diagonal elements.</p>
+<p>Since the diagonal elements are all equal to 1 and <span class="math inline">\(\boldsymbol{I}\)</span> is <span class="math inline">\((n \times n)\)</span>: <span class="math display">\[tr(\boldsymbol{I}) = n\]</span></p>
+<p>The trace of <span class="math inline">\(\boldsymbol{X(X^T X)^{-1}X^T}\)</span> is the trace of <span class="math inline">\(\boldsymbol{P}\)</span>.</p>
+<p>The trace of a projection matrix is the dimension of its target space or: <span class="math display">\[tr(\boldsymbol{P}) = tr(\boldsymbol{X(X^T X)^{-1}X^T}) = rank(\boldsymbol{X}) = k.\]</span></p>
 </section>
-<section id="lessons-in-this-module" class="level2" data-number="17.5">
-<h2 data-number="17.5" class="anchored" data-anchor-id="lessons-in-this-module"><span class="header-section-number">17.5</span> Lessons in this Module</h2>
+<section id="s-squared" class="level2" data-number="19.5">
+<h2 data-number="19.5" class="anchored" data-anchor-id="s-squared"><span class="header-section-number">19.5</span> S-Squared</h2>
+<p>This means that the trace of <span class="math inline">\(\boldsymbol{M}\)</span> is:</p>
+<p><span class="math display">\[tr(\boldsymbol{M}) = tr(\boldsymbol{I}) - tr(\boldsymbol{X(X^T X)^{-1}X^T}) = n - k\]</span></p>
+<p>Putting this all together: <span class="math display">\[E[\boldsymbol{e^T e|X}]  = \sigma^2 tr(\boldsymbol{M})\]</span></p>
+<p><span class="math display">\[E[\boldsymbol{e^T e|X}]  = \sigma^2(n - K)\]</span> An unbiased estimator of <span class="math inline">\(\sigma^2\)</span> is thus: <span class="math display">\[s^2 = \frac{\boldsymbol{e^T e}}{(n-K)}\]</span></p>
+<p><span class="math inline">\(s^2\)</span> is an unbiased estimator of <span class="math inline">\(\sigma^2\)</span> conditionally and unconditionally as: <span class="math display">\[E[s^2] = E_X[E[s^2|\boldsymbol{X}] = E_X[\sigma^2] = \sigma^2\]</span></p>
+</section>
+<section id="variance-covariance-matrix" class="level2" data-number="19.6">
+<h2 data-number="19.6" class="anchored" data-anchor-id="variance-covariance-matrix"><span class="header-section-number">19.6</span> Variance-Covariance Matrix</h2>
+<p>Given the assumptions of linearity, full column rank, strict exogeneity, and homoscedasticity, we know that: <span class="math display">\[var(\boldsymbol{b|X}) = \sigma^2 \boldsymbol{(X^T X)^{-1}}\]</span></p>
+<p>We have also determined that an unbiased estimator of <span class="math inline">\(\sigma^2\)</span> is: <span class="math display">\[s^2 = \frac{\boldsymbol{e^T e}}{(n-K)}\]</span></p>
+<p>Let <span class="math inline">\(Est.Var[\boldsymbol{b|X}]\)</span> be the sample <strong>variance-covariance matrix</strong> of <span class="math inline">\(\boldsymbol{b}\)</span> <span class="math display">\[Est.Var[\boldsymbol{b|X}] = s^2\boldsymbol{(X^T X)^{-1}}\]</span></p>
+<p>The diagonal elements represent the variance of each least squares estimator, <span class="math inline">\(b_k\)</span>.</p>
+</section>
+<section id="standard-errors" class="level2" data-number="19.7">
+<h2 data-number="19.7" class="anchored" data-anchor-id="standard-errors"><span class="header-section-number">19.7</span> Standard Errors</h2>
+<p>Given that the sampling variance of the least squares estimator is:</p>
+<p><span class="math display">\[Est.Var[\boldsymbol{b|X}] = s^2\boldsymbol{(X^T X)^{-1}}\]</span></p>
+<p><span class="math inline">\(s^2\boldsymbol{(X^T X)^{-1}}\)</span> is square and <span class="math inline">\((k \times k)\)</span>.</p>
+<p>If we take the square root of the diagonal elements, we obtain the <strong>standard errors</strong> of the least squares estimators or: <span class="math display">\[se(b_k) = [[s^2\boldsymbol{(X^T X)^{-1}}]_{kk}]^{1/2}\]</span></p>
+<p>The standard error of <span class="math inline">\(b_k\)</span> is akin to the standard deviation of a randomly distributed normal variable.</p>
+<p>For example, for <span class="math inline">\(b_2\)</span>, the standard error is equal to the square root of <span class="math inline">\(s^2\boldsymbol{(X^T X)^{-1}}]_{22}\)</span>.</p>
+</section>
+<section id="standard-errors-in-r" class="level2" data-number="19.8">
+<h2 data-number="19.8" class="anchored" data-anchor-id="standard-errors-in-r"><span class="header-section-number">19.8</span> Standard Errors in R</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>nrows <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ncols <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, nrows, ncols)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      x[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span> ncols) {</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        x[,l] <span class="ot">&lt;-</span> <span class="fu">runif</span>(nrows, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">20</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">gc</span>()</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">12</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">%*%</span> beta <span class="sc">+</span> <span class="fu">rnorm</span>(nrows, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>bhat_pop <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(nrows)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> (I <span class="sc">-</span> x<span class="sc">^</span>T <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> x<span class="sc">^</span>T <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> M <span class="sc">%*%</span> y</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>((<span class="fu">t</span>(e) <span class="sc">%*%</span> e)<span class="sc">/</span>(nrows <span class="sc">-</span> ncols))</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>var_cov_b <span class="ot">&lt;-</span> s2 <span class="sc">*</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>se_b <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(var_cov_b))</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>var_cov_b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             [,1]          [,2]          [,3]          [,4]          [,5]
+[1,]  0.128410719 -3.003580e-03 -2.985010e-03 -2.972126e-03 -2.868880e-03
+[2,] -0.003003580  3.030185e-04 -3.312542e-06 -2.626395e-06  3.190171e-06
+[3,] -0.002985010 -3.312542e-06  3.038847e-04 -4.633743e-07 -4.445819e-06
+[4,] -0.002972126 -2.626395e-06 -4.633743e-07  2.996088e-04 -2.002753e-06
+[5,] -0.002868880  3.190171e-06 -4.445819e-06 -2.002753e-06  2.945696e-04</code></pre>
+</div>
+</div>
 <ul>
-<li><a href="./mod-5-1-unbiased.html">5.1 - Unbiasedness</a></li>
-<li><a href="./mod-5-2-variance.html">5.2 - Variance of Least Squares Estimator</a></li>
+<li><p>Our estimate for <span class="math inline">\(b_2 = 2.996038\)</span>.</p></li>
+<li><p>The second element on the diagonal of the variance-covariance matrix for <span class="math inline">\(\boldsymbol{b}\)</span> is <span class="math inline">\(s^2(\boldsymbol{X^X}_22)^{-1} = 0.0002901079\)</span>.</p></li>
+<li><p>The standard error for <span class="math inline">\(b_2\)</span> is the square root of the second element on the diagonal of the variance-covariance matrix for <span class="math inline">\(\boldsymbol{b} = 0.01703256\)</span>.</p></li>
 </ul>
-<hr>
-<p>Next: Start with <a href="./mod-5-1-unbiased.html"><strong>Unbiasedness</strong></a>.</p>
+</section>
+<section id="gauss-markov-theorem" class="level2" data-number="19.9">
+<h2 data-number="19.9" class="anchored" data-anchor-id="gauss-markov-theorem"><span class="header-section-number">19.9</span> Gauss Markov Theorem</h2>
+<p>Given that <span class="math inline">\(\boldsymbol{b | X} = \boldsymbol{A y}\)</span> where <span class="math inline">\(\boldsymbol{A = (X^T X) X^T}\)</span> is a linear function of <span class="math inline">\(\boldsymbol{\epsilon}\)</span>, then <span class="math inline">\(\boldsymbol{b}\)</span> is a linear estimator of <span class="math inline">\(\boldsymbol{\beta}\)</span>.</p>
+<p>Because <span class="math inline">\(E[\boldsymbol{A\epsilon | X}] = \boldsymbol{0}\)</span>, regardless of the distribution of <span class="math inline">\(\boldsymbol{\epsilon}\)</span>, under the other standard assumptions, <span class="math inline">\(\boldsymbol{b}\)</span> is a linear, unbiased estimator of <span class="math inline">\(\boldsymbol{\beta}\)</span>.</p>
+<p>Given the assumptions of Linearity, Full column rank, Strict exogeneity, Homoscedasticity, and Stochastic or non-stochastic data or Assumptions 1-5, we can state the <strong>Gauss-Markov Theorem</strong>.</p>
+<p><em>Gauss-Markov Theorem</em>: In the linear regression model with given regressor matrix <span class="math inline">\(\boldsymbol{X}\)</span>, the least squares estimator, <span class="math inline">\(\boldsymbol{b}\)</span> is the minimum variance unbiased estimator of <span class="math inline">\(\boldsymbol{\beta}\)</span> and, for any vector of constants, <span class="math inline">\(\boldsymbol{w}\)</span>, the minimum variance linear unbiased estimator of <span class="math inline">\(\boldsymbol{w^T \beta}\)</span> is <span class="math inline">\(\boldsymbol{w^T b}\)</span>.</p>
+<p>The Gauss-Markov theorem implies that under assumptions 1 - 5 that <span class="math inline">\(\boldsymbol{b}\)</span> is the not only unbiased (on average, equal to the population parameters) but also the most efficient (minimum variance) estimator of <span class="math inline">\(\boldsymbol{\beta}\)</span></p>
+</section>
+<section id="normality" class="level2" data-number="19.10">
+<h2 data-number="19.10" class="anchored" data-anchor-id="normality"><span class="header-section-number">19.10</span> Normality</h2>
+<p>While the Gauss-Markov theorem does not rely on the assumption of normality, we often use this assumption to obtain useful results regarding the distribution of the least square estimator.</p>
+<p>Assume that <span class="math inline">\(\boldsymbol{\epsilon}\)</span> has a multivariate normal distribution such that <span class="math inline">\(\boldsymbol{e \sim N(0,\sigma^2)}\)</span>.</p>
+<p>Given that <span class="math inline">\(\boldsymbol{b}\)</span> is a linear function of <span class="math inline">\(\boldsymbol{\epsilon}\)</span> then we can use the previous results to state <span class="math display">\[\boldsymbol{b|X} \sim N[\boldsymbol{\beta},\sigma^2\ \boldsymbol{(X^T X)^{-1}}]\]</span> <span class="math display">\[b_k|\boldsymbol{X} \sim N[\beta_k,\sigma^2\ \boldsymbol{(X^T X)_{kk}^{-1}}]\]</span></p>
+<p>The exact distribution of <span class="math inline">\(\boldsymbol{b}\)</span> is conditioned on <span class="math inline">\(\boldsymbol{X}\)</span> and the normal distribution of <span class="math inline">\(\boldsymbol{b}\)</span> in a finite sample in a result of the specific assumption of normally distributed disturbances.</p>
+<p>While the normality assumption is useful for confidence intervals and test statistics, we will be able to conduct inference about <span class="math inline">\(\boldsymbol{\beta}\)</span> based on the sampling behavior of the statistics independent of the normality assumption.</p>
 
 
 </section>
@@ -823,14 +958,11 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./mod-4-2-rsquared.html" class="pagination-link" aria-label="R Squared">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">R Squared</span></span>
+      <a href="./mod-5-1-unbiased.html" class="pagination-link" aria-label="Unbiasedness">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Unbiasedness</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./mod-5-1-unbiased.html" class="pagination-link" aria-label="Unbiasedness">
-        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Unbiasedness</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
