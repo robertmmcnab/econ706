@@ -70,7 +70,18 @@
     "href": "index.html#module-05---least-squares-variance",
     "title": "ECON 706",
     "section": "0.6 Module 05 - Least Squares Variance",
-    "text": "0.6 Module 05 - Least Squares Variance\n\n\nModule 5 Overview\n\n\nUnbiasedness of the Least Squares Estimator\n\n\nVariance of the Least Squares Estimator\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
+    "text": "0.6 Module 05 - Least Squares Variance\n\n\nModule 5 Overview\n\n\nUnbiasedness of the Least Squares Estimator\n\n\nVariance of the Least Squares Estimator",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#module-06---hypothesis-testing",
+    "href": "index.html#module-06---hypothesis-testing",
+    "title": "ECON 706",
+    "section": "0.7 Module 06 - Hypothesis Testing",
+    "text": "0.7 Module 06 - Hypothesis Testing\n\n\nModule 6 Overview\n\n\nHypothesis Testing\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
     "crumbs": [
       "Introduction",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
@@ -1115,7 +1126,7 @@
     "href": "mod-3-2-partitioned.html#orthogonal-example",
     "title": "13  Partitioned Regression",
     "section": "13.10 Orthogonal Example",
-    "text": "13.10 Orthogonal Example\nIn the R code, we create a large \\(\\boldsymbol{X}\\) matrix and estimate \\(\\boldsymbol{b}\\).\nNote that the elements of \\(\\boldsymbol{X}\\) are created randomly.\nThere is no underlying data generating process to suggest that the elements of \\(\\boldsymbol{X}\\) violate the orthogonality assumption.\nWe partition \\(\\boldsymbol{X}\\) into \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) and regress \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nComparing the full and partitioned regression results for the coefficients of the independent variables illustrates the partitioned orthogonal regression theorem.\n\nrm(list = ls())\nnrows &lt;- 10000\nncols &lt;- 7\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n      \nbeta &lt;- c(1,2,3,4,5,6,7)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nx_1 &lt;- x[,1:4]\nx_2 &lt;- cbind(x[,1],x[,5:7])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\ncbind(bhat[2:4],bhat_1[2:4])\n\n         [,1]     [,2]\n[1,] 1.998665 1.931352\n[2,] 3.008601 2.905447\n[3,] 3.988951 3.984265\n\ncbind(bhat[5:7], bhat_2[2:4])\n\n         [,1]     [,2]\n[1,] 5.004849 5.082641\n[2,] 6.010656 5.936437\n[3,] 6.990739 6.930546\n\ndf &lt;- data.frame(y = y, x = x)",
+    "text": "13.10 Orthogonal Example\nIn the R code, we create a large \\(\\boldsymbol{X}\\) matrix and estimate \\(\\boldsymbol{b}\\).\nNote that the elements of \\(\\boldsymbol{X}\\) are created randomly.\nThere is no underlying data generating process to suggest that the elements of \\(\\boldsymbol{X}\\) violate the orthogonality assumption.\nWe partition \\(\\boldsymbol{X}\\) into \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) and regress \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nComparing the full and partitioned regression results for the coefficients of the independent variables illustrates the partitioned orthogonal regression theorem.\n\nrm(list = ls())\nnrows &lt;- 10000\nncols &lt;- 7\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n      \nbeta &lt;- c(1,2,3,4,5,6,7)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nx_1 &lt;- x[,1:4]\nx_2 &lt;- cbind(x[,1],x[,5:7])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\ncbind(bhat[2:4],bhat_1[2:4])\n\n         [,1]     [,2]\n[1,] 2.011591 2.136231\n[2,] 3.008873 3.034893\n[3,] 4.003979 3.772398\n\ncbind(bhat[5:7], bhat_2[2:4])\n\n         [,1]     [,2]\n[1,] 5.011831 5.019753\n[2,] 6.005276 5.900218\n[3,] 6.999323 6.997782\n\ndf &lt;- data.frame(y = y, x = x)",
     "crumbs": [
       "Partitioned Regression",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
@@ -1126,7 +1137,7 @@
     "href": "mod-3-2-partitioned.html#non-orthogonal-example",
     "title": "13  Partitioned Regression",
     "section": "13.11 Non-Orthogonal Example",
-    "text": "13.11 Non-Orthogonal Example\n\nrm(list = ls())\nlibrary(MASS,quietly = TRUE)\n\nnrows &lt;- 10000\nncols &lt;- 5\n\nsigma_mat &lt;- matrix(0, ncols-1, ncols-1) \n sigma_mat[lower.tri(sigma_mat)] &lt;- 0.95\n sigma_mat[upper.tri(sigma_mat)] &lt;- 0.95\n diag(sigma_mat) &lt;- 1\n\nx &lt;- matrix(0, nrows, ncols)\n  x[,1] &lt;- 1\n  x[,2: ncols] &lt;- mvrnorm(n = nrows, mu = c(1,2,3,4), \n                          Sigma = sigma_mat)\n\nbeta &lt;- c(1,4,5,6,10)\ny &lt;- x %*% beta + rnorm(nrows)\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nbhat\n\n         [,1]\n[1,] 1.114104\n[2,] 3.979198\n[3,] 5.054068\n[4,] 6.045036\n[5,] 9.914499\n\n\n\nx_1 &lt;- x[,1:3]\nx_2 &lt;- cbind(x[,1],x[,4:5])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\nbhat_1\n\n         [,1]\n[1,] 35.58745\n[2,] 11.68859\n[3,] 12.86582\n\nbhat_2\n\n          [,1]\n[1,] -15.66437\n[2,]  10.44120\n[3,]  14.33431",
+    "text": "13.11 Non-Orthogonal Example\n\nrm(list = ls())\nlibrary(MASS,quietly = TRUE)\n\nnrows &lt;- 10000\nncols &lt;- 5\n\nsigma_mat &lt;- matrix(0, ncols-1, ncols-1) \n sigma_mat[lower.tri(sigma_mat)] &lt;- 0.95\n sigma_mat[upper.tri(sigma_mat)] &lt;- 0.95\n diag(sigma_mat) &lt;- 1\n\nx &lt;- matrix(0, nrows, ncols)\n  x[,1] &lt;- 1\n  x[,2: ncols] &lt;- mvrnorm(n = nrows, mu = c(1,2,3,4), \n                          Sigma = sigma_mat)\n\nbeta &lt;- c(1,4,5,6,10)\ny &lt;- x %*% beta + rnorm(nrows)\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nbhat\n\n           [,1]\n[1,]  0.8413833\n[2,]  3.9785596\n[3,]  4.9914400\n[4,]  5.9666835\n[5,] 10.0737573\n\n\n\nx_1 &lt;- x[,1:3]\nx_2 &lt;- cbind(x[,1],x[,4:5])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\nbhat_1\n\n         [,1]\n[1,] 35.76834\n[2,] 11.90675\n[3,] 12.66977\n\nbhat_2\n\n          [,1]\n[1,] -15.97745\n[2,]  10.27104\n[3,]  14.53747",
     "crumbs": [
       "Partitioned Regression",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
@@ -1214,7 +1225,7 @@
     "href": "mod-4-1-means.html#scaling-residuals",
     "title": "15  The M0 Matrix",
     "section": "15.2 Scaling Residuals",
-    "text": "15.2 Scaling Residuals\nThe objective function of the least squares estimator is, subject to the selection of a vector of coefficients, \\(\\boldsymbol{b_0}\\), the minimization of the sum of the squared residuals.\n\\[\nmin_{b_0} \\, e^T e\n\\]\nConditional on the standard assumptions holding, we take the first derivative of the objective function and set the first derivative equal to 0 to obtain the normal equations and the vector of least squares coefficients:\nThe normal equations and the vector of the least squares coefficients are: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]\n\\[\\boldsymbol{b} = (\\boldsymbol{X^T\\ X})^{-1}\\ \\boldsymbol{X^T\\ y}\\]\nUsing the sum of the squared residuals are a measure of performance, however, is a poor choice because the sum of the squared residuals can be manipulated by scaling the residuals.\nIf we pre-multiply \\(\\boldsymbol{e}\\) by a scalar \\(k\\) that the sum of the squared residuals becomes:\n\\[\\boldsymbol{e^T}\\ k^Tk\\ \\boldsymbol{e} = (k^Tk)(\\boldsymbol{e^T e} )= k^2 \\boldsymbol{e^T e}\\]\nWe can arbitrarily scale the sum of squared residuals by multiplying \\(\\boldsymbol{y}\\) by a desired scale factor.\nThe code below does the following:\n\nCreates a matrix of independent variables that is \\((500 \\times 5)\\).\nSets a scalar \\(k = 2\\)\nDefines the true population coefficients as a sequence of integers from 1 to 5.\nGenerates \\(\\boldsymbol{y = X \\beta + \\epsilon}\\)\nDefines \\(\\boldsymbol{ky = 2 \\times y}\\)\nGenerates \\(\\boldsymbol{b}\\) for the regression of \\(\\boldsymbol{y}\\) and \\(\\boldsymbol{ky}\\) on \\(\\boldsymbol{X}\\)\nGenerates \\(\\boldsymbol{e}\\) for both regressions\nProduces a table of the first 5 observations of each vector of residuals to illustrate scaling.\n\n\nrm(list = ls())\n\nnrows &lt;- 500\nncols &lt;- 5\nk = 2\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nky &lt;- k*y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\nbhat2 &lt;- solve(t(x) %*% x) %*% t(x) %*% ky\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ne1 &lt;- M %*% y\ne2 &lt;- M %*% ky\n\ndf &lt;- tibble(e1, e2)\n\nkable(df[1:5,],\n      col.names = c('e(y)', 'e(ky)'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\ne(y)\ne(ky)\n\n\n\n\n0.97036534\n1.9407307\n\n\n-1.42553183\n-2.8510637\n\n\n1.76670986\n3.5334197\n\n\n-0.15867674\n-0.3173535\n\n\n-0.06179629\n-0.1235926",
+    "text": "15.2 Scaling Residuals\nThe objective function of the least squares estimator is, subject to the selection of a vector of coefficients, \\(\\boldsymbol{b_0}\\), the minimization of the sum of the squared residuals.\n\\[\nmin_{b_0} \\, e^T e\n\\]\nConditional on the standard assumptions holding, we take the first derivative of the objective function and set the first derivative equal to 0 to obtain the normal equations and the vector of least squares coefficients:\nThe normal equations and the vector of the least squares coefficients are: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]\n\\[\\boldsymbol{b} = (\\boldsymbol{X^T\\ X})^{-1}\\ \\boldsymbol{X^T\\ y}\\]\nUsing the sum of the squared residuals are a measure of performance, however, is a poor choice because the sum of the squared residuals can be manipulated by scaling the residuals.\nIf we pre-multiply \\(\\boldsymbol{e}\\) by a scalar \\(k\\) that the sum of the squared residuals becomes:\n\\[\\boldsymbol{e^T}\\ k^Tk\\ \\boldsymbol{e} = (k^Tk)(\\boldsymbol{e^T e} )= k^2 \\boldsymbol{e^T e}\\]\nWe can arbitrarily scale the sum of squared residuals by multiplying \\(\\boldsymbol{y}\\) by a desired scale factor.\nThe code below does the following:\n\nCreates a matrix of independent variables that is \\((500 \\times 5)\\).\nSets a scalar \\(k = 2\\)\nDefines the true population coefficients as a sequence of integers from 1 to 5.\nGenerates \\(\\boldsymbol{y = X \\beta + \\epsilon}\\)\nDefines \\(\\boldsymbol{ky = 2 \\times y}\\)\nGenerates \\(\\boldsymbol{b}\\) for the regression of \\(\\boldsymbol{y}\\) and \\(\\boldsymbol{ky}\\) on \\(\\boldsymbol{X}\\)\nGenerates \\(\\boldsymbol{e}\\) for both regressions\nProduces a table of the first 5 observations of each vector of residuals to illustrate scaling.\n\n\nrm(list = ls())\n\nnrows &lt;- 500\nncols &lt;- 5\nk = 2\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nky &lt;- k*y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\nbhat2 &lt;- solve(t(x) %*% x) %*% t(x) %*% ky\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ne1 &lt;- M %*% y\ne2 &lt;- M %*% ky\n\ndf &lt;- tibble(e1, e2)\n\nkable(df[1:5,],\n      col.names = c('e(y)', 'e(ky)'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\ne(y)\ne(ky)\n\n\n\n\n1.6020558\n3.2041116\n\n\n-1.0344712\n-2.0689423\n\n\n-0.1471343\n-0.2942687\n\n\n0.9004324\n1.8008648\n\n\n-0.9091831\n-1.8183662",
     "crumbs": [
       "Goodness of Fit",
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>The M0 Matrix</span>"
@@ -1236,7 +1247,7 @@
     "href": "mod-4-1-means.html#r-example-of-m0",
     "title": "15  The M0 Matrix",
     "section": "15.4 R Example of M0",
-    "text": "15.4 R Example of M0\nWe can create \\(\\boldsymbol{M^0}\\) in R to illustrate how it demeans \\(\\boldsymbol{X}\\).\nThe code below does the following:\n\nCreates a \\((200 \\times 5)\\) matrix and fills it with random numbers from a standard normal\nCreates a \\((200 \\times 5)\\) identity matrix, \\(\\boldsymbol{I}\\)\nCreates a \\((200 \\times 1)\\) vector of 1’s which is called \\(\\boldsymbol{i}\\)\nCreates the \\(M^0\\) matrix defined previous\nEstimates the mean deviations of \\(\\boldsymbol{X}\\) as \\(\\boldsymbol{M^0 X}\\)\nEstimates the mean deviations of the second column of \\(\\boldsymbol{X}\\)\nProduces a table of the first 5 observations of mean deviations\nProduces a table of the sum of mean deviations which are equal to zero\n\n\nrm(list = ls())\n\nnrows = 200\nncols = 5\n\nx &lt;- matrix(0,nrows,ncols)\n\nx[,1] &lt;- 1\n\nfor (l in 2:ncols) {\n  x[,l] &lt;- rnorm(nrows)\n}\n  \nI &lt;- diag(nrows)\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\nM0x &lt;- M0 %*% x\n\nx2_meandev &lt;- x[,2] - mean(x[,2])\n\ndf &lt;- tibble(M0x[,2], x2_meandev)\n\nkable(df[1:5,],\n      col.names = c('M0x for X2','Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nM0x for X2\nMean Deviations of X2\n\n\n\n\n0.468\n0.468\n\n\n-2.126\n-2.126\n\n\n0.237\n0.237\n\n\n0.804\n0.804\n\n\n-0.715\n-0.715\n\n\n\n\ndf2 &lt;- tibble(sum(M0x[,2]), sum(x2_meandev))\n\nkable(df2,\n      col.names = c('Sum of M0x for X2','Sum of Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nSum of M0x for X2\nSum of Mean Deviations of X2\n\n\n\n\n0\n0\n\n\n\n\n\nNow that we have formed the \\(\\boldsymbol{M^0}\\) matrix, we can move to estimating a measure of performance in the next section.",
+    "text": "15.4 R Example of M0\nWe can create \\(\\boldsymbol{M^0}\\) in R to illustrate how it demeans \\(\\boldsymbol{X}\\).\nThe code below does the following:\n\nCreates a \\((200 \\times 5)\\) matrix and fills it with random numbers from a standard normal\nCreates a \\((200 \\times 5)\\) identity matrix, \\(\\boldsymbol{I}\\)\nCreates a \\((200 \\times 1)\\) vector of 1’s which is called \\(\\boldsymbol{i}\\)\nCreates the \\(M^0\\) matrix defined previous\nEstimates the mean deviations of \\(\\boldsymbol{X}\\) as \\(\\boldsymbol{M^0 X}\\)\nEstimates the mean deviations of the second column of \\(\\boldsymbol{X}\\)\nProduces a table of the first 5 observations of mean deviations\nProduces a table of the sum of mean deviations which are equal to zero\n\n\nrm(list = ls())\n\nnrows = 200\nncols = 5\n\nx &lt;- matrix(0,nrows,ncols)\n\nx[,1] &lt;- 1\n\nfor (l in 2:ncols) {\n  x[,l] &lt;- rnorm(nrows)\n}\n  \nI &lt;- diag(nrows)\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\nM0x &lt;- M0 %*% x\n\nx2_meandev &lt;- x[,2] - mean(x[,2])\n\ndf &lt;- tibble(M0x[,2], x2_meandev)\n\nkable(df[1:5,],\n      col.names = c('M0x for X2','Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nM0x for X2\nMean Deviations of X2\n\n\n\n\n0.498\n0.498\n\n\n0.085\n0.085\n\n\n-1.071\n-1.071\n\n\n-1.371\n-1.371\n\n\n0.357\n0.357\n\n\n\n\ndf2 &lt;- tibble(sum(M0x[,2]), sum(x2_meandev))\n\nkable(df2,\n      col.names = c('Sum of M0x for X2','Sum of Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nSum of M0x for X2\nSum of Mean Deviations of X2\n\n\n\n\n0\n0\n\n\n\n\n\nNow that we have formed the \\(\\boldsymbol{M^0}\\) matrix, we can move to estimating a measure of performance in the next section.",
     "crumbs": [
       "Goodness of Fit",
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>The M0 Matrix</span>"
@@ -1291,7 +1302,7 @@
     "href": "mod-4-2-rsquared.html#decomposition-in-r",
     "title": "16  R Squared",
     "section": "16.5 Decomposition in R",
-    "text": "16.5 Decomposition in R\nBuilding upon our previous examples, we can use simulated data to create our independent variables, population coefficients, and the dependent variable. We can estimate the least squares coefficients and construct the projection and residual maker matrices.\nWe then construct the \\(\\boldsymbol{M^0}\\) matrix and use this matrix to estimate SST, SSE, and SSR.\nThe output table demonstrates the equality, that the total sum of squares can be decomposed into the explained sum of squares and the residual sum of squares.\n\nrm(list = ls())\nlibrary(kableExtra)\n\nnrows &lt;- 2000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nI &lt;- diag(nrows)\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\n\nyhat &lt;- P %*% y\ne &lt;- M %*% y\n\n\nsst &lt;- t(y) %*% M0 %*% y\nsse &lt;- t(bhat) %*% t(x) %*% M0 %*% x %*% bhat\nssr &lt;- t(e) %*% e\n\ndf &lt;- tibble(SST = as.numeric(sst),\n             SSE = as.numeric(sse),\n             SSR = as.numeric(ssr))\n\nkable(df,\n      col.names = c('SST', 'SSE', 'SSR'),\n      align     = 'c',\n      digits    = 2) %&gt;%\nkable_classic()\n\n\n\n\nSST\nSSE\nSSR\n\n\n\n\n116867.2\n114898.2\n1969.08",
+    "text": "16.5 Decomposition in R\nBuilding upon our previous examples, we can use simulated data to create our independent variables, population coefficients, and the dependent variable. We can estimate the least squares coefficients and construct the projection and residual maker matrices.\nWe then construct the \\(\\boldsymbol{M^0}\\) matrix and use this matrix to estimate SST, SSE, and SSR.\nThe output table demonstrates the equality, that the total sum of squares can be decomposed into the explained sum of squares and the residual sum of squares.\n\nrm(list = ls())\nlibrary(kableExtra)\n\nnrows &lt;- 2000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nI &lt;- diag(nrows)\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\n\nyhat &lt;- P %*% y\ne &lt;- M %*% y\n\n\nsst &lt;- t(y) %*% M0 %*% y\nsse &lt;- t(bhat) %*% t(x) %*% M0 %*% x %*% bhat\nssr &lt;- t(e) %*% e\n\ndf &lt;- tibble(SST = as.numeric(sst),\n             SSE = as.numeric(sse),\n             SSR = as.numeric(ssr))\n\nkable(df,\n      col.names = c('SST', 'SSE', 'SSR'),\n      align     = 'c',\n      digits    = 2) %&gt;%\nkable_classic()\n\n\n\n\nSST\nSSE\nSSR\n\n\n\n\n106536.3\n104561.6\n1974.71",
     "crumbs": [
       "Goodness of Fit",
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>R Squared</span>"
@@ -1313,7 +1324,7 @@
     "href": "mod-4-2-rsquared.html#r-squared-in-r",
     "title": "16  R Squared",
     "section": "16.7 R-Squared in R",
-    "text": "16.7 R-Squared in R\nFirst, we can show that \\(\\boldsymbol{M^0 e = e}\\).\nWe can then calculate the total sum of squares, estimated sum of squares, and residual sum of squares.\n\\(R^2\\) is equivalent whether obtained using the estimated or residual sum of squares.\nOne problem, however, is that one can continue to increase \\(R^2\\) by adding explanatory variables to the regression model.\n\nrm(list = ls())\nlibrary(kableExtra)\n\nnrows &lt;- 2000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nI &lt;- diag(nrows)\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\n\nyhat &lt;- P %*% y\ne &lt;- M %*% y\n\ny_cal &lt;- yhat + e\n\nM0_e &lt;- M0 %*% e\n\ne[1:4]\n\n[1]  0.3399589  1.9511344 -1.1826146 -1.4179657\n\nM0_e[1:4]\n\n[1]  0.3399589  1.9511344 -1.1826146 -1.4179657\n\nSST &lt;- t(y) %*% M0 %*% y\nSSE &lt;- t(bhat) %*% t(x) %*% M0 %*% x %*% bhat\nR2 &lt;- SSE / SST\n\nR2_r = 1 - (t(e) %*% e) / (t(y) %*% M0 %*% y)\n\ncbind(R2, R2_r)\n\n          [,1]      [,2]\n[1,] 0.9821347 0.9821347",
+    "text": "16.7 R-Squared in R\nFirst, we can show that \\(\\boldsymbol{M^0 e = e}\\).\nWe can then calculate the total sum of squares, estimated sum of squares, and residual sum of squares.\n\\(R^2\\) is equivalent whether obtained using the estimated or residual sum of squares.\nOne problem, however, is that one can continue to increase \\(R^2\\) by adding explanatory variables to the regression model.\n\nrm(list = ls())\nlibrary(kableExtra)\n\nnrows &lt;- 2000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nI &lt;- diag(nrows)\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\n\nyhat &lt;- P %*% y\ne &lt;- M %*% y\n\ny_cal &lt;- yhat + e\n\nM0_e &lt;- M0 %*% e\n\ne[1:4]\n\n[1] -0.353620599  0.275578841  0.723653375 -0.007851447\n\nM0_e[1:4]\n\n[1] -0.353620599  0.275578841  0.723653375 -0.007851447\n\nSST &lt;- t(y) %*% M0 %*% y\nSSE &lt;- t(bhat) %*% t(x) %*% M0 %*% x %*% bhat\nR2 &lt;- SSE / SST\n\nR2_r = 1 - (t(e) %*% e) / (t(y) %*% M0 %*% y)\n\ncbind(R2, R2_r)\n\n          [,1]      [,2]\n[1,] 0.9817144 0.9817144",
     "crumbs": [
       "Goodness of Fit",
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>R Squared</span>"
@@ -1647,6 +1658,292 @@
     "crumbs": [
       "Least Squares Variance",
       "<span class='chapter-number'>19</span>  <span class='chapter-title'>Variance of LS Estimator</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-0-overview.html",
+    "href": "mod-6-0-overview.html",
+    "title": "20  Module 6 Overview",
+    "section": "",
+    "text": "20.1 Introduction\nWelcome to Module 6 of ECON 706.\nModule 6 transitions from estimation to formal statistical inference, focusing on how we test theoretical propositions about population parameters using sample data. Building upon the finite sample properties established in the previous module, this section introduces the three fundamental pillars of hypothesis testing: Wald tests, fit-based tests, and Lagrange multiplier tests. Students will learn to formulate null and alternative hypotheses, understand the role of sampling variability, and utilize the OLS estimator to determine whether empirical evidence supports or contradicts specific restrictions on the model.\nThe second half of the module provides a deep dive into the practical application of these tests, specifically the t-test for individual coefficients and the F-test for multiple linear restrictions. By examining the relationship between unrestricted and restricted models, students will learn how to measure the “cost” of imposing restrictions on a regression. The module concludes with hands-on examples using R, demonstrating how to implement joint hypothesis tests and interpret diagnostic output to make rigorous, evidence-based conclusions about economic relationships.",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Module 6 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-0-overview.html#learning-objectives",
+    "href": "mod-6-0-overview.html#learning-objectives",
+    "title": "20  Module 6 Overview",
+    "section": "20.2 Learning Objectives",
+    "text": "20.2 Learning Objectives\nBy the end of this module, you should be able to:\n\nMLO 1: Differentiate between the three fundamental approaches to statistical inference: Wald tests, fit-based tests, and Lagrange multiplier tests.\nMLO 2:Formulate and test linear restrictions on population parameters using the t-test for individual coefficients and the F-test for joint hypotheses.\nMLO 3:Construct restricted and unrestricted regression models to calculate the change in the Sum of Squared Residuals (SSR) for fit-based hypothesis testing.\nMLO 4:Evaluate the statistical significance of economic relationships by interpreting p-values and critical values within a finite sample framework.\nMLO 5:Execute and interpret joint hypothesis tests in R using the linearHypothesis function to validate theoretical constraints on empirical data.",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Module 6 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-0-overview.html#required-texts",
+    "href": "mod-6-0-overview.html#required-texts",
+    "title": "20  Module 6 Overview",
+    "section": "20.3 Required Texts",
+    "text": "20.3 Required Texts\nPlease select the links provided to access material where applicable.\n\nWilliam H. Greene. (2018). Econometric Analysis, 8th Edition. Available from Pearson. Chapters 3-6.\nRafael Irizarry. (2025). Introduction to Data Science: Data Wrangling and Visualization with R. Chapters 1-2.\nHadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund. (2025) R for Data Science. Sections 1-19.\nOnline R documentation\nRStudio Cheat Sheets",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Module 6 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-0-overview.html#module-to-do-list",
+    "href": "mod-6-0-overview.html#module-to-do-list",
+    "title": "20  Module 6 Overview",
+    "section": "20.4 Module To Do List",
+    "text": "20.4 Module To Do List\n\nComplete the hands-on coding exercises embedded in each lesson (MLO 1, 5)\n\nUse WebR to experiment directly in your browser (MLO 1, 2, 3, 4, 5)\n\nComplete the weekly class assignment (MLO 1, 2, 3, 4, 5)\n\nTake the weekly knowledge quiz (MLO 1, 2, 3, 4, 5)",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Module 6 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-0-overview.html#lessons-in-this-module",
+    "href": "mod-6-0-overview.html#lessons-in-this-module",
+    "title": "20  Module 6 Overview",
+    "section": "20.5 Lessons in this Module",
+    "text": "20.5 Lessons in this Module\n\n6.1 - Hypothesis Tests\n\n\nNext: Start with Hypothesis Tests.",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Module 6 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html",
+    "href": "mod-6-1-hypothesis.html",
+    "title": "21  Hypothesis Testing",
+    "section": "",
+    "text": "21.1 Introduction\nModule 6 focuses on the transition from parameter estimation to formal statistical inference through the framework of hypothesis testing. Students will examine the three fundamental approaches to inference—Wald, fit-based, and Lagrange multiplier tests—to determine whether empirical evidence supports specific theoretical restrictions on population parameters. By mastering the application of \\(t\\)-tests for individual coefficients and \\(F\\)-tests for joint hypotheses, and implementing these procedures in R, students will gain the analytical tools necessary to assess the statistical significance of economic relationships and the relative performance of restricted versus unrestricted models.",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#three-approaches",
+    "href": "mod-6-1-hypothesis.html#three-approaches",
+    "title": "21  Hypothesis Testing",
+    "section": "21.2 Three Approaches",
+    "text": "21.2 Three Approaches\nThere are three general approaches to hypothesis testing:\n\nWald tests\nFit based tests\nLagrange multiplier tests\n\nThe hypothesis of interest is about the population, that is, we have estimates and wish to examine questions about the population parameters.\nIf our hypothesis is correct, then the sample statistics should approximate the description of the population parameters.\nIf our hypothesis is incorrect, then the sample statistics will deviate from our description of the population parameters.",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#null-hypothesis",
+    "href": "mod-6-1-hypothesis.html#null-hypothesis",
+    "title": "21  Hypothesis Testing",
+    "section": "21.3 Null Hypothesis",
+    "text": "21.3 Null Hypothesis\nThe null hypothesis, \\(H_0\\), is the ‘status quo’ or typically the assumption of ‘no effect.’\nThe null hypothesis is the claim that we will ‘operate under’ unless ‘strong evidence’ otherwise.\nIn regression analysis, the null hypothesis is typically that the regressor of interest has no impact on the dependent variable. In other words,\n\\[\nH_0: \\beta_k = 0\n\\]\nWe can only reject or fail to reject the null hypothesis given the evidence at hand.\nIn econometrics, we never “accept” the null hypothesis. We simply state that the evidence is insufficient to disprove it.",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#alternative-hypothesis",
+    "href": "mod-6-1-hypothesis.html#alternative-hypothesis",
+    "title": "21  Hypothesis Testing",
+    "section": "21.4 Alternative Hypothesis",
+    "text": "21.4 Alternative Hypothesis\nThe alternative hypothesis is the claim we are testing. Typically, the alternative represents the presence of an effect, a difference, or a relationship.\nWe do not test the alternative hypothesis. We test whether there is sufficient evidence to reject the null hypothesis. In econometrics, where the null hypothesis is often the true value of the population parameter is equal to zero, we investigate whether, for a given sample, there is sufficient evidence to reject the null of zero (‘no effect’).\nIn most cases, we have a two-sided null and alternative hypothesis, that is, we are not testing a specific direction, merely whether we can reject the null hypothesis of zero.\n\\[\nH_A: \\beta \\ne 0\n\\]",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#wald-based-tests",
+    "href": "mod-6-1-hypothesis.html#wald-based-tests",
+    "title": "21  Hypothesis Testing",
+    "section": "21.5 Wald Based Tests",
+    "text": "21.5 Wald Based Tests\nThe hypothesis states that \\(\\boldsymbol{\\beta}\\) adheres to a restriction or set of restrictions.\nThe restrictions, in general, can be stated at \\(\\boldsymbol{c(\\beta) = 0}\\).\nSince \\(\\boldsymbol{b}\\) is a consistent estimator of \\(\\boldsymbol{\\beta}\\), \\(\\boldsymbol{c(b) = 0}\\) should be approximately 0.\nThe Wald test measures how close \\(\\boldsymbol{c(b)}\\) is to 0.\nThe Wald test is based on the unrestricted model.\nThe Wald test employs the unrestricted and restricted model estimates.\nThe test measures how close the estimated unrestricted model is to the hypothesized restrictions.",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#fit-based-tests",
+    "href": "mod-6-1-hypothesis.html#fit-based-tests",
+    "title": "21  Hypothesis Testing",
+    "section": "21.6 Fit Based Tests",
+    "text": "21.6 Fit Based Tests\nFit based tests are based on \\(R^2\\) or the sum of squares.\nThe best possible fit is obtained using the unrestricted least squares model.\nImposing the hypothesized restrictions degrades the fit of the least squares model, the question is how much.\nThe fit based test compares \\(R^2\\) in the unrestricted and restricted models.\nIf the difference between the unrestricted and restricted models is “small”, the restrictions are valid.\nIf \\(R^2\\) falls significantly when the restrictions are imposed, the restrictions are likely invalid.",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#lagrange-multiplier-tests",
+    "href": "mod-6-1-hypothesis.html#lagrange-multiplier-tests",
+    "title": "21  Hypothesis Testing",
+    "section": "21.7 Lagrange Multiplier Tests",
+    "text": "21.7 Lagrange Multiplier Tests\nThe Lagrange Multiplier (LM) test is based on the restricted model.\nImposing incorrect restrictions yields a failed model.\nIf our hypothesis is that \\(\\beta_1 = 0\\), then the LM test imposes the restriction and uses the residuals from the regression that omits \\(x_1\\).\nIf the restrictions are incorrect, then the omission of \\(x_1\\) induces omitted variable bias.\nThe residuals from the restricted regression will be correlated with the other independent variables if the restriction is invalid.\nThe LM test statistic is based on the correlation between the restricted regression residuals and the independent variables that are not omitted from the regression.",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#general-linear-hypotheses",
+    "href": "mod-6-1-hypothesis.html#general-linear-hypotheses",
+    "title": "21  Hypothesis Testing",
+    "section": "21.8 General Linear Hypotheses",
+    "text": "21.8 General Linear Hypotheses\nWe are imposing one or more linear restrictions on the linear restriction model, that is, for the general linear model \\(\\boldsymbol{y = X\\beta + \\epsilon}\\), we are imposing \\(\\boldsymbol{J}\\) linear restrictions.\nLet \\(\\boldsymbol{R}\\) be a matrix where each row of \\(\\boldsymbol{R}\\) contains the coefficients of one of the restrictions.\n\\(\\boldsymbol{R}\\) may have one or many rows.\nWe can thus write the \\(\\boldsymbol{J}\\) restrictions on \\(\\boldsymbol{\\beta}\\): \\[\\boldsymbol{R\\ \\beta\\ =\\ q}\\]\nThe hypothesis implied by imposing the restrictions can be written as: \\[H_0:\\ \\boldsymbol{R\\ \\beta\\ - \\ q = 0}\\]\n\\[H_A:\\ \\boldsymbol{R\\ \\beta\\ - \\ q \\ne 0}\\]",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#one-hypothesis",
+    "href": "mod-6-1-hypothesis.html#one-hypothesis",
+    "title": "21  Hypothesis Testing",
+    "section": "21.9 One Hypothesis",
+    "text": "21.9 One Hypothesis\nAssume that \\(\\boldsymbol{y = X\\beta + \\epsilon}\\) and we hypothesize that \\(\\beta_3 = 0\\) then\n\\[\nH_0: \\beta_3 = 0 \\\\\nH_A: \\beta_3 \\ne 0\\]\nThis means that the R matrix has 0’s for every element EXCEPT for \\(\\beta_3\\).\n\\[\\boldsymbol{R} = [0\\quad 0\\quad 1\\quad 0\\quad \\dots\\quad 0];\\quad \\boldsymbol{q} = 0\\]\nAssume that \\(\\boldsymbol{y = X\\beta + \\epsilon}\\) and we hypothesize that \\(\\beta_3 = \\beta_4\\) then \\[\\boldsymbol{R} = [0\\quad 0\\quad 1\\quad -1\\quad 0\\quad \\dots\\quad 0];\\quad \\boldsymbol{q} = 0\\]\nAssume that \\(\\boldsymbol{y = X\\beta + \\epsilon}\\) and we hypothesize that \\(\\beta_2 + \\beta_3 + \\beta_4 = 1\\) then \\[\\boldsymbol{R} = [0\\quad 1\\quad 1\\quad 1\\quad 0\\quad \\dots\\quad 0];\\quad \\boldsymbol{q} = 1\\] Assume that \\(\\boldsymbol{y = X\\beta + \\epsilon}\\) and we hypothesize that \\(\\beta_2 = 0\\), \\(\\beta_3 = 0\\), \\(\\beta_k = 0\\) then \\[\\boldsymbol{R} = \\begin{bmatrix}\n      0 & 0 & 0 &\\dots  & 0 \\\\\n      0 & 1 & 0 & \\dots  & 0 \\\\\n      0 & 0 & 1 & \\dots  & 0 \\\\\n      \\vdots & \\vdots & \\vdots & \\ddots & \\vdots \\\\\n      0 & 0 & 0 & 0 & 1\n      \\end{bmatrix}\n      ;\n      \\quad\n      \\boldsymbol{q}\n      \\begin{bmatrix}\n      0 \\\\\n      0 \\\\\n      0\n      \\end{bmatrix}\\]",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#what-is-r",
+    "href": "mod-6-1-hypothesis.html#what-is-r",
+    "title": "21  Hypothesis Testing",
+    "section": "21.10 What is R?",
+    "text": "21.10 What is R?\nThe \\(\\boldsymbol{R}\\) matrix must contain \\(K\\) columns to be conformable to \\(\\boldsymbol{\\beta}\\).\nThe \\(\\boldsymbol{R}\\) matrix contains \\(J\\) rows representing the \\(J\\) restrictions.\nThe \\(\\boldsymbol{R}\\) matrix has full row rank, that is, \\(J \\le K\\).\nThe \\(\\boldsymbol{R}\\) matrix consists of linearly independent rows, which implies that \\(J &lt; K\\).\nIf \\(K\\) coefficients satisfy \\(J = K\\) restrictions, then \\(\\boldsymbol{R}\\) is square and nonsingular.\nIf \\(\\boldsymbol{R}\\) is square and nonsingular then \\(\\boldsymbol{\\beta = R^{-1}\\ q}\\).\nThe restriction \\(\\boldsymbol{R\\ \\beta = q}\\) imposes \\(J\\) restrictions on \\(K\\) otherwise free parameters.\nIn other words, \\(\\boldsymbol{R}\\) can consist of a one restriction, \\(\\beta_2 = 0\\) or it may have many restrictions \\(\\beta_2 = 0, \\beta_3 = 1, \\beta_4 + \\beta_5 = 2\\).",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#the-f-statistic",
+    "href": "mod-6-1-hypothesis.html#the-f-statistic",
+    "title": "21  Hypothesis Testing",
+    "section": "21.11 The F-Statistic",
+    "text": "21.11 The F-Statistic\nConsider the set of \\(J\\) linear restrictions in the null and alternative hypotheses: \\[H_0:\\ \\boldsymbol{R\\ \\beta\\ - \\ q = 0}\\] \\[H_0:\\ \\boldsymbol{R\\ \\beta\\ - \\ q \\ne 0}\\]\nGiven \\(\\boldsymbol{b}\\), we want to compute the discrepancy vector defined as \\(\\boldsymbol{R\\ b - q = m}\\).\n\\(\\boldsymbol{m}\\) is unlikely to be exactly zero, but the question is how ‘close’ is \\(\\boldsymbol{m}\\) to zero.\nBecause \\(\\boldsymbol{b}\\) is normally distributed and \\(\\boldsymbol{m}\\) in a linear function of \\(\\boldsymbol{b}\\), \\(\\boldsymbol{m}\\) is normally distributed.\nIf the null hypothesis cannot be rejected, then \\(\\boldsymbol{R b - q = 0}\\) and \\(\\boldsymbol{m}\\) has a mean vector \\[E[\\boldsymbol{m | X} ] = E[(\\boldsymbol{R\\ b - q)| X] = 0}\\] \\[E[\\boldsymbol{m | X} ] =  \\boldsymbol{R}\\ E[\\boldsymbol{b|X}] - \\boldsymbol{q = 0}\\] \\[E[\\boldsymbol{m | X} ] =  \\boldsymbol{R\\ \\beta - q = 0}\\]",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#the-f-test",
+    "href": "mod-6-1-hypothesis.html#the-f-test",
+    "title": "21  Hypothesis Testing",
+    "section": "21.12 The F-Test",
+    "text": "21.12 The F-Test\nUnder the null where \\(\\boldsymbol{q = 0}\\), the variance of the discrepancy vector, $$, is equal to: \\[var[\\boldsymbol{m|X}]    =  var(\\boldsymbol{R\\ b - q|X})\\] \\[var[\\boldsymbol{m|X}]    =  \\boldsymbol{R\\ [var(b|X)]\\ R^T}\\] \\[var[\\boldsymbol{m|X}]    =  \\boldsymbol{R}\\ [\\sigma^2 \\boldsymbol{(X^T\\ X)^{-1}}]\\ \\boldsymbol{R^T}\\]\nWe can base a test of the null hypothesis Wald Criterion.\nConditioned on \\(\\boldsymbol{X}\\), the Wald-criterion based test is: \\[W   = \\boldsymbol{m^T}\\ (var[\\boldsymbol{m|X}])^{-1}\\ \\boldsymbol{m}\\] \\[W = \\boldsymbol{(Rb - q)}^T\\ [\\boldsymbol{R}\\ [\\sigma^2 \\boldsymbol{(X^T\\ X)^{-1}}]\\ \\boldsymbol{R^T}]^{-1}\\  \\boldsymbol{(Rb - q)} \\sim \\chi^2\\]\nThe Wald test using \\(\\sigma^2\\), however, is not feasible as we do not observe \\(\\sigma^2\\).\nWe can employ \\(s^2\\) instead of \\(\\sigma^2\\) and divide the result by \\(J\\) to obtain an F-statistic: \\[F    =  \\frac{W}{J}\\frac{\\sigma^2}{s^2}\\]\n\\[F[J,n-K|\\boldsymbol{X}]    = \\ \\frac{\\boldsymbol{(Rb - q)}^T\\ [\\boldsymbol{R}\\ [s^2\\ \\boldsymbol{(X^T\\ X)^{-1}}]^{-1}\\ \\boldsymbol{R^T}]\\  \\boldsymbol{(Rb - q)}}{J} \\sim \\chi^2\\] We employ unrestricted and restricted regressions to estimate the F-statistic.\nThe restricted regression residuals are \\(e_r\\).\nThe unrestricted regression residuals are \\(e_u\\) so the F-statistic is: \\[F(J, n-k) = \\frac{e_r^T e_r - e_u^T e_u}{e_u^T e_u}\\frac{n-k}{J}\\]",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#f-test-example",
+    "href": "mod-6-1-hypothesis.html#f-test-example",
+    "title": "21  Hypothesis Testing",
+    "section": "21.13 F Test Example",
+    "text": "21.13 F Test Example\n\nlibrary(AER)\n\nLoading required package: car\n\n\nLoading required package: carData\n\n\n\nAttaching package: 'car'\n\n\nThe following object is masked from 'package:dplyr':\n\n    recode\n\n\nLoading required package: lmtest\n\n\nLoading required package: sandwich\n\n\nLoading required package: survival\n\nlibrary(dplyr)\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ forcats 1.0.1     ✔ stringr 1.6.0\n✔ purrr   1.2.0     ✔ tibble  3.3.0\n✔ readr   2.1.6     ✔ tidyr   1.3.1\n\n\n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter()          masks stats::filter()\n✖ xts::first()             masks dplyr::first()\n✖ kableExtra::group_rows() masks dplyr::group_rows()\n✖ dplyr::lag()             masks stats::lag()\n✖ xts::last()              masks dplyr::last()\n✖ car::recode()            masks dplyr::recode()\n✖ purrr::some()            masks car::some()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\ndata(mtcars)\n\n# Estimate the unrestricted regression\nmodel_u &lt;- lm(mpg ~ cyl + hp + wt + gear + am, data = mtcars)\n\n# Obtain the unrestricted residuals\ne_u &lt;- model_u$residuals\n\n# Estimate the restricted regression\nmodel_r &lt;- lm(mpg ~ wt + gear + am, data = mtcars)\n\n# Obtain the restricted residuals\ne_r &lt;- model_r$residuals\n\n# Calculate the Residual Sum of Squares\ne_u_ss &lt;- t(e_u) %*% e_u\ne_r_ss &lt;- t(e_r) %*% e_r\n\n# J = 2\n# (N-k) = 32 - 6 where k = 5 + 1 (intercept)\n\nF &lt;- ((e_r_ss - e_u_ss)/ e_u_ss) * ((32-6)/2)\nF\n\n         [,1]\n[1,] 8.170331\n\n# Calculate using linearHypothesis function\n\nmodel_u &lt;- lm(mpg ~ cyl + hp + wt + gear + am, data = mtcars)\n\nlinearHypothesis(model_u, c(\"cyl = 0\", \"hp = 0\"))\n\n\nLinear hypothesis test:\ncyl = 0\nhp = 0\n\nModel 1: restricted model\nModel 2: mpg ~ cyl + hp + wt + gear + am\n\n  Res.Df    RSS Df Sum of Sq      F   Pr(&gt;F)   \n1     28 276.40                                \n2     26 169.73  2    106.67 8.1703 0.001765 **\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#fit-based-test",
+    "href": "mod-6-1-hypothesis.html#fit-based-test",
+    "title": "21  Hypothesis Testing",
+    "section": "21.14 Fit Based Test",
+    "text": "21.14 Fit Based Test\nLet \\(\\boldsymbol{e_r}\\) be the residuals from the restricted least squares regression \\(\\boldsymbol{y = X\\ b_r}\\). Then \\[\\boldsymbol{e_r = y - X\\ b_r = y - X\\ b - X(b_r - b)}\\] \\[\\boldsymbol{e_r =e - X(b_r - b)}\\]\nWe can now obtain \\(\\boldsymbol{e_r^T e_r}\\) \\[\\boldsymbol{e_r^T e_r} = [\\boldsymbol{e - X(b_r - b)}]^T\\ [\\boldsymbol{e - X(b_r - b)}]\\] \\[\\boldsymbol{e_r^T e_r} = [\\boldsymbol{e^T - (b_r - b)^T\\ X^T}]\\ [\\boldsymbol{e - X(b_r - b)}]\\] \\[\\boldsymbol{e_r^T e_r} = \\boldsymbol{e^Te - e^T\\ X(b_r - b) - (b_r - b)^T\\ X^Te + (b_r - b)^T\\ X^T\\ X(b_r - b)}\\]\nSince \\(\\boldsymbol{e^T\\ X = X^T\\ e = 0}\\) \\[\\boldsymbol{e_r^T e_r} = \\boldsymbol{e^Te + (b_r - b)^T\\ X^T\\ X(b_r - b) \\ge e^Te}\\]\nIn other words, the restricted sum of squares will be at least as large as the unrestricted sum of squares, if not larger.",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#fit-based-test-1",
+    "href": "mod-6-1-hypothesis.html#fit-based-test-1",
+    "title": "21  Hypothesis Testing",
+    "section": "21.15 Fit Based Test",
+    "text": "21.15 Fit Based Test\nWe employ unrestricted and restricted regressions to estimate the F-statistic.\nThe restricted regression residuals are \\(e_r\\).\nThe unrestricted regression residuals are \\(e_u\\) so the F-statistic is: \\[F(J, n-k) = \\frac{\\boldsymbol{e_r^T e_r - e_u^T e_u}}{\\boldsymbol{e_u^T e_u}} \\frac{n-k}{J}\\]\nIf one divides the numerator and denominator of the F-statistic by \\(\\Sigma(y_i - \\bar{y})^2\\), then \\[F(J, n-k) = \\frac{R_u^2 - R_r^2}{1 - R_u^2}\\frac{n-k}{J}\\]\nIf the restrictions are invalid, then the loss of fit will be relatively “large”, and the F-statistic will be of sufficient magnitude to reject the restrictions under the null hypothesis.\nNote that the test of the significance of the regression assumes under the null that all the coefficients for the independent variables are equal to zero.",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#lagrange-multiplier-tests-1",
+    "href": "mod-6-1-hypothesis.html#lagrange-multiplier-tests-1",
+    "title": "21  Hypothesis Testing",
+    "section": "21.16 Lagrange Multiplier Tests",
+    "text": "21.16 Lagrange Multiplier Tests\nSuppose that we explicitly impose the restrictions in the regression. The restricted least squares estimator is obtained by: \\[min_{\\boldsymbol{b_0}} = S(\\boldsymbol{b_0}) = \\boldsymbol{(y - X\\ b_0)^T\\ (y - X\\ b_0)}\\]\n\\[\\text{subject to}\\ \\boldsymbol{R\\ b_0 = q}\\] We can write a Lagrangian function of this problem as: \\[L^*(\\boldsymbol{b_0, \\lambda}) = \\boldsymbol{(y - X\\ b_0)^T\\ (y - X\\ b_0)} + 2\\ \\boldsymbol{ \\lambda^T (R\\ b_0 - q)^2}\\] The solutions to \\(\\boldsymbol{b_*\\ \\text{and}\\ \\lambda_*}\\) will satisfy the necessary conditions: \\[\\frac{\\partial L^*}{\\partial \\boldsymbol{b_*}} = -2 \\boldsymbol{X^T\\ (y - X\\ b_*)} + 2 \\boldsymbol{R^T \\lambda = 0}\\] \\[\\frac{\\partial L^*}{\\partial \\boldsymbol{\\lambda_*}} = 2 \\boldsymbol{R b_* - q} = 0\\]",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#lagrange-multiplier-tests-2",
+    "href": "mod-6-1-hypothesis.html#lagrange-multiplier-tests-2",
+    "title": "21  Hypothesis Testing",
+    "section": "21.17 Lagrange Multiplier Tests",
+    "text": "21.17 Lagrange Multiplier Tests\nTaking the necessary conditions, dividing by 2, and producing the partitioned matrix equation yields:\n\\[\\begin{bmatrix} \\boldsymbol{X^TX} & \\boldsymbol{R^T} \\\\\n                  \\boldsymbol{R} & \\boldsymbol{0} \\end{bmatrix}\n\\begin{bmatrix} \\boldsymbol{b_*} \\\\ \\boldsymbol{\\lambda_*} \\end{bmatrix} =\n\\begin{bmatrix} \\boldsymbol{X^T y} \\\\ \\boldsymbol{q} \\end{bmatrix}\\]\nIf the partitioned matrix is nonsingular, then the restricted least squares estimator is the upper part of the solution: \\[\\begin{bmatrix} \\boldsymbol{b_*} \\\\ \\boldsymbol{\\lambda_*} \\end{bmatrix} = \\begin{bmatrix} \\boldsymbol{X^TX} & \\boldsymbol{R^T} \\\\\n\\boldsymbol{R} & \\boldsymbol{0} \\end{bmatrix}^{-1}\\begin{bmatrix} \\boldsymbol{X^T y} \\\\ \\boldsymbol{q} \\end{bmatrix} = \\boldsymbol{A^{-1} d}\\]\nIf \\(\\boldsymbol{X^T X}\\) is nonsingular, then explicit solutions can be found for \\(\\boldsymbol{b_*\\ \\text{and}\\ \\lambda_*}\\): \\[\\boldsymbol{b_* = b - (X^T\\ X)^{-1}\\ R^T[R\\ (X^T\\ X)^{-1}\\ R^T]^{-1}(Rb - q)}\\] \\[\\boldsymbol{\\lambda_* = [R\\ (X^T\\ X)^{-1}\\ R^T]^{-1}(Rb - q)}\\]",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#lagrange-multiplier-tests-3",
+    "href": "mod-6-1-hypothesis.html#lagrange-multiplier-tests-3",
+    "title": "21  Hypothesis Testing",
+    "section": "21.18 Lagrange Multiplier Tests",
+    "text": "21.18 Lagrange Multiplier Tests\nWe can form a test using \\(\\boldsymbol{\\lambda_* = 0}\\): \\[\\boldsymbol{\\lambda_* = [R\\ (X^T\\ X)^{-1}\\ R^T]^{-1}(Rb - q)} = 0 \\]\nA test that \\(\\boldsymbol{\\lambda_* = 0}\\) should be equivalent to a test of the null hypothesis.\nIf the restrictions do not hold, then \\(\\boldsymbol{(Rb - q)} \\ne 0\\) and thus \\(\\boldsymbol{\\lambda_* \\ne 0}\\)\nWe can use a Wald test of the hypothesis that \\(\\boldsymbol{\\lambda_* = 0}\\): \\[W_{LM}    = \\ \\boldsymbol{(Rb - q)}^T\\ [\\boldsymbol{R}\\ [\\sigma^2\\ \\boldsymbol{(X^T\\ X)^{-1}}]\\ \\boldsymbol{R^T}]^{-1}\\  \\boldsymbol{(Rb - q)}\\]\nThe feasible version of the test is: \\[W_{LM}    = \\ \\boldsymbol{(Rb - q)}^T\\ [\\boldsymbol{R}\\ [s^2\\ \\boldsymbol{(X^T\\ X)^{-1}}]\\ \\boldsymbol{R^T}]^{-1}\\  \\boldsymbol{(Rb - q)}\\]",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#lagrange-multiplier-tests-4",
+    "href": "mod-6-1-hypothesis.html#lagrange-multiplier-tests-4",
+    "title": "21  Hypothesis Testing",
+    "section": "21.19 Lagrange Multiplier Tests",
+    "text": "21.19 Lagrange Multiplier Tests\nIn practice, the Lagrange Multiplier test is easy to estimate.\nThe chi-squared test statistic with \\(J\\) degrees of freedom can be estimated as \\(n \\times R^2\\) in the regression \\(\\boldsymbol{e_* = y - Xb_*}\\).\nFirst, estimate the restricted regression to obtain the restricted residuals \\(\\boldsymbol{e_*}\\).\nSecond, regress \\(\\boldsymbol{e_*}\\) on the independent variables from the unrestricted regression \\(\\boldsymbol{X}\\).\nThird, compute \\(W_LM = n \\times R^2\\) from this regression.\nIf \\(W_{LM} = n \\times R^2 &lt; \\chi^2_{critical}\\) then we fail to reject the null that the restrictions are appropriate\nIf \\(W_{LM} = n \\times R^2 \\ge \\chi^2_{critical}\\) then we reject the null that the restrictions are appropriate.",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#using-r",
+    "href": "mod-6-1-hypothesis.html#using-r",
+    "title": "21  Hypothesis Testing",
+    "section": "21.20 Using R",
+    "text": "21.20 Using R\n\nlibrary(broom)\nlibrary(lmtest)\nlibrary(sandwich)\nlibrary(stargazer)\nlibrary(nlme)\n\ndata(\"CASchools\")\n\nschools &lt;- CASchools %&gt;%\n  mutate(STR         = students/teachers) %&gt;%\n  mutate(math_read   = (math+read)/2) %&gt;%\n  mutate(CompStu     = computer/students) %&gt;%\n  mutate(NegComp     = 100 - CompStu) %&gt;%\n  mutate(ExpenStu    = expenditure/students)\n\nmodel_1 &lt;- lm(math_read ~ english + income +\n                ExpenStu, data = schools)\nmodel_1_resids &lt;- resid(model_1)\n\n#Regress squared residuals on independent variables\n\nmodel_1_r2 &lt;- lm(model_1_resids^2 ~ english + \n                   income + ExpenStu, data = schools)\n\nn_model_1_r2 &lt;- nobs(model_1_r2)\n\ng_model_1_r2 &lt;- glance(model_1_r2)\n\nk_model_1_r2 &lt;- g_model_1_r2$df\n\nr2_model_1_r2 &lt;- g_model_1_r2$r.squared\n\n\n#Obtain Chi-Squared Test Statistic at 5% level of significance\n\nchi_test &lt;- qchisq(.95, df = k_model_1_r2 - 1)\n\n#Manually calculate Breusch-Pagan Test Statistics\n\n#BP = Number of Observations times R-squared\n\nmodel_1_man_bptest &lt;- n_model_1_r2*r2_model_1_r2\n\n#BP Test of Model 1\n\nbptest(model_1)\n\n\n    studentized Breusch-Pagan test\n\ndata:  model_1\nBP = 16.54, df = 3, p-value = 0.0008786\n\nmodel_1_man_bptest\n\n[1] 16.53997",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-1-hypothesis.html#f-test-and-t-test",
+    "href": "mod-6-1-hypothesis.html#f-test-and-t-test",
+    "title": "21  Hypothesis Testing",
+    "section": "21.21 F-Test and T-Test",
+    "text": "21.21 F-Test and T-Test\nIf we are testing a single linear restriction that the jth coefficient is equal to a particular value, then \\(\\boldsymbol{R}\\) has a single row with a one in the jth position and zeros elsewhere.\n\\(\\boldsymbol{R[s^2\\ (X^T\\ X)^-1]R^T}\\) is the jth diagonal element of the estimated covariance matrix.\n\\(\\boldsymbol{Rb - q} = (b_j - q)\\) and the F-statistic is equal to: \\[F[1, n - K] = \\frac{(b_j - q)^2}{Est.Var(b_j)}\\]\nLet \\(\\hat{q}\\) be the sample estimate of \\(q\\), then we can define the t-statistic as: \\[t = \\frac{\\hat{q} - q}{se(\\hat{q})}\\]\nIt can be shown that the square of the t-statistic is equal to the F-statistic or: \\[t = \\frac{(\\hat{q} - q)^2}{var(\\hat{q}-q)} = \\frac{\\boldsymbol{(r^Tb - q)[r^T[s^2\\ (X^TX)^{-1}]r]^{-1} (r^Tb - q)}}{1}\\]\n\n#Estimate simple linear regression\n\nmodel_1 &lt;- lm(math_read ~ english + income +\n                ExpenStu, data = schools)\n\n#Generate Summary Results\nsummary(model_1)\n\n\nCall:\nlm(formula = math_read ~ english + income + ExpenStu, data = schools)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-43.857  -6.720   0.478   6.647  30.700 \n\nCoefficients:\n             Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 638.26921    1.60402 397.918   &lt;2e-16 ***\nenglish      -0.48121    0.03033 -15.864   &lt;2e-16 ***\nincome        1.50789    0.07426  20.305   &lt;2e-16 ***\nExpenStu      0.03447    0.03810   0.905    0.366    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 10.34 on 416 degrees of freedom\nMultiple R-squared:  0.7077,    Adjusted R-squared:  0.7056 \nF-statistic: 335.8 on 3 and 416 DF,  p-value: &lt; 2.2e-16\n\n#Conduct F-test if beta_english = 0\nftest &lt;- linearHypothesis(model_1, c(\"english = 0\"))\n\n#Square Root F-test = abs(t-test)\nsqrt(ftest$F[2])\n\n[1] 15.86436",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Hypothesis Testing</span>"
     ]
   }
 ]

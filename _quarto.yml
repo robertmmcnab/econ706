@@ -37,6 +37,10 @@ book:
         - mod-5-0-overview.qmd
         - mod-5-1-unbiased.qmd
         - mod-5-2-variance.qmd
+    - part: "Hypothesis Testing"
+      chapters:
+        - mod-6-0-overview.qmd
+        - mod-6-1-hypothesis.qmd
 
 execute:
   webR: true            # enables WebR chunks for interactive R in the browser

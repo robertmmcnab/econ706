@@ -1,0 +1,57 @@
+---
+title: "Module 6 Overview"
+---
+
+## Introduction
+
+Welcome to **Module 6** of ECON 706.
+
+Module 6 transitions from estimation to formal statistical inference, focusing on how we test theoretical propositions about population parameters using sample data. Building upon the finite sample properties established in the previous module, this section introduces the three fundamental pillars of hypothesis testing: Wald tests, fit-based tests, and Lagrange multiplier tests. Students will learn to formulate null and alternative hypotheses, understand the role of sampling variability, and utilize the OLS estimator to determine whether empirical evidence supports or contradicts specific restrictions on the model.
+
+The second half of the module provides a deep dive into the practical application of these tests, specifically the t-test for individual coefficients and the F-test for multiple linear restrictions. By examining the relationship between unrestricted and restricted models, students will learn how to measure the "cost" of imposing restrictions on a regression. The module concludes with hands-on examples using R, demonstrating how to implement joint hypothesis tests and interpret diagnostic output to make rigorous, evidence-based conclusions about economic relationships.
+
+## Learning Objectives
+
+By the end of this module, you should be able to:
+
+-   **MLO 1**: Differentiate between the three fundamental approaches to statistical inference: Wald tests, fit-based tests, and Lagrange multiplier tests.
+-   **MLO 2**:Formulate and test linear restrictions on population parameters using the t-test for individual coefficients and the F-test for joint hypotheses.
+-   **MLO 3**:Construct restricted and unrestricted regression models to calculate the change in the Sum of Squared Residuals (SSR) for fit-based hypothesis testing.
+-   **MLO 4**:Evaluate the statistical significance of economic relationships by interpreting p-values and critical values within a finite sample framework.
+-   **MLO 5**:Execute and interpret joint hypothesis tests in R using the linearHypothesis function to validate theoretical constraints on empirical data.
+
+------------------------------------------------------------------------
+
+## Required Texts
+
+Please select the links provided to access material where applicable.
+
+-   William H. Greene. (2018). *Econometric Analysis, 8th Edition*. Available from Pearson. Chapters 3-6.
+
+-   Rafael Irizarry. (2025). [Introduction to Data Science: Data Wrangling and Visualization with R](https://rafalab.dfci.harvard.edu/dsbook-part-1/). Chapters 1-2.
+
+-   Hadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund. (2025) [R for Data Science](https://r4ds.hadley.nz/). Sections 1-19.
+
+-   [Online R documentation](https://cran.r-project.org/manuals.html)
+
+-   [RStudio Cheat Sheets](https://posit.co/resources/cheatsheets/)
+
+------------------------------------------------------------------------
+
+## Module To Do List
+
+-   Complete the hands-on coding exercises embedded in each lesson (MLO 1, 5)\
+-   Use WebR to experiment directly in your browser (MLO 1, 2, 3, 4, 5)\
+-   Complete the weekly class assignment (MLO 1, 2, 3, 4, 5)\
+-   Take the weekly knowledge quiz (MLO 1, 2, 3, 4, 5)\
+
+------------------------------------------------------------------------
+
+## Lessons in this Module
+
+-   [6.1 - Hypothesis Tests](mod-6-1-hypothesis.qmd)
+
+
+------------------------------------------------------------------------
+
+Next: Start with [**Hypothesis Tests**](mod-6-1-hypothesis.qmd).

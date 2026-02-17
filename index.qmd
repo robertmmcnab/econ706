@@ -56,7 +56,13 @@ title: "ECON 706"
 <li><a href="mod-5-2-variance.qmd">Variance of the Least Squares Estimator</a></li>
 </ul>
 
+## Module 06 - Hypothesis Testing
 
+<ul>
+<li><a href="mod-6-0-overview.qmd">Module 6 Overview</a></li>
+<li><a href="mod-6-1-hypothesis.qmd">Hypothesis Testing</a></li>
+
+</ul>
 
 ------------------------------------------------------------------------
 
