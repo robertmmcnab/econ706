@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>21&nbsp; Hypothesis Testing – ECON 706</title>
+<title>21&nbsp; Single Hypothesis Testing – ECON 706</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,6 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./mod-6-2-multiple.html" rel="next">
 <link href="./mod-6-0-overview.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -104,6 +105,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -146,7 +151,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-6-0-overview.html">Hypothesis Testing</a></li><li class="breadcrumb-item"><a href="./mod-6-1-hypothesis.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-6-0-overview.html">Hypothesis Testing</a></li><li class="breadcrumb-item"><a href="./mod-6-1-hypothesis.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Single Hypothesis Testing</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -371,7 +376,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./mod-6-1-hypothesis.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Single Hypothesis Testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mod-6-2-multiple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -387,35 +398,22 @@ window.Quarto = {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">21.1</span> Introduction</a></li>
-  <li><a href="#three-approaches" id="toc-three-approaches" class="nav-link" data-scroll-target="#three-approaches"><span class="header-section-number">21.2</span> Three Approaches</a></li>
-  <li><a href="#null-hypothesis" id="toc-null-hypothesis" class="nav-link" data-scroll-target="#null-hypothesis"><span class="header-section-number">21.3</span> Null Hypothesis</a></li>
-  <li><a href="#alternative-hypothesis" id="toc-alternative-hypothesis" class="nav-link" data-scroll-target="#alternative-hypothesis"><span class="header-section-number">21.4</span> Alternative Hypothesis</a></li>
-  <li><a href="#wald-based-tests" id="toc-wald-based-tests" class="nav-link" data-scroll-target="#wald-based-tests"><span class="header-section-number">21.5</span> Wald Based Tests</a></li>
-  <li><a href="#fit-based-tests" id="toc-fit-based-tests" class="nav-link" data-scroll-target="#fit-based-tests"><span class="header-section-number">21.6</span> Fit Based Tests</a></li>
-  <li><a href="#lagrange-multiplier-tests" id="toc-lagrange-multiplier-tests" class="nav-link" data-scroll-target="#lagrange-multiplier-tests"><span class="header-section-number">21.7</span> Lagrange Multiplier Tests</a></li>
-  <li><a href="#general-linear-hypotheses" id="toc-general-linear-hypotheses" class="nav-link" data-scroll-target="#general-linear-hypotheses"><span class="header-section-number">21.8</span> General Linear Hypotheses</a></li>
-  <li><a href="#one-hypothesis" id="toc-one-hypothesis" class="nav-link" data-scroll-target="#one-hypothesis"><span class="header-section-number">21.9</span> One Hypothesis</a></li>
-  <li><a href="#what-is-r" id="toc-what-is-r" class="nav-link" data-scroll-target="#what-is-r"><span class="header-section-number">21.10</span> What is R?</a></li>
-  <li><a href="#the-f-statistic" id="toc-the-f-statistic" class="nav-link" data-scroll-target="#the-f-statistic"><span class="header-section-number">21.11</span> The F-Statistic</a></li>
-  <li><a href="#the-f-test" id="toc-the-f-test" class="nav-link" data-scroll-target="#the-f-test"><span class="header-section-number">21.12</span> The F-Test</a></li>
-  <li><a href="#f-test-example" id="toc-f-test-example" class="nav-link" data-scroll-target="#f-test-example"><span class="header-section-number">21.13</span> F Test Example</a></li>
-  <li><a href="#fit-based-test" id="toc-fit-based-test" class="nav-link" data-scroll-target="#fit-based-test"><span class="header-section-number">21.14</span> Fit Based Test</a></li>
-  <li><a href="#fit-based-test-1" id="toc-fit-based-test-1" class="nav-link" data-scroll-target="#fit-based-test-1"><span class="header-section-number">21.15</span> Fit Based Test</a></li>
-  <li><a href="#lagrange-multiplier-tests-1" id="toc-lagrange-multiplier-tests-1" class="nav-link" data-scroll-target="#lagrange-multiplier-tests-1"><span class="header-section-number">21.16</span> Lagrange Multiplier Tests</a></li>
-  <li><a href="#lagrange-multiplier-tests-2" id="toc-lagrange-multiplier-tests-2" class="nav-link" data-scroll-target="#lagrange-multiplier-tests-2"><span class="header-section-number">21.17</span> Lagrange Multiplier Tests</a></li>
-  <li><a href="#lagrange-multiplier-tests-3" id="toc-lagrange-multiplier-tests-3" class="nav-link" data-scroll-target="#lagrange-multiplier-tests-3"><span class="header-section-number">21.18</span> Lagrange Multiplier Tests</a></li>
-  <li><a href="#lagrange-multiplier-tests-4" id="toc-lagrange-multiplier-tests-4" class="nav-link" data-scroll-target="#lagrange-multiplier-tests-4"><span class="header-section-number">21.19</span> Lagrange Multiplier Tests</a></li>
-  <li><a href="#using-r" id="toc-using-r" class="nav-link" data-scroll-target="#using-r"><span class="header-section-number">21.20</span> Using R</a></li>
-  <li><a href="#f-test-and-t-test" id="toc-f-test-and-t-test" class="nav-link" data-scroll-target="#f-test-and-t-test"><span class="header-section-number">21.21</span> F-Test and T-Test</a></li>
+  <li><a href="#null-hypothesis" id="toc-null-hypothesis" class="nav-link" data-scroll-target="#null-hypothesis"><span class="header-section-number">21.2</span> Null Hypothesis</a></li>
+  <li><a href="#alternative-hypothesis" id="toc-alternative-hypothesis" class="nav-link" data-scroll-target="#alternative-hypothesis"><span class="header-section-number">21.3</span> Alternative Hypothesis</a></li>
+  <li><a href="#general-linear-hypotheses" id="toc-general-linear-hypotheses" class="nav-link" data-scroll-target="#general-linear-hypotheses"><span class="header-section-number">21.4</span> General Linear Hypotheses</a></li>
+  <li><a href="#one-linear-hypothesis" id="toc-one-linear-hypothesis" class="nav-link" data-scroll-target="#one-linear-hypothesis"><span class="header-section-number">21.5</span> One Linear Hypothesis</a></li>
+  <li><a href="#the-t-test" id="toc-the-t-test" class="nav-link" data-scroll-target="#the-t-test"><span class="header-section-number">21.6</span> The T-Test</a></li>
+  <li><a href="#decision-rule-t-test" id="toc-decision-rule-t-test" class="nav-link" data-scroll-target="#decision-rule-t-test"><span class="header-section-number">21.7</span> Decision Rule: T-test</a></li>
+  <li><a href="#example-in-r" id="toc-example-in-r" class="nav-link" data-scroll-target="#example-in-r"><span class="header-section-number">21.8</span> Example in R</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-6-0-overview.html">Hypothesis Testing</a></li><li class="breadcrumb-item"><a href="./mod-6-1-hypothesis.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-6-0-overview.html">Hypothesis Testing</a></li><li class="breadcrumb-item"><a href="./mod-6-1-hypothesis.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Single Hypothesis Testing</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></h1>
+<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Single Hypothesis Testing</span></h1>
 </div>
 
 
@@ -434,22 +432,10 @@ window.Quarto = {
 
 <section id="introduction" class="level2" data-number="21.1">
 <h2 data-number="21.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">21.1</span> Introduction</h2>
-<p>Module 6 focuses on the transition from parameter estimation to formal statistical inference through the framework of hypothesis testing. Students will examine the three fundamental approaches to inference—Wald, fit-based, and Lagrange multiplier tests—to determine whether empirical evidence supports specific theoretical restrictions on population parameters. By mastering the application of <span class="math inline">\(t\)</span>-tests for individual coefficients and <span class="math inline">\(F\)</span>-tests for joint hypotheses, and implementing these procedures in R, students will gain the analytical tools necessary to assess the statistical significance of economic relationships and the relative performance of restricted versus unrestricted models.</p>
+<p>Module 6 focuses on the transition from parameter estimation to formal statistical inference through the framework of hypothesis testing. Students will examine the three fundamental approaches to inference—Wald, fit-based, and Lagrange multiplier tests—to determine whether empirical evidence supports specific theoretical restrictions on population parameters. By mastering the application of <span class="math inline">\(t\)</span>-tests for individual coefficients, students will gain the analytical tools necessary to assess the statistical significance of economic relationships.</p>
 </section>
-<section id="three-approaches" class="level2" data-number="21.2">
-<h2 data-number="21.2" class="anchored" data-anchor-id="three-approaches"><span class="header-section-number">21.2</span> Three Approaches</h2>
-<p>There are three general approaches to hypothesis testing:</p>
-<ul>
-<li><p><strong>Wald</strong> tests</p></li>
-<li><p><strong>Fit based</strong> tests</p></li>
-<li><p><strong>Lagrange multiplier</strong> tests</p></li>
-</ul>
-<p>The hypothesis of interest is about the <strong>population</strong>, that is, we have estimates and wish to examine questions about the population parameters.</p>
-<p>If our hypothesis is correct, then the sample statistics should approximate the description of the population parameters.</p>
-<p>If our hypothesis is incorrect, then the sample statistics will deviate from our description of the population parameters.</p>
-</section>
-<section id="null-hypothesis" class="level2" data-number="21.3">
-<h2 data-number="21.3" class="anchored" data-anchor-id="null-hypothesis"><span class="header-section-number">21.3</span> Null Hypothesis</h2>
+<section id="null-hypothesis" class="level2" data-number="21.2">
+<h2 data-number="21.2" class="anchored" data-anchor-id="null-hypothesis"><span class="header-section-number">21.2</span> Null Hypothesis</h2>
 <p>The <strong>null hypothesis</strong>, <span class="math inline">\(H_0\)</span>, is the ‘status quo’ or typically the assumption of ‘no effect.’</p>
 <p>The null hypothesis is the claim that we will ‘operate under’ unless ‘strong evidence’ otherwise.</p>
 <p>In regression analysis, the null hypothesis is typically that the regressor of interest has no impact on the dependent variable. In other words,</p>
@@ -459,8 +445,8 @@ H_0: \beta_k = 0
 <p><strong>We can only reject or fail to reject the null hypothesis given the evidence at hand.</strong></p>
 <p>In econometrics, we never “accept” the null hypothesis. We simply state that the evidence is insufficient to disprove it.</p>
 </section>
-<section id="alternative-hypothesis" class="level2" data-number="21.4">
-<h2 data-number="21.4" class="anchored" data-anchor-id="alternative-hypothesis"><span class="header-section-number">21.4</span> Alternative Hypothesis</h2>
+<section id="alternative-hypothesis" class="level2" data-number="21.3">
+<h2 data-number="21.3" class="anchored" data-anchor-id="alternative-hypothesis"><span class="header-section-number">21.3</span> Alternative Hypothesis</h2>
 <p>The <strong>alternative hypothesis</strong> is the claim we are testing. Typically, the alternative represents the presence of an effect, a difference, or a relationship.</p>
 <p>We do not test the alternative hypothesis. We test whether there is sufficient evidence to reject the null hypothesis. In econometrics, where the null hypothesis is often the true value of the population parameter is equal to zero, we investigate whether, for a given sample, there is sufficient evidence to reject the null of zero (‘no effect’).</p>
 <p>In most cases, we have a two-sided null and alternative hypothesis, that is, we are not testing a specific direction, merely whether we can reject the null hypothesis of zero.</p>
@@ -468,36 +454,8 @@ H_0: \beta_k = 0
 H_A: \beta \ne 0
 \]</span></p>
 </section>
-<section id="wald-based-tests" class="level2" data-number="21.5">
-<h2 data-number="21.5" class="anchored" data-anchor-id="wald-based-tests"><span class="header-section-number">21.5</span> Wald Based Tests</h2>
-<p>The hypothesis states that <span class="math inline">\(\boldsymbol{\beta}\)</span> adheres to a restriction or set of restrictions.</p>
-<p>The restrictions, in general, can be stated at <span class="math inline">\(\boldsymbol{c(\beta) = 0}\)</span>.</p>
-<p>Since <span class="math inline">\(\boldsymbol{b}\)</span> is a consistent estimator of <span class="math inline">\(\boldsymbol{\beta}\)</span>, <span class="math inline">\(\boldsymbol{c(b) = 0}\)</span> should be approximately 0.</p>
-<p>The Wald test measures how close <span class="math inline">\(\boldsymbol{c(b)}\)</span> is to 0.</p>
-<p>The Wald test is based on the <strong>unrestricted</strong> model.</p>
-<p>The Wald test employs the unrestricted and restricted model estimates.</p>
-<p>The test measures how close the estimated unrestricted model is to the hypothesized restrictions.</p>
-</section>
-<section id="fit-based-tests" class="level2" data-number="21.6">
-<h2 data-number="21.6" class="anchored" data-anchor-id="fit-based-tests"><span class="header-section-number">21.6</span> Fit Based Tests</h2>
-<p>Fit based tests are based on <span class="math inline">\(R^2\)</span> or the sum of squares.</p>
-<p>The best possible fit is obtained using the unrestricted least squares model.</p>
-<p>Imposing the hypothesized restrictions degrades the fit of the least squares model, the question is <strong>how much</strong>.</p>
-<p>The fit based test compares <span class="math inline">\(R^2\)</span> in the unrestricted and restricted models.</p>
-<p>If the difference between the unrestricted and restricted models is “small”, the restrictions are valid.</p>
-<p>If <span class="math inline">\(R^2\)</span> falls significantly when the restrictions are imposed, the restrictions are likely invalid.</p>
-</section>
-<section id="lagrange-multiplier-tests" class="level2" data-number="21.7">
-<h2 data-number="21.7" class="anchored" data-anchor-id="lagrange-multiplier-tests"><span class="header-section-number">21.7</span> Lagrange Multiplier Tests</h2>
-<p>The Lagrange Multiplier (LM) test is based on the <strong>restricted</strong> model.</p>
-<p>Imposing <strong>incorrect</strong> restrictions yields a failed model.</p>
-<p>If our hypothesis is that <span class="math inline">\(\beta_1 = 0\)</span>, then the LM test imposes the restriction and uses the residuals from the regression that <strong>omits</strong> <span class="math inline">\(x_1\)</span>.</p>
-<p>If the restrictions are incorrect, then the omission of <span class="math inline">\(x_1\)</span> induces omitted variable bias.</p>
-<p>The residuals from the restricted regression will be correlated with the other independent variables if the restriction is invalid.</p>
-<p>The LM test statistic is based on the correlation between the restricted regression residuals and the independent variables that are not omitted from the regression.</p>
-</section>
-<section id="general-linear-hypotheses" class="level2" data-number="21.8">
-<h2 data-number="21.8" class="anchored" data-anchor-id="general-linear-hypotheses"><span class="header-section-number">21.8</span> General Linear Hypotheses</h2>
+<section id="general-linear-hypotheses" class="level2" data-number="21.4">
+<h2 data-number="21.4" class="anchored" data-anchor-id="general-linear-hypotheses"><span class="header-section-number">21.4</span> General Linear Hypotheses</h2>
 <p>We are imposing one or more linear restrictions on the linear restriction model, that is, for the general linear model <span class="math inline">\(\boldsymbol{y = X\beta + \epsilon}\)</span>, we are imposing <span class="math inline">\(\boldsymbol{J}\)</span> linear restrictions.</p>
 <p>Let <span class="math inline">\(\boldsymbol{R}\)</span> be a matrix where each row of <span class="math inline">\(\boldsymbol{R}\)</span> contains the coefficients of one of the restrictions.</p>
 <p><span class="math inline">\(\boldsymbol{R}\)</span> may have one or many rows.</p>
@@ -505,313 +463,144 @@ H_A: \beta \ne 0
 <p>The hypothesis implied by imposing the restrictions can be written as: <span class="math display">\[H_0:\ \boldsymbol{R\ \beta\ - \ q = 0}\]</span></p>
 <p><span class="math display">\[H_A:\ \boldsymbol{R\ \beta\ - \ q \ne 0}\]</span></p>
 </section>
-<section id="one-hypothesis" class="level2" data-number="21.9">
-<h2 data-number="21.9" class="anchored" data-anchor-id="one-hypothesis"><span class="header-section-number">21.9</span> One Hypothesis</h2>
-<p>Assume that <span class="math inline">\(\boldsymbol{y = X\beta + \epsilon}\)</span> and we hypothesize that <span class="math inline">\(\beta_3 = 0\)</span> then</p>
+<section id="one-linear-hypothesis" class="level2" data-number="21.5">
+<h2 data-number="21.5" class="anchored" data-anchor-id="one-linear-hypothesis"><span class="header-section-number">21.5</span> One Linear Hypothesis</h2>
+<p>Assume that the regression model is:</p>
 <p><span class="math display">\[
-H_0: \beta_3 = 0 \\
-H_A: \beta_3 \ne 0\]</span></p>
-<p>This means that the <strong>R</strong> matrix has 0’s for every element EXCEPT for <span class="math inline">\(\beta_3\)</span>.<br>
-<span class="math display">\[\boldsymbol{R} = [0\quad 0\quad 1\quad 0\quad \dots\quad 0];\quad \boldsymbol{q} = 0\]</span></p>
-<p>Assume that <span class="math inline">\(\boldsymbol{y = X\beta + \epsilon}\)</span> and we hypothesize that <span class="math inline">\(\beta_3 = \beta_4\)</span> then <span class="math display">\[\boldsymbol{R} = [0\quad 0\quad 1\quad -1\quad 0\quad \dots\quad 0];\quad \boldsymbol{q} = 0\]</span></p>
-<p>Assume that <span class="math inline">\(\boldsymbol{y = X\beta + \epsilon}\)</span> and we hypothesize that <span class="math inline">\(\beta_2 + \beta_3 + \beta_4 = 1\)</span> then <span class="math display">\[\boldsymbol{R} = [0\quad 1\quad 1\quad 1\quad 0\quad \dots\quad 0];\quad \boldsymbol{q} = 1\]</span> Assume that <span class="math inline">\(\boldsymbol{y = X\beta + \epsilon}\)</span> and we hypothesize that <span class="math inline">\(\beta_2 = 0\)</span>, <span class="math inline">\(\beta_3 = 0\)</span>, <span class="math inline">\(\beta_k = 0\)</span> then <span class="math display">\[\boldsymbol{R} = \begin{bmatrix}
-      0 &amp; 0 &amp; 0 &amp;\dots  &amp; 0 \\
-      0 &amp; 1 &amp; 0 &amp; \dots  &amp; 0 \\
-      0 &amp; 0 &amp; 1 &amp; \dots  &amp; 0 \\
-      \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
-      \end{bmatrix}
-      ;
-      \quad
-      \boldsymbol{q}
-      \begin{bmatrix}
-      0 \\
-      0 \\
-      0
-      \end{bmatrix}\]</span></p>
+\boldsymbol{y = \beta_1 + \beta_2 x_2 + \beta_3 x_3 + \dots + \beta_k x_k + \epsilon}
+\]</span></p>
+<p>and we hypothesize that <span class="math inline">\(\beta_3 = 0\)</span> so that:</p>
+<p><span class="math display">\[
+H_0: \beta_3 = 0
+\]</span></p>
+<p><span class="math display">\[H_A: \beta_3 \ne 0\]</span></p>
+<p>This means that the <strong>R</strong> matrix has 0’s for every element EXCEPT for <span class="math inline">\(\beta_3\)</span> <span class="math display">\[\boldsymbol{R} = [0\quad 0\quad 1\quad 0\quad \dots\quad 0];\quad \boldsymbol{q} = 0\]</span></p>
+<p>So, we can restate the null:</p>
+<p><span class="math display">\[
+H_0: \boldsymbol{R \beta - q = 0}
+\]</span></p>
+<p><span class="math display">\[H_0: \boldsymbol{R\beta} = [0\quad 0\quad 1\quad 0\quad \dots\quad 0]\begin{bmatrix}{\beta_1 \\ \beta_2 \\ \beta_3 \\ \vdots \\ \beta_k}\end{bmatrix}= 0 = \boldsymbol{q}\]</span></p>
+<p>If we multiply this out, we find:</p>
+<p><span class="math display">\[
+H_0: (0 \times\beta_1)+(0 \times \beta_2)+(1 \times \beta_3) + \dots + (0 \times \beta_k) = 0
+\]</span></p>
+<p><span class="math display">\[
+H_0: \beta_3 = 0
+\]</span></p>
 </section>
-<section id="what-is-r" class="level2" data-number="21.10">
-<h2 data-number="21.10" class="anchored" data-anchor-id="what-is-r"><span class="header-section-number">21.10</span> What is R?</h2>
-<p>The <span class="math inline">\(\boldsymbol{R}\)</span> matrix must contain <span class="math inline">\(K\)</span> columns to be conformable to <span class="math inline">\(\boldsymbol{\beta}\)</span>.</p>
-<p>The <span class="math inline">\(\boldsymbol{R}\)</span> matrix contains <span class="math inline">\(J\)</span> rows representing the <span class="math inline">\(J\)</span> restrictions.</p>
-<p>The <span class="math inline">\(\boldsymbol{R}\)</span> matrix has full row rank, that is, <span class="math inline">\(J \le K\)</span>.</p>
-<p>The <span class="math inline">\(\boldsymbol{R}\)</span> matrix consists of linearly independent rows, which implies that <span class="math inline">\(J &lt; K\)</span>.</p>
-<p>If <span class="math inline">\(K\)</span> coefficients satisfy <span class="math inline">\(J = K\)</span> restrictions, then <span class="math inline">\(\boldsymbol{R}\)</span> is square and nonsingular.</p>
-<p>If <span class="math inline">\(\boldsymbol{R}\)</span> is square and nonsingular then <span class="math inline">\(\boldsymbol{\beta = R^{-1}\ q}\)</span>.</p>
-<p>The restriction <span class="math inline">\(\boldsymbol{R\ \beta = q}\)</span> imposes <span class="math inline">\(J\)</span> restrictions on <span class="math inline">\(K\)</span> otherwise free parameters.</p>
-<p>In other words, <span class="math inline">\(\boldsymbol{R}\)</span> can consist of a one restriction, <span class="math inline">\(\beta_2 = 0\)</span> or it may have many restrictions <span class="math inline">\(\beta_2 = 0, \beta_3 = 1, \beta_4 + \beta_5 = 2\)</span>.</p>
+<section id="the-t-test" class="level2" data-number="21.6">
+<h2 data-number="21.6" class="anchored" data-anchor-id="the-t-test"><span class="header-section-number">21.6</span> The T-Test</h2>
+<p>Previously, we derived the standard error for each estimated coefficient.</p>
+<p>We can test a single linear hypothesis using the <strong>t-test</strong>.</p>
+<p>The t-test can be thought of as a ‘ratio of distributions.’</p>
+<p>For a single estimated coefficient, <span class="math inline">\(b\)</span>, under the null hypothesis, <span class="math inline">\(H_0: \beta = 0\)</span>, the difference</p>
+<p><span class="math display">\[
+(b - \beta)
+\]</span></p>
+<p>measures the ‘distance’ from the estimate to the value of the population coefficient under the null.</p>
+<p>We normalize this ‘distance’ relative to the standard error of the estimated coefficient.</p>
+<p>The ‘farther’ the estimated coefficient is from the hypothesized value under the null, expressed in standard error units, the more likely the estimated coefficient is not equal to the hypothesized value under the null.</p>
+<p>The t-test is equal to:</p>
+<p><span class="math display">\[
+t_{n-K} \sim \frac{b - \beta}{se(b)}
+\]</span></p>
 </section>
-<section id="the-f-statistic" class="level2" data-number="21.11">
-<h2 data-number="21.11" class="anchored" data-anchor-id="the-f-statistic"><span class="header-section-number">21.11</span> The F-Statistic</h2>
-<p>Consider the set of <span class="math inline">\(J\)</span> linear restrictions in the null and alternative hypotheses: <span class="math display">\[H_0:\ \boldsymbol{R\ \beta\ - \ q = 0}\]</span> <span class="math display">\[H_0:\ \boldsymbol{R\ \beta\ - \ q \ne 0}\]</span></p>
-<p>Given <span class="math inline">\(\boldsymbol{b}\)</span>, we want to compute the <strong>discrepancy vector</strong> defined as <span class="math inline">\(\boldsymbol{R\ b - q = m}\)</span>.</p>
-<p><span class="math inline">\(\boldsymbol{m}\)</span> is unlikely to be exactly zero, but the question is how ‘close’ is <span class="math inline">\(\boldsymbol{m}\)</span> to zero.</p>
-<p>Because <span class="math inline">\(\boldsymbol{b}\)</span> is normally distributed and <span class="math inline">\(\boldsymbol{m}\)</span> in a linear function of <span class="math inline">\(\boldsymbol{b}\)</span>, <span class="math inline">\(\boldsymbol{m}\)</span> is normally distributed.</p>
-<p>If the null hypothesis cannot be rejected, then <span class="math inline">\(\boldsymbol{R b - q = 0}\)</span> and <span class="math inline">\(\boldsymbol{m}\)</span> has a mean vector <span class="math display">\[E[\boldsymbol{m | X} ] = E[(\boldsymbol{R\ b - q)| X] = 0}\]</span> <span class="math display">\[E[\boldsymbol{m | X} ] =  \boldsymbol{R}\ E[\boldsymbol{b|X}] - \boldsymbol{q = 0}\]</span> <span class="math display">\[E[\boldsymbol{m | X} ] =  \boldsymbol{R\ \beta - q = 0}\]</span></p>
+<section id="decision-rule-t-test" class="level2" data-number="21.7">
+<h2 data-number="21.7" class="anchored" data-anchor-id="decision-rule-t-test"><span class="header-section-number">21.7</span> Decision Rule: T-test</h2>
+<p>To decide whether to reject <span class="math inline">\(H_0\)</span>, we compare the calculated t-statistic to a <strong>critical value</strong>.</p>
+<p>We use different levels of statistical significance, ranging from <span class="math inline">\(\alpha = 0.10\)</span> (10% statistical significance) to <span class="math inline">\(\alpha = 0.05\)</span> (5% statistical significance) to <span class="math inline">\(\alpha = 0.01\)</span> (1% level of statistical significance).</p>
+<p>If the absolute value of the calculated t-statistic is greater than the critical value, then we reject the null hypothesis. On the other hand, if the absolute value of the t-statistic is less than or equal to the critical value of the t-statistic, we fail to reject the null hypothesis or:</p>
+<p><span class="math display">\[
+|t_{calc}| &gt; t_{crit} \, \rightarrow \text{reject} \, H_0
+\]</span></p>
+<p><span class="math display">\[
+|t_{calc}| \le t_{crit} \, \rightarrow \text{fail to reject} \, H_0
+\]</span></p>
 </section>
-<section id="the-f-test" class="level2" data-number="21.12">
-<h2 data-number="21.12" class="anchored" data-anchor-id="the-f-test"><span class="header-section-number">21.12</span> The F-Test</h2>
-<p>Under the null where <span class="math inline">\(\boldsymbol{q = 0}\)</span>, the variance of the discrepancy vector, $$, is equal to: <span class="math display">\[var[\boldsymbol{m|X}]    =  var(\boldsymbol{R\ b - q|X})\]</span> <span class="math display">\[var[\boldsymbol{m|X}]    =  \boldsymbol{R\ [var(b|X)]\ R^T}\]</span> <span class="math display">\[var[\boldsymbol{m|X}]    =  \boldsymbol{R}\ [\sigma^2 \boldsymbol{(X^T\ X)^{-1}}]\ \boldsymbol{R^T}\]</span></p>
-<p>We can base a test of the null hypothesis <strong>Wald Criterion</strong>.</p>
-<p>Conditioned on <span class="math inline">\(\boldsymbol{X}\)</span>, the Wald-criterion based test is: <span class="math display">\[W   = \boldsymbol{m^T}\ (var[\boldsymbol{m|X}])^{-1}\ \boldsymbol{m}\]</span> <span class="math display">\[W = \boldsymbol{(Rb - q)}^T\ [\boldsymbol{R}\ [\sigma^2 \boldsymbol{(X^T\ X)^{-1}}]\ \boldsymbol{R^T}]^{-1}\  \boldsymbol{(Rb - q)} \sim \chi^2\]</span></p>
-<p>The Wald test using <span class="math inline">\(\sigma^2\)</span>, however, is not feasible as we do not observe <span class="math inline">\(\sigma^2\)</span>.</p>
-<p>We can employ <span class="math inline">\(s^2\)</span> instead of <span class="math inline">\(\sigma^2\)</span> and divide the result by <span class="math inline">\(J\)</span> to obtain an F-statistic: <span class="math display">\[F    =  \frac{W}{J}\frac{\sigma^2}{s^2}\]</span></p>
-<p><span class="math display">\[F[J,n-K|\boldsymbol{X}]    = \ \frac{\boldsymbol{(Rb - q)}^T\ [\boldsymbol{R}\ [s^2\ \boldsymbol{(X^T\ X)^{-1}}]^{-1}\ \boldsymbol{R^T}]\  \boldsymbol{(Rb - q)}}{J} \sim \chi^2\]</span> We employ unrestricted and restricted regressions to estimate the F-statistic.</p>
-<p>The restricted regression residuals are <span class="math inline">\(e_r\)</span>.</p>
-<p>The unrestricted regression residuals are <span class="math inline">\(e_u\)</span> so the F-statistic is: <span class="math display">\[F(J, n-k) = \frac{e_r^T e_r - e_u^T e_u}{e_u^T e_u}\frac{n-k}{J}\]</span></p>
-</section>
-<section id="f-test-example" class="level2" data-number="21.13">
-<h2 data-number="21.13" class="anchored" data-anchor-id="f-test-example"><span class="header-section-number">21.13</span> F Test Example</h2>
+<section id="example-in-r" class="level2" data-number="21.8">
+<h2 data-number="21.8" class="anchored" data-anchor-id="example-in-r"><span class="header-section-number">21.8</span> Example in R</h2>
+<p>In the code chunk below, we demonstrate how to estimate the t-statistic for simulated data and test the null hypothesis that each coefficient is equal to zero.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: car</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: carData</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'car'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:dplyr':
-
-    recode</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: lmtest</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: sandwich</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: survival</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ forcats 1.0.1     ✔ stringr 1.6.0
-✔ purrr   1.2.0     ✔ tibble  3.3.0
-✔ readr   2.1.6     ✔ tidyr   1.3.1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter()          masks stats::filter()
-✖ xts::first()             masks dplyr::first()
-✖ kableExtra::group_rows() masks dplyr::group_rows()
-✖ dplyr::lag()             masks stats::lag()
-✖ xts::last()              masks dplyr::last()
-✖ car::recode()            masks dplyr::recode()
-✖ purrr::some()            masks car::some()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate the unrestricted regression</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>model_u <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> cyl <span class="sc">+</span> hp <span class="sc">+</span> wt <span class="sc">+</span> gear <span class="sc">+</span> am, <span class="at">data =</span> mtcars)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain the unrestricted residuals</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>e_u <span class="ot">&lt;-</span> model_u<span class="sc">$</span>residuals</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate the restricted regression</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>model_r <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> gear <span class="sc">+</span> am, <span class="at">data =</span> mtcars)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain the restricted residuals</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>e_r <span class="ot">&lt;-</span> model_r<span class="sc">$</span>residuals</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the Residual Sum of Squares</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>e_u_ss <span class="ot">&lt;-</span> <span class="fu">t</span>(e_u) <span class="sc">%*%</span> e_u</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>e_r_ss <span class="ot">&lt;-</span> <span class="fu">t</span>(e_r) <span class="sc">%*%</span> e_r</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co"># J = 2</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="co"># (N-k) = 32 - 6 where k = 5 + 1 (intercept)</span></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>F <span class="ot">&lt;-</span> ((e_r_ss <span class="sc">-</span> e_u_ss)<span class="sc">/</span> e_u_ss) <span class="sc">*</span> ((<span class="dv">32-6</span>)<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>F</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>         [,1]
-[1,] 8.170331</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate using linearHypothesis function</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>model_u <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> cyl <span class="sc">+</span> hp <span class="sc">+</span> wt <span class="sc">+</span> gear <span class="sc">+</span> am, <span class="at">data =</span> mtcars)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">linearHypothesis</span>(model_u, <span class="fu">c</span>(<span class="st">"cyl = 0"</span>, <span class="st">"hp = 0"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Linear hypothesis test:
-cyl = 0
-hp = 0
-
-Model 1: restricted model
-Model 2: mpg ~ cyl + hp + wt + gear + am
-
-  Res.Df    RSS Df Sum of Sq      F   Pr(&gt;F)   
-1     28 276.40                                
-2     26 169.73  2    106.67 8.1703 0.001765 **
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-</section>
-<section id="fit-based-test" class="level2" data-number="21.14">
-<h2 data-number="21.14" class="anchored" data-anchor-id="fit-based-test"><span class="header-section-number">21.14</span> Fit Based Test</h2>
-<p>Let <span class="math inline">\(\boldsymbol{e_r}\)</span> be the residuals from the restricted least squares regression <span class="math inline">\(\boldsymbol{y = X\ b_r}\)</span>. Then <span class="math display">\[\boldsymbol{e_r = y - X\ b_r = y - X\ b - X(b_r - b)}\]</span> <span class="math display">\[\boldsymbol{e_r =e - X(b_r - b)}\]</span></p>
-<p>We can now obtain <span class="math inline">\(\boldsymbol{e_r^T e_r}\)</span> <span class="math display">\[\boldsymbol{e_r^T e_r} = [\boldsymbol{e - X(b_r - b)}]^T\ [\boldsymbol{e - X(b_r - b)}]\]</span> <span class="math display">\[\boldsymbol{e_r^T e_r} = [\boldsymbol{e^T - (b_r - b)^T\ X^T}]\ [\boldsymbol{e - X(b_r - b)}]\]</span> <span class="math display">\[\boldsymbol{e_r^T e_r} = \boldsymbol{e^Te - e^T\ X(b_r - b) - (b_r - b)^T\ X^Te + (b_r - b)^T\ X^T\ X(b_r - b)}\]</span></p>
-<p>Since <span class="math inline">\(\boldsymbol{e^T\ X = X^T\ e = 0}\)</span> <span class="math display">\[\boldsymbol{e_r^T e_r} = \boldsymbol{e^Te + (b_r - b)^T\ X^T\ X(b_r - b) \ge e^Te}\]</span></p>
-<p>In other words, the restricted sum of squares will be at least as large as the unrestricted sum of squares, if not larger.</p>
-</section>
-<section id="fit-based-test-1" class="level2" data-number="21.15">
-<h2 data-number="21.15" class="anchored" data-anchor-id="fit-based-test-1"><span class="header-section-number">21.15</span> Fit Based Test</h2>
-<p>We employ unrestricted and restricted regressions to estimate the F-statistic.</p>
-<p>The restricted regression residuals are <span class="math inline">\(e_r\)</span>.</p>
-<p>The unrestricted regression residuals are <span class="math inline">\(e_u\)</span> so the F-statistic is: <span class="math display">\[F(J, n-k) = \frac{\boldsymbol{e_r^T e_r - e_u^T e_u}}{\boldsymbol{e_u^T e_u}} \frac{n-k}{J}\]</span></p>
-<p>If one divides the numerator and denominator of the F-statistic by <span class="math inline">\(\Sigma(y_i - \bar{y})^2\)</span>, then <span class="math display">\[F(J, n-k) = \frac{R_u^2 - R_r^2}{1 - R_u^2}\frac{n-k}{J}\]</span></p>
-<p>If the restrictions are invalid, then the loss of fit will be relatively “large”, and the F-statistic will be of sufficient magnitude to reject the restrictions under the null hypothesis.</p>
-<p>Note that the test of the significance of the regression assumes under the null that all the coefficients for the independent variables are equal to zero.</p>
-</section>
-<section id="lagrange-multiplier-tests-1" class="level2" data-number="21.16">
-<h2 data-number="21.16" class="anchored" data-anchor-id="lagrange-multiplier-tests-1"><span class="header-section-number">21.16</span> Lagrange Multiplier Tests</h2>
-<p>Suppose that we explicitly impose the restrictions in the regression. The <strong>restricted</strong> least squares estimator is obtained by: <span class="math display">\[min_{\boldsymbol{b_0}} = S(\boldsymbol{b_0}) = \boldsymbol{(y - X\ b_0)^T\ (y - X\ b_0)}\]</span></p>
-<p><span class="math display">\[\text{subject to}\ \boldsymbol{R\ b_0 = q}\]</span> We can write a Lagrangian function of this problem as: <span class="math display">\[L^*(\boldsymbol{b_0, \lambda}) = \boldsymbol{(y - X\ b_0)^T\ (y - X\ b_0)} + 2\ \boldsymbol{ \lambda^T (R\ b_0 - q)^2}\]</span> The solutions to <span class="math inline">\(\boldsymbol{b_*\ \text{and}\ \lambda_*}\)</span> will satisfy the necessary conditions: <span class="math display">\[\frac{\partial L^*}{\partial \boldsymbol{b_*}} = -2 \boldsymbol{X^T\ (y - X\ b_*)} + 2 \boldsymbol{R^T \lambda = 0}\]</span> <span class="math display">\[\frac{\partial L^*}{\partial \boldsymbol{\lambda_*}} = 2 \boldsymbol{R b_* - q} = 0\]</span></p>
-</section>
-<section id="lagrange-multiplier-tests-2" class="level2" data-number="21.17">
-<h2 data-number="21.17" class="anchored" data-anchor-id="lagrange-multiplier-tests-2"><span class="header-section-number">21.17</span> Lagrange Multiplier Tests</h2>
-<p>Taking the necessary conditions, dividing by 2, and producing the partitioned matrix equation yields:</p>
-<p><span class="math display">\[\begin{bmatrix} \boldsymbol{X^TX} &amp; \boldsymbol{R^T} \\
-                  \boldsymbol{R} &amp; \boldsymbol{0} \end{bmatrix}
-\begin{bmatrix} \boldsymbol{b_*} \\ \boldsymbol{\lambda_*} \end{bmatrix} =
-\begin{bmatrix} \boldsymbol{X^T y} \\ \boldsymbol{q} \end{bmatrix}\]</span></p>
-<p>If the partitioned matrix is nonsingular, then the restricted least squares estimator is the upper part of the solution: <span class="math display">\[\begin{bmatrix} \boldsymbol{b_*} \\ \boldsymbol{\lambda_*} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X^TX} &amp; \boldsymbol{R^T} \\
-\boldsymbol{R} &amp; \boldsymbol{0} \end{bmatrix}^{-1}\begin{bmatrix} \boldsymbol{X^T y} \\ \boldsymbol{q} \end{bmatrix} = \boldsymbol{A^{-1} d}\]</span></p>
-<p>If <span class="math inline">\(\boldsymbol{X^T X}\)</span> is nonsingular, then explicit solutions can be found for <span class="math inline">\(\boldsymbol{b_*\ \text{and}\ \lambda_*}\)</span>: <span class="math display">\[\boldsymbol{b_* = b - (X^T\ X)^{-1}\ R^T[R\ (X^T\ X)^{-1}\ R^T]^{-1}(Rb - q)}\]</span> <span class="math display">\[\boldsymbol{\lambda_* = [R\ (X^T\ X)^{-1}\ R^T]^{-1}(Rb - q)}\]</span></p>
-</section>
-<section id="lagrange-multiplier-tests-3" class="level2" data-number="21.18">
-<h2 data-number="21.18" class="anchored" data-anchor-id="lagrange-multiplier-tests-3"><span class="header-section-number">21.18</span> Lagrange Multiplier Tests</h2>
-<p>We can form a test using <span class="math inline">\(\boldsymbol{\lambda_* = 0}\)</span>: <span class="math display">\[\boldsymbol{\lambda_* = [R\ (X^T\ X)^{-1}\ R^T]^{-1}(Rb - q)} = 0 \]</span></p>
-<p>A test that <span class="math inline">\(\boldsymbol{\lambda_* = 0}\)</span> should be equivalent to a test of the null hypothesis.</p>
-<p>If the restrictions do not hold, then <span class="math inline">\(\boldsymbol{(Rb - q)} \ne 0\)</span> and thus <span class="math inline">\(\boldsymbol{\lambda_* \ne 0}\)</span></p>
-<p>We can use a Wald test of the hypothesis that <span class="math inline">\(\boldsymbol{\lambda_* = 0}\)</span>: <span class="math display">\[W_{LM}    = \ \boldsymbol{(Rb - q)}^T\ [\boldsymbol{R}\ [\sigma^2\ \boldsymbol{(X^T\ X)^{-1}}]\ \boldsymbol{R^T}]^{-1}\  \boldsymbol{(Rb - q)}\]</span></p>
-<p>The feasible version of the test is: <span class="math display">\[W_{LM}    = \ \boldsymbol{(Rb - q)}^T\ [\boldsymbol{R}\ [s^2\ \boldsymbol{(X^T\ X)^{-1}}]\ \boldsymbol{R^T}]^{-1}\  \boldsymbol{(Rb - q)}\]</span></p>
-</section>
-<section id="lagrange-multiplier-tests-4" class="level2" data-number="21.19">
-<h2 data-number="21.19" class="anchored" data-anchor-id="lagrange-multiplier-tests-4"><span class="header-section-number">21.19</span> Lagrange Multiplier Tests</h2>
-<p>In practice, the Lagrange Multiplier test is easy to estimate.</p>
-<p>The chi-squared test statistic with <span class="math inline">\(J\)</span> degrees of freedom can be estimated as <span class="math inline">\(n \times R^2\)</span> in the regression <span class="math inline">\(\boldsymbol{e_* = y - Xb_*}\)</span>.</p>
-<p>First, estimate the restricted regression to obtain the restricted residuals <span class="math inline">\(\boldsymbol{e_*}\)</span>.</p>
-<p>Second, regress <span class="math inline">\(\boldsymbol{e_*}\)</span> on the independent variables from the unrestricted regression <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
-<p>Third, compute <span class="math inline">\(W_LM = n \times R^2\)</span> from this regression.</p>
-<p>If <span class="math inline">\(W_{LM} = n \times R^2 &lt; \chi^2_{critical}\)</span> then we fail to reject the null that the restrictions are appropriate</p>
-<p>If <span class="math inline">\(W_{LM} = n \times R^2 \ge \chi^2_{critical}\)</span> then we reject the null that the restrictions are appropriate.</p>
-</section>
-<section id="using-r" class="level2" data-number="21.20">
-<h2 data-number="21.20" class="anchored" data-anchor-id="using-r"><span class="header-section-number">21.20</span> Using R</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"CASchools"</span>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>schools <span class="ot">&lt;-</span> CASchools <span class="sc">%&gt;%</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">STR         =</span> students<span class="sc">/</span>teachers) <span class="sc">%&gt;%</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">math_read   =</span> (math<span class="sc">+</span>read)<span class="sc">/</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">CompStu     =</span> computer<span class="sc">/</span>students) <span class="sc">%&gt;%</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">NegComp     =</span> <span class="dv">100</span> <span class="sc">-</span> CompStu) <span class="sc">%&gt;%</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ExpenStu    =</span> expenditure<span class="sc">/</span>students)</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>model_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(math_read <span class="sc">~</span> english <span class="sc">+</span> income <span class="sc">+</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>                ExpenStu, <span class="at">data =</span> schools)</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>model_1_resids <span class="ot">&lt;-</span> <span class="fu">resid</span>(model_1)</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co">#Regress squared residuals on independent variables</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>model_1_r2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(model_1_resids<span class="sc">^</span><span class="dv">2</span> <span class="sc">~</span> english <span class="sc">+</span> </span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>                   income <span class="sc">+</span> ExpenStu, <span class="at">data =</span> schools)</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>n_model_1_r2 <span class="ot">&lt;-</span> <span class="fu">nobs</span>(model_1_r2)</span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>g_model_1_r2 <span class="ot">&lt;-</span> <span class="fu">glance</span>(model_1_r2)</span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>k_model_1_r2 <span class="ot">&lt;-</span> g_model_1_r2<span class="sc">$</span>df</span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>r2_model_1_r2 <span class="ot">&lt;-</span> g_model_1_r2<span class="sc">$</span>r.squared</span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="co">#Obtain Chi-Squared Test Statistic at 5% level of significance</span></span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>chi_test <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(.<span class="dv">95</span>, <span class="at">df =</span> k_model_1_r2 <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a><span class="co">#Manually calculate Breusch-Pagan Test Statistics</span></span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a><span class="co">#BP = Number of Observations times R-squared</span></span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>model_1_man_bptest <span class="ot">&lt;-</span> n_model_1_r2<span class="sc">*</span>r2_model_1_r2</span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a><span class="co">#BP Test of Model 1</span></span>
-<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(model_1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    studentized Breusch-Pagan test
-
-data:  model_1
-BP = 16.54, df = 3, p-value = 0.0008786</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model_1_man_bptest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 16.53997</code></pre>
-</div>
-</div>
-</section>
-<section id="f-test-and-t-test" class="level2" data-number="21.21">
-<h2 data-number="21.21" class="anchored" data-anchor-id="f-test-and-t-test"><span class="header-section-number">21.21</span> F-Test and T-Test</h2>
-<p>If we are testing a <strong>single</strong> linear restriction that the <em>jth</em> coefficient is equal to a particular value, then <span class="math inline">\(\boldsymbol{R}\)</span> has a single row with a one in the <em>jth</em> position and zeros elsewhere.</p>
-<p><span class="math inline">\(\boldsymbol{R[s^2\ (X^T\ X)^-1]R^T}\)</span> is the <em>jth</em> diagonal element of the estimated covariance matrix.</p>
-<p><span class="math inline">\(\boldsymbol{Rb - q} = (b_j - q)\)</span> and the F-statistic is equal to: <span class="math display">\[F[1, n - K] = \frac{(b_j - q)^2}{Est.Var(b_j)}\]</span></p>
-<p>Let <span class="math inline">\(\hat{q}\)</span> be the sample estimate of <span class="math inline">\(q\)</span>, then we can define the t-statistic as: <span class="math display">\[t = \frac{\hat{q} - q}{se(\hat{q})}\]</span></p>
-<p>It can be shown that the square of the t-statistic is equal to the F-statistic or: <span class="math display">\[t = \frac{(\hat{q} - q)^2}{var(\hat{q}-q)} = \frac{\boldsymbol{(r^Tb - q)[r^T[s^2\ (X^TX)^{-1}]r]^{-1} (r^Tb - q)}}{1}\]</span></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Estimate simple linear regression</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>model_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(math_read <span class="sc">~</span> english <span class="sc">+</span> income <span class="sc">+</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                ExpenStu, <span class="at">data =</span> schools)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Generate Summary Results</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = math_read ~ english + income + ExpenStu, data = schools)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--43.857  -6.720   0.478   6.647  30.700 
-
-Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 638.26921    1.60402 397.918   &lt;2e-16 ***
-english      -0.48121    0.03033 -15.864   &lt;2e-16 ***
-income        1.50789    0.07426  20.305   &lt;2e-16 ***
-ExpenStu      0.03447    0.03810   0.905    0.366    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 10.34 on 416 degrees of freedom
-Multiple R-squared:  0.7077,    Adjusted R-squared:  0.7056 
-F-statistic: 335.8 on 3 and 416 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Conduct F-test if beta_english = 0</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>ftest <span class="ot">&lt;-</span> <span class="fu">linearHypothesis</span>(model_1, <span class="fu">c</span>(<span class="st">"english = 0"</span>))</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Square Root F-test = abs(t-test)</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(ftest<span class="sc">$</span>F[<span class="dv">2</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 15.86436</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>nrows <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>           <span class="fu">runif</span>(nrows, <span class="dv">0</span>, <span class="dv">20</span>), </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">runif</span>(nrows, <span class="dv">0</span>, <span class="dv">20</span>),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">rnorm</span>(nrows, <span class="dv">5</span>, <span class="dv">3</span>)) </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(nrows, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="fl">3.75</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">%*%</span> beta <span class="sc">+</span> epsilon</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>bhat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> y</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> y <span class="sc">-</span> x <span class="sc">%*%</span> bhat</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(x)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">ncol</span>(x)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>((<span class="fu">t</span>(e) <span class="sc">%*%</span> e) <span class="sc">/</span> (n <span class="sc">-</span> k))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>var_cov_b <span class="ot">&lt;-</span> s2 <span class="sc">*</span> <span class="fu">solve</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>se_b <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(var_cov_b))</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. T-test (Two-Tailed)</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">&lt;-</span> (bhat <span class="sc">-</span> beta) <span class="sc">/</span> se_b</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>p_values <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="fu">abs</span>(t_stat), <span class="at">df =</span> n <span class="sc">-</span> k, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="fu">round</span>(bhat,<span class="dv">3</span>),</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>             <span class="fu">round</span>(se_b,<span class="dv">3</span>),</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>             <span class="fu">round</span>(t_stat,<span class="dv">3</span>),</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>             <span class="fu">round</span>(p_values,<span class="dv">5</span>))</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">align     =</span> <span class="st">'c'</span>,</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">digits    =</span> <span class="dv">3</span>,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">'Beta Hat'</span>, <span class="st">'Standard Error'</span>,</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'T Statistic'</span>, <span class="st">'P-Value'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="lightable-classic caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Beta Hat</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Standard Error</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">T Statistic</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">P-Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">8.762</td>
+<td style="text-align: center;">1.446</td>
+<td style="text-align: center;">6.061</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2.009</td>
+<td style="text-align: center;">0.089</td>
+<td style="text-align: center;">22.552</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">-0.978</td>
+<td style="text-align: center;">0.081</td>
+<td style="text-align: center;">-12.134</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3.193</td>
+<td style="text-align: center;">0.151</td>
+<td style="text-align: center;">21.132</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
@@ -1231,6 +1020,9 @@ F-statistic: 335.8 on 3 and 416 DF,  p-value: &lt; 2.2e-16</code></pre>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./mod-6-2-multiple.html" class="pagination-link" aria-label="Hypothesis Testing">
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

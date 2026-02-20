@@ -41,6 +41,7 @@ book:
       chapters:
         - mod-6-0-overview.qmd
         - mod-6-1-hypothesis.qmd
+        - mod-6-2-multiple.qmd
 
 execute:
   webR: true            # enables WebR chunks for interactive R in the browser

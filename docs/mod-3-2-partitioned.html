@@ -372,7 +372,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./mod-6-1-hypothesis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Single Hypothesis Testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mod-6-2-multiple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -573,25 +579,25 @@ reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_o0sqybil45g6gge1aa6s = TinyTable.createTableFunctions("tinytable_o0sqybil45g6gge1aa6s");
+      const tableFns_xthr4sbd8n33mvlvt9o4 = TinyTable.createTableFunctions("tinytable_xthr4sbd8n33mvlvt9o4");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '16', j: 2 }, { i: '16', j: 3 } ], css_id: 'tinytable_css_5m7i60h0q8d0egs0l2b5',}, 
-          { positions: [ { i: '8', j: 2 }, { i: '8', j: 3 } ], css_id: 'tinytable_css_45plkstcdq4jinpjnv6o',}, 
-          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 }, { i: '13', j: 3 }, { i: '14', j: 3 }, { i: '15', j: 3 } ], css_id: 'tinytable_css_6jixx119zoh1x75hrilz',}, 
-          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_n0x8qp5zos74q66rkp0u',}, 
-          { positions: [ { i: '16', j: 1 } ], css_id: 'tinytable_css_9nmoef8jg9e3fyq5ejlb',}, 
-          { positions: [ { i: '8', j: 1 } ], css_id: 'tinytable_css_5vz5qj8tz1xgzr4vuzef',}, 
-          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 } ], css_id: 'tinytable_css_klld95uptxnra3m387y2',}, 
-          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_a7soaey2f61f58stfb8h',}, 
+          { positions: [ { i: '16', j: 2 }, { i: '16', j: 3 } ], css_id: 'tinytable_css_23adp4cxrvz0ehi8lcfi',}, 
+          { positions: [ { i: '8', j: 2 }, { i: '8', j: 3 } ], css_id: 'tinytable_css_0zxclz47a10k56zeyiwy',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 }, { i: '13', j: 3 }, { i: '14', j: 3 }, { i: '15', j: 3 } ], css_id: 'tinytable_css_s2ec8vg8qy4msfrrknou',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_0z1gp60efqwbfuye3sbg',}, 
+          { positions: [ { i: '16', j: 1 } ], css_id: 'tinytable_css_91dnj1s5x1kl5wixybxl',}, 
+          { positions: [ { i: '8', j: 1 } ], css_id: 'tinytable_css_2u2i4kbki5vas2xovfzi',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 } ], css_id: 'tinytable_css_sorfsln06gymwsiwqnsx',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_sz6i6as1y5owbw64lshd',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_o0sqybil45g6gge1aa6s.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_xthr4sbd8n33mvlvt9o4.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -600,17 +606,17 @@ reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
     <style>
     /* tinytable css entries after */
-    #tinytable_o0sqybil45g6gge1aa6s td.tinytable_css_5m7i60h0q8d0egs0l2b5, #tinytable_o0sqybil45g6gge1aa6s th.tinytable_css_5m7i60h0q8d0egs0l2b5 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_o0sqybil45g6gge1aa6s td.tinytable_css_45plkstcdq4jinpjnv6o, #tinytable_o0sqybil45g6gge1aa6s th.tinytable_css_45plkstcdq4jinpjnv6o {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_o0sqybil45g6gge1aa6s td.tinytable_css_6jixx119zoh1x75hrilz, #tinytable_o0sqybil45g6gge1aa6s th.tinytable_css_6jixx119zoh1x75hrilz { text-align: center }
-    #tinytable_o0sqybil45g6gge1aa6s td.tinytable_css_n0x8qp5zos74q66rkp0u, #tinytable_o0sqybil45g6gge1aa6s th.tinytable_css_n0x8qp5zos74q66rkp0u {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_o0sqybil45g6gge1aa6s td.tinytable_css_9nmoef8jg9e3fyq5ejlb, #tinytable_o0sqybil45g6gge1aa6s th.tinytable_css_9nmoef8jg9e3fyq5ejlb {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_o0sqybil45g6gge1aa6s td.tinytable_css_5vz5qj8tz1xgzr4vuzef, #tinytable_o0sqybil45g6gge1aa6s th.tinytable_css_5vz5qj8tz1xgzr4vuzef {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_o0sqybil45g6gge1aa6s td.tinytable_css_klld95uptxnra3m387y2, #tinytable_o0sqybil45g6gge1aa6s th.tinytable_css_klld95uptxnra3m387y2 { text-align: left }
-    #tinytable_o0sqybil45g6gge1aa6s td.tinytable_css_a7soaey2f61f58stfb8h, #tinytable_o0sqybil45g6gge1aa6s th.tinytable_css_a7soaey2f61f58stfb8h {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_xthr4sbd8n33mvlvt9o4 td.tinytable_css_23adp4cxrvz0ehi8lcfi, #tinytable_xthr4sbd8n33mvlvt9o4 th.tinytable_css_23adp4cxrvz0ehi8lcfi {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_xthr4sbd8n33mvlvt9o4 td.tinytable_css_0zxclz47a10k56zeyiwy, #tinytable_xthr4sbd8n33mvlvt9o4 th.tinytable_css_0zxclz47a10k56zeyiwy {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_xthr4sbd8n33mvlvt9o4 td.tinytable_css_s2ec8vg8qy4msfrrknou, #tinytable_xthr4sbd8n33mvlvt9o4 th.tinytable_css_s2ec8vg8qy4msfrrknou { text-align: center }
+    #tinytable_xthr4sbd8n33mvlvt9o4 td.tinytable_css_0z1gp60efqwbfuye3sbg, #tinytable_xthr4sbd8n33mvlvt9o4 th.tinytable_css_0z1gp60efqwbfuye3sbg {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_xthr4sbd8n33mvlvt9o4 td.tinytable_css_91dnj1s5x1kl5wixybxl, #tinytable_xthr4sbd8n33mvlvt9o4 th.tinytable_css_91dnj1s5x1kl5wixybxl {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_xthr4sbd8n33mvlvt9o4 td.tinytable_css_2u2i4kbki5vas2xovfzi, #tinytable_xthr4sbd8n33mvlvt9o4 th.tinytable_css_2u2i4kbki5vas2xovfzi {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_xthr4sbd8n33mvlvt9o4 td.tinytable_css_sorfsln06gymwsiwqnsx, #tinytable_xthr4sbd8n33mvlvt9o4 th.tinytable_css_sorfsln06gymwsiwqnsx { text-align: left }
+    #tinytable_xthr4sbd8n33mvlvt9o4 td.tinytable_css_sz6i6as1y5owbw64lshd, #tinytable_xthr4sbd8n33mvlvt9o4 th.tinytable_css_sz6i6as1y5owbw64lshd {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
     </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_o0sqybil45g6gge1aa6s" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_xthr4sbd8n33mvlvt9o4" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
@@ -750,16 +756,16 @@ reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(bhat[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>],bhat_1[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]     [,2]
-[1,] 2.011591 2.136231
-[2,] 3.008873 3.034893
-[3,] 4.003979 3.772398</code></pre>
+[1,] 1.996601 1.913148
+[2,] 3.000388 2.953681
+[3,] 3.997629 3.917005</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(bhat[<span class="dv">5</span><span class="sc">:</span><span class="dv">7</span>], bhat_2[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]     [,2]
-[1,] 5.011831 5.019753
-[2,] 6.005276 5.900218
-[3,] 6.999323 6.997782</code></pre>
+[1,] 4.993261 4.969257
+[2,] 6.008218 6.040091
+[3,] 6.998489 6.898434</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> y, <span class="at">x =</span> x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -789,12 +795,12 @@ reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>bhat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           [,1]
-[1,]  0.8413833
-[2,]  3.9785596
-[3,]  4.9914400
-[4,]  5.9666835
-[5,] 10.0737573</code></pre>
+<pre><code>          [,1]
+[1,]  1.055794
+[2,]  4.008722
+[3,]  4.997976
+[4,]  5.971154
+[5,] 10.009205</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -807,16 +813,16 @@ reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>bhat_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]
-[1,] 35.76834
-[2,] 11.90675
-[3,] 12.66977</code></pre>
+[1,] 35.65133
+[2,] 11.72378
+[3,] 12.83774</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bhat_2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]
-[1,] -15.97745
-[2,]  10.27104
-[3,]  14.53747</code></pre>
+[1,] -15.63236
+[2,]  10.45772
+[3,]  14.31329</code></pre>
 </div>
 </div>
 </section>

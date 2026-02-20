@@ -1,5 +1,5 @@
 ---
-title: "Hypothesis Testing"
+title: "Single Hypothesis Testing"
 format:
   html:
     toc: true
@@ -34,30 +34,9 @@ Students will examine the three fundamental approaches to
 inference—Wald, fit-based, and Lagrange multiplier tests—to determine
 whether empirical evidence supports specific theoretical restrictions on
 population parameters. By mastering the application of $t$-tests for
-individual coefficients and $F$-tests for joint hypotheses, and
-implementing these procedures in R, students will gain the analytical
-tools necessary to assess the statistical significance of economic
-relationships and the relative performance of restricted versus
-unrestricted models.
-
-## Three Approaches
-
-There are three general approaches to hypothesis testing:
-
--   **Wald** tests
-
--   **Fit based** tests
-
--   **Lagrange multiplier** tests
-
-The hypothesis of interest is about the **population**, that is, we have
-estimates and wish to examine questions about the population parameters.
-
-If our hypothesis is correct, then the sample statistics should
-approximate the description of the population parameters.
-
-If our hypothesis is incorrect, then the sample statistics will deviate
-from our description of the population parameters.
+individual coefficients, students will gain the analytical tools
+necessary to assess the statistical significance of economic
+relationships.
 
 ## Null Hypothesis
 
@@ -101,65 +80,6 @@ $$
 H_A: \beta \ne 0
 $$
 
-## Wald Based Tests
-
-The hypothesis states that $\boldsymbol{\beta}$ adheres to a restriction
-or set of restrictions.
-
-The restrictions, in general, can be stated at
-$\boldsymbol{c(\beta) = 0}$.
-
-Since $\boldsymbol{b}$ is a consistent estimator of
-$\boldsymbol{\beta}$, $\boldsymbol{c(b) = 0}$ should be approximately 0.
-
-The Wald test measures how close $\boldsymbol{c(b)}$ is to 0.
-
-The Wald test is based on the **unrestricted** model.
-
-The Wald test employs the unrestricted and restricted model estimates.
-
-The test measures how close the estimated unrestricted model is to the
-hypothesized restrictions.
-
-## Fit Based Tests
-
-Fit based tests are based on $R^2$ or the sum of squares.
-
-The best possible fit is obtained using the unrestricted least squares
-model.
-
-Imposing the hypothesized restrictions degrades the fit of the least
-squares model, the question is **how much**.
-
-The fit based test compares $R^2$ in the unrestricted and restricted
-models.
-
-If the difference between the unrestricted and restricted models is
-"small", the restrictions are valid.
-
-If $R^2$ falls significantly when the restrictions are imposed, the
-restrictions are likely invalid.
-
-## Lagrange Multiplier Tests
-
-The Lagrange Multiplier (LM) test is based on the **restricted** model.
-
-Imposing **incorrect** restrictions yields a failed model.
-
-If our hypothesis is that $\beta_1 = 0$, then the LM test imposes the
-restriction and uses the residuals from the regression that **omits**
-$x_1$.
-
-If the restrictions are incorrect, then the omission of $x_1$ induces
-omitted variable bias.
-
-The residuals from the restricted regression will be correlated with the
-other independent variables if the restriction is invalid.
-
-The LM test statistic is based on the correlation between the restricted
-regression residuals and the independent variables that are not omitted
-from the regression.
-
 ## General Linear Hypotheses
 
 We are imposing one or more linear restrictions on the linear
@@ -180,7 +100,7 @@ $$H_0:\ \boldsymbol{R\ \beta\ - \ q = 0}$$
 
 $$H_A:\ \boldsymbol{R\ \beta\ - \ q \ne 0}$$
 
-## One Hypothesis
+## One Linear Hypothesis
 
 Assume that the regression model is:
 
@@ -218,347 +138,114 @@ $$
 H_0: \beta_3 = 0
 $$
 
-## Multiple Hypotheses
+## The T-Test
 
-Assume that $\boldsymbol{y = X\beta + \epsilon}$ and we hypothesize that
-$\beta_3 = \beta_4$ then
-$$\boldsymbol{R} = [0\quad 0\quad 1\quad -1\quad 0\quad \dots\quad 0];\quad \boldsymbol{q} = 0$$
+Previously, we derived the standard error for each estimated
+coefficient.
 
-Assume that $\boldsymbol{y = X\beta + \epsilon}$ and we hypothesize that
-$\beta_2 + \beta_3 + \beta_4 = 1$ then
-$$\boldsymbol{R} = [0\quad 1\quad 1\quad 1\quad 0\quad \dots\quad 0];\quad \boldsymbol{q} = 1$$
-Assume that $\boldsymbol{y = X\beta + \epsilon}$ and we hypothesize that
-$\beta_2 = 0$, $\beta_3 = 0$, $\beta_k = 0$ then
-$$\boldsymbol{R} = \begin{bmatrix}
-      0 & 0 & 0 &\dots  & 0 \\
-      0 & 1 & 0 & \dots  & 0 \\
-      0 & 0 & 1 & \dots  & 0 \\
-      \vdots & \vdots & \vdots & \ddots & \vdots \\
-      0 & 0 & 0 & 0 & 1 
-      \end{bmatrix}
-      ;
-      \quad
-      \boldsymbol{q} 
-      \begin{bmatrix}
-      0 \\ 
-      0 \\
-      0 
-      \end{bmatrix}$$
+We can test a single linear hypothesis using the **t-test**.
 
-## What is R?
+The t-test can be thought of as a 'ratio of distributions.'
 
-The $\boldsymbol{R}$ matrix must contain $K$ columns to be conformable
-to $\boldsymbol{\beta}$.
+For a single estimated coefficient, $b$, under the null hypothesis,
+$H_0: \beta = 0$, the difference
 
-The $\boldsymbol{R}$ matrix contains $J$ rows representing the $J$
-restrictions.
+$$
+(b - \beta)
+$$
 
-The $\boldsymbol{R}$ matrix has full row rank, that is, $J \le K$.
+measures the 'distance' from the estimate to the value of the population
+coefficient under the null.
 
-The $\boldsymbol{R}$ matrix consists of linearly independent rows, which
-implies that $J < K$.
+We normalize this 'distance' relative to the standard error of the
+estimated coefficient.
 
-If $K$ coefficients satisfy $J = K$ restrictions, then $\boldsymbol{R}$
-is square and nonsingular.
+The 'farther' the estimated coefficient is from the hypothesized value
+under the null, expressed in standard error units, the more likely the
+estimated coefficient is not equal to the hypothesized value under the
+null.
 
-If $\boldsymbol{R}$ is square and nonsingular then
-$\boldsymbol{\beta = R^{-1}\ q}$.
+The t-test is equal to:
 
-The restriction $\boldsymbol{R\ \beta = q}$ imposes $J$ restrictions on
-$K$ otherwise free parameters.
+$$
+t_{n-K} \sim \frac{b - \beta}{se(b)}
+$$
 
-## The F-Statistic
+## Decision Rule: T-test
 
-Consider the set of $J$ linear restrictions in the null and alternative
-hypotheses: $$H_0:\ \boldsymbol{R\ \beta\ - \ q = 0}$$
-$$H_0:\ \boldsymbol{R\ \beta\ - \ q \ne 0}$$
+To decide whether to reject $H_0$, we compare the calculated t-statistic
+to a **critical value**.
 
-Given $\boldsymbol{b}$, we want to compute the **discrepancy vector**
-defined as $\boldsymbol{R\ b - q = m}$.
+We use different levels of statistical significance, ranging from
+$\alpha = 0.10$ (10% statistical significance) to $\alpha = 0.05$ (5%
+statistical significance) to $\alpha = 0.01$ (1% level of statistical
+significance).
 
-$\boldsymbol{m}$ is unlikely to be exactly zero, but the question is how
-'close' is $\boldsymbol{m}$ to zero.
+If the absolute value of the calculated t-statistic is greater than the
+critical value, then we reject the null hypothesis. On the other hand,
+if the absolute value of the t-statistic is less than or equal to the
+critical value of the t-statistic, we fail to reject the null hypothesis
+or:
 
-Because $\boldsymbol{b}$ is normally distributed and $\boldsymbol{m}$ in
-a linear function of $\boldsymbol{b}$, $\boldsymbol{m}$ is normally
-distributed.
+$$
+|t_{calc}| > t_{crit} \, \rightarrow \text{reject} \, H_0
+$$
 
-If the null hypothesis cannot be rejected, then
-$\boldsymbol{R b - q = 0}$ and $\boldsymbol{m}$ has a mean vector
-$$E[\boldsymbol{m | X} ] = E[(\boldsymbol{R\ b - q)| X] = 0}$$
-$$E[\boldsymbol{m | X} ] =  \boldsymbol{R}\ E[\boldsymbol{b|X}] - \boldsymbol{q = 0}$$
-$$E[\boldsymbol{m | X} ] =  \boldsymbol{R\ \beta - q = 0}$$
+$$
+|t_{calc}| \le t_{crit} \, \rightarrow \text{fail to reject} \, H_0
+$$
 
-## The F-Test
+## Example in R
 
-Under the null where $\boldsymbol{q = 0}$, the variance of the
-discrepancy vector, \$\boldsymbol{m}\$, is equal to:
-$$var[\boldsymbol{m|X}]    =  var(\boldsymbol{R\ b - q|X})$$
-$$var[\boldsymbol{m|X}]    =  \boldsymbol{R\ [var(b|X)]\ R^T}$$
-$$var[\boldsymbol{m|X}]    =  \boldsymbol{R}\ [\sigma^2 \boldsymbol{(X^T\ X)^{-1}}]\ \boldsymbol{R^T}$$
-
-We can base a test of the null hypothesis **Wald Criterion**.
-
-Conditioned on $\boldsymbol{X}$, the Wald-criterion based test is:
-$$W   = \boldsymbol{m^T}\ (var[\boldsymbol{m|X}])^{-1}\ \boldsymbol{m}$$
-$$W = \boldsymbol{(Rb - q)}^T\ [\boldsymbol{R}\ [\sigma^2 \boldsymbol{(X^T\ X)^{-1}}]\ \boldsymbol{R^T}]^{-1}\  \boldsymbol{(Rb - q)} \sim \chi^2$$
-
-The Wald test using $\sigma^2$, however, is not feasible as we do not
-observe $\sigma^2$.
-
-We can employ $s^2$ instead of $\sigma^2$ and divide the result by $J$
-to obtain an F-statistic: $$F    =  \frac{W}{J}\frac{\sigma^2}{s^2}$$
-
-$$F[J,n-K|\boldsymbol{X}]    = \ \frac{\boldsymbol{(Rb - q)}^T\ [\boldsymbol{R}\ [s^2\ \boldsymbol{(X^T\ X)^{-1}}]^{-1}\ \boldsymbol{R^T}]\  \boldsymbol{(Rb - q)}}{J} \sim \chi^2$$
-We employ unrestricted and restricted regressions to estimate the
-F-statistic.
-
-The restricted regression residuals are $e_r$.
-
-The unrestricted regression residuals are $e_u$ so the F-statistic is:
-$$F(J, n-k) = \frac{e_r^T e_r - e_u^T e_u}{e_u^T e_u}\frac{n-k}{J}$$
-
-## F Test Example
-
-```{r}
-
-library(AER)
-library(dplyr)
-library(tidyverse)
-data(mtcars)
-
-# Estimate the unrestricted regression
-model_u <- lm(mpg ~ cyl + hp + wt + gear + am, data = mtcars)
-
-# Obtain the unrestricted residuals
-e_u <- model_u$residuals
-
-# Estimate the restricted regression
-model_r <- lm(mpg ~ wt + gear + am, data = mtcars)
-
-# Obtain the restricted residuals
-e_r <- model_r$residuals
-
-# Calculate the Residual Sum of Squares
-e_u_ss <- t(e_u) %*% e_u
-e_r_ss <- t(e_r) %*% e_r
-
-# J = 2
-# (N-k) = 32 - 6 where k = 5 + 1 (intercept)
-
-F <- ((e_r_ss - e_u_ss)/ e_u_ss) * ((32-6)/2)
-F
-
-# Calculate using linearHypothesis function
-
-model_u <- lm(mpg ~ cyl + hp + wt + gear + am, data = mtcars)
-
-linearHypothesis(model_u, c("cyl = 0", "hp = 0"))
-
-```
-
-## Fit Based Test
-
-Let $\boldsymbol{e_r}$ be the residuals from the restricted least
-squares regression $\boldsymbol{y = X\ b_r}$. Then
-$$\boldsymbol{e_r = y - X\ b_r = y - X\ b - X(b_r - b)}$$
-$$\boldsymbol{e_r =e - X(b_r - b)}$$
-
-We can now obtain $\boldsymbol{e_r^T e_r}$
-$$\boldsymbol{e_r^T e_r} = [\boldsymbol{e - X(b_r - b)}]^T\ [\boldsymbol{e - X(b_r - b)}]$$
-$$\boldsymbol{e_r^T e_r} = [\boldsymbol{e^T - (b_r - b)^T\ X^T}]\ [\boldsymbol{e - X(b_r - b)}]$$
-$$\boldsymbol{e_r^T e_r} = \boldsymbol{e^Te - e^T\ X(b_r - b) - (b_r - b)^T\ X^Te + (b_r - b)^T\ X^T\ X(b_r - b)}$$
-
-Since $\boldsymbol{e^T\ X = X^T\ e = 0}$
-$$\boldsymbol{e_r^T e_r} = \boldsymbol{e^Te + (b_r - b)^T\ X^T\ X(b_r - b) \ge e^Te}$$
-
-In other words, the restricted sum of squares will be at least as large
-as the unrestricted sum of squares, if not larger.
-
-## Fit Based Test
-
-We employ unrestricted and restricted regressions to estimate the
-F-statistic.
-
-The restricted regression residuals are $e_r$.
-
-The unrestricted regression residuals are $e_u$ so the F-statistic is:
-$$F(J, n-k) = \frac{\boldsymbol{e_r^T e_r - e_u^T e_u}}{\boldsymbol{e_u^T e_u}} \frac{n-k}{J}$$
-
-If one divides the numerator and denominator of the F-statistic by
-$\Sigma(y_i - \bar{y})^2$, then
-$$F(J, n-k) = \frac{R_u^2 - R_r^2}{1 - R_u^2}\frac{n-k}{J}$$
-
-If the restrictions are invalid, then the loss of fit will be relatively
-"large", and the F-statistic will be of sufficient magnitude to reject
-the restrictions under the null hypothesis.
-
-Note that the test of the significance of the regression assumes under
-the null that all the coefficients for the independent variables are
+In the code chunk below, we demonstrate how to estimate the t-statistic
+for simulated data and test the null hypothesis that each coefficient is
 equal to zero.
 
-## Lagrange Multiplier Tests
-
-Suppose that we explicitly impose the restrictions in the regression.
-The **restricted** least squares estimator is obtained by:
-$$min_{\boldsymbol{b_0}} = S(\boldsymbol{b_0}) = \boldsymbol{(y - X\ b_0)^T\ (y - X\ b_0)}$$
-
-$$\text{subject to}\ \boldsymbol{R\ b_0 = q}$$ We can write a Lagrangian
-function of this problem as:
-$$L^*(\boldsymbol{b_0, \lambda}) = \boldsymbol{(y - X\ b_0)^T\ (y - X\ b_0)} + 2\ \boldsymbol{ \lambda^T (R\ b_0 - q)^2}$$
-The solutions to $\boldsymbol{b_*\ \text{and}\ \lambda_*}$ will satisfy
-the necessary conditions:
-$$\frac{\partial L^*}{\partial \boldsymbol{b_*}} = -2 \boldsymbol{X^T\ (y - X\ b_*)} + 2 \boldsymbol{R^T \lambda = 0}$$
-$$\frac{\partial L^*}{\partial \boldsymbol{\lambda_*}} = 2 \boldsymbol{R b_* - q} = 0$$
-
-## Lagrange Multiplier Tests
-
-Taking the necessary conditions, dividing by 2, and producing the
-partitioned matrix equation yields:
-
-$$\begin{bmatrix} \boldsymbol{X^TX} & \boldsymbol{R^T} \\ 
-                  \boldsymbol{R} & \boldsymbol{0} \end{bmatrix} 
-\begin{bmatrix} \boldsymbol{b_*} \\ \boldsymbol{\lambda_*} \end{bmatrix} = 
-\begin{bmatrix} \boldsymbol{X^T y} \\ \boldsymbol{q} \end{bmatrix}$$
-
-If the partitioned matrix is nonsingular, then the restricted least
-squares estimator is the upper part of the solution:
-$$\begin{bmatrix} \boldsymbol{b_*} \\ \boldsymbol{\lambda_*} \end{bmatrix} = \begin{bmatrix} \boldsymbol{X^TX} & \boldsymbol{R^T} \\ 
-\boldsymbol{R} & \boldsymbol{0} \end{bmatrix}^{-1}\begin{bmatrix} \boldsymbol{X^T y} \\ \boldsymbol{q} \end{bmatrix} = \boldsymbol{A^{-1} d}$$
-
-If $\boldsymbol{X^T X}$ is nonsingular, then explicit solutions can be
-found for $\boldsymbol{b_*\ \text{and}\ \lambda_*}$:
-$$\boldsymbol{b_* = b - (X^T\ X)^{-1}\ R^T[R\ (X^T\ X)^{-1}\ R^T]^{-1}(Rb - q)}$$
-$$\boldsymbol{\lambda_* = [R\ (X^T\ X)^{-1}\ R^T]^{-1}(Rb - q)}$$
-
-## Lagrange Multiplier Tests
-
-We can form a test using $\boldsymbol{\lambda_* = 0}$:
-$$\boldsymbol{\lambda_* = [R\ (X^T\ X)^{-1}\ R^T]^{-1}(Rb - q)} = 0 $$
-
-A test that $\boldsymbol{\lambda_* = 0}$ should be equivalent to a test
-of the null hypothesis.
-
-If the restrictions do not hold, then $\boldsymbol{(Rb - q)} \ne 0$ and
-thus $\boldsymbol{\lambda_* \ne 0}$
-
-We can use a Wald test of the hypothesis that
-$\boldsymbol{\lambda_* = 0}$:
-$$W_{LM}    = \ \boldsymbol{(Rb - q)}^T\ [\boldsymbol{R}\ [\sigma^2\ \boldsymbol{(X^T\ X)^{-1}}]\ \boldsymbol{R^T}]^{-1}\  \boldsymbol{(Rb - q)}$$
-
-The feasible version of the test is:
-$$W_{LM}    = \ \boldsymbol{(Rb - q)}^T\ [\boldsymbol{R}\ [s^2\ \boldsymbol{(X^T\ X)^{-1}}]\ \boldsymbol{R^T}]^{-1}\  \boldsymbol{(Rb - q)}$$
-
-## Lagrange Multiplier Tests
-
-In practice, the Lagrange Multiplier test is easy to estimate.
-
-The chi-squared test statistic with $J$ degrees of freedom can be
-estimated as $n \times R^2$ in the regression
-$\boldsymbol{e_* = y - Xb_*}$.
-
-First, estimate the restricted regression to obtain the restricted
-residuals $\boldsymbol{e_*}$.
-
-Second, regress $\boldsymbol{e_*}$ on the independent variables from the
-unrestricted regression $\boldsymbol{X}$.
-
-Third, compute $W_LM = n \times R^2$ from this regression.
-
-If $W_{LM} = n \times R^2 < \chi^2_{critical}$ then we fail to reject
-the null that the restrictions are appropriate
-
-If $W_{LM} = n \times R^2 \ge \chi^2_{critical}$ then we reject the null
-that the restrictions are appropriate.
-
-## Using R
-
-```{r, message = FALSE}
-
-library(broom)
-library(lmtest)
-library(sandwich)
-library(stargazer)
-library(nlme)
-
-data("CASchools")
-
-schools <- CASchools %>%
-  mutate(STR         = students/teachers) %>%
-  mutate(math_read   = (math+read)/2) %>%
-  mutate(CompStu     = computer/students) %>%
-  mutate(NegComp     = 100 - CompStu) %>%
-  mutate(ExpenStu    = expenditure/students)
-
-model_1 <- lm(math_read ~ english + income +
-                ExpenStu, data = schools)
-model_1_resids <- resid(model_1)
-
-#Regress squared residuals on independent variables
-
-model_1_r2 <- lm(model_1_resids^2 ~ english + 
-                   income + ExpenStu, data = schools)
-
-n_model_1_r2 <- nobs(model_1_r2)
-
-g_model_1_r2 <- glance(model_1_r2)
-
-k_model_1_r2 <- g_model_1_r2$df
-
-r2_model_1_r2 <- g_model_1_r2$r.squared
-
-
-#Obtain Chi-Squared Test Statistic at 5% level of significance
-
-chi_test <- qchisq(.95, df = k_model_1_r2 - 1)
-
-#Manually calculate Breusch-Pagan Test Statistics
-
-#BP = Number of Observations times R-squared
-
-model_1_man_bptest <- n_model_1_r2*r2_model_1_r2
-
-#BP Test of Model 1
-
-bptest(model_1)
-
-model_1_man_bptest
-
-```
-
-## F-Test and T-Test
-
-If we are testing a **single** linear restriction that the *jth*
-coefficient is equal to a particular value, then $\boldsymbol{R}$ has a
-single row with a one in the *jth* position and zeros elsewhere.
-
-$\boldsymbol{R[s^2\ (X^T\ X)^-1]R^T}$ is the *jth* diagonal element of
-the estimated covariance matrix.
-
-$\boldsymbol{Rb - q} = (b_j - q)$ and the F-statistic is equal to:
-$$F[1, n - K] = \frac{(b_j - q)^2}{Est.Var(b_j)}$$
-
-Let $\hat{q}$ be the sample estimate of $q$, then we can define the
-t-statistic as: $$t = \frac{\hat{q} - q}{se(\hat{q})}$$
-
-It can be shown that the square of the t-statistic is equal to the
-F-statistic or:
-$$t = \frac{(\hat{q} - q)^2}{var(\hat{q}-q)} = \frac{\boldsymbol{(r^Tb - q)[r^T[s^2\ (X^TX)^{-1}]r]^{-1} (r^Tb - q)}}{1}$$
-
 ```{r}
 
-#Estimate simple linear regression
+rm(list = ls())
+set.seed(1234)
 
-model_1 <- lm(math_read ~ english + income +
-                ExpenStu, data = schools)
+nrows <- 50
 
-#Generate Summary Results
-summary(model_1)
+x <- cbind(1, 
+           runif(nrows, 0, 20), 
+           runif(nrows, 0, 20),
+           rnorm(nrows, 5, 3)) 
 
-#Conduct F-test if beta_english = 0
-ftest <- linearHypothesis(model_1, c("english = 0"))
+beta <- c(10, 2, -1, 3)
+epsilon <- rnorm(nrows, mean = 0, sd = 3.75)
 
-#Square Root F-test = abs(t-test)
-sqrt(ftest$F[2])
+y <- x %*% beta + epsilon
+
+bhat <- solve(t(x) %*% x) %*% t(x) %*% y
+
+e <- y - x %*% bhat
+n <- nrow(x)
+k <- ncol(x)
+s2 <- as.numeric((t(e) %*% e) / (n - k))
+
+var_cov_b <- s2 * solve(t(x) %*% x)
+se_b <- sqrt(diag(var_cov_b))
+
+# 5. T-test (Two-Tailed)
+beta <- 0
+
+t_stat <- (bhat - beta) / se_b
+
+p_values <- 2 * pt(abs(t_stat), df = n - k, lower.tail = FALSE)
+
+df <- tibble(round(bhat,3),
+             round(se_b,3),
+             round(t_stat,3),
+             round(p_values,5))
+
+kable(df,
+      align     = 'c',
+      digits    = 3,
+      col.names = c('Beta Hat', 'Standard Error',
+                    'T Statistic', 'P-Value')) %>%
+kable_classic()
+
 
 ```

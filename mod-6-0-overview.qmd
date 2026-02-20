@@ -49,8 +49,8 @@ Please select the links provided to access material where applicable.
 
 ## Lessons in this Module
 
--   [6.1 - Hypothesis Tests](mod-6-1-hypothesis.qmd)
-
+-   [6.1 - Single Hypothesis Testing](mod-6-1-hypothesis.qmd)
+-   [6.2 - Multiple Hypothesis Testing](mod-6-2-multiple.qmd)
 
 ------------------------------------------------------------------------
 

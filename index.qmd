@@ -60,8 +60,8 @@ title: "ECON 706"
 
 <ul>
 <li><a href="mod-6-0-overview.qmd">Module 6 Overview</a></li>
-<li><a href="mod-6-1-hypothesis.qmd">Hypothesis Testing</a></li>
-
+<li><a href="mod-6-1-hypothesis.qmd">Single Hypothesis Testing</a></li>
+<li><a href="mod-6-2-multiple.qmd"><Multiple Hypothesis Testing</a></li>
 </ul>
 
 ------------------------------------------------------------------------
