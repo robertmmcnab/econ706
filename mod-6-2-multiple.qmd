@@ -114,7 +114,7 @@ $$H_0:\ \boldsymbol{R\ \beta\ - \ q = 0}$$
 
 $$H_A:\ \boldsymbol{R\ \beta\ - \ q \ne 0}$$
 
-## One Hypothesis
+## One Cofficient
 
 Assume that the regression model is:
 
@@ -152,17 +152,44 @@ $$
 H_0: \beta_3 = 0
 $$
 
-## Multiple Hypotheses
+## Two Coefficients 
 
 Assume that $\boldsymbol{y = X\beta + \epsilon}$ and we hypothesize that
 $\beta_3 = \beta_4$ then
-$$\boldsymbol{R} = [0\quad 0\quad 1\quad -1\quad 0\quad \dots\quad 0];\quad \boldsymbol{q} = 0$$
+$$\boldsymbol{R} = [0\quad 1\quad -1\quad \quad 0\quad \dots\quad 0];\quad \boldsymbol{q} = 0$$
+
+The null hypothesis is: $$ H_0: \boldsymbol{R \beta - q = 0} $$
+
+$$H_0: \boldsymbol{R\beta} = [0\quad 1\quad -1 \quad 0\quad \dots\quad 0]\begin{bmatrix}{\beta_1 \\ \beta_2 \\ \beta_3 \\ \vdots \\ \beta_k}\end{bmatrix}= 0 = \boldsymbol{q}$$
+
+If we multiply this out, we find:
+
+$$ H_0: (0 \times\beta_1)+(1 \times \beta_2)+(-1 \times \beta_3) + \dots + (0 \times \beta_k) = 0 $$
+
+$$
+H_0: \beta_1 - \beta_2 = 0 \rightarrow \quad H_0: \beta_1 = \beta_2
+$$
+
+## Three Coefficients
 
 Assume that $\boldsymbol{y = X\beta + \epsilon}$ and we hypothesize that
 $\beta_2 + \beta_3 + \beta_4 = 1$ then
 $$\boldsymbol{R} = [0\quad 1\quad 1\quad 1\quad 0\quad \dots\quad 0];\quad \boldsymbol{q} = 1$$
+
+The null hypothesis is: $$ H_0: \boldsymbol{R \beta - q = 0} $$
+
+$$H_0: \boldsymbol{R\beta} = [0\quad 1\quad 1 \quad 1\quad \dots\quad 0]\begin{bmatrix}{\beta_1 \\ \beta_2 \\ \beta_3 \\ \vdots \\ \beta_k}\end{bmatrix}= \boldsymbol{q} = 1$$
+
+If we multiply this out, we find:
+
+$$ H_0: (0 \times\beta_1)+(1 \times \beta_2)+(1 \times \beta_3) + (1 \times \beta_4) + \dots + (0 \times \beta_k) = 1 $$
+
+$$ H_0: \beta_1 + \beta_2 + \beta _3 = 1 $$
+
+## Multiple Hypotheses
+
 Assume that $\boldsymbol{y = X\beta + \epsilon}$ and we hypothesize that
-$\beta_2 = 0$, $\beta_3 = 0$, $\beta_k = 0$ then
+$\beta_2 = 0$, $\beta_3 = 0$, $\beta_k = 1$ then
 $$\boldsymbol{R} = \begin{bmatrix}
       0 & 0 & 0 &\dots  & 0 \\
       0 & 1 & 0 & \dots  & 0 \\
@@ -176,8 +203,10 @@ $$\boldsymbol{R} = \begin{bmatrix}
       \begin{bmatrix}
       0 \\ 
       0 \\
-      0 
+      1 
       \end{bmatrix}$$
+
+Multiplying this out yields the multiple hypotheses under the null.
 
 ## What is R?
 
@@ -254,7 +283,7 @@ $$F(J, n-k) = \frac{e_r^T e_r - e_u^T e_u}{e_u^T e_u}\frac{n-k}{J}$$
 
 ## F Test Example
 
-```{r}
+```{r, message = FALSE, warning = FALSE}
 
 library(AER)
 library(dplyr)
