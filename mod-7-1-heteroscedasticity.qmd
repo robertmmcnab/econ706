@@ -28,224 +28,277 @@ library(tidyquant, quietly = TRUE)
 
 ## Introduction
 
-Module 6 focuses on the transition from parameter estimation to formal
-statistical inference through the framework of hypothesis testing.
-Students will examine the three fundamental approaches to
-inference—Wald, fit-based, and Lagrange multiplier tests—to determine
-whether empirical evidence supports specific theoretical restrictions on
-population parameters. By mastering the application of $t$-tests for
-individual coefficients, students will gain the analytical tools
-necessary to assess the statistical significance of economic
-relationships.
+In this section, we develop the variance estimator for the least squares
+estimator. We then discuss the problem of heteroscedastic disturbances
+and the impact of heteroscedasticity on the standard errors of the
+parameter estimates. We discuss the need for a consistent estimator of
+the variance of the least squares estimator.
 
-## Null Hypothesis
+## Finite Sample Variance
 
-The **null hypothesis**, $H_0$, is the 'status quo' or typically the
-assumption of 'no effect.'
+Recall, in finite samples, that
+$$var(\boldsymbol{b}) = E[\boldsymbol{(b - \beta)(b - \beta)^T}]$$
+$$var(\boldsymbol{b|X}) = E[\boldsymbol{[(X^T X)^{-1} X^T \epsilon]\ [(X^T X)^{-1} X^T \epsilon]^T | X}]$$
+$$var(\boldsymbol{b|X}) = E[\boldsymbol{(X^T X)^{-1} X^T \epsilon \epsilon^T X (X^T X)^{-1} | X}]$$
+$$var(\boldsymbol{b|X}) = \boldsymbol{(X^T X)^{-1} X^T\ E[\epsilon \epsilon^T|X]\ X (X^T X)^{-1} }$$
 
-The null hypothesis is the claim that we will 'operate under' unless
-'strong evidence' otherwise.
+What is $E[\boldsymbol{\epsilon \epsilon^T |X}]?$
+$$E[\boldsymbol{\epsilon \epsilon^T|X}] = 
+  \begin{bmatrix}
+  E[\epsilon_1^2|X] & E[\epsilon_1 \epsilon_2|X] & \dots  & E[\epsilon_1 \epsilon_n|X] \\
+  E[\epsilon_2 \epsilon_1|X] & E[\epsilon_2^2|X] & \dots  & E[\epsilon_2 \epsilon_n|X] \\
+  \vdots & \vdots & \ddots & \vdots \\
+  E[\epsilon_n \epsilon_1|X] & E[\epsilon_n \epsilon_1|X] & \dots  & E[\epsilon_n^2|X]
+  \end{bmatrix}$$
 
-In regression analysis, the null hypothesis is typically that the
-regressor of interest has no impact on the dependent variable. In other
-words,
+## Homoscedastic Disturbances
 
-$$
-H_0: \beta_k = 0
-$$
-
-**We can only reject or fail to reject the null hypothesis given the
-evidence at hand.**
-
-In econometrics, we never "accept" the null hypothesis. We simply state
-that the evidence is insufficient to disprove it.
-
-## Alternative Hypothesis
-
-The **alternative hypothesis** is the claim we are testing. Typically,
-the alternative represents the presence of an effect, a difference, or a
-relationship.
-
-We do not test the alternative hypothesis. We test whether there is
-sufficient evidence to reject the null hypothesis. In econometrics,
-where the null hypothesis is often the true value of the population
-parameter is equal to zero, we investigate whether, for a given sample,
-there is sufficient evidence to reject the null of zero ('no effect').
-
-In most cases, we have a two-sided null and alternative hypothesis, that
-is, we are not testing a specific direction, merely whether we can
-reject the null hypothesis of zero.
+If the assumption of nonautocorrelation holds, then:
 
 $$
-H_A: \beta \ne 0
+E[\epsilon_i, \epsilon_j] = 0 \quad \forall i \ne j
 $$
 
-## General Linear Hypotheses
+$$E[\epsilon \epsilon^T|X] =
+      \begin{bmatrix}
+      E[\epsilon_1^2|X] & 0 & \dots  & 0 \\
+      0 & E[\epsilon_2^2|X] & \dots  & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \dots  & E[\epsilon_n^2|X]
+      \end{bmatrix}$$
 
-We are imposing one or more linear restrictions on the linear
-restriction model, that is, for the general linear model
-$\boldsymbol{y = X\beta + \epsilon}$, we are imposing $\boldsymbol{J}$
-linear restrictions.
-
-Let $\boldsymbol{R}$ be a matrix where each row of $\boldsymbol{R}$
-contains the coefficients of one of the restrictions.
-
-$\boldsymbol{R}$ may have one or many rows.
-
-We can thus write the $\boldsymbol{J}$ restrictions on
-$\boldsymbol{\beta}$: $$\boldsymbol{R\ \beta\ =\ q}$$
-
-The hypothesis implied by imposing the restrictions can be written as:
-$$H_0:\ \boldsymbol{R\ \beta\ - \ q = 0}$$
-
-$$H_A:\ \boldsymbol{R\ \beta\ - \ q \ne 0}$$
-
-## One Linear Hypothesis
-
-Assume that the regression model is:
+If the assumption of constant variance of the disturbances holds, then:
 
 $$
-\boldsymbol{y = \beta_1 + \beta_2 x_2 + \beta_3 x_3 + \dots + \beta_k x_k + \epsilon}
+E[\epsilon_i, \epsilon_j | X] = E[\epsilon_i, \epsilon_j] = \sigma^2 \quad \forall i=j
 $$
 
-and we hypothesize that $\beta_3 = 0$ so that:
+$$E[\epsilon \epsilon^T|X] =
+    \begin{bmatrix}
+    \sigma^2 & 0 & \dots  & 0 \\
+    0 & \sigma^2 & \dots  & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \dots  & \sigma^2
+    \end{bmatrix} = \sigma^2 \boldsymbol{I}$$
+
+-   Given the assumptions of nonautocorrelation and homoscedasticity:
+    $$var(\boldsymbol{b|X}) = \boldsymbol{(X^T X)^{-1} X^T\ E[\epsilon \epsilon^T|X]\ X (X^T X)^{-1} } = \sigma^2 \boldsymbol{(X^T X)^{-1}}$$
+
+## Visual Representation
+
+In the code chunk below, we generate 10,000 observations over 4
+independent variables and 1 constant term. We define the disturbances
+as:
 
 $$
-H_0: \beta_3 = 0
-$$
+\epsilon \sim N(0, 100)
+$$ In the resulting graphic, we plot the disturbances with respect to
+**X2**. The disturbances appear to be 'white noise', that is, randomly
+distributed around the mean of 0 with a variance of 100.
 
-$$H_A: \beta_3 \ne 0$$
+If the disturbances were **heteroscedastic** with respect to **X2**, the
+variance of the disturbances would change depending on the values of
+**X2**. We'll explore that in coming sections.
 
-This means that the **R** matrix has 0's for every element EXCEPT for
-$\beta_3$
-$$\boldsymbol{R} = [0\quad 0\quad 1\quad 0\quad \dots\quad 0];\quad \boldsymbol{q} = 0$$
-
-So, we can restate the null:
-
-$$
-H_0: \boldsymbol{R \beta - q = 0}
-$$
-
-$$H_0: \boldsymbol{R\beta} = [0\quad 0\quad 1\quad 0\quad \dots\quad 0]\begin{bmatrix}{\beta_1 \\ \beta_2 \\ \beta_3 \\ \vdots \\ \beta_k}\end{bmatrix}= 0 = \boldsymbol{q}$$
-
-If we multiply this out, we find:
-
-$$
-H_0: (0 \times\beta_1)+(0 \times \beta_2)+(1 \times \beta_3) + \dots + (0 \times \beta_k) = 0
-$$
-
-$$
-H_0: \beta_3 = 0
-$$
-
-## The T-Test
-
-Previously, we derived the standard error for each estimated
-coefficient.
-
-We can test a single linear hypothesis using the **t-test**.
-
-The t-test can be thought of as a 'ratio of distributions.'
-
-For a single estimated coefficient, $b$, under the null hypothesis,
-$H_0: \beta = 0$, the difference
-
-$$
-(b - \beta)
-$$
-
-measures the 'distance' from the estimate to the value of the population
-coefficient under the null.
-
-We normalize this 'distance' relative to the standard error of the
-estimated coefficient.
-
-The 'farther' the estimated coefficient is from the hypothesized value
-under the null, expressed in standard error units, the more likely the
-estimated coefficient is not equal to the hypothesized value under the
-null.
-
-The t-test is equal to:
-
-$$
-t_{n-K} \sim \frac{b - \beta}{se(b)}
-$$
-
-## Decision Rule: T-test
-
-To decide whether to reject $H_0$, we compare the calculated t-statistic
-to a **critical value**.
-
-We use different levels of statistical significance, ranging from
-$\alpha = 0.10$ (10% statistical significance) to $\alpha = 0.05$ (5%
-statistical significance) to $\alpha = 0.01$ (1% level of statistical
-significance).
-
-If the absolute value of the calculated t-statistic is greater than the
-critical value, then we reject the null hypothesis. On the other hand,
-if the absolute value of the t-statistic is less than or equal to the
-critical value of the t-statistic, we fail to reject the null hypothesis
-or:
-
-$$
-|t_{calc}| > t_{crit} \, \rightarrow \text{reject} \, H_0
-$$
-
-$$
-|t_{calc}| \le t_{crit} \, \rightarrow \text{fail to reject} \, H_0
-$$
-
-## Example in R
-
-In the code chunk below, we demonstrate how to estimate the t-statistic
-for simulated data and test the null hypothesis that each coefficient is
-equal to zero.
-
-```{r}
+```{r, message = FALSE, warning = FALSE}
 
 rm(list = ls())
 set.seed(1234)
 
-nrows <- 50
+nrows <- 10000
+ncols <- 5
+ 
+x <- matrix(0, nrows, ncols)
+      x[,1] <- 1
+      for (l in 2: ncols) {
+        x[,l] <- runif(nrows, min = 0, max = 20)
+        gc()
+      }
 
-x <- cbind(1, 
-           runif(nrows, 0, 20), 
-           runif(nrows, 0, 20),
-           rnorm(nrows, 5, 3)) 
+beta <- c(1, 3, 5, 7, 12)
 
-beta <- c(10, 2, -1, 3)
-epsilon <- rnorm(nrows, mean = 0, sd = 3.75)
+epsilon <- rnorm(nrows, sd = 10)
 
 y <- x %*% beta + epsilon
 
-bhat <- solve(t(x) %*% x) %*% t(x) %*% y
+plotdata <- data.frame(y, x, epsilon)
 
-e <- y - x %*% bhat
-n <- nrow(x)
-k <- ncol(x)
-s2 <- as.numeric((t(e) %*% e) / (n - k))
-
-var_cov_b <- s2 * solve(t(x) %*% x)
-se_b <- sqrt(diag(var_cov_b))
-
-# 5. T-test (Two-Tailed)
-beta <- 0
-
-t_stat <- (bhat - beta) / se_b
-
-p_values <- 2 * pt(abs(t_stat), df = n - k, lower.tail = FALSE)
-
-df <- tibble(round(bhat,3),
-             round(se_b,3),
-             round(t_stat,3),
-             round(p_values,5))
-
-kable(df,
-      align     = 'c',
-      digits    = 3,
-      col.names = c('Beta Hat', 'Standard Error',
-                    'T Statistic', 'P-Value')) %>%
-kable_classic()
-
+ggplot(data = plotdata,
+       aes(x = X2,
+           y = epsilon)) + 
+geom_point(color = "blue") +
+theme_minimal() +
+labs(y = "Disturbances",
+     x = "X2",
+     title = "Homoscedastic Disturbances")
 
 ```
+
+## Heteroscedasticity
+
+First, we continue to assume the assumption of nonautocorrelation
+continues to hold.
+
+Second, we now assume the assumption of homoscedasticity is violated,
+that is, the disturbances are **heteroscedastic** or:
+
+$$
+E[\epsilon_i,\epsilon_j | \boldsymbol{X}] = 0 \quad \forall i \ne j
+$$\
+
+$$
+E[\epsilon_i,\epsilon_j | \boldsymbol{X}] = \sigma_i^2 \quad \forall i = i
+$$
+
+In other words, if the assumption of the constant variances of the
+disturbances is violated, the the variance of each disturbance is a
+function of one or more of the independent variables or:
+$$E[\boldsymbol{\epsilon \epsilon^T|X}] = \boldsymbol{\Omega} 
+  =
+  \begin{bmatrix}
+  \sigma_1^2 & 0 & \dots  & 0 \\
+  0 & \sigma_2^2 & \dots  & 0 \\
+  \vdots & \vdots & \ddots & \vdots \\
+  0 & 0 & \dots  & \sigma_n^2
+  \end{bmatrix}\quad \sigma_i^2 \ne \sigma^2,\ \forall i$$
+
+Given heteroscedastic disturbances such that
+$var(\boldsymbol{\epsilon}) = \boldsymbol{\Omega}$:
+
+$$var(\boldsymbol{b|X}) = \boldsymbol{(X^T X)^{-1} X^T\ E[\epsilon \epsilon^T|X]\ X (X^T X)^{-1}}$$
+$$var(\boldsymbol{b|X}) = \boldsymbol{(X^T X)^{-1} \left( X^T\ \Omega\ X \right) (X^T X)^{-1}}$$
+
+As you can see, the $\boldsymbol{\Omega}$ is the variance-covariance
+matrix of the disturbances. Since the diagonal terms (the variances of
+the disturbances) are no longer equal to a constant, the
+variance-covariance matrix of the disturbances no longer 'collapses' to
+$\sigma^2 \boldsymbol{I}$.
+
+In other words, we cannot factor out $\sigma^2 \boldsymbol{I}$ which
+means that the variance of the least squares estimator changes as the
+values of the independent variables change.
+
+**The least squares estimator remains unbiased and consistent, however,
+the standard errors of the least squares estimator are biased, and thus
+our inferences are unreliable.**
+
+The question is: how can we test for the presence of heteroscedasticity?
+
+## Visual Representation
+
+```{r, message = FALSE, warning = FALSE}
+
+rm(list = ls())
+set.seed(1234)
+
+nrows <- 10000
+ncols <- 5
+ 
+x <- matrix(0, nrows, ncols)
+      x[,1] <- 1
+      for (l in 2: ncols) {
+        x[,l] <- runif(nrows, min = 0, max = 20)
+        gc()
+      }
+
+beta <- c(1, 3, 5, 7, 12)
+
+epsilon_het <- rnorm(nrows, sd = x[,2])
+
+y <- x %*% beta + epsilon_het
+
+plotdata <- data.frame(y, x, epsilon_het)
+
+ggplot(data = plotdata,
+       aes(x = X2,
+           y = epsilon_het)) + 
+geom_point(color = "red") +
+theme_minimal() +
+labs(y = "Disturbances",
+     x = "X2",
+     title = "Heteroscedastic Disturbances")
+
+```
+
+## Breusch-Pagan Test
+
+A more formal, mathematical way of detecting heteroscedasticity is the
+**Breusch-Pagan test**. It involves using a variance function and using
+a $\chi^2$ test to test the null hypothesis that heteroskedasticity is
+not present (i.e. homoscedastic) against the alternative hypothesis that
+heteroscedasticity is present.
+
+To examine the null and alternative hypotheses, we need a **variance
+function**. A variance function specifies a relationship between the
+variance of the errors and a set of explanatory variables.
+
+Given that $y$ is our dependent variable, $\epsilon$ are our population
+disturbances, $\sigma^2_i$ is the variance of $\epsilon_i$ and $Z$ is a
+set of exogenous regressors, then we can state:
+
+$$var(\epsilon_i) = \sigma^2_i = E[\epsilon_i^2] = h(Z)$$
+
+We note that $Z$ and $X$ may be the same or may contain different
+elements, that is, the set of exogenous regressors for the regression
+
+$$y = X\beta + \epsilon$$
+
+may be different then the set of exogenous regressors for
+
+$$var(\epsilon) = Z\delta + \theta$$ Given that
+
+$$var(\epsilon_i) = \sigma^2_i = E[\epsilon_i^2]$$
+
+we can now specify the model for the $\sigma^2_i$ as:
+
+$$var(\epsilon_i) = E[\epsilon_i^2] = \sigma^2_i = h(z_0 + \delta_1 z_{i1} + \delta_2 z_{i2} + ... + \delta_k z_{ik})$$
+
+We can now observe how $\sigma^2_i$ changes for each observation
+depending on the values of the $z_i$ variables.
+
+If $\delta_1 = \delta_2 = .. = \delta_k = 0$, then the $z_i$ have no
+influence and $var(\epsilon_i) = \sigma^2_i = h(z_0)$, that is, we have
+constant variance and homoscedasticity.
+
+If, on the other hand, $\delta_i \ne 0$ for any , then at least one
+$z_i$ influences $var(\epsilon_i) = \sigma^2_i$.
+
+For example, if $z_1$ is influential, then
+
+$$var(\epsilon_i) = E[\epsilon_i^2]= \sigma^2_i = h(z_0 + \delta_1 z_1)$$
+
+We no longer have constant variance and the errors are heteroscedastic.
+
+The above discussion leads to the null and alternative hypotheses of the
+Breusch-Pagan test.
+
+The null and alternative hypotheses are:
+$$H_0: \delta_1 = \delta_2 = \delta_3 = ... + \delta_k = 0$$
+$$H_A: \text{At least one} \  \delta_i \ \text{is not zero}$$
+
+We now specify a linear variance function to obtain:
+$$\epsilon^2_i = E[\epsilon_i^2] = z_0 + \delta_1 z_{i1} + \delta_2 z_{i2} + ... + \delta_k z_{ik}$$
+
+Assume that $\upsilon_i = \epsilon^2_i - E[\epsilon_i^2]$, that is, we
+can denote $\upsilon$ as difference between a squared error term and its
+mean. From the above equation, we can use $\upsilon$ and write
+$$\epsilon^2_i = E[\epsilon_i^2] + \upsilon_i = z_0 + \delta_1 z_{i1} + \delta_2 z_{i2} + ... + \delta_k z_{ik} + \upsilon_i$$
+
+Recall that the population errors $\epsilon_i$ are unobservable,
+however, we can use the least squares estimates of the population
+disturbances, that is, the residuals. We can then estimate the following
+model:
+$$e^2_i = \hat{z_0} + \hat{\delta_1} z_{i1} + \hat{\delta_2} z_{i2} + ... + \hat{\delta_k} z_{ik} + \hat{\upsilon_i}$$
+
+The intuition for the Breusch-Pagan test is straightforward.
+
+**Do the independent variables explain the variation in the least
+squares residuals** $e^2_i$**.**
+
+Since $R^2$ from the above regression is a measure of the variation in
+$e_i^2$ that is explained by the regressors, then $R^2$ can be used to
+form a test statistic.
+
+Under the null (homoscedasticity), the sample size $N$ times $R^2$ is
+distributed $\chi^2$ with $K-1$ degrees of freedom or
+$\chi^2 = N \times R^2 \sim \chi^2_{K-1}$.

@@ -2116,7 +2116,7 @@
     "href": "mod-7-1-heteroscedasticity.html",
     "title": "24  Heteroscedasticity",
     "section": "",
-    "text": "24.1 Introduction\nModule 6 focuses on the transition from parameter estimation to formal statistical inference through the framework of hypothesis testing. Students will examine the three fundamental approaches to inference—Wald, fit-based, and Lagrange multiplier tests—to determine whether empirical evidence supports specific theoretical restrictions on population parameters. By mastering the application of \\(t\\)-tests for individual coefficients, students will gain the analytical tools necessary to assess the statistical significance of economic relationships.",
+    "text": "24.1 Introduction\nIn this section, we develop the variance estimator for the least squares estimator. We then discuss the problem of heteroscedastic disturbances and the impact of heteroscedasticity on the standard errors of the parameter estimates. We discuss the need for a consistent estimator of the variance of the least squares estimator.",
     "crumbs": [
       "Heteroscedasticity",
       "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
@@ -2194,6 +2194,72 @@
     "title": "24  Heteroscedasticity",
     "section": "24.8 Example in R",
     "text": "24.8 Example in R\nIn the code chunk below, we demonstrate how to estimate the t-statistic for simulated data and test the null hypothesis that each coefficient is equal to zero.\n\nrm(list = ls())\nset.seed(1234)\n\nnrows &lt;- 50\n\nx &lt;- cbind(1, \n           runif(nrows, 0, 20), \n           runif(nrows, 0, 20),\n           rnorm(nrows, 5, 3)) \n\nbeta &lt;- c(10, 2, -1, 3)\nepsilon &lt;- rnorm(nrows, mean = 0, sd = 3.75)\n\ny &lt;- x %*% beta + epsilon\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\ne &lt;- y - x %*% bhat\nn &lt;- nrow(x)\nk &lt;- ncol(x)\ns2 &lt;- as.numeric((t(e) %*% e) / (n - k))\n\nvar_cov_b &lt;- s2 * solve(t(x) %*% x)\nse_b &lt;- sqrt(diag(var_cov_b))\n\n# 5. T-test (Two-Tailed)\nbeta &lt;- 0\n\nt_stat &lt;- (bhat - beta) / se_b\n\np_values &lt;- 2 * pt(abs(t_stat), df = n - k, lower.tail = FALSE)\n\ndf &lt;- tibble(round(bhat,3),\n             round(se_b,3),\n             round(t_stat,3),\n             round(p_values,5))\n\nkable(df,\n      align     = 'c',\n      digits    = 3,\n      col.names = c('Beta Hat', 'Standard Error',\n                    'T Statistic', 'P-Value')) %&gt;%\nkable_classic()\n\n\n\n\nBeta Hat\nStandard Error\nT Statistic\nP-Value\n\n\n\n\n8.762\n1.446\n6.061\n0\n\n\n2.009\n0.089\n22.552\n0\n\n\n-0.978\n0.081\n-12.134\n0\n\n\n3.193\n0.151\n21.132\n0",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-1-heteroscedasticity.html#finite-sample-variance",
+    "href": "mod-7-1-heteroscedasticity.html#finite-sample-variance",
+    "title": "24  Heteroscedasticity",
+    "section": "24.2 Finite Sample Variance",
+    "text": "24.2 Finite Sample Variance\nRecall, in finite samples, that \\[var(\\boldsymbol{b}) = E[\\boldsymbol{(b - \\beta)(b - \\beta)^T}]\\] \\[var(\\boldsymbol{b|X}) = E[\\boldsymbol{[(X^T X)^{-1} X^T \\epsilon]\\ [(X^T X)^{-1} X^T \\epsilon]^T | X}]\\] \\[var(\\boldsymbol{b|X}) = E[\\boldsymbol{(X^T X)^{-1} X^T \\epsilon \\epsilon^T X (X^T X)^{-1} | X}]\\] \\[var(\\boldsymbol{b|X}) = \\boldsymbol{(X^T X)^{-1} X^T\\ E[\\epsilon \\epsilon^T|X]\\ X (X^T X)^{-1} }\\]\nWhat is \\(E[\\boldsymbol{\\epsilon \\epsilon^T |X}]?\\) \\[E[\\boldsymbol{\\epsilon \\epsilon^T|X}] =\n  \\begin{bmatrix}\n  E[\\epsilon_1^2|X] & E[\\epsilon_1 \\epsilon_2|X] & \\dots  & E[\\epsilon_1 \\epsilon_n|X] \\\\\n  E[\\epsilon_2 \\epsilon_1|X] & E[\\epsilon_2^2|X] & \\dots  & E[\\epsilon_2 \\epsilon_n|X] \\\\\n  \\vdots & \\vdots & \\ddots & \\vdots \\\\\n  E[\\epsilon_n \\epsilon_1|X] & E[\\epsilon_n \\epsilon_1|X] & \\dots  & E[\\epsilon_n^2|X]\n  \\end{bmatrix}\\]",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-1-heteroscedasticity.html#homoscedastic-disturbances",
+    "href": "mod-7-1-heteroscedasticity.html#homoscedastic-disturbances",
+    "title": "24  Heteroscedasticity",
+    "section": "24.3 Homoscedastic Disturbances",
+    "text": "24.3 Homoscedastic Disturbances\nIf the assumption of nonautocorrelation holds, then:\n\\[\nE[\\epsilon_i, \\epsilon_j] = 0 \\quad \\forall i \\ne j\n\\]\n\\[E[\\epsilon \\epsilon^T|X] =\n      \\begin{bmatrix}\n      E[\\epsilon_1^2|X] & 0 & \\dots  & 0 \\\\\n      0 & E[\\epsilon_2^2|X] & \\dots  & 0 \\\\\n      \\vdots & \\vdots & \\ddots & \\vdots \\\\\n      0 & 0 & \\dots  & E[\\epsilon_n^2|X]\n      \\end{bmatrix}\\]\nIf the assumption of constant variance of the disturbances holds, then:\n\\[\nE[\\epsilon_i, \\epsilon_j | X] = E[\\epsilon_i, \\epsilon_j] = \\sigma^2 \\quad \\forall i=j\n\\]\n\\[E[\\epsilon \\epsilon^T|X] =\n    \\begin{bmatrix}\n    \\sigma^2 & 0 & \\dots  & 0 \\\\\n    0 & \\sigma^2 & \\dots  & 0 \\\\\n    \\vdots & \\vdots & \\ddots & \\vdots \\\\\n    0 & 0 & \\dots  & \\sigma^2\n    \\end{bmatrix} = \\sigma^2 \\boldsymbol{I}\\]\n\nGiven the assumptions of nonautocorrelation and homoscedasticity: \\[var(\\boldsymbol{b|X}) = \\boldsymbol{(X^T X)^{-1} X^T\\ E[\\epsilon \\epsilon^T|X]\\ X (X^T X)^{-1} } = \\sigma^2 \\boldsymbol{(X^T X)^{-1}}\\]",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-1-heteroscedasticity.html#visual-representation",
+    "href": "mod-7-1-heteroscedasticity.html#visual-representation",
+    "title": "24  Heteroscedasticity",
+    "section": "24.4 Visual Representation",
+    "text": "24.4 Visual Representation\nIn the code chunk below, we generate 10,000 observations over 4 independent variables and 1 constant term. We define the disturbances as:\n\\[\n\\epsilon \\sim N(0, 100)\n\\] In the resulting graphic, we plot the disturbances with respect to X2. The disturbances appear to be ‘white noise’, that is, randomly distributed around the mean of 0 with a variance of 100.\nIf the disturbances were heteroscedastic with respect to X2, the variance of the disturbances would change depending on the values of X2. We’ll explore that in coming sections.\n\nrm(list = ls())\nset.seed(1234)\n\nnrows &lt;- 10000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1, 3, 5, 7, 12)\n\nepsilon &lt;- rnorm(nrows, sd = 10)\n\ny &lt;- x %*% beta + epsilon\n\nplotdata &lt;- data.frame(y, x, epsilon)\n\nggplot(data = plotdata,\n       aes(x = X2,\n           y = epsilon)) + \ngeom_point(color = \"blue\") +\ntheme_minimal() +\nlabs(y = \"Disturbances\",\n     x = \"X2\",\n     title = \"Homoscedastic Disturbances\")",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-1-heteroscedasticity.html#heteroscedasticity",
+    "href": "mod-7-1-heteroscedasticity.html#heteroscedasticity",
+    "title": "24  Heteroscedasticity",
+    "section": "24.5 Heteroscedasticity",
+    "text": "24.5 Heteroscedasticity\nFirst, we continue to assume the assumption of nonautocorrelation continues to hold.\nSecond, we now assume the assumption of homoscedasticity is violated, that is, the disturbances are heteroscedastic or:\n\\[\nE[\\epsilon_i,\\epsilon_j | \\boldsymbol{X}] = 0 \\quad \\forall i \\ne j\n\\]\n\n\\[\nE[\\epsilon_i,\\epsilon_j | \\boldsymbol{X}] = \\sigma_i^2 \\quad \\forall i = i\n\\]\nIn other words, if the assumption of the constant variances of the disturbances is violated, the the variance of each disturbance is a function of one or more of the independent variables or: \\[E[\\boldsymbol{\\epsilon \\epsilon^T|X}] = \\boldsymbol{\\Omega}\n  =\n  \\begin{bmatrix}\n  \\sigma_1^2 & 0 & \\dots  & 0 \\\\\n  0 & \\sigma_2^2 & \\dots  & 0 \\\\\n  \\vdots & \\vdots & \\ddots & \\vdots \\\\\n  0 & 0 & \\dots  & \\sigma_n^2\n  \\end{bmatrix}\\quad \\sigma_i^2 \\ne \\sigma^2,\\ \\forall i\\]\nGiven heteroscedastic disturbances such that \\(var(\\boldsymbol{\\epsilon}) = \\boldsymbol{\\Omega}\\):\n\\[var(\\boldsymbol{b|X}) = \\boldsymbol{(X^T X)^{-1} X^T\\ E[\\epsilon \\epsilon^T|X]\\ X (X^T X)^{-1}}\\] \\[var(\\boldsymbol{b|X}) = \\boldsymbol{(X^T X)^{-1} \\left( X^T\\ \\Omega\\ X \\right) (X^T X)^{-1}}\\]\nAs you can see, the \\(\\boldsymbol{\\Omega}\\) is the variance-covariance matrix of the disturbances. Since the diagonal terms (the variances of the disturbances) are no longer equal to a constant, the variance-covariance matrix of the disturbances no longer ‘collapses’ to \\(\\sigma^2 \\boldsymbol{I}\\).\nIn other words, we cannot factor out \\(\\sigma^2 \\boldsymbol{I}\\) which means that the variance of the least squares estimator changes as the values of the independent variables change.\nThe least squares estimator remains unbiased and consistent, however, the standard errors of the least squares estimator are biased, and thus our inferences are unreliable.\nThe question is: how can we test for the presence of heteroscedasticity?",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-1-heteroscedasticity.html#visual-representation-1",
+    "href": "mod-7-1-heteroscedasticity.html#visual-representation-1",
+    "title": "24  Heteroscedasticity",
+    "section": "24.6 Visual Representation",
+    "text": "24.6 Visual Representation\n\nrm(list = ls())\nset.seed(1234)\n\nnrows &lt;- 10000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- runif(nrows, min = 0, max = 20)\n        gc()\n      }\n\nbeta &lt;- c(1, 3, 5, 7, 12)\n\nepsilon_het &lt;- rnorm(nrows, sd = x[,2])\n\ny &lt;- x %*% beta + epsilon_het\n\nplotdata &lt;- data.frame(y, x, epsilon_het)\n\nggplot(data = plotdata,\n       aes(x = X2,\n           y = epsilon_het)) + \ngeom_point(color = \"red\") +\ntheme_minimal() +\nlabs(y = \"Disturbances\",\n     x = \"X2\",\n     title = \"Heteroscedastic Disturbances\")",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-1-heteroscedasticity.html#breusch-pagan-test",
+    "href": "mod-7-1-heteroscedasticity.html#breusch-pagan-test",
+    "title": "24  Heteroscedasticity",
+    "section": "24.7 Breusch-Pagan Test",
+    "text": "24.7 Breusch-Pagan Test\nA more formal, mathematical way of detecting heteroscedasticity is the Breusch-Pagan test. It involves using a variance function and using a \\(\\chi^2\\) test to test the null hypothesis that heteroskedasticity is not present (i.e. homoscedastic) against the alternative hypothesis that heteroscedasticity is present.\nTo examine the null and alternative hypotheses, we need a variance function. A variance function specifies a relationship between the variance of the errors and a set of explanatory variables.\nGiven that \\(y\\) is our dependent variable, \\(\\epsilon\\) are our population disturbances, \\(\\sigma^2_i\\) is the variance of \\(\\epsilon_i\\) and \\(Z\\) is a set of exogenous regressors, then we can state:\n\\[var(\\epsilon_i) = \\sigma^2_i = E[\\epsilon_i^2] = h(Z)\\]\nWe note that \\(Z\\) and \\(X\\) may be the same or may contain different elements, that is, the set of exogenous regressors for the regression\n\\[y = X\\beta + \\epsilon\\]\nmay be different then the set of exogenous regressors for\n\\[var(\\epsilon) = Z\\delta + \\theta\\] Given that\n\\[var(\\epsilon_i) = \\sigma^2_i = E[\\epsilon_i^2]\\]\nwe can now specify the model for the \\(\\sigma^2_i\\) as:\n\\[var(\\epsilon_i) = E[\\epsilon_i^2] = \\sigma^2_i = h(z_0 + \\delta_1 z_{i1} + \\delta_2 z_{i2} + ... + \\delta_k z_{ik})\\]\nWe can now observe how \\(\\sigma^2_i\\) changes for each observation depending on the values of the \\(z_i\\) variables.\nIf \\(\\delta_1 = \\delta_2 = .. = \\delta_k = 0\\), then the \\(z_i\\) have no influence and \\(var(\\epsilon_i) = \\sigma^2_i = h(z_0)\\), that is, we have constant variance and homoscedasticity.\nIf, on the other hand, \\(\\delta_i \\ne 0\\) for any , then at least one \\(z_i\\) influences \\(var(\\epsilon_i) = \\sigma^2_i\\).\nFor example, if \\(z_1\\) is influential, then\n\\[var(\\epsilon_i) = E[\\epsilon_i^2]= \\sigma^2_i = h(z_0 + \\delta_1 z_1)\\]\nWe no longer have constant variance and the errors are heteroscedastic.\nThe above discussion leads to the null and alternative hypotheses of the Breusch-Pagan test.\nThe null and alternative hypotheses are: \\[H_0: \\delta_1 = \\delta_2 = \\delta_3 = ... + \\delta_k = 0\\] \\[H_A: \\text{At least one} \\  \\delta_i \\ \\text{is not zero}\\]\nWe now specify a linear variance function to obtain: \\[\\epsilon^2_i = E[\\epsilon_i^2] = z_0 + \\delta_1 z_{i1} + \\delta_2 z_{i2} + ... + \\delta_k z_{ik}\\]\nAssume that \\(\\upsilon_i = \\epsilon^2_i - E[\\epsilon_i^2]\\), that is, we can denote \\(\\upsilon\\) as difference between a squared error term and its mean. From the above equation, we can use \\(\\upsilon\\) and write \\[\\epsilon^2_i = E[\\epsilon_i^2] + \\upsilon_i = z_0 + \\delta_1 z_{i1} + \\delta_2 z_{i2} + ... + \\delta_k z_{ik} + \\upsilon_i\\]\nRecall that the population errors \\(\\epsilon_i\\) are unobservable, however, we can use the least squares estimates of the population disturbances, that is, the residuals. We can then estimate the following model: \\[e^2_i = \\hat{z_0} + \\hat{\\delta_1} z_{i1} + \\hat{\\delta_2} z_{i2} + ... + \\hat{\\delta_k} z_{ik} + \\hat{\\upsilon_i}\\]\nThe intuition for the Breusch-Pagan test is straightforward.\nDo the independent variables explain the variation in the least squares residuals \\(e^2_i\\).\nSince \\(R^2\\) from the above regression is a measure of the variation in \\(e_i^2\\) that is explained by the regressors, then \\(R^2\\) can be used to form a test statistic.\nUnder the null (homoscedasticity), the sample size \\(N\\) times \\(R^2\\) is distributed \\(\\chi^2\\) with \\(K-1\\) degrees of freedom or \\(\\chi^2 = N \\times R^2 \\sim \\chi^2_{K-1}\\).",
     "crumbs": [
       "Heteroscedasticity",
       "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
