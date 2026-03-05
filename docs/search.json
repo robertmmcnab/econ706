@@ -81,7 +81,7 @@
     "href": "index.html#module-06---hypothesis-testing",
     "title": "ECON 706",
     "section": "0.7 Module 06 - Hypothesis Testing",
-    "text": "0.7 Module 06 - Hypothesis Testing\n\n\nModule 6 Overview\n\n\nSingle Hypothesis Testing\n\n\n&lt;Multiple Hypothesis Testing\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
+    "text": "0.7 Module 06 - Hypothesis Testing\n\n\nModule 6 Overview\n\n\nSingle Hypothesis Testing\n\n\n&lt;Multiple Hypothesis Testing",
     "crumbs": [
       "Introduction",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
@@ -2043,6 +2043,160 @@
     "crumbs": [
       "Hypothesis Testing",
       "<span class='chapter-number'>22</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-0-overview.html",
+    "href": "mod-7-0-overview.html",
+    "title": "23  Module 7 Overview",
+    "section": "",
+    "text": "23.1 Introduction\nWelcome to Module 7 of ECON 706.\nIn econometrics, the least squares estimator is considered robust to violations of normality and homoscedasticity because it retains its properties of unbiasedness and consistency even when these base assumptions are not met. While homoscedasticity (constant variance of disturbances) is often assumed, heteroscedasticity, where the variance of errors varies across observations, is a common problem. When heteroscedasticity is present, the standard errors for the least squares estimator become biased because the traditional variance-covariance matrix formula fails to account for the non-constant variance.\nTo address this, researchers utilize heteroscedasticity-consistent variance-covariance matrices, most notably White’s estimator and its finite-sample corrections. These methods allow for valid inference by using observed residuals to estimate the behavior of unknown disturbances. Additionally, formal diagnostic tools such as the Breusch-Pagan test and the White test are employed to examine the null hypothesis of homoscedasticity. These tests rely on regressing squared residuals on independent variables, squares, and cross-products to determine if those variables significantly explain variations in the error terms.",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Module 7 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-0-overview.html#learning-objectives",
+    "href": "mod-7-0-overview.html#learning-objectives",
+    "title": "23  Module 7 Overview",
+    "section": "23.2 Learning Objectives",
+    "text": "23.2 Learning Objectives\nBy the end of this module, you should be able to:\n\nMLO 1: Define the properties of a robust estimator and explain why least squares remains consistent despite violations of normality and homoscedasticity.\nMLO 2: Differentiate between homoscedastic and heteroscedastic disturbances and describe their impact on the finite sample and asymptotic properties of the least squares estimator.\nMLO 3: Construct a heteroscedasticity-consistent variance-covariance matrix using White’s estimator to obtain robust standard errors.\nMLO 4: Perform the Breusch-Pagan and White tests to statistically evaluate the null hypothesis of homoscedasticity.\nMLO 5: Implement R programming techniques to calculate robust standard errors and execute diagnostic tests for heteroscedasticity in linear models.",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Module 7 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-0-overview.html#required-texts",
+    "href": "mod-7-0-overview.html#required-texts",
+    "title": "23  Module 7 Overview",
+    "section": "23.3 Required Texts",
+    "text": "23.3 Required Texts\nPlease select the links provided to access material where applicable.\n\nWilliam H. Greene. (2018). Econometric Analysis, 8th Edition. Available from Pearson. Chapters 3-6.\nRafael Irizarry. (2025). Introduction to Data Science: Data Wrangling and Visualization with R. Chapters 1-2.\nHadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund. (2025) R for Data Science. Sections 1-19.\nOnline R documentation\nRStudio Cheat Sheets",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Module 7 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-0-overview.html#module-to-do-list",
+    "href": "mod-7-0-overview.html#module-to-do-list",
+    "title": "23  Module 7 Overview",
+    "section": "23.4 Module To Do List",
+    "text": "23.4 Module To Do List\n\nComplete the hands-on coding exercises embedded in each lesson (MLO 1, 5)\n\nUse WebR to experiment directly in your browser (MLO 1, 2, 3, 4, 5)\n\nComplete the weekly class assignment (MLO 1, 2, 3, 4, 5)\n\nTake the weekly knowledge quiz (MLO 1, 2, 3, 4, 5)",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Module 7 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-0-overview.html#lessons-in-this-module",
+    "href": "mod-7-0-overview.html#lessons-in-this-module",
+    "title": "23  Module 7 Overview",
+    "section": "23.5 Lessons in this Module",
+    "text": "23.5 Lessons in this Module\n\n7.1 - Heteroscedasticitt\n\n\nNext: Start with **Heteroscedasticity*.",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Module 7 Overview</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#module-07---heteroscedasticity",
+    "href": "index.html#module-07---heteroscedasticity",
+    "title": "ECON 706",
+    "section": "0.8 Module 07 - Heteroscedasticity",
+    "text": "0.8 Module 07 - Heteroscedasticity\n\n\nModule 7Overview\n\n\nHeteroscedasticity\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-1-heteroscedasticity.html",
+    "href": "mod-7-1-heteroscedasticity.html",
+    "title": "24  Heteroscedasticity",
+    "section": "",
+    "text": "24.1 Introduction\nModule 6 focuses on the transition from parameter estimation to formal statistical inference through the framework of hypothesis testing. Students will examine the three fundamental approaches to inference—Wald, fit-based, and Lagrange multiplier tests—to determine whether empirical evidence supports specific theoretical restrictions on population parameters. By mastering the application of \\(t\\)-tests for individual coefficients, students will gain the analytical tools necessary to assess the statistical significance of economic relationships.",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-1-heteroscedasticity.html#null-hypothesis",
+    "href": "mod-7-1-heteroscedasticity.html#null-hypothesis",
+    "title": "24  Heteroscedasticity",
+    "section": "24.2 Null Hypothesis",
+    "text": "24.2 Null Hypothesis\nThe null hypothesis, \\(H_0\\), is the ‘status quo’ or typically the assumption of ‘no effect.’\nThe null hypothesis is the claim that we will ‘operate under’ unless ‘strong evidence’ otherwise.\nIn regression analysis, the null hypothesis is typically that the regressor of interest has no impact on the dependent variable. In other words,\n\\[\nH_0: \\beta_k = 0\n\\]\nWe can only reject or fail to reject the null hypothesis given the evidence at hand.\nIn econometrics, we never “accept” the null hypothesis. We simply state that the evidence is insufficient to disprove it.",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-1-heteroscedasticity.html#alternative-hypothesis",
+    "href": "mod-7-1-heteroscedasticity.html#alternative-hypothesis",
+    "title": "24  Heteroscedasticity",
+    "section": "24.3 Alternative Hypothesis",
+    "text": "24.3 Alternative Hypothesis\nThe alternative hypothesis is the claim we are testing. Typically, the alternative represents the presence of an effect, a difference, or a relationship.\nWe do not test the alternative hypothesis. We test whether there is sufficient evidence to reject the null hypothesis. In econometrics, where the null hypothesis is often the true value of the population parameter is equal to zero, we investigate whether, for a given sample, there is sufficient evidence to reject the null of zero (‘no effect’).\nIn most cases, we have a two-sided null and alternative hypothesis, that is, we are not testing a specific direction, merely whether we can reject the null hypothesis of zero.\n\\[\nH_A: \\beta \\ne 0\n\\]",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-1-heteroscedasticity.html#general-linear-hypotheses",
+    "href": "mod-7-1-heteroscedasticity.html#general-linear-hypotheses",
+    "title": "24  Heteroscedasticity",
+    "section": "24.4 General Linear Hypotheses",
+    "text": "24.4 General Linear Hypotheses\nWe are imposing one or more linear restrictions on the linear restriction model, that is, for the general linear model \\(\\boldsymbol{y = X\\beta + \\epsilon}\\), we are imposing \\(\\boldsymbol{J}\\) linear restrictions.\nLet \\(\\boldsymbol{R}\\) be a matrix where each row of \\(\\boldsymbol{R}\\) contains the coefficients of one of the restrictions.\n\\(\\boldsymbol{R}\\) may have one or many rows.\nWe can thus write the \\(\\boldsymbol{J}\\) restrictions on \\(\\boldsymbol{\\beta}\\): \\[\\boldsymbol{R\\ \\beta\\ =\\ q}\\]\nThe hypothesis implied by imposing the restrictions can be written as: \\[H_0:\\ \\boldsymbol{R\\ \\beta\\ - \\ q = 0}\\]\n\\[H_A:\\ \\boldsymbol{R\\ \\beta\\ - \\ q \\ne 0}\\]",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-1-heteroscedasticity.html#one-linear-hypothesis",
+    "href": "mod-7-1-heteroscedasticity.html#one-linear-hypothesis",
+    "title": "24  Heteroscedasticity",
+    "section": "24.5 One Linear Hypothesis",
+    "text": "24.5 One Linear Hypothesis\nAssume that the regression model is:\n\\[\n\\boldsymbol{y = \\beta_1 + \\beta_2 x_2 + \\beta_3 x_3 + \\dots + \\beta_k x_k + \\epsilon}\n\\]\nand we hypothesize that \\(\\beta_3 = 0\\) so that:\n\\[\nH_0: \\beta_3 = 0\n\\]\n\\[H_A: \\beta_3 \\ne 0\\]\nThis means that the R matrix has 0’s for every element EXCEPT for \\(\\beta_3\\) \\[\\boldsymbol{R} = [0\\quad 0\\quad 1\\quad 0\\quad \\dots\\quad 0];\\quad \\boldsymbol{q} = 0\\]\nSo, we can restate the null:\n\\[\nH_0: \\boldsymbol{R \\beta - q = 0}\n\\]\n\\[H_0: \\boldsymbol{R\\beta} = [0\\quad 0\\quad 1\\quad 0\\quad \\dots\\quad 0]\\begin{bmatrix}{\\beta_1 \\\\ \\beta_2 \\\\ \\beta_3 \\\\ \\vdots \\\\ \\beta_k}\\end{bmatrix}= 0 = \\boldsymbol{q}\\]\nIf we multiply this out, we find:\n\\[\nH_0: (0 \\times\\beta_1)+(0 \\times \\beta_2)+(1 \\times \\beta_3) + \\dots + (0 \\times \\beta_k) = 0\n\\]\n\\[\nH_0: \\beta_3 = 0\n\\]",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-1-heteroscedasticity.html#the-t-test",
+    "href": "mod-7-1-heteroscedasticity.html#the-t-test",
+    "title": "24  Heteroscedasticity",
+    "section": "24.6 The T-Test",
+    "text": "24.6 The T-Test\nPreviously, we derived the standard error for each estimated coefficient.\nWe can test a single linear hypothesis using the t-test.\nThe t-test can be thought of as a ‘ratio of distributions.’\nFor a single estimated coefficient, \\(b\\), under the null hypothesis, \\(H_0: \\beta = 0\\), the difference\n\\[\n(b - \\beta)\n\\]\nmeasures the ‘distance’ from the estimate to the value of the population coefficient under the null.\nWe normalize this ‘distance’ relative to the standard error of the estimated coefficient.\nThe ‘farther’ the estimated coefficient is from the hypothesized value under the null, expressed in standard error units, the more likely the estimated coefficient is not equal to the hypothesized value under the null.\nThe t-test is equal to:\n\\[\nt_{n-K} \\sim \\frac{b - \\beta}{se(b)}\n\\]",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-1-heteroscedasticity.html#decision-rule-t-test",
+    "href": "mod-7-1-heteroscedasticity.html#decision-rule-t-test",
+    "title": "24  Heteroscedasticity",
+    "section": "24.7 Decision Rule: T-test",
+    "text": "24.7 Decision Rule: T-test\nTo decide whether to reject \\(H_0\\), we compare the calculated t-statistic to a critical value.\nWe use different levels of statistical significance, ranging from \\(\\alpha = 0.10\\) (10% statistical significance) to \\(\\alpha = 0.05\\) (5% statistical significance) to \\(\\alpha = 0.01\\) (1% level of statistical significance).\nIf the absolute value of the calculated t-statistic is greater than the critical value, then we reject the null hypothesis. On the other hand, if the absolute value of the t-statistic is less than or equal to the critical value of the t-statistic, we fail to reject the null hypothesis or:\n\\[\n|t_{calc}| &gt; t_{crit} \\, \\rightarrow \\text{reject} \\, H_0\n\\]\n\\[\n|t_{calc}| \\le t_{crit} \\, \\rightarrow \\text{fail to reject} \\, H_0\n\\]",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
+    ]
+  },
+  {
+    "objectID": "mod-7-1-heteroscedasticity.html#example-in-r",
+    "href": "mod-7-1-heteroscedasticity.html#example-in-r",
+    "title": "24  Heteroscedasticity",
+    "section": "24.8 Example in R",
+    "text": "24.8 Example in R\nIn the code chunk below, we demonstrate how to estimate the t-statistic for simulated data and test the null hypothesis that each coefficient is equal to zero.\n\nrm(list = ls())\nset.seed(1234)\n\nnrows &lt;- 50\n\nx &lt;- cbind(1, \n           runif(nrows, 0, 20), \n           runif(nrows, 0, 20),\n           rnorm(nrows, 5, 3)) \n\nbeta &lt;- c(10, 2, -1, 3)\nepsilon &lt;- rnorm(nrows, mean = 0, sd = 3.75)\n\ny &lt;- x %*% beta + epsilon\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\ne &lt;- y - x %*% bhat\nn &lt;- nrow(x)\nk &lt;- ncol(x)\ns2 &lt;- as.numeric((t(e) %*% e) / (n - k))\n\nvar_cov_b &lt;- s2 * solve(t(x) %*% x)\nse_b &lt;- sqrt(diag(var_cov_b))\n\n# 5. T-test (Two-Tailed)\nbeta &lt;- 0\n\nt_stat &lt;- (bhat - beta) / se_b\n\np_values &lt;- 2 * pt(abs(t_stat), df = n - k, lower.tail = FALSE)\n\ndf &lt;- tibble(round(bhat,3),\n             round(se_b,3),\n             round(t_stat,3),\n             round(p_values,5))\n\nkable(df,\n      align     = 'c',\n      digits    = 3,\n      col.names = c('Beta Hat', 'Standard Error',\n                    'T Statistic', 'P-Value')) %&gt;%\nkable_classic()\n\n\n\n\nBeta Hat\nStandard Error\nT Statistic\nP-Value\n\n\n\n\n8.762\n1.446\n6.061\n0\n\n\n2.009\n0.089\n22.552\n0\n\n\n-0.978\n0.081\n-12.134\n0\n\n\n3.193\n0.151\n21.132\n0",
+    "crumbs": [
+      "Heteroscedasticity",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
     ]
   }
 ]

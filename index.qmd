@@ -64,6 +64,14 @@ title: "ECON 706"
 <li><a href="mod-6-2-multiple.qmd"><Multiple Hypothesis Testing</a></li>
 </ul>
 
+
+## Module 07 - Heteroscedasticity
+
+<ul>
+<li><a href="mod-7-0-overview.qmd">Module 7Overview</a></li>
+<li><a href="mod-7-1-heteroscedasticity.qmd">Heteroscedasticity</a></li>
+</ul>
+
 ------------------------------------------------------------------------
 
 <p>This site provides <strong>interactive and static examples</strong> for economic data analysis using R and WebR. Click on the links above to explore each module.</p>

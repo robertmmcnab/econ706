@@ -42,6 +42,10 @@ book:
         - mod-6-0-overview.qmd
         - mod-6-1-hypothesis.qmd
         - mod-6-2-multiple.qmd
+    - part: "Heteroscedasticity"
+      chapters:
+        - mod-7-0-overview.qmd
+        - mod-7-1-heteroscedasticity.qmd
 
 execute:
   webR: true            # enables WebR chunks for interactive R in the browser

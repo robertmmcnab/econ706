@@ -1,0 +1,56 @@
+---
+title: "Module 7 Overview"
+---
+
+## Introduction
+
+Welcome to **Module 7** of ECON 706.
+
+In econometrics, the least squares estimator is considered robust to violations of normality and homoscedasticity because it retains its properties of unbiasedness and consistency even when these base assumptions are not met. While homoscedasticity (constant variance of disturbances) is often assumed, heteroscedasticity, where the variance of errors varies across observations, is a common problem. When heteroscedasticity is present, the standard errors for the least squares estimator become biased because the traditional variance-covariance matrix formula fails to account for the non-constant variance.
+
+To address this, researchers utilize heteroscedasticity-consistent variance-covariance matrices, most notably White’s estimator and its finite-sample corrections. These methods allow for valid inference by using observed residuals to estimate the behavior of unknown disturbances. Additionally, formal diagnostic tools such as the Breusch-Pagan test and the White test are employed to examine the null hypothesis of homoscedasticity. These tests rely on regressing squared residuals on independent variables, squares, and cross-products to determine if those variables significantly explain variations in the error terms.
+
+## Learning Objectives
+
+By the end of this module, you should be able to:
+
+-   **MLO 1**: **Define** the properties of a robust estimator and explain why least squares remains consistent despite violations of normality and homoscedasticity.
+-   **MLO 2**: **Differentiate** between homoscedastic and heteroscedastic disturbances and describe their impact on the finite sample and asymptotic properties of the least squares estimator.
+-   **MLO 3**: **Construct** a heteroscedasticity-consistent variance-covariance matrix using White’s estimator to obtain robust standard errors.
+-   **MLO 4**: **Perform** the Breusch-Pagan and White tests to statistically evaluate the null hypothesis of homoscedasticity.
+-   **MLO 5**: **Implement** R programming techniques to calculate robust standard errors and execute diagnostic tests for heteroscedasticity in linear models.
+
+------------------------------------------------------------------------
+
+## Required Texts
+
+Please select the links provided to access material where applicable.
+
+-   William H. Greene. (2018). *Econometric Analysis, 8th Edition*. Available from Pearson. Chapters 3-6.
+
+-   Rafael Irizarry. (2025). [Introduction to Data Science: Data Wrangling and Visualization with R](https://rafalab.dfci.harvard.edu/dsbook-part-1/). Chapters 1-2.
+
+-   Hadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund. (2025) [R for Data Science](https://r4ds.hadley.nz/). Sections 1-19.
+
+-   [Online R documentation](https://cran.r-project.org/manuals.html)
+
+-   [RStudio Cheat Sheets](https://posit.co/resources/cheatsheets/)
+
+------------------------------------------------------------------------
+
+## Module To Do List
+
+-   Complete the hands-on coding exercises embedded in each lesson (MLO 1, 5)\
+-   Use WebR to experiment directly in your browser (MLO 1, 2, 3, 4, 5)\
+-   Complete the weekly class assignment (MLO 1, 2, 3, 4, 5)\
+-   Take the weekly knowledge quiz (MLO 1, 2, 3, 4, 5)\
+
+------------------------------------------------------------------------
+
+## Lessons in this Module
+
+-   [7.1 - Heteroscedasticitt](mod-7-1-heteroscedasticity.qmd)
+
+------------------------------------------------------------------------
+
+Next: Start with [**Heteroscedasticity*](mod-7-1-heteroscedasticity.qmd).

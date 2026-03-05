@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Robert M. McNab">
 
-<title>ECON 706</title>
+<title>23&nbsp; Module 7 Overview – ECON 706</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./mcnab.html" rel="next">
+<link href="./mod-7-1-heteroscedasticity.html" rel="next">
+<link href="./mod-6-2-multiple.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -83,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ECON 706</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-7-0-overview.html">Heteroscedasticity</a></li><li class="breadcrumb-item"><a href="./mod-7-0-overview.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Module 7 Overview</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -121,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ECON 706</span></span></a>
   </div>
 </li>
@@ -330,7 +330,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mod-7-0-overview.html" class="sidebar-item-text sidebar-link">
+  <a href="./mod-7-0-overview.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Module 7 Overview</span></span></a>
   </div>
 </li>
@@ -352,35 +352,26 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#course-introduction" id="toc-course-introduction" class="nav-link active" data-scroll-target="#course-introduction"><span class="header-section-number">0.1</span> Course Introduction</a></li>
-  <li><a href="#module-01-introduction-to-linear-regression" id="toc-module-01-introduction-to-linear-regression" class="nav-link" data-scroll-target="#module-01-introduction-to-linear-regression"><span class="header-section-number">0.2</span> Module 01 – Introduction to Linear Regression</a></li>
-  <li><a href="#module-02-the-least-squares-estimator" id="toc-module-02-the-least-squares-estimator" class="nav-link" data-scroll-target="#module-02-the-least-squares-estimator"><span class="header-section-number">0.3</span> Module 02 – The Least Squares Estimator</a></li>
-  <li><a href="#module-03-partitioned-regression" id="toc-module-03-partitioned-regression" class="nav-link" data-scroll-target="#module-03-partitioned-regression"><span class="header-section-number">0.4</span> Module 03 – Partitioned Regression</a></li>
-  <li><a href="#module-04---goodness-of-fit" id="toc-module-04---goodness-of-fit" class="nav-link" data-scroll-target="#module-04---goodness-of-fit"><span class="header-section-number">0.5</span> Module 04 - Goodness of Fit</a></li>
-  <li><a href="#module-05---least-squares-variance" id="toc-module-05---least-squares-variance" class="nav-link" data-scroll-target="#module-05---least-squares-variance"><span class="header-section-number">0.6</span> Module 05 - Least Squares Variance</a></li>
-  <li><a href="#module-06---hypothesis-testing" id="toc-module-06---hypothesis-testing" class="nav-link" data-scroll-target="#module-06---hypothesis-testing"><span class="header-section-number">0.7</span> Module 06 - Hypothesis Testing</a></li>
-  <li><a href="#module-07---heteroscedasticity" id="toc-module-07---heteroscedasticity" class="nav-link" data-scroll-target="#module-07---heteroscedasticity"><span class="header-section-number">0.8</span> Module 07 - Heteroscedasticity</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">23.1</span> Introduction</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">23.2</span> Learning Objectives</a></li>
+  <li><a href="#required-texts" id="toc-required-texts" class="nav-link" data-scroll-target="#required-texts"><span class="header-section-number">23.3</span> Required Texts</a></li>
+  <li><a href="#module-to-do-list" id="toc-module-to-do-list" class="nav-link" data-scroll-target="#module-to-do-list"><span class="header-section-number">23.4</span> Module To Do List</a></li>
+  <li><a href="#lessons-in-this-module" id="toc-lessons-in-this-module" class="nav-link" data-scroll-target="#lessons-in-this-module"><span class="header-section-number">23.5</span> Lessons in this Module</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ECON 706</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mod-7-0-overview.html">Heteroscedasticity</a></li><li class="breadcrumb-item"><a href="./mod-7-0-overview.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Module 7 Overview</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">ECON 706</h1>
+<h1 class="title"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Module 7 Overview</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Robert M. McNab </p>
-          </div>
-  </div>
     
   
     
@@ -391,118 +382,57 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="course-introduction" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="course-introduction"><span class="header-section-number">0.1</span> Course Introduction</h2>
-<ul>
-<li>
-<a href="./mcnab.html">Meet Your Instructor</a>
-</li>
-<li>
-<a href="./about.html">Course Objectives and Materials</a>
-</li>
-</ul>
+<section id="introduction" class="level2" data-number="23.1">
+<h2 data-number="23.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">23.1</span> Introduction</h2>
+<p>Welcome to <strong>Module 7</strong> of ECON 706.</p>
+<p>In econometrics, the least squares estimator is considered robust to violations of normality and homoscedasticity because it retains its properties of unbiasedness and consistency even when these base assumptions are not met. While homoscedasticity (constant variance of disturbances) is often assumed, heteroscedasticity, where the variance of errors varies across observations, is a common problem. When heteroscedasticity is present, the standard errors for the least squares estimator become biased because the traditional variance-covariance matrix formula fails to account for the non-constant variance.</p>
+<p>To address this, researchers utilize heteroscedasticity-consistent variance-covariance matrices, most notably White’s estimator and its finite-sample corrections. These methods allow for valid inference by using observed residuals to estimate the behavior of unknown disturbances. Additionally, formal diagnostic tools such as the Breusch-Pagan test and the White test are employed to examine the null hypothesis of homoscedasticity. These tests rely on regressing squared residuals on independent variables, squares, and cross-products to determine if those variables significantly explain variations in the error terms.</p>
 </section>
-<section id="module-01-introduction-to-linear-regression" class="level2" data-number="0.2">
-<h2 data-number="0.2" class="anchored" data-anchor-id="module-01-introduction-to-linear-regression"><span class="header-section-number">0.2</span> Module 01 – Introduction to Linear Regression</h2>
+<section id="learning-objectives" class="level2" data-number="23.2">
+<h2 data-number="23.2" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">23.2</span> Learning Objectives</h2>
+<p>By the end of this module, you should be able to:</p>
 <ul>
-<li>
-<a href="./mod-1-0-overview.html">Module 1 Overview</a>
-</li>
-<li>
-<a href="./mod-1-1-matrix.html">Matrix Operations</a>
-</li>
-<li>
-<a href="./mod-1-2-model.html">Linear Regression Models</a>
-</li>
+<li><strong>MLO 1</strong>: <strong>Define</strong> the properties of a robust estimator and explain why least squares remains consistent despite violations of normality and homoscedasticity.</li>
+<li><strong>MLO 2</strong>: <strong>Differentiate</strong> between homoscedastic and heteroscedastic disturbances and describe their impact on the finite sample and asymptotic properties of the least squares estimator.</li>
+<li><strong>MLO 3</strong>: <strong>Construct</strong> a heteroscedasticity-consistent variance-covariance matrix using White’s estimator to obtain robust standard errors.</li>
+<li><strong>MLO 4</strong>: <strong>Perform</strong> the Breusch-Pagan and White tests to statistically evaluate the null hypothesis of homoscedasticity.</li>
+<li><strong>MLO 5</strong>: <strong>Implement</strong> R programming techniques to calculate robust standard errors and execute diagnostic tests for heteroscedasticity in linear models.</li>
 </ul>
+<hr>
 </section>
-<section id="module-02-the-least-squares-estimator" class="level2" data-number="0.3">
-<h2 data-number="0.3" class="anchored" data-anchor-id="module-02-the-least-squares-estimator"><span class="header-section-number">0.3</span> Module 02 – The Least Squares Estimator</h2>
+<section id="required-texts" class="level2" data-number="23.3">
+<h2 data-number="23.3" class="anchored" data-anchor-id="required-texts"><span class="header-section-number">23.3</span> Required Texts</h2>
+<p>Please select the links provided to access material where applicable.</p>
 <ul>
-<li>
-<a href="./mod-2-0-overview.html">Module 2 Overview</a>
-</li>
-<li>
-<a href="./mod-2-1-derivation.html">Deriving the Least Squares Estimator</a>
-</li>
-<li>
-<a href="./mod-2-2-matrix.html">Matrix Operations</a>
-</li>
-<li>
-<a href="./mod-2-3-orthogonality.html">Orthogonality</a>
-</li>
+<li><p>William H. Greene. (2018). <em>Econometric Analysis, 8th Edition</em>. Available from Pearson. Chapters 3-6.</p></li>
+<li><p>Rafael Irizarry. (2025). <a href="https://rafalab.dfci.harvard.edu/dsbook-part-1/">Introduction to Data Science: Data Wrangling and Visualization with R</a>. Chapters 1-2.</p></li>
+<li><p>Hadley Wickham, Mine Cetinkaya-Rundel, and Garrett Grolemund. (2025) <a href="https://r4ds.hadley.nz/">R for Data Science</a>. Sections 1-19.</p></li>
+<li><p><a href="https://cran.r-project.org/manuals.html">Online R documentation</a></p></li>
+<li><p><a href="https://posit.co/resources/cheatsheets/">RStudio Cheat Sheets</a></p></li>
 </ul>
+<hr>
 </section>
-<section id="module-03-partitioned-regression" class="level2" data-number="0.4">
-<h2 data-number="0.4" class="anchored" data-anchor-id="module-03-partitioned-regression"><span class="header-section-number">0.4</span> Module 03 – Partitioned Regression</h2>
+<section id="module-to-do-list" class="level2" data-number="23.4">
+<h2 data-number="23.4" class="anchored" data-anchor-id="module-to-do-list"><span class="header-section-number">23.4</span> Module To Do List</h2>
 <ul>
-<li>
-<a href="./mod-3-0-overview.html">Module 3 Overview</a>
+<li>Complete the hands-on coding exercises embedded in each lesson (MLO 1, 5)<br>
 </li>
-<li>
-<a href="./mod-3-1-orthogonal.html">Orthongonal Partitioned Regression</a>
+<li>Use WebR to experiment directly in your browser (MLO 1, 2, 3, 4, 5)<br>
 </li>
-<li>
-<a href="./mod-3-2-partitioned.html">Partitioned Regression</a>
+<li>Complete the weekly class assignment (MLO 1, 2, 3, 4, 5)<br>
 </li>
-</ul>
-</section>
-<section id="module-04---goodness-of-fit" class="level2" data-number="0.5">
-<h2 data-number="0.5" class="anchored" data-anchor-id="module-04---goodness-of-fit"><span class="header-section-number">0.5</span> Module 04 - Goodness of Fit</h2>
-<ul>
-<li>
-<a href="./mod-4-0-overview.html">Module 4 Overview</a>
-</li>
-<li>
-<a href="./mod-4-1-means.html">The M0 Matrix</a>
-</li>
-<li>
-<a href="./mod-4-2-rsquared.html">R Squared</a>
-</li>
-</ul>
-</section>
-<section id="module-05---least-squares-variance" class="level2" data-number="0.6">
-<h2 data-number="0.6" class="anchored" data-anchor-id="module-05---least-squares-variance"><span class="header-section-number">0.6</span> Module 05 - Least Squares Variance</h2>
-<ul>
-<li>
-<a href="./mod-5-0-overview.html">Module 5 Overview</a>
-</li>
-<li>
-<a href="./mod-5-1-unbiased.html">Unbiasedness of the Least Squares Estimator</a>
-</li>
-<li>
-<a href="./mod-5-2-variance.html">Variance of the Least Squares Estimator</a>
-</li>
-</ul>
-</section>
-<section id="module-06---hypothesis-testing" class="level2" data-number="0.7">
-<h2 data-number="0.7" class="anchored" data-anchor-id="module-06---hypothesis-testing"><span class="header-section-number">0.7</span> Module 06 - Hypothesis Testing</h2>
-<ul>
-<li>
-<a href="./mod-6-0-overview.html">Module 6 Overview</a>
-</li>
-<li>
-<a href="./mod-6-1-hypothesis.html">Single Hypothesis Testing</a>
-</li>
-<li>
-<a href="./mod-6-2-multiple.html">&lt;Multiple Hypothesis Testing</a>
-</li>
-</ul>
-</section>
-<section id="module-07---heteroscedasticity" class="level2" data-number="0.8">
-<h2 data-number="0.8" class="anchored" data-anchor-id="module-07---heteroscedasticity"><span class="header-section-number">0.8</span> Module 07 - Heteroscedasticity</h2>
-<ul>
-<li>
-<a href="./mod-7-0-overview.html">Module 7Overview</a>
-</li>
-<li>
-<a href="./mod-7-1-heteroscedasticity.html">Heteroscedasticity</a>
+<li>Take the weekly knowledge quiz (MLO 1, 2, 3, 4, 5)<br>
 </li>
 </ul>
 <hr>
-<p>
-This site provides <strong>interactive and static examples</strong> for economic data analysis using R and WebR. Click on the links above to explore each module.
-</p>
+</section>
+<section id="lessons-in-this-module" class="level2" data-number="23.5">
+<h2 data-number="23.5" class="anchored" data-anchor-id="lessons-in-this-module"><span class="header-section-number">23.5</span> Lessons in this Module</h2>
+<ul>
+<li><a href="./mod-7-1-heteroscedasticity.html">7.1 - Heteroscedasticitt</a></li>
+</ul>
+<hr>
+<p>Next: Start with <a href="./mod-7-1-heteroscedasticity.html">**Heteroscedasticity*</a>.</p>
 
 
 </section>
@@ -915,10 +845,13 @@ This site provides <strong>interactive and static examples</strong> for economic
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./mod-6-2-multiple.html" class="pagination-link" aria-label="Hypothesis Testing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./mcnab.html" class="pagination-link" aria-label="Meet Your Instructor">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Meet Your Instructor</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./mod-7-1-heteroscedasticity.html" class="pagination-link" aria-label="Heteroscedasticity">
+        <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Heteroscedasticity</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
