@@ -104,6 +104,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -422,6 +426,7 @@ window.Quarto = {
   <li><a href="#heteroscedasticity" id="toc-heteroscedasticity" class="nav-link" data-scroll-target="#heteroscedasticity"><span class="header-section-number">24.5</span> Heteroscedasticity</a></li>
   <li><a href="#visual-representation-1" id="toc-visual-representation-1" class="nav-link" data-scroll-target="#visual-representation-1"><span class="header-section-number">24.6</span> Visual Representation</a></li>
   <li><a href="#breusch-pagan-test" id="toc-breusch-pagan-test" class="nav-link" data-scroll-target="#breusch-pagan-test"><span class="header-section-number">24.7</span> Breusch-Pagan Test</a></li>
+  <li><a href="#testing-for-heteroscedasticity" id="toc-testing-for-heteroscedasticity" class="nav-link" data-scroll-target="#testing-for-heteroscedasticity"><span class="header-section-number">24.8</span> Testing for Heteroscedasticity</a></li>
   </ul>
 </nav>
     </div>
@@ -631,6 +636,430 @@ E[\epsilon_i,\epsilon_j | \boldsymbol{X}] = \sigma_i^2 \quad \forall i = i
 <p><strong>Do the independent variables explain the variation in the least squares residuals</strong> <span class="math inline">\(e^2_i\)</span><strong>.</strong></p>
 <p>Since <span class="math inline">\(R^2\)</span> from the above regression is a measure of the variation in <span class="math inline">\(e_i^2\)</span> that is explained by the regressors, then <span class="math inline">\(R^2\)</span> can be used to form a test statistic.</p>
 <p>Under the null (homoscedasticity), the sample size <span class="math inline">\(N\)</span> times <span class="math inline">\(R^2\)</span> is distributed <span class="math inline">\(\chi^2\)</span> with <span class="math inline">\(K-1\)</span> degrees of freedom or <span class="math inline">\(\chi^2 = N \times R^2 \sim \chi^2_{K-1}\)</span>.</p>
+</section>
+<section id="testing-for-heteroscedasticity" class="level2" data-number="24.8">
+<h2 data-number="24.8" class="anchored" data-anchor-id="testing-for-heteroscedasticity"><span class="header-section-number">24.8</span> Testing for Heteroscedasticity</h2>
+<p>Using the <em>CollegeDistance</em> data, we want to explore whether educational attainment is a function of proximity to an institution of higher education or:</p>
+<p><span class="math display">\[
+education_i = f(distance_i)
+\]</span></p>
+<p>We have obtained 4,379 observations which cover students from approximately 1,100 high schools and is based on survey data conducted by the Department of Education in 1980, with a follow-up in 1986. We argue that educational attainment in a function of distance, gender, whether either parent is a college graduate, income, and region. We specify a linear regression model as:</p>
+<p><span class="math display">\[
+education_i = \beta_0 + \beta_1 \, distance_i + \beta_2 \, gender_i + \beta_3 \, father_i + \beta_4 \, mother_i + \\ \beta_5 \, income_i + \beta_6 \, region_i + \epsilon_i
+\]</span></p>
+<p>Our testable hypothesis of interest is:</p>
+<p><span class="math display">\[
+H_o: \beta_1 = 0 \\
+H_a: \beta_1 \ne 0
+\]</span></p>
+<p>We first estimate the model under the assumption of homoscedasticity. We present the results in Table 1. To present these results, we use the <strong>modelsummary</strong> package. You can read more about the package here: <a href="https://vincentarelbundock.github.io/modelsummary/reference/modelsummary.html" class="uri">https://vincentarelbundock.github.io/modelsummary/reference/modelsummary.html</a></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"CollegeDistance"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>mod_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(education <span class="sc">~</span> distance <span class="sc">+</span> gender <span class="sc">+</span> fcollege <span class="sc">+</span> mcollege <span class="sc">+</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>              income <span class="sc">+</span> region, <span class="at">data =</span> CollegeDistance)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(mod_1,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Table 1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<!-- preamble start -->
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_s0c0wp0wgzp2mtekdlcd = TinyTable.createTableFunctions("tinytable_s0c0wp0wgzp2mtekdlcd");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '22', j: 2 } ], css_id: 'tinytable_css_8vorip105zdm1h5cui6u',}, 
+          { positions: [ { i: '14', j: 2 } ], css_id: 'tinytable_css_2g28wlkxel9rteazuwh0',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '15', j: 2 }, { i: '16', j: 2 }, { i: '17', j: 2 }, { i: '18', j: 2 }, { i: '19', j: 2 }, { i: '20', j: 2 }, { i: '21', j: 2 } ], css_id: 'tinytable_css_8x41nuhm8x4ojvsbk0uj',}, 
+          { positions: [ { i: '0', j: 2 } ], css_id: 'tinytable_css_d44smb0golwdagwxoe6i',}, 
+          { positions: [ { i: '22', j: 1 } ], css_id: 'tinytable_css_7h4dgmk8v7fk927cbetr',}, 
+          { positions: [ { i: '14', j: 1 } ], css_id: 'tinytable_css_9ssbaixmupv0hlmfzep8',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '15', j: 1 }, { i: '16', j: 1 }, { i: '17', j: 1 }, { i: '18', j: 1 }, { i: '19', j: 1 }, { i: '20', j: 1 }, { i: '21', j: 1 } ], css_id: 'tinytable_css_cf57j9a2hf68o73ggcux',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_h1bbpylh99ipzl4fbvjq',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_s0c0wp0wgzp2mtekdlcd.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_s0c0wp0wgzp2mtekdlcd td.tinytable_css_8vorip105zdm1h5cui6u, #tinytable_s0c0wp0wgzp2mtekdlcd th.tinytable_css_8vorip105zdm1h5cui6u {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_s0c0wp0wgzp2mtekdlcd td.tinytable_css_2g28wlkxel9rteazuwh0, #tinytable_s0c0wp0wgzp2mtekdlcd th.tinytable_css_2g28wlkxel9rteazuwh0 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_s0c0wp0wgzp2mtekdlcd td.tinytable_css_8x41nuhm8x4ojvsbk0uj, #tinytable_s0c0wp0wgzp2mtekdlcd th.tinytable_css_8x41nuhm8x4ojvsbk0uj { text-align: center }
+    #tinytable_s0c0wp0wgzp2mtekdlcd td.tinytable_css_d44smb0golwdagwxoe6i, #tinytable_s0c0wp0wgzp2mtekdlcd th.tinytable_css_d44smb0golwdagwxoe6i {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_s0c0wp0wgzp2mtekdlcd td.tinytable_css_7h4dgmk8v7fk927cbetr, #tinytable_s0c0wp0wgzp2mtekdlcd th.tinytable_css_7h4dgmk8v7fk927cbetr {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_s0c0wp0wgzp2mtekdlcd td.tinytable_css_9ssbaixmupv0hlmfzep8, #tinytable_s0c0wp0wgzp2mtekdlcd th.tinytable_css_9ssbaixmupv0hlmfzep8 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_s0c0wp0wgzp2mtekdlcd td.tinytable_css_cf57j9a2hf68o73ggcux, #tinytable_s0c0wp0wgzp2mtekdlcd th.tinytable_css_cf57j9a2hf68o73ggcux { text-align: left }
+    #tinytable_s0c0wp0wgzp2mtekdlcd td.tinytable_css_h1bbpylh99ipzl4fbvjq, #tinytable_s0c0wp0wgzp2mtekdlcd th.tinytable_css_h1bbpylh99ipzl4fbvjq {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_s0c0wp0wgzp2mtekdlcd" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <caption>Table 1</caption>
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1"> </th>
+                <th scope="col" data-row="0" data-col="2">(1)</th>
+              </tr>
+        </thead>
+        <tfoot><tr><td colspan="2">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">(Intercept)</td>
+                  <td data-row="1" data-col="2">13.499***</td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1"></td>
+                  <td data-row="2" data-col="2">(0.048)</td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="1">distance</td>
+                  <td data-row="3" data-col="2">-0.041***</td>
+                </tr>
+                <tr>
+                  <td data-row="4" data-col="1"></td>
+                  <td data-row="4" data-col="2">(0.011)</td>
+                </tr>
+                <tr>
+                  <td data-row="5" data-col="1">genderfemale</td>
+                  <td data-row="5" data-col="2">0.028</td>
+                </tr>
+                <tr>
+                  <td data-row="6" data-col="1"></td>
+                  <td data-row="6" data-col="2">(0.049)</td>
+                </tr>
+                <tr>
+                  <td data-row="7" data-col="1">fcollegeyes</td>
+                  <td data-row="7" data-col="2">0.837***</td>
+                </tr>
+                <tr>
+                  <td data-row="8" data-col="1"></td>
+                  <td data-row="8" data-col="2">(0.070)</td>
+                </tr>
+                <tr>
+                  <td data-row="9" data-col="1">mcollegeyes</td>
+                  <td data-row="9" data-col="2">0.568***</td>
+                </tr>
+                <tr>
+                  <td data-row="10" data-col="1"></td>
+                  <td data-row="10" data-col="2">(0.079)</td>
+                </tr>
+                <tr>
+                  <td data-row="11" data-col="1">incomehigh</td>
+                  <td data-row="11" data-col="2">0.480***</td>
+                </tr>
+                <tr>
+                  <td data-row="12" data-col="1"></td>
+                  <td data-row="12" data-col="2">(0.058)</td>
+                </tr>
+                <tr>
+                  <td data-row="13" data-col="1">regionwest</td>
+                  <td data-row="13" data-col="2">-0.116+</td>
+                </tr>
+                <tr>
+                  <td data-row="14" data-col="1"></td>
+                  <td data-row="14" data-col="2">(0.062)</td>
+                </tr>
+                <tr>
+                  <td data-row="15" data-col="1">Num.Obs.</td>
+                  <td data-row="15" data-col="2">4739</td>
+                </tr>
+                <tr>
+                  <td data-row="16" data-col="1">R2</td>
+                  <td data-row="16" data-col="2">0.111</td>
+                </tr>
+                <tr>
+                  <td data-row="17" data-col="1">R2 Adj.</td>
+                  <td data-row="17" data-col="2">0.110</td>
+                </tr>
+                <tr>
+                  <td data-row="18" data-col="1">AIC</td>
+                  <td data-row="18" data-col="2">18421.1</td>
+                </tr>
+                <tr>
+                  <td data-row="19" data-col="1">BIC</td>
+                  <td data-row="19" data-col="2">18472.8</td>
+                </tr>
+                <tr>
+                  <td data-row="20" data-col="1">Log.Lik.</td>
+                  <td data-row="20" data-col="2">-9202.551</td>
+                </tr>
+                <tr>
+                  <td data-row="21" data-col="1">F</td>
+                  <td data-row="21" data-col="2">98.196</td>
+                </tr>
+                <tr>
+                  <td data-row="22" data-col="1">RMSE</td>
+                  <td data-row="22" data-col="2">1.69</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
+<p>However, before we can comment on the sign or magnitude of the estimated coefficients, we must examine our null hypothesis that the coefficient for distance is equal to zero. However, we can no longer assume that the homoscedasticity assumption holds. Instead, we must test the null hypothesis of homoscedasticity or:</p>
+<p><span class="math display">\[
+H_o: \sigma_i^2 = \sigma^2 \\
+H_a: \sigma_i^2 \ne \sigma^2
+\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>bptest <span class="ot">&lt;-</span> <span class="fu">bptest</span>(mod_1)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>bp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(bptest<span class="sc">$</span>statistic,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>             bptest<span class="sc">$</span>p.value)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(bp,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">'BP Test'</span>, <span class="st">'P-Value'</span>),</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">align     =</span> <span class="st">'c'</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">digits    =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="lightable-classic caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">BP Test</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">P-Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">18.252</td>
+<td style="text-align: center;">0.006</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We thus reject the null hypothesis of homoscedasticity at the 1% level of statistical significance. We must correct the standard errors before conducting a hypothesis test.</p>
+<p>We can use the <strong>modelsummary</strong> package to report the uncorrected and corrected standard errors. Note that we have a variety of options to use. The first column contains the uncorrected standard errors, the 2nd, and 3rd column contain robust to heteroscedasticity standard errors. While the standard errors may not have changed much, we must use the 2nd or 3rd columns to conduct inferences.</p>
+<p>We will discuss more about correcting standard errors in the next section.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(mod_1,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">vcov =</span> <span class="fu">list</span>(<span class="st">"classical"</span>, <span class="st">"HC0"</span>, <span class="st">"NeweyWest"</span>),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Table 2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<!-- preamble start -->
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_36t5i932ydamvl4zq2c2 = TinyTable.createTableFunctions("tinytable_36t5i932ydamvl4zq2c2");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '23', j: 2 }, { i: '23', j: 3 }, { i: '23', j: 4 } ], css_id: 'tinytable_css_chk2bf5od93arhnkrgbs',}, 
+          { positions: [ { i: '14', j: 2 }, { i: '14', j: 3 }, { i: '14', j: 4 } ], css_id: 'tinytable_css_xozmli066a4omgc90uaz',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '15', j: 2 }, { i: '16', j: 2 }, { i: '17', j: 2 }, { i: '18', j: 2 }, { i: '19', j: 2 }, { i: '20', j: 2 }, { i: '21', j: 2 }, { i: '22', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 }, { i: '13', j: 3 }, { i: '15', j: 3 }, { i: '16', j: 3 }, { i: '17', j: 3 }, { i: '18', j: 3 }, { i: '19', j: 3 }, { i: '20', j: 3 }, { i: '21', j: 3 }, { i: '22', j: 3 }, { i: '1', j: 4 }, { i: '2', j: 4 }, { i: '3', j: 4 }, { i: '4', j: 4 }, { i: '5', j: 4 }, { i: '6', j: 4 }, { i: '7', j: 4 }, { i: '8', j: 4 }, { i: '9', j: 4 }, { i: '10', j: 4 }, { i: '11', j: 4 }, { i: '12', j: 4 }, { i: '13', j: 4 }, { i: '15', j: 4 }, { i: '16', j: 4 }, { i: '17', j: 4 }, { i: '18', j: 4 }, { i: '19', j: 4 }, { i: '20', j: 4 }, { i: '21', j: 4 }, { i: '22', j: 4 } ], css_id: 'tinytable_css_x9hpzlcx137u765iietf',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 } ], css_id: 'tinytable_css_bkby0znnwjx5e4s1vzre',}, 
+          { positions: [ { i: '23', j: 1 } ], css_id: 'tinytable_css_ztob0nuw2zjswsr545tn',}, 
+          { positions: [ { i: '14', j: 1 } ], css_id: 'tinytable_css_n5xd3q11s98h38sjfhej',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '15', j: 1 }, { i: '16', j: 1 }, { i: '17', j: 1 }, { i: '18', j: 1 }, { i: '19', j: 1 }, { i: '20', j: 1 }, { i: '21', j: 1 }, { i: '22', j: 1 } ], css_id: 'tinytable_css_5ypjbsknb8cu51e73d7h',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_iwismptixnys3tql1um4',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_36t5i932ydamvl4zq2c2.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_36t5i932ydamvl4zq2c2 td.tinytable_css_chk2bf5od93arhnkrgbs, #tinytable_36t5i932ydamvl4zq2c2 th.tinytable_css_chk2bf5od93arhnkrgbs {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_36t5i932ydamvl4zq2c2 td.tinytable_css_xozmli066a4omgc90uaz, #tinytable_36t5i932ydamvl4zq2c2 th.tinytable_css_xozmli066a4omgc90uaz {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_36t5i932ydamvl4zq2c2 td.tinytable_css_x9hpzlcx137u765iietf, #tinytable_36t5i932ydamvl4zq2c2 th.tinytable_css_x9hpzlcx137u765iietf { text-align: center }
+    #tinytable_36t5i932ydamvl4zq2c2 td.tinytable_css_bkby0znnwjx5e4s1vzre, #tinytable_36t5i932ydamvl4zq2c2 th.tinytable_css_bkby0znnwjx5e4s1vzre {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_36t5i932ydamvl4zq2c2 td.tinytable_css_ztob0nuw2zjswsr545tn, #tinytable_36t5i932ydamvl4zq2c2 th.tinytable_css_ztob0nuw2zjswsr545tn {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_36t5i932ydamvl4zq2c2 td.tinytable_css_n5xd3q11s98h38sjfhej, #tinytable_36t5i932ydamvl4zq2c2 th.tinytable_css_n5xd3q11s98h38sjfhej {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_36t5i932ydamvl4zq2c2 td.tinytable_css_5ypjbsknb8cu51e73d7h, #tinytable_36t5i932ydamvl4zq2c2 th.tinytable_css_5ypjbsknb8cu51e73d7h { text-align: left }
+    #tinytable_36t5i932ydamvl4zq2c2 td.tinytable_css_iwismptixnys3tql1um4, #tinytable_36t5i932ydamvl4zq2c2 th.tinytable_css_iwismptixnys3tql1um4 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_36t5i932ydamvl4zq2c2" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <caption>Table 2</caption>
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1"> </th>
+                <th scope="col" data-row="0" data-col="2">(1)</th>
+                <th scope="col" data-row="0" data-col="3">(2)</th>
+                <th scope="col" data-row="0" data-col="4">(3)</th>
+              </tr>
+        </thead>
+        <tfoot><tr><td colspan="4">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">(Intercept)</td>
+                  <td data-row="1" data-col="2">13.499***</td>
+                  <td data-row="1" data-col="3">13.499***</td>
+                  <td data-row="1" data-col="4">13.499***</td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1"></td>
+                  <td data-row="2" data-col="2">(0.048)</td>
+                  <td data-row="2" data-col="3">(0.048)</td>
+                  <td data-row="2" data-col="4">(0.062)</td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="1">distance</td>
+                  <td data-row="3" data-col="2">-0.041***</td>
+                  <td data-row="3" data-col="3">-0.041***</td>
+                  <td data-row="3" data-col="4">-0.041**</td>
+                </tr>
+                <tr>
+                  <td data-row="4" data-col="1"></td>
+                  <td data-row="4" data-col="2">(0.011)</td>
+                  <td data-row="4" data-col="3">(0.010)</td>
+                  <td data-row="4" data-col="4">(0.014)</td>
+                </tr>
+                <tr>
+                  <td data-row="5" data-col="1">genderfemale</td>
+                  <td data-row="5" data-col="2">0.028</td>
+                  <td data-row="5" data-col="3">0.028</td>
+                  <td data-row="5" data-col="4">0.028</td>
+                </tr>
+                <tr>
+                  <td data-row="6" data-col="1"></td>
+                  <td data-row="6" data-col="2">(0.049)</td>
+                  <td data-row="6" data-col="3">(0.049)</td>
+                  <td data-row="6" data-col="4">(0.053)</td>
+                </tr>
+                <tr>
+                  <td data-row="7" data-col="1">fcollegeyes</td>
+                  <td data-row="7" data-col="2">0.837***</td>
+                  <td data-row="7" data-col="3">0.837***</td>
+                  <td data-row="7" data-col="4">0.837***</td>
+                </tr>
+                <tr>
+                  <td data-row="8" data-col="1"></td>
+                  <td data-row="8" data-col="2">(0.070)</td>
+                  <td data-row="8" data-col="3">(0.071)</td>
+                  <td data-row="8" data-col="4">(0.076)</td>
+                </tr>
+                <tr>
+                  <td data-row="9" data-col="1">mcollegeyes</td>
+                  <td data-row="9" data-col="2">0.568***</td>
+                  <td data-row="9" data-col="3">0.568***</td>
+                  <td data-row="9" data-col="4">0.568***</td>
+                </tr>
+                <tr>
+                  <td data-row="10" data-col="1"></td>
+                  <td data-row="10" data-col="2">(0.079)</td>
+                  <td data-row="10" data-col="3">(0.080)</td>
+                  <td data-row="10" data-col="4">(0.081)</td>
+                </tr>
+                <tr>
+                  <td data-row="11" data-col="1">incomehigh</td>
+                  <td data-row="11" data-col="2">0.480***</td>
+                  <td data-row="11" data-col="3">0.480***</td>
+                  <td data-row="11" data-col="4">0.480***</td>
+                </tr>
+                <tr>
+                  <td data-row="12" data-col="1"></td>
+                  <td data-row="12" data-col="2">(0.058)</td>
+                  <td data-row="12" data-col="3">(0.060)</td>
+                  <td data-row="12" data-col="4">(0.062)</td>
+                </tr>
+                <tr>
+                  <td data-row="13" data-col="1">regionwest</td>
+                  <td data-row="13" data-col="2">-0.116+</td>
+                  <td data-row="13" data-col="3">-0.116*</td>
+                  <td data-row="13" data-col="4">-0.116</td>
+                </tr>
+                <tr>
+                  <td data-row="14" data-col="1"></td>
+                  <td data-row="14" data-col="2">(0.062)</td>
+                  <td data-row="14" data-col="3">(0.059)</td>
+                  <td data-row="14" data-col="4">(0.072)</td>
+                </tr>
+                <tr>
+                  <td data-row="15" data-col="1">Num.Obs.</td>
+                  <td data-row="15" data-col="2">4739</td>
+                  <td data-row="15" data-col="3">4739</td>
+                  <td data-row="15" data-col="4">4739</td>
+                </tr>
+                <tr>
+                  <td data-row="16" data-col="1">R2</td>
+                  <td data-row="16" data-col="2">0.111</td>
+                  <td data-row="16" data-col="3">0.111</td>
+                  <td data-row="16" data-col="4">0.111</td>
+                </tr>
+                <tr>
+                  <td data-row="17" data-col="1">R2 Adj.</td>
+                  <td data-row="17" data-col="2">0.110</td>
+                  <td data-row="17" data-col="3">0.110</td>
+                  <td data-row="17" data-col="4">0.110</td>
+                </tr>
+                <tr>
+                  <td data-row="18" data-col="1">AIC</td>
+                  <td data-row="18" data-col="2">18421.1</td>
+                  <td data-row="18" data-col="3">18421.1</td>
+                  <td data-row="18" data-col="4">18421.1</td>
+                </tr>
+                <tr>
+                  <td data-row="19" data-col="1">BIC</td>
+                  <td data-row="19" data-col="2">18472.8</td>
+                  <td data-row="19" data-col="3">18472.8</td>
+                  <td data-row="19" data-col="4">18472.8</td>
+                </tr>
+                <tr>
+                  <td data-row="20" data-col="1">Log.Lik.</td>
+                  <td data-row="20" data-col="2">-9202.551</td>
+                  <td data-row="20" data-col="3">-9202.551</td>
+                  <td data-row="20" data-col="4">-9202.551</td>
+                </tr>
+                <tr>
+                  <td data-row="21" data-col="1">F</td>
+                  <td data-row="21" data-col="2">98.196</td>
+                  <td data-row="21" data-col="3">106.909</td>
+                  <td data-row="21" data-col="4"></td>
+                </tr>
+                <tr>
+                  <td data-row="22" data-col="1">RMSE</td>
+                  <td data-row="22" data-col="2">1.69</td>
+                  <td data-row="22" data-col="3">1.69</td>
+                  <td data-row="22" data-col="4">1.69</td>
+                </tr>
+                <tr>
+                  <td data-row="23" data-col="1">Std.Errors</td>
+                  <td data-row="23" data-col="2">IID</td>
+                  <td data-row="23" data-col="3">HC0</td>
+                  <td data-row="23" data-col="4">NeweyWest</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
+<p>We note that the coefficient for <em>distance</em> is statistically significant at the 1% level and we thus reject the null hypothesis of zero. We must take care to note that distance is measured in 10 mile increments, that is, 1 = 10 miles, 10 = 100 miles. We find that a 10 mile increase in distance reduces the predicted years of education by 0.041 years.</p>
+<p>It appears that having a parent who was a college graduate had a positive influence on educational attainment. We reject the null hypothesis of zero for the coefficient for whether the father graduated college at the 1% level of statistical significance. We also reject the null hypothesis of zero for the coefficient for whether the mother graduated college at the 1% level of statistical significance. If the father graduated college, estimated educational attainment increased by approximately 0.84 years, while if the mother graduated college, estimated educational attainment increased by approximately 0.57 years.</p>
+<p>We reject the null hypothesis that the coefficient for income above 25,000 is equal to zero at the 1% level of statistical significance. For households with income above 25,000, predicted educational attainment increased by approximately 0.48 years.</p>
+<p>While the coefficient for the West region is statistically significant in the uncorrected model, it is only weakly significant at the 10% level in the second model, and insignificant in the third model. We thus conclude that we do not have sufficient evidence to reject the null hypothesis of zero for the coefficient for the West region as it appears to be fragile to the choice of correction for heteroscedasticity.</p>
+<p>We note that gender does not appear to statistically significantly influence educational attainment as we cannot reject the null hypothesis the coefficient is equal to zero.</p>
 
 
 </section>

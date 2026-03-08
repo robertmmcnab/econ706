@@ -302,3 +302,134 @@ form a test statistic.
 Under the null (homoscedasticity), the sample size $N$ times $R^2$ is
 distributed $\chi^2$ with $K-1$ degrees of freedom or
 $\chi^2 = N \times R^2 \sim \chi^2_{K-1}$.
+
+## Testing for Heteroscedasticity
+
+Using the *CollegeDistance* data, we want to explore whether educational
+attainment is a function of proximity to an institution of higher
+education or:
+
+$$
+education_i = f(distance_i)
+$$
+
+We have obtained 4,379 observations which cover students from
+approximately 1,100 high schools and is based on survey data conducted
+by the Department of Education in 1980, with a follow-up in 1986. We
+argue that educational attainment in a function of distance, gender,
+whether either parent is a college graduate, income, and region. We
+specify a linear regression model as:
+
+$$
+education_i = \beta_0 + \beta_1 \, distance_i + \beta_2 \, gender_i + \beta_3 \, father_i + \beta_4 \, mother_i + \\ \beta_5 \, income_i + \beta_6 \, region_i + \epsilon_i
+$$
+
+Our testable hypothesis of interest is:
+
+$$
+H_o: \beta_1 = 0 \\
+H_a: \beta_1 \ne 0
+$$
+
+We first estimate the model under the assumption of homoscedasticity. We
+present the results in Table 1. To present these results, we use the
+**modelsummary** package. You can read more about the package here:
+<https://vincentarelbundock.github.io/modelsummary/reference/modelsummary.html>
+
+```{r example1, message = FALSE, warning = FALSE}
+
+rm(list = ls())
+library(AER)
+library(modelsummary)
+
+data("CollegeDistance")
+
+mod_1 <- lm(education ~ distance + gender + fcollege + mcollege + 
+              income + region, data = CollegeDistance)
+
+modelsummary(mod_1,
+             stars = TRUE,
+             title = "Table 1")
+
+```
+
+However, before we can comment on the sign or magnitude of the estimated
+coefficients, we must examine our null hypothesis that the coefficient
+for distance is equal to zero. However, we can no longer assume that the
+homoscedasticity assumption holds. Instead, we must test the null
+hypothesis of homoscedasticity or:
+
+$$
+H_o: \sigma_i^2 = \sigma^2 \\
+H_a: \sigma_i^2 \ne \sigma^2
+$$
+
+```{r, bptest}
+
+bptest <- bptest(mod_1)
+
+bp <- tibble(bptest$statistic,
+             bptest$p.value)
+
+kable(bp,
+      col.names = c('BP Test', 'P-Value'),
+      align     = 'c',
+      digits    = 3) %>%
+kable_classic()
+
+```
+
+We thus reject the null hypothesis of homoscedasticity at the 1% level
+of statistical significance. We must correct the standard errors before
+conducting a hypothesis test.
+
+We can use the **modelsummary** package to report the uncorrected and
+corrected standard errors. Note that we have a variety of options to
+use. The first column contains the uncorrected standard errors, the 2nd,
+and 3rd column contain robust to heteroscedasticity standard errors.
+While the standard errors may not have changed much, we must use the 2nd
+or 3rd columns to conduct inferences.
+
+We will discuss more about correcting standard errors in the next
+section.
+
+```{r, robusterrors}
+
+modelsummary(mod_1,
+             vcov = list("classical", "HC0", "NeweyWest"),
+             stars = TRUE,
+             title = "Table 2")
+             
+```
+
+We note that the coefficient for *distance* is statistically significant
+at the 1% level and we thus reject the null hypothesis of zero. We must
+take care to note that distance is measured in 10 mile increments, that
+is, 1 = 10 miles, 10 = 100 miles. We find that a 10 mile increase in
+distance reduces the predicted years of education by 0.041 years.
+
+It appears that having a parent who was a college graduate had a
+positive influence on educational attainment. We reject the null
+hypothesis of zero for the coefficient for whether the father graduated
+college at the 1% level of statistical significance. We also reject the
+null hypothesis of zero for the coefficient for whether the mother
+graduated college at the 1% level of statistical significance. If the
+father graduated college, estimated educational attainment increased by
+approximately 0.84 years, while if the mother graduated college,
+estimated educational attainment increased by approximately 0.57 years.
+
+We reject the null hypothesis that the coefficient for income above
+25,000 is equal to zero at the 1% level of statistical significance. For
+households with income above 25,000, predicted educational attainment
+increased by approximately 0.48 years.
+
+While the coefficient for the West region is statistically significant
+in the uncorrected model, it is only weakly significant at the 10% level
+in the second model, and insignificant in the third model. We thus
+conclude that we do not have sufficient evidence to reject the null
+hypothesis of zero for the coefficient for the West region as it appears
+to be fragile to the choice of correction for heteroscedasticity.
+
+We note that gender does not appear to statistically significantly
+influence educational attainment as we cannot reject the null hypothesis
+the coefficient is equal to zero.
