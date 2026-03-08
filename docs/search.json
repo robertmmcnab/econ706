@@ -81,7 +81,18 @@
     "href": "index.html#module-06---hypothesis-testing",
     "title": "ECON 706",
     "section": "0.7 Module 06 - Hypothesis Testing",
-    "text": "0.7 Module 06 - Hypothesis Testing\n\n\nModule 6 Overview\n\n\nSingle Hypothesis Testing\n\n\n&lt;Multiple Hypothesis Testing",
+    "text": "0.7 Module 06 - Hypothesis Testing\n\n\nModule 6 Overview\n\n\nSingle Hypothesis Testing\n\n\nMultiple Hypothesis Testing",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#module-07---heteroscedasticity",
+    "href": "index.html#module-07---heteroscedasticity",
+    "title": "ECON 706",
+    "section": "0.8 Module 07 - Heteroscedasticity",
+    "text": "0.8 Module 07 - Heteroscedasticity\n\n\nModule 7 Overview\n\n\nHeteroscedasticity\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
     "crumbs": [
       "Introduction",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
@@ -1126,7 +1137,7 @@
     "href": "mod-3-2-partitioned.html#orthogonal-example",
     "title": "13  Partitioned Regression",
     "section": "13.10 Orthogonal Example",
-    "text": "13.10 Orthogonal Example\nIn the R code, we create a large \\(\\boldsymbol{X}\\) matrix and estimate \\(\\boldsymbol{b}\\).\nNote that the elements of \\(\\boldsymbol{X}\\) are created randomly.\nThere is no underlying data generating process to suggest that the elements of \\(\\boldsymbol{X}\\) violate the orthogonality assumption.\nWe partition \\(\\boldsymbol{X}\\) into \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) and regress \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nComparing the full and partitioned regression results for the coefficients of the independent variables illustrates the partitioned orthogonal regression theorem.\n\nrm(list = ls())\nnrows &lt;- 10000\nncols &lt;- 7\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n      \nbeta &lt;- c(1,2,3,4,5,6,7)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nx_1 &lt;- x[,1:4]\nx_2 &lt;- cbind(x[,1],x[,5:7])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\ncbind(bhat[2:4],bhat_1[2:4])\n\n         [,1]     [,2]\n[1,] 1.996601 1.913148\n[2,] 3.000388 2.953681\n[3,] 3.997629 3.917005\n\ncbind(bhat[5:7], bhat_2[2:4])\n\n         [,1]     [,2]\n[1,] 4.993261 4.969257\n[2,] 6.008218 6.040091\n[3,] 6.998489 6.898434\n\ndf &lt;- data.frame(y = y, x = x)",
+    "text": "13.10 Orthogonal Example\nIn the R code, we create a large \\(\\boldsymbol{X}\\) matrix and estimate \\(\\boldsymbol{b}\\).\nNote that the elements of \\(\\boldsymbol{X}\\) are created randomly.\nThere is no underlying data generating process to suggest that the elements of \\(\\boldsymbol{X}\\) violate the orthogonality assumption.\nWe partition \\(\\boldsymbol{X}\\) into \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) and regress \\(\\boldsymbol{y}\\) on \\(\\boldsymbol{X_1}\\) and \\(\\boldsymbol{X_2}\\) separately.\nComparing the full and partitioned regression results for the coefficients of the independent variables illustrates the partitioned orthogonal regression theorem.\n\nrm(list = ls())\nnrows &lt;- 10000\nncols &lt;- 7\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n      \nbeta &lt;- c(1,2,3,4,5,6,7)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nx_1 &lt;- x[,1:4]\nx_2 &lt;- cbind(x[,1],x[,5:7])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\ncbind(bhat[2:4],bhat_1[2:4])\n\n         [,1]     [,2]\n[1,] 2.012353 1.894963\n[2,] 2.993942 2.856404\n[3,] 4.005840 3.980235\n\ncbind(bhat[5:7], bhat_2[2:4])\n\n         [,1]     [,2]\n[1,] 5.008485 5.000155\n[2,] 5.993695 5.895046\n[3,] 7.003314 6.985354\n\ndf &lt;- data.frame(y = y, x = x)",
     "crumbs": [
       "Partitioned Regression",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
@@ -1137,7 +1148,7 @@
     "href": "mod-3-2-partitioned.html#non-orthogonal-example",
     "title": "13  Partitioned Regression",
     "section": "13.11 Non-Orthogonal Example",
-    "text": "13.11 Non-Orthogonal Example\n\nrm(list = ls())\nlibrary(MASS,quietly = TRUE)\n\nnrows &lt;- 10000\nncols &lt;- 5\n\nsigma_mat &lt;- matrix(0, ncols-1, ncols-1) \n sigma_mat[lower.tri(sigma_mat)] &lt;- 0.95\n sigma_mat[upper.tri(sigma_mat)] &lt;- 0.95\n diag(sigma_mat) &lt;- 1\n\nx &lt;- matrix(0, nrows, ncols)\n  x[,1] &lt;- 1\n  x[,2: ncols] &lt;- mvrnorm(n = nrows, mu = c(1,2,3,4), \n                          Sigma = sigma_mat)\n\nbeta &lt;- c(1,4,5,6,10)\ny &lt;- x %*% beta + rnorm(nrows)\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nbhat\n\n          [,1]\n[1,]  1.055794\n[2,]  4.008722\n[3,]  4.997976\n[4,]  5.971154\n[5,] 10.009205\n\n\n\nx_1 &lt;- x[,1:3]\nx_2 &lt;- cbind(x[,1],x[,4:5])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\nbhat_1\n\n         [,1]\n[1,] 35.65133\n[2,] 11.72378\n[3,] 12.83774\n\nbhat_2\n\n          [,1]\n[1,] -15.63236\n[2,]  10.45772\n[3,]  14.31329",
+    "text": "13.11 Non-Orthogonal Example\n\nrm(list = ls())\nlibrary(MASS,quietly = TRUE)\n\nnrows &lt;- 10000\nncols &lt;- 5\n\nsigma_mat &lt;- matrix(0, ncols-1, ncols-1) \n sigma_mat[lower.tri(sigma_mat)] &lt;- 0.95\n sigma_mat[upper.tri(sigma_mat)] &lt;- 0.95\n diag(sigma_mat) &lt;- 1\n\nx &lt;- matrix(0, nrows, ncols)\n  x[,1] &lt;- 1\n  x[,2: ncols] &lt;- mvrnorm(n = nrows, mu = c(1,2,3,4), \n                          Sigma = sigma_mat)\n\nbeta &lt;- c(1,4,5,6,10)\ny &lt;- x %*% beta + rnorm(nrows)\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nbhat\n\n         [,1]\n[1,] 1.014532\n[2,] 3.972400\n[3,] 5.022182\n[4,] 6.010027\n[5,] 9.985642\n\n\n\nx_1 &lt;- x[,1:3]\nx_2 &lt;- cbind(x[,1],x[,4:5])\n\nbhat_1 &lt;- solve(t(x_1) %*% x_1) %*% t(x_1) %*% y\nbhat_2 &lt;- solve(t(x_2) %*% x_2) %*% t(x_2) %*% y\n\nbhat_1\n\n         [,1]\n[1,] 35.65431\n[2,] 11.70264\n[3,] 12.81225\n\nbhat_2\n\n          [,1]\n[1,] -15.66391\n[2,]  10.53512\n[3,]  14.26856",
     "crumbs": [
       "Partitioned Regression",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Partitioned Regression</span>"
@@ -1225,7 +1236,7 @@
     "href": "mod-4-1-means.html#scaling-residuals",
     "title": "15  The M0 Matrix",
     "section": "15.2 Scaling Residuals",
-    "text": "15.2 Scaling Residuals\nThe objective function of the least squares estimator is, subject to the selection of a vector of coefficients, \\(\\boldsymbol{b_0}\\), the minimization of the sum of the squared residuals.\n\\[\nmin_{b_0} \\, e^T e\n\\]\nConditional on the standard assumptions holding, we take the first derivative of the objective function and set the first derivative equal to 0 to obtain the normal equations and the vector of least squares coefficients:\nThe normal equations and the vector of the least squares coefficients are: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]\n\\[\\boldsymbol{b} = (\\boldsymbol{X^T\\ X})^{-1}\\ \\boldsymbol{X^T\\ y}\\]\nUsing the sum of the squared residuals are a measure of performance, however, is a poor choice because the sum of the squared residuals can be manipulated by scaling the residuals.\nIf we pre-multiply \\(\\boldsymbol{e}\\) by a scalar \\(k\\) that the sum of the squared residuals becomes:\n\\[\\boldsymbol{e^T}\\ k^Tk\\ \\boldsymbol{e} = (k^Tk)(\\boldsymbol{e^T e} )= k^2 \\boldsymbol{e^T e}\\]\nWe can arbitrarily scale the sum of squared residuals by multiplying \\(\\boldsymbol{y}\\) by a desired scale factor.\nThe code below does the following:\n\nCreates a matrix of independent variables that is \\((500 \\times 5)\\).\nSets a scalar \\(k = 2\\)\nDefines the true population coefficients as a sequence of integers from 1 to 5.\nGenerates \\(\\boldsymbol{y = X \\beta + \\epsilon}\\)\nDefines \\(\\boldsymbol{ky = 2 \\times y}\\)\nGenerates \\(\\boldsymbol{b}\\) for the regression of \\(\\boldsymbol{y}\\) and \\(\\boldsymbol{ky}\\) on \\(\\boldsymbol{X}\\)\nGenerates \\(\\boldsymbol{e}\\) for both regressions\nProduces a table of the first 5 observations of each vector of residuals to illustrate scaling.\n\n\nrm(list = ls())\n\nnrows &lt;- 500\nncols &lt;- 5\nk = 2\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nky &lt;- k*y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\nbhat2 &lt;- solve(t(x) %*% x) %*% t(x) %*% ky\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ne1 &lt;- M %*% y\ne2 &lt;- M %*% ky\n\ndf &lt;- tibble(e1, e2)\n\nkable(df[1:5,],\n      col.names = c('e(y)', 'e(ky)'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\ne(y)\ne(ky)\n\n\n\n\n-0.46233216\n-0.92466432\n\n\n0.97410267\n1.94820533\n\n\n0.21798960\n0.43597920\n\n\n0.01789907\n0.03579815\n\n\n0.08276929\n0.16553858",
+    "text": "15.2 Scaling Residuals\nThe objective function of the least squares estimator is, subject to the selection of a vector of coefficients, \\(\\boldsymbol{b_0}\\), the minimization of the sum of the squared residuals.\n\\[\nmin_{b_0} \\, e^T e\n\\]\nConditional on the standard assumptions holding, we take the first derivative of the objective function and set the first derivative equal to 0 to obtain the normal equations and the vector of least squares coefficients:\nThe normal equations and the vector of the least squares coefficients are: \\[\\boldsymbol{X^T\\ X\\ b} = \\boldsymbol{X^T\\ y}\\]\n\\[\\boldsymbol{b} = (\\boldsymbol{X^T\\ X})^{-1}\\ \\boldsymbol{X^T\\ y}\\]\nUsing the sum of the squared residuals are a measure of performance, however, is a poor choice because the sum of the squared residuals can be manipulated by scaling the residuals.\nIf we pre-multiply \\(\\boldsymbol{e}\\) by a scalar \\(k\\) that the sum of the squared residuals becomes:\n\\[\\boldsymbol{e^T}\\ k^Tk\\ \\boldsymbol{e} = (k^Tk)(\\boldsymbol{e^T e} )= k^2 \\boldsymbol{e^T e}\\]\nWe can arbitrarily scale the sum of squared residuals by multiplying \\(\\boldsymbol{y}\\) by a desired scale factor.\nThe code below does the following:\n\nCreates a matrix of independent variables that is \\((500 \\times 5)\\).\nSets a scalar \\(k = 2\\)\nDefines the true population coefficients as a sequence of integers from 1 to 5.\nGenerates \\(\\boldsymbol{y = X \\beta + \\epsilon}\\)\nDefines \\(\\boldsymbol{ky = 2 \\times y}\\)\nGenerates \\(\\boldsymbol{b}\\) for the regression of \\(\\boldsymbol{y}\\) and \\(\\boldsymbol{ky}\\) on \\(\\boldsymbol{X}\\)\nGenerates \\(\\boldsymbol{e}\\) for both regressions\nProduces a table of the first 5 observations of each vector of residuals to illustrate scaling.\n\n\nrm(list = ls())\n\nnrows &lt;- 500\nncols &lt;- 5\nk = 2\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nky &lt;- k*y\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\nbhat2 &lt;- solve(t(x) %*% x) %*% t(x) %*% ky\n\nI &lt;- diag(nrows)\n\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ne1 &lt;- M %*% y\ne2 &lt;- M %*% ky\n\ndf &lt;- tibble(e1, e2)\n\nkable(df[1:5,],\n      col.names = c('e(y)', 'e(ky)'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\ne(y)\ne(ky)\n\n\n\n\n0.63195470\n1.26390941\n\n\n-0.20351849\n-0.40703698\n\n\n0.39502008\n0.79004015\n\n\n-0.04447291\n-0.08894583\n\n\n0.43449864\n0.86899727",
     "crumbs": [
       "Goodness of Fit",
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>The M0 Matrix</span>"
@@ -1247,7 +1258,7 @@
     "href": "mod-4-1-means.html#r-example-of-m0",
     "title": "15  The M0 Matrix",
     "section": "15.4 R Example of M0",
-    "text": "15.4 R Example of M0\nWe can create \\(\\boldsymbol{M^0}\\) in R to illustrate how it demeans \\(\\boldsymbol{X}\\).\nThe code below does the following:\n\nCreates a \\((200 \\times 5)\\) matrix and fills it with random numbers from a standard normal\nCreates a \\((200 \\times 5)\\) identity matrix, \\(\\boldsymbol{I}\\)\nCreates a \\((200 \\times 1)\\) vector of 1’s which is called \\(\\boldsymbol{i}\\)\nCreates the \\(M^0\\) matrix defined previous\nEstimates the mean deviations of \\(\\boldsymbol{X}\\) as \\(\\boldsymbol{M^0 X}\\)\nEstimates the mean deviations of the second column of \\(\\boldsymbol{X}\\)\nProduces a table of the first 5 observations of mean deviations\nProduces a table of the sum of mean deviations which are equal to zero\n\n\nrm(list = ls())\n\nnrows = 200\nncols = 5\n\nx &lt;- matrix(0,nrows,ncols)\n\nx[,1] &lt;- 1\n\nfor (l in 2:ncols) {\n  x[,l] &lt;- rnorm(nrows)\n}\n  \nI &lt;- diag(nrows)\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\nM0x &lt;- M0 %*% x\n\nx2_meandev &lt;- x[,2] - mean(x[,2])\n\ndf &lt;- tibble(M0x[,2], x2_meandev)\n\nkable(df[1:5,],\n      col.names = c('M0x for X2','Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nM0x for X2\nMean Deviations of X2\n\n\n\n\n-0.057\n-0.057\n\n\n1.565\n1.565\n\n\n1.349\n1.349\n\n\n-1.461\n-1.461\n\n\n-0.747\n-0.747\n\n\n\n\ndf2 &lt;- tibble(sum(M0x[,2]), sum(x2_meandev))\n\nkable(df2,\n      col.names = c('Sum of M0x for X2','Sum of Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nSum of M0x for X2\nSum of Mean Deviations of X2\n\n\n\n\n0\n0\n\n\n\n\n\nNow that we have formed the \\(\\boldsymbol{M^0}\\) matrix, we can move to estimating a measure of performance in the next section.",
+    "text": "15.4 R Example of M0\nWe can create \\(\\boldsymbol{M^0}\\) in R to illustrate how it demeans \\(\\boldsymbol{X}\\).\nThe code below does the following:\n\nCreates a \\((200 \\times 5)\\) matrix and fills it with random numbers from a standard normal\nCreates a \\((200 \\times 5)\\) identity matrix, \\(\\boldsymbol{I}\\)\nCreates a \\((200 \\times 1)\\) vector of 1’s which is called \\(\\boldsymbol{i}\\)\nCreates the \\(M^0\\) matrix defined previous\nEstimates the mean deviations of \\(\\boldsymbol{X}\\) as \\(\\boldsymbol{M^0 X}\\)\nEstimates the mean deviations of the second column of \\(\\boldsymbol{X}\\)\nProduces a table of the first 5 observations of mean deviations\nProduces a table of the sum of mean deviations which are equal to zero\n\n\nrm(list = ls())\n\nnrows = 200\nncols = 5\n\nx &lt;- matrix(0,nrows,ncols)\n\nx[,1] &lt;- 1\n\nfor (l in 2:ncols) {\n  x[,l] &lt;- rnorm(nrows)\n}\n  \nI &lt;- diag(nrows)\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\nM0x &lt;- M0 %*% x\n\nx2_meandev &lt;- x[,2] - mean(x[,2])\n\ndf &lt;- tibble(M0x[,2], x2_meandev)\n\nkable(df[1:5,],\n      col.names = c('M0x for X2','Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nM0x for X2\nMean Deviations of X2\n\n\n\n\n-0.937\n-0.937\n\n\n0.963\n0.963\n\n\n0.224\n0.224\n\n\n-0.017\n-0.017\n\n\n-0.506\n-0.506\n\n\n\n\ndf2 &lt;- tibble(sum(M0x[,2]), sum(x2_meandev))\n\nkable(df2,\n      col.names = c('Sum of M0x for X2','Sum of Mean Deviations of X2'),\n      align     = 'c',\n      digits    = 3) %&gt;%\nkable_classic()\n\n\n\n\nSum of M0x for X2\nSum of Mean Deviations of X2\n\n\n\n\n0\n0\n\n\n\n\n\nNow that we have formed the \\(\\boldsymbol{M^0}\\) matrix, we can move to estimating a measure of performance in the next section.",
     "crumbs": [
       "Goodness of Fit",
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>The M0 Matrix</span>"
@@ -1302,7 +1313,7 @@
     "href": "mod-4-2-rsquared.html#decomposition-in-r",
     "title": "16  R Squared",
     "section": "16.5 Decomposition in R",
-    "text": "16.5 Decomposition in R\nBuilding upon our previous examples, we can use simulated data to create our independent variables, population coefficients, and the dependent variable. We can estimate the least squares coefficients and construct the projection and residual maker matrices.\nWe then construct the \\(\\boldsymbol{M^0}\\) matrix and use this matrix to estimate SST, SSE, and SSR.\nThe output table demonstrates the equality, that the total sum of squares can be decomposed into the explained sum of squares and the residual sum of squares.\n\nrm(list = ls())\nlibrary(kableExtra)\n\nnrows &lt;- 2000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nI &lt;- diag(nrows)\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\n\nyhat &lt;- P %*% y\ne &lt;- M %*% y\n\n\nsst &lt;- t(y) %*% M0 %*% y\nsse &lt;- t(bhat) %*% t(x) %*% M0 %*% x %*% bhat\nssr &lt;- t(e) %*% e\n\ndf &lt;- tibble(SST = as.numeric(sst),\n             SSE = as.numeric(sse),\n             SSR = as.numeric(ssr))\n\nkable(df,\n      col.names = c('SST', 'SSE', 'SSR'),\n      align     = 'c',\n      digits    = 2) %&gt;%\nkable_classic()\n\n\n\n\nSST\nSSE\nSSR\n\n\n\n\n110724.2\n108697.5\n2026.69",
+    "text": "16.5 Decomposition in R\nBuilding upon our previous examples, we can use simulated data to create our independent variables, population coefficients, and the dependent variable. We can estimate the least squares coefficients and construct the projection and residual maker matrices.\nWe then construct the \\(\\boldsymbol{M^0}\\) matrix and use this matrix to estimate SST, SSE, and SSR.\nThe output table demonstrates the equality, that the total sum of squares can be decomposed into the explained sum of squares and the residual sum of squares.\n\nrm(list = ls())\nlibrary(kableExtra)\n\nnrows &lt;- 2000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nI &lt;- diag(nrows)\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\n\nyhat &lt;- P %*% y\ne &lt;- M %*% y\n\n\nsst &lt;- t(y) %*% M0 %*% y\nsse &lt;- t(bhat) %*% t(x) %*% M0 %*% x %*% bhat\nssr &lt;- t(e) %*% e\n\ndf &lt;- tibble(SST = as.numeric(sst),\n             SSE = as.numeric(sse),\n             SSR = as.numeric(ssr))\n\nkable(df,\n      col.names = c('SST', 'SSE', 'SSR'),\n      align     = 'c',\n      digits    = 2) %&gt;%\nkable_classic()\n\n\n\n\nSST\nSSE\nSSR\n\n\n\n\n109936.8\n108029.7\n1907.08",
     "crumbs": [
       "Goodness of Fit",
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>R Squared</span>"
@@ -1324,7 +1335,7 @@
     "href": "mod-4-2-rsquared.html#r-squared-in-r",
     "title": "16  R Squared",
     "section": "16.7 R-Squared in R",
-    "text": "16.7 R-Squared in R\nFirst, we can show that \\(\\boldsymbol{M^0 e = e}\\).\nWe can then calculate the total sum of squares, estimated sum of squares, and residual sum of squares.\n\\(R^2\\) is equivalent whether obtained using the estimated or residual sum of squares.\nOne problem, however, is that one can continue to increase \\(R^2\\) by adding explanatory variables to the regression model.\n\nrm(list = ls())\nlibrary(kableExtra)\n\nnrows &lt;- 2000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nI &lt;- diag(nrows)\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\n\nyhat &lt;- P %*% y\ne &lt;- M %*% y\n\ny_cal &lt;- yhat + e\n\nM0_e &lt;- M0 %*% e\n\ne[1:4]\n\n[1] 0.49456953 0.04835362 0.46974680 2.89182544\n\nM0_e[1:4]\n\n[1] 0.49456953 0.04835362 0.46974680 2.89182544\n\nSST &lt;- t(y) %*% M0 %*% y\nSSE &lt;- t(bhat) %*% t(x) %*% M0 %*% x %*% bhat\nR2 &lt;- SSE / SST\n\nR2_r = 1 - (t(e) %*% e) / (t(y) %*% M0 %*% y)\n\ncbind(R2, R2_r)\n\n          [,1]      [,2]\n[1,] 0.9824707 0.9824707",
+    "text": "16.7 R-Squared in R\nFirst, we can show that \\(\\boldsymbol{M^0 e = e}\\).\nWe can then calculate the total sum of squares, estimated sum of squares, and residual sum of squares.\n\\(R^2\\) is equivalent whether obtained using the estimated or residual sum of squares.\nOne problem, however, is that one can continue to increase \\(R^2\\) by adding explanatory variables to the regression model.\n\nrm(list = ls())\nlibrary(kableExtra)\n\nnrows &lt;- 2000\nncols &lt;- 5\n \nx &lt;- matrix(0, nrows, ncols)\n      x[,1] &lt;- 1\n      for (l in 2: ncols) {\n        x[,l] &lt;- rnorm(nrows)\n        gc()\n      }\n\nbeta &lt;- seq(1,ncols)\n\ny &lt;- x %*% beta + rnorm(nrows)\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\nI &lt;- diag(nrows)\nP &lt;- x %*% solve(t(x) %*% x) %*% t(x)\nM &lt;- I - x %*% solve(t(x) %*% x) %*% t(x)\n\ni &lt;- matrix(1,nrows,1)\n\nM0 &lt;- I - 1/nrows * i %*% t(i)\n\nyhat &lt;- P %*% y\ne &lt;- M %*% y\n\ny_cal &lt;- yhat + e\n\nM0_e &lt;- M0 %*% e\n\ne[1:4]\n\n[1]  1.0828585 -0.1756939  1.1470191 -0.6058106\n\nM0_e[1:4]\n\n[1]  1.0828585 -0.1756939  1.1470191 -0.6058106\n\nSST &lt;- t(y) %*% M0 %*% y\nSSE &lt;- t(bhat) %*% t(x) %*% M0 %*% x %*% bhat\nR2 &lt;- SSE / SST\n\nR2_r = 1 - (t(e) %*% e) / (t(y) %*% M0 %*% y)\n\ncbind(R2, R2_r)\n\n          [,1]      [,2]\n[1,] 0.9812311 0.9812311",
     "crumbs": [
       "Goodness of Fit",
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>R Squared</span>"
@@ -1859,11 +1870,33 @@
     ]
   },
   {
-    "objectID": "mod-6-2-multiple.html#one-hypothesis",
-    "href": "mod-6-2-multiple.html#one-hypothesis",
+    "objectID": "mod-6-2-multiple.html#one-cofficient",
+    "href": "mod-6-2-multiple.html#one-cofficient",
     "title": "22  Hypothesis Testing",
-    "section": "22.6 One Hypothesis",
-    "text": "22.6 One Hypothesis\nAssume that the regression model is:\n\\[\n\\boldsymbol{y = \\beta_1 + \\beta_2 x_2 + \\beta_3 x_3 + \\dots + \\beta_k x_k + \\epsilon}\n\\]\nand we hypothesize that \\(\\beta_3 = 0\\) so that:\n\\[\nH_0: \\beta_3 = 0\n\\]\n\\[H_A: \\beta_3 \\ne 0\\]\nThis means that the R matrix has 0’s for every element EXCEPT for \\(\\beta_3\\) \\[\\boldsymbol{R} = [0\\quad 0\\quad 1\\quad 0\\quad \\dots\\quad 0];\\quad \\boldsymbol{q} = 0\\]\nSo, we can restate the null:\n\\[\nH_0: \\boldsymbol{R \\beta - q = 0}\n\\]\n\\[H_0: \\boldsymbol{R\\beta} = [0\\quad 0\\quad 1\\quad 0\\quad \\dots\\quad 0]\\begin{bmatrix}{\\beta_1 \\\\ \\beta_2 \\\\ \\beta_3 \\\\ \\vdots \\\\ \\beta_k}\\end{bmatrix}= 0 = \\boldsymbol{q}\\]\nIf we multiply this out, we find:\n\\[\nH_0: (0 \\times\\beta_1)+(0 \\times \\beta_2)+(1 \\times \\beta_3) + \\dots + (0 \\times \\beta_k) = 0\n\\]\n\\[\nH_0: \\beta_3 = 0\n\\]",
+    "section": "22.6 One Cofficient",
+    "text": "22.6 One Cofficient\nAssume that the regression model is:\n\\[\n\\boldsymbol{y = \\beta_1 + \\beta_2 x_2 + \\beta_3 x_3 + \\dots + \\beta_k x_k + \\epsilon}\n\\]\nand we hypothesize that \\(\\beta_3 = 0\\) so that:\n\\[\nH_0: \\beta_3 = 0\n\\]\n\\[H_A: \\beta_3 \\ne 0\\]\nThis means that the R matrix has 0’s for every element EXCEPT for \\(\\beta_3\\) \\[\\boldsymbol{R} = [0\\quad 0\\quad 1\\quad 0\\quad \\dots\\quad 0];\\quad \\boldsymbol{q} = 0\\]\nSo, we can restate the null:\n\\[\nH_0: \\boldsymbol{R \\beta - q = 0}\n\\]\n\\[H_0: \\boldsymbol{R\\beta} = [0\\quad 0\\quad 1\\quad 0\\quad \\dots\\quad 0]\\begin{bmatrix}{\\beta_1 \\\\ \\beta_2 \\\\ \\beta_3 \\\\ \\vdots \\\\ \\beta_k}\\end{bmatrix}= 0 = \\boldsymbol{q}\\]\nIf we multiply this out, we find:\n\\[\nH_0: (0 \\times\\beta_1)+(0 \\times \\beta_2)+(1 \\times \\beta_3) + \\dots + (0 \\times \\beta_k) = 0\n\\]\n\\[\nH_0: \\beta_3 = 0\n\\]",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-2-multiple.html#two-coefficients",
+    "href": "mod-6-2-multiple.html#two-coefficients",
+    "title": "22  Hypothesis Testing",
+    "section": "22.7 Two Coefficients",
+    "text": "22.7 Two Coefficients\nAssume that \\(\\boldsymbol{y = X\\beta + \\epsilon}\\) and we hypothesize that \\(\\beta_3 = \\beta_4\\) then \\[\\boldsymbol{R} = [0\\quad 1\\quad -1\\quad \\quad 0\\quad \\dots\\quad 0];\\quad \\boldsymbol{q} = 0\\]\nThe null hypothesis is: \\[ H_0: \\boldsymbol{R \\beta - q = 0} \\]\n\\[H_0: \\boldsymbol{R\\beta} = [0\\quad 1\\quad -1 \\quad 0\\quad \\dots\\quad 0]\\begin{bmatrix}{\\beta_1 \\\\ \\beta_2 \\\\ \\beta_3 \\\\ \\vdots \\\\ \\beta_k}\\end{bmatrix}= 0 = \\boldsymbol{q}\\]\nIf we multiply this out, we find:\n\\[ H_0: (0 \\times\\beta_1)+(1 \\times \\beta_2)+(-1 \\times \\beta_3) + \\dots + (0 \\times \\beta_k) = 0 \\]\n\\[\nH_0: \\beta_1 - \\beta_2 = 0 \\rightarrow \\quad H_0: \\beta_1 = \\beta_2\n\\]",
+    "crumbs": [
+      "Hypothesis Testing",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Hypothesis Testing</span>"
+    ]
+  },
+  {
+    "objectID": "mod-6-2-multiple.html#three-coefficients",
+    "href": "mod-6-2-multiple.html#three-coefficients",
+    "title": "22  Hypothesis Testing",
+    "section": "22.8 Three Coefficients",
+    "text": "22.8 Three Coefficients\nAssume that \\(\\boldsymbol{y = X\\beta + \\epsilon}\\) and we hypothesize that \\(\\beta_2 + \\beta_3 + \\beta_4 = 1\\) then \\[\\boldsymbol{R} = [0\\quad 1\\quad 1\\quad 1\\quad 0\\quad \\dots\\quad 0];\\quad \\boldsymbol{q} = 1\\]\nThe null hypothesis is: \\[ H_0: \\boldsymbol{R \\beta - q = 0} \\]\n\\[H_0: \\boldsymbol{R\\beta} = [0\\quad 1\\quad 1 \\quad 1\\quad \\dots\\quad 0]\\begin{bmatrix}{\\beta_1 \\\\ \\beta_2 \\\\ \\beta_3 \\\\ \\vdots \\\\ \\beta_k}\\end{bmatrix}= \\boldsymbol{q} = 1\\]\nIf we multiply this out, we find:\n\\[ H_0: (0 \\times\\beta_1)+(1 \\times \\beta_2)+(1 \\times \\beta_3) + (1 \\times \\beta_4) + \\dots + (0 \\times \\beta_k) = 1 \\]\n\\[ H_0: \\beta_1 + \\beta_2 + \\beta _3 = 1 \\]",
     "crumbs": [
       "Hypothesis Testing",
       "<span class='chapter-number'>22</span>  <span class='chapter-title'>Hypothesis Testing</span>"
@@ -2013,39 +2046,6 @@
     ]
   },
   {
-    "objectID": "mod-6-2-multiple.html#one-cofficient",
-    "href": "mod-6-2-multiple.html#one-cofficient",
-    "title": "22  Hypothesis Testing",
-    "section": "22.6 One Cofficient",
-    "text": "22.6 One Cofficient\nAssume that the regression model is:\n\\[\n\\boldsymbol{y = \\beta_1 + \\beta_2 x_2 + \\beta_3 x_3 + \\dots + \\beta_k x_k + \\epsilon}\n\\]\nand we hypothesize that \\(\\beta_3 = 0\\) so that:\n\\[\nH_0: \\beta_3 = 0\n\\]\n\\[H_A: \\beta_3 \\ne 0\\]\nThis means that the R matrix has 0’s for every element EXCEPT for \\(\\beta_3\\) \\[\\boldsymbol{R} = [0\\quad 0\\quad 1\\quad 0\\quad \\dots\\quad 0];\\quad \\boldsymbol{q} = 0\\]\nSo, we can restate the null:\n\\[\nH_0: \\boldsymbol{R \\beta - q = 0}\n\\]\n\\[H_0: \\boldsymbol{R\\beta} = [0\\quad 0\\quad 1\\quad 0\\quad \\dots\\quad 0]\\begin{bmatrix}{\\beta_1 \\\\ \\beta_2 \\\\ \\beta_3 \\\\ \\vdots \\\\ \\beta_k}\\end{bmatrix}= 0 = \\boldsymbol{q}\\]\nIf we multiply this out, we find:\n\\[\nH_0: (0 \\times\\beta_1)+(0 \\times \\beta_2)+(1 \\times \\beta_3) + \\dots + (0 \\times \\beta_k) = 0\n\\]\n\\[\nH_0: \\beta_3 = 0\n\\]",
-    "crumbs": [
-      "Hypothesis Testing",
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Hypothesis Testing</span>"
-    ]
-  },
-  {
-    "objectID": "mod-6-2-multiple.html#two-coefficients",
-    "href": "mod-6-2-multiple.html#two-coefficients",
-    "title": "22  Hypothesis Testing",
-    "section": "22.7 Two Coefficients",
-    "text": "22.7 Two Coefficients\nAssume that \\(\\boldsymbol{y = X\\beta + \\epsilon}\\) and we hypothesize that \\(\\beta_3 = \\beta_4\\) then \\[\\boldsymbol{R} = [0\\quad 1\\quad -1\\quad \\quad 0\\quad \\dots\\quad 0];\\quad \\boldsymbol{q} = 0\\]\nThe null hypothesis is: \\[ H_0: \\boldsymbol{R \\beta - q = 0} \\]\n\\[H_0: \\boldsymbol{R\\beta} = [0\\quad 1\\quad -1 \\quad 0\\quad \\dots\\quad 0]\\begin{bmatrix}{\\beta_1 \\\\ \\beta_2 \\\\ \\beta_3 \\\\ \\vdots \\\\ \\beta_k}\\end{bmatrix}= 0 = \\boldsymbol{q}\\]\nIf we multiply this out, we find:\n\\[ H_0: (0 \\times\\beta_1)+(1 \\times \\beta_2)+(-1 \\times \\beta_3) + \\dots + (0 \\times \\beta_k) = 0 \\]\n\\[\nH_0: \\beta_1 - \\beta_2 = 0 \\rightarrow \\quad H_0: \\beta_1 = \\beta_2\n\\]",
-    "crumbs": [
-      "Hypothesis Testing",
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Hypothesis Testing</span>"
-    ]
-  },
-  {
-    "objectID": "mod-6-2-multiple.html#three-coefficients",
-    "href": "mod-6-2-multiple.html#three-coefficients",
-    "title": "22  Hypothesis Testing",
-    "section": "22.8 Three Coefficients",
-    "text": "22.8 Three Coefficients\nAssume that \\(\\boldsymbol{y = X\\beta + \\epsilon}\\) and we hypothesize that \\(\\beta_2 + \\beta_3 + \\beta_4 = 1\\) then \\[\\boldsymbol{R} = [0\\quad 1\\quad 1\\quad 1\\quad 0\\quad \\dots\\quad 0];\\quad \\boldsymbol{q} = 1\\]\nThe null hypothesis is: \\[ H_0: \\boldsymbol{R \\beta - q = 0} \\]\n\\[H_0: \\boldsymbol{R\\beta} = [0\\quad 1\\quad 1 \\quad 1\\quad \\dots\\quad 0]\\begin{bmatrix}{\\beta_1 \\\\ \\beta_2 \\\\ \\beta_3 \\\\ \\vdots \\\\ \\beta_k}\\end{bmatrix}= \\boldsymbol{q} = 1\\]\nIf we multiply this out, we find:\n\\[ H_0: (0 \\times\\beta_1)+(1 \\times \\beta_2)+(1 \\times \\beta_3) + (1 \\times \\beta_4) + \\dots + (0 \\times \\beta_k) = 1 \\]\n\\[ H_0: \\beta_1 + \\beta_2 + \\beta _3 = 1 \\]",
-    "crumbs": [
-      "Hypothesis Testing",
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Hypothesis Testing</span>"
-    ]
-  },
-  {
     "objectID": "mod-7-0-overview.html",
     "href": "mod-7-0-overview.html",
     "title": "23  Module 7 Overview",
@@ -2094,21 +2094,10 @@
     "href": "mod-7-0-overview.html#lessons-in-this-module",
     "title": "23  Module 7 Overview",
     "section": "23.5 Lessons in this Module",
-    "text": "23.5 Lessons in this Module\n\n7.1 - Heteroscedasticitt\n\n\nNext: Start with **Heteroscedasticity*.",
+    "text": "23.5 Lessons in this Module\n\n7.1 - Heteroscedasticity\n\n\nNext: Start with **Heteroscedasticity*.",
     "crumbs": [
       "Heteroscedasticity",
       "<span class='chapter-number'>23</span>  <span class='chapter-title'>Module 7 Overview</span>"
-    ]
-  },
-  {
-    "objectID": "index.html#module-07---heteroscedasticity",
-    "href": "index.html#module-07---heteroscedasticity",
-    "title": "ECON 706",
-    "section": "0.8 Module 07 - Heteroscedasticity",
-    "text": "0.8 Module 07 - Heteroscedasticity\n\n\nModule 7Overview\n\n\nHeteroscedasticity\n\n\n\n\nThis site provides interactive and static examples for economic data analysis using R and WebR. Click on the links above to explore each module.",
-    "crumbs": [
-      "Introduction",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ECON 706</span>"
     ]
   },
   {
@@ -2117,83 +2106,6 @@
     "title": "24  Heteroscedasticity",
     "section": "",
     "text": "24.1 Introduction\nIn this section, we develop the variance estimator for the least squares estimator. We then discuss the problem of heteroscedastic disturbances and the impact of heteroscedasticity on the standard errors of the parameter estimates. We discuss the need for a consistent estimator of the variance of the least squares estimator.",
-    "crumbs": [
-      "Heteroscedasticity",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
-    ]
-  },
-  {
-    "objectID": "mod-7-1-heteroscedasticity.html#null-hypothesis",
-    "href": "mod-7-1-heteroscedasticity.html#null-hypothesis",
-    "title": "24  Heteroscedasticity",
-    "section": "24.2 Null Hypothesis",
-    "text": "24.2 Null Hypothesis\nThe null hypothesis, \\(H_0\\), is the ‘status quo’ or typically the assumption of ‘no effect.’\nThe null hypothesis is the claim that we will ‘operate under’ unless ‘strong evidence’ otherwise.\nIn regression analysis, the null hypothesis is typically that the regressor of interest has no impact on the dependent variable. In other words,\n\\[\nH_0: \\beta_k = 0\n\\]\nWe can only reject or fail to reject the null hypothesis given the evidence at hand.\nIn econometrics, we never “accept” the null hypothesis. We simply state that the evidence is insufficient to disprove it.",
-    "crumbs": [
-      "Heteroscedasticity",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
-    ]
-  },
-  {
-    "objectID": "mod-7-1-heteroscedasticity.html#alternative-hypothesis",
-    "href": "mod-7-1-heteroscedasticity.html#alternative-hypothesis",
-    "title": "24  Heteroscedasticity",
-    "section": "24.3 Alternative Hypothesis",
-    "text": "24.3 Alternative Hypothesis\nThe alternative hypothesis is the claim we are testing. Typically, the alternative represents the presence of an effect, a difference, or a relationship.\nWe do not test the alternative hypothesis. We test whether there is sufficient evidence to reject the null hypothesis. In econometrics, where the null hypothesis is often the true value of the population parameter is equal to zero, we investigate whether, for a given sample, there is sufficient evidence to reject the null of zero (‘no effect’).\nIn most cases, we have a two-sided null and alternative hypothesis, that is, we are not testing a specific direction, merely whether we can reject the null hypothesis of zero.\n\\[\nH_A: \\beta \\ne 0\n\\]",
-    "crumbs": [
-      "Heteroscedasticity",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
-    ]
-  },
-  {
-    "objectID": "mod-7-1-heteroscedasticity.html#general-linear-hypotheses",
-    "href": "mod-7-1-heteroscedasticity.html#general-linear-hypotheses",
-    "title": "24  Heteroscedasticity",
-    "section": "24.4 General Linear Hypotheses",
-    "text": "24.4 General Linear Hypotheses\nWe are imposing one or more linear restrictions on the linear restriction model, that is, for the general linear model \\(\\boldsymbol{y = X\\beta + \\epsilon}\\), we are imposing \\(\\boldsymbol{J}\\) linear restrictions.\nLet \\(\\boldsymbol{R}\\) be a matrix where each row of \\(\\boldsymbol{R}\\) contains the coefficients of one of the restrictions.\n\\(\\boldsymbol{R}\\) may have one or many rows.\nWe can thus write the \\(\\boldsymbol{J}\\) restrictions on \\(\\boldsymbol{\\beta}\\): \\[\\boldsymbol{R\\ \\beta\\ =\\ q}\\]\nThe hypothesis implied by imposing the restrictions can be written as: \\[H_0:\\ \\boldsymbol{R\\ \\beta\\ - \\ q = 0}\\]\n\\[H_A:\\ \\boldsymbol{R\\ \\beta\\ - \\ q \\ne 0}\\]",
-    "crumbs": [
-      "Heteroscedasticity",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
-    ]
-  },
-  {
-    "objectID": "mod-7-1-heteroscedasticity.html#one-linear-hypothesis",
-    "href": "mod-7-1-heteroscedasticity.html#one-linear-hypothesis",
-    "title": "24  Heteroscedasticity",
-    "section": "24.5 One Linear Hypothesis",
-    "text": "24.5 One Linear Hypothesis\nAssume that the regression model is:\n\\[\n\\boldsymbol{y = \\beta_1 + \\beta_2 x_2 + \\beta_3 x_3 + \\dots + \\beta_k x_k + \\epsilon}\n\\]\nand we hypothesize that \\(\\beta_3 = 0\\) so that:\n\\[\nH_0: \\beta_3 = 0\n\\]\n\\[H_A: \\beta_3 \\ne 0\\]\nThis means that the R matrix has 0’s for every element EXCEPT for \\(\\beta_3\\) \\[\\boldsymbol{R} = [0\\quad 0\\quad 1\\quad 0\\quad \\dots\\quad 0];\\quad \\boldsymbol{q} = 0\\]\nSo, we can restate the null:\n\\[\nH_0: \\boldsymbol{R \\beta - q = 0}\n\\]\n\\[H_0: \\boldsymbol{R\\beta} = [0\\quad 0\\quad 1\\quad 0\\quad \\dots\\quad 0]\\begin{bmatrix}{\\beta_1 \\\\ \\beta_2 \\\\ \\beta_3 \\\\ \\vdots \\\\ \\beta_k}\\end{bmatrix}= 0 = \\boldsymbol{q}\\]\nIf we multiply this out, we find:\n\\[\nH_0: (0 \\times\\beta_1)+(0 \\times \\beta_2)+(1 \\times \\beta_3) + \\dots + (0 \\times \\beta_k) = 0\n\\]\n\\[\nH_0: \\beta_3 = 0\n\\]",
-    "crumbs": [
-      "Heteroscedasticity",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
-    ]
-  },
-  {
-    "objectID": "mod-7-1-heteroscedasticity.html#the-t-test",
-    "href": "mod-7-1-heteroscedasticity.html#the-t-test",
-    "title": "24  Heteroscedasticity",
-    "section": "24.6 The T-Test",
-    "text": "24.6 The T-Test\nPreviously, we derived the standard error for each estimated coefficient.\nWe can test a single linear hypothesis using the t-test.\nThe t-test can be thought of as a ‘ratio of distributions.’\nFor a single estimated coefficient, \\(b\\), under the null hypothesis, \\(H_0: \\beta = 0\\), the difference\n\\[\n(b - \\beta)\n\\]\nmeasures the ‘distance’ from the estimate to the value of the population coefficient under the null.\nWe normalize this ‘distance’ relative to the standard error of the estimated coefficient.\nThe ‘farther’ the estimated coefficient is from the hypothesized value under the null, expressed in standard error units, the more likely the estimated coefficient is not equal to the hypothesized value under the null.\nThe t-test is equal to:\n\\[\nt_{n-K} \\sim \\frac{b - \\beta}{se(b)}\n\\]",
-    "crumbs": [
-      "Heteroscedasticity",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
-    ]
-  },
-  {
-    "objectID": "mod-7-1-heteroscedasticity.html#decision-rule-t-test",
-    "href": "mod-7-1-heteroscedasticity.html#decision-rule-t-test",
-    "title": "24  Heteroscedasticity",
-    "section": "24.7 Decision Rule: T-test",
-    "text": "24.7 Decision Rule: T-test\nTo decide whether to reject \\(H_0\\), we compare the calculated t-statistic to a critical value.\nWe use different levels of statistical significance, ranging from \\(\\alpha = 0.10\\) (10% statistical significance) to \\(\\alpha = 0.05\\) (5% statistical significance) to \\(\\alpha = 0.01\\) (1% level of statistical significance).\nIf the absolute value of the calculated t-statistic is greater than the critical value, then we reject the null hypothesis. On the other hand, if the absolute value of the t-statistic is less than or equal to the critical value of the t-statistic, we fail to reject the null hypothesis or:\n\\[\n|t_{calc}| &gt; t_{crit} \\, \\rightarrow \\text{reject} \\, H_0\n\\]\n\\[\n|t_{calc}| \\le t_{crit} \\, \\rightarrow \\text{fail to reject} \\, H_0\n\\]",
-    "crumbs": [
-      "Heteroscedasticity",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"
-    ]
-  },
-  {
-    "objectID": "mod-7-1-heteroscedasticity.html#example-in-r",
-    "href": "mod-7-1-heteroscedasticity.html#example-in-r",
-    "title": "24  Heteroscedasticity",
-    "section": "24.8 Example in R",
-    "text": "24.8 Example in R\nIn the code chunk below, we demonstrate how to estimate the t-statistic for simulated data and test the null hypothesis that each coefficient is equal to zero.\n\nrm(list = ls())\nset.seed(1234)\n\nnrows &lt;- 50\n\nx &lt;- cbind(1, \n           runif(nrows, 0, 20), \n           runif(nrows, 0, 20),\n           rnorm(nrows, 5, 3)) \n\nbeta &lt;- c(10, 2, -1, 3)\nepsilon &lt;- rnorm(nrows, mean = 0, sd = 3.75)\n\ny &lt;- x %*% beta + epsilon\n\nbhat &lt;- solve(t(x) %*% x) %*% t(x) %*% y\n\ne &lt;- y - x %*% bhat\nn &lt;- nrow(x)\nk &lt;- ncol(x)\ns2 &lt;- as.numeric((t(e) %*% e) / (n - k))\n\nvar_cov_b &lt;- s2 * solve(t(x) %*% x)\nse_b &lt;- sqrt(diag(var_cov_b))\n\n# 5. T-test (Two-Tailed)\nbeta &lt;- 0\n\nt_stat &lt;- (bhat - beta) / se_b\n\np_values &lt;- 2 * pt(abs(t_stat), df = n - k, lower.tail = FALSE)\n\ndf &lt;- tibble(round(bhat,3),\n             round(se_b,3),\n             round(t_stat,3),\n             round(p_values,5))\n\nkable(df,\n      align     = 'c',\n      digits    = 3,\n      col.names = c('Beta Hat', 'Standard Error',\n                    'T Statistic', 'P-Value')) %&gt;%\nkable_classic()\n\n\n\n\nBeta Hat\nStandard Error\nT Statistic\nP-Value\n\n\n\n\n8.762\n1.446\n6.061\n0\n\n\n2.009\n0.089\n22.552\n0\n\n\n-0.978\n0.081\n-12.134\n0\n\n\n3.193\n0.151\n21.132\n0",
     "crumbs": [
       "Heteroscedasticity",
       "<span class='chapter-number'>24</span>  <span class='chapter-title'>Heteroscedasticity</span>"

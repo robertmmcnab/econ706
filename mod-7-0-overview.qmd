@@ -49,7 +49,7 @@ Please select the links provided to access material where applicable.
 
 ## Lessons in this Module
 
--   [7.1 - Heteroscedasticitt](mod-7-1-heteroscedasticity.qmd)
+-   [7.1 - Heteroscedasticity](mod-7-1-heteroscedasticity.qmd)
 
 ------------------------------------------------------------------------
 
