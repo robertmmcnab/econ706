@@ -28,11 +28,11 @@ library(tidyquant, quietly = TRUE)
 
 ## Introduction
 
-In this section, we develop the variance estimator for the least squares
-estimator. We then discuss the problem of heteroscedastic disturbances
-and the impact of heteroscedasticity on the standard errors of the
-parameter estimates. We discuss the need for a consistent estimator of
-the variance of the least squares estimator.
+In this section, we revisit the finite sample variance estimator and the
+assumption of homoscedastic disturbances. We then discuss the problem of
+heteroscedastic disturbances and the impact of heteroscedasticity on the
+standard errors of the parameter estimates. We discuss the need for a
+consistent estimator of the variance of the least squares estimator.
 
 ## Finite Sample Variance
 
@@ -321,7 +321,8 @@ whether either parent is a college graduate, income, and region. We
 specify a linear regression model as:
 
 $$
-education_i = \beta_0 + \beta_1 \, distance_i + \beta_2 \, gender_i + \beta_3 \, father_i + \beta_4 \, mother_i + \\ \beta_5 \, income_i + \beta_6 \, region_i + \epsilon_i
+education_i = \beta_0 + \beta_1 \, distance_i + \beta_2 \, gender_i + \beta_3 \, father_i + \beta_4 \, mother_i + $$
+$$ \\ \beta_5 \, income_i + \beta_6 \, region_i + \epsilon_i
 $$
 
 Our testable hypothesis of interest is:
@@ -333,7 +334,9 @@ $$
 
 We first estimate the model under the assumption of homoscedasticity. We
 present the results in Table 1. To present these results, we use the
-**modelsummary** package. You can read more about the package here:
+**modelsummary** package.
+
+You can read more about the package here:
 <https://vincentarelbundock.github.io/modelsummary/reference/modelsummary.html>
 
 ```{r example1, message = FALSE, warning = FALSE}
@@ -363,6 +366,10 @@ $$
 H_o: \sigma_i^2 = \sigma^2 \\
 H_a: \sigma_i^2 \ne \sigma^2
 $$
+
+We can use the **bptest** function to conduct the Breusch-Pagan test. In
+the code below, we use the regression results from the previous code
+chunk as an input to the bptest function.
 
 ```{r, bptest}
 

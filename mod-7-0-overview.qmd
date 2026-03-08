@@ -50,6 +50,7 @@ Please select the links provided to access material where applicable.
 ## Lessons in this Module
 
 -   [7.1 - Heteroscedasticity](mod-7-1-heteroscedasticity.qmd)
+-   [7.2 - Robust Standard Errors](mod-7-2-robust.qmd)
 
 ------------------------------------------------------------------------
 

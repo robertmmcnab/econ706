@@ -1,0 +1,431 @@
+---
+title: "Robustness"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    self-contained: false     # must be false when using webr
+urlcolor: blue
+filters:
+  - webr
+execute:
+  webR: true
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, echo = FALSE, message = FALSE}
+
+library(dplyr, quietly = TRUE)
+library(ggplot2, quietly = TRUE)
+library(kableExtra, quietly = TRUE)
+library(lubridate, quietly = TRUE)
+library(tidyquant, quietly = TRUE)
+
+```
+
+## Introduction
+
+In this section, we develop the variance estimator for the least squares
+estimator. We discuss the need for a consistent estimator of the
+variance of the least squares estimator. We revisit tests of the null
+hypothesis of homoscedasticity.
+
+## Robust Estimation
+
+An estimator is **robust** if it is insensitive to violations of the
+base assumptions of the model.
+
+A **robust estimator** will retain its properties even if some of the
+base assumptions that motivate the estimator are violated.
+
+In finite samples, the unbiasedness of the least squares estimator is
+not dependent on the normality assumption or even the assumption of
+homoscedeastic disturbances.
+
+Asymptotically, the least squares estimator is consistent, efficient,
+and normally distributed even without the normality assumption.
+
+**The least squares estimator is robust to the violation of the
+normality assumption.**
+
+In other words, the unbiasedness and, more importantly, the consistency
+of the least squares estimator is not affected by whether the
+disturbances are normally distributed (or not).
+
+## Consistency
+
+To establish that the least squares estimator is consistent, we first
+assume $\boldsymbol{b}$ exists. In other words,
+$$\frac{\boldsymbol{(X^T X)}}{n}\ \text{is full rank}$$
+
+Second, we assume that $E[\boldsymbol{x_i}\epsilon_i]=0$ which implies
+that:
+$$plim_{n\to \infty} \frac{\boldsymbol{X^T \epsilon}}{n} = \boldsymbol{0}$$
+
+Third, we assume the data are "well behaved", thus:
+$$plim_{n\to \infty} \boldsymbol{\ b} = \boldsymbol{\beta} + \boldsymbol{Q^{-1}} \times \boldsymbol{0} = \boldsymbol{\beta} $$
+
+In other words, homoscedasticity, nonautocorrelation, and normality are
+not required to show the consistency of the least squares estimator and
+thus $\boldsymbol{b}$ is robust to violations of these assumptions.
+
+## Heteroscedastic Disturbances
+
+We have previously derived, using the assumption of homoscedasticity,
+the finite and asymptotic estimators of the covariance matrix of least
+squares estimator or:
+$$Est.Var[\boldsymbol{b}] = s^2 \boldsymbol{(X^T X)^{-1}}$$
+$$Est.Asy.Var[\boldsymbol{b}] = s^2 \boldsymbol{(X^T X)^{-1}}$$
+$$Asy.Var[\boldsymbol{b}] = \frac{\sigma^2}{n} \boldsymbol{Q^{-1}}$$
+
+However, let us assume that the assumption of constant variance is
+violated but the assumption of nonautocorrelation holds or:
+$$Var[\epsilon_i | \boldsymbol{x_i}] = \sigma_i^2 \ne \sigma^2,\ \forall i$$
+$$cov[\epsilon_i, \epsilon_j] = 0,\ \forall i \ne j$$
+
+The question is what is the impact of the violation of the assumption
+that the disturbances have constant variance on the finite sample and
+asymptotic properties of the least squares estimator?
+
+## Asymptotic Variance
+
+Given the finite sample variance of $\boldsymbol{b}$ with
+heteroscedastic disturbances is:
+$$var(\boldsymbol{b|X}) = \boldsymbol{(X^T X)^{-1} \left( X^T\ \Omega\ X \right) (X^T X)^{-1}}$$
+
+And recalling that
+$$plim_{n\to \infty}\ \bigg(\frac{\boldsymbol{X^T X}}{n} \bigg)^{-1} = \boldsymbol{Q^{-1}}$$
+
+Then what is the probability limit of the finite sample variance?
+$$plim_{n\to \infty}\ var(\boldsymbol{b|X}) = plim_{n\to \infty} \left[\boldsymbol{(X^T X)^{-1} \left( X^T\ \Omega\ X \right) (X^T X)^{-1}} \right]$$
+$$plim_{n\to \infty}\ var(\boldsymbol{b|X}) = plim\ \boldsymbol{(X^T X)^{-1}}\ plim \boldsymbol{(X^T\ \Omega\ X)}\ plim\ \boldsymbol{(X^T X)^{-1}}$$
+$$plim_{n\to \infty}\ var(\boldsymbol{b|X}) = n \, \boldsymbol{Q^{-1}}\ plim \boldsymbol{(X^T\ \Omega\ X)}\ n \, \boldsymbol{Q^{-1}}$$
+
+The question is can we find a consistent estimator for
+$\boldsymbol{(X^T\ \Omega\ X)}$?
+
+## White's Estimator
+
+While we never observe the true disturbances $\boldsymbol{\epsilon}$, we
+do observe the residuals $\boldsymbol{e}$.
+
+White (1980) noted that an individual residual $e_i$ will not provide a
+reasonable estimate of the corresponding disturbance $\epsilon_i$.
+
+White (1980) argued, however, that that $\boldsymbol{(X^T e e^T X)}$ is
+a **consistent** (but not unbiased) estimator of
+$\boldsymbol{(X^T E[\epsilon \epsilon^T] X)}$.
+
+Our challenge is that we want to estimate
+$n^{-1} \Sigma\ \epsilon_i^2\ \boldsymbol{x_i x_i^T}$ but we don't
+observe $\boldsymbol{\epsilon}$.
+
+We can estimate $\epsilon_i$ by
+$e_{i} = y_i - \hat{y_i} = y_i - \boldsymbol{x_i^T\ b}$.
+
+We can now define the estimator of $\boldsymbol{\Omega}$ as:
+$$\boldsymbol{\hat{\Omega}} = \boldsymbol{e e^T}$$
+
+White's heteroscedasticity robust estimator of
+$n^{-1} \Sigma\ \epsilon_i^2\ \boldsymbol{x_i x_i^T}$ is:
+$$\boldsymbol{W_{het}} = \frac{1}{n} \Sigma\ e_i^2\ \boldsymbol{x_i x_i^T}$$
+
+It can be shown that:
+$$plim_{n\to \infty}\ e_i = plim_{n\to \infty}\ (y - \boldsymbol{x_i^T b}) = y - \boldsymbol{x_i^T \beta} = \epsilon$$
+$$plim_{n\to \infty} e_i^2 = \epsilon_i^2$$
+
+This implies that:
+$$plim_{n\to \infty}\boldsymbol{W_{het}} = plim_{n\to \infty}\frac{1}{n} \Sigma\ e_i^2\ \boldsymbol{x_i x_i^T}$$
+$$plim_{n\to \infty}\boldsymbol{W_{het}} = plim_{n\to \infty}\frac{1}{n} \Sigma\ \epsilon_i^2\ \boldsymbol{x_i x_i^T}$$
+$$plim_{n\to \infty}\boldsymbol{W_{het}} = plim_{n\to \infty}\frac{1}{n} \Sigma\ \sigma_i^2\ \boldsymbol{x_i x_i^T}$$
+
+**We can use the observed residuals to estimate the behavior of the
+unknown disturbances.**
+
+Recall that $\boldsymbol{X^T X = \Sigma x_i x_i^T}$ so that:
+$$\boldsymbol{X^T \Omega X} = \begin{bmatrix} x_1 & x_2 & \dots & x_n \end{bmatrix}
+\begin{bmatrix}\sigma_1^2 & 0 & \dots & 0 \\ 0 & \sigma_2^2 & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \dots & \sigma_n^2 \end{bmatrix}\begin{bmatrix} x_1^T \\ x_2^T \\ \dots \\ x_n^T \end{bmatrix} = \Sigma\ \sigma_i^2\ \boldsymbol{x_i x_i^T}$$
+
+Utilizing the least squares residuals, we obtain:
+$$\boldsymbol{X^T \hat{\Omega} X} = \begin{bmatrix} x_1 & x_2 & \dots & x_n \end{bmatrix}
+\begin{bmatrix}e_1^2 & 0 & \dots & 0 \\ 0 & e_2^2 & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \dots & e_n^2 \end{bmatrix}\begin{bmatrix} x_1^T \\ x_2^T \\ \dots \\ x_n^T \end{bmatrix} = \Sigma\ e_i^2\ \boldsymbol{x_i x_i^T}$$
+
+## White's Estimator
+
+White's heteroscedasticity robust estimator of the variance-covariance
+matrix for $\boldsymbol{b}$ is:
+$$HC0.var(\boldsymbol{b|X}) = \boldsymbol{(X^T X)^{-1} \left( X^T\ \hat{\Omega}\ X \right) (X^T X)^{-1}}$$
+
+If the regression errors are independent but have distinct variances,
+$\sigma_i^2$, then:
+$$\Omega = diag(\sigma_1^2, \sigma_2^2,...,\sigma_n^2)$$
+
+And we can estimate $\Omega$ with the squared residuals or:
+$$\hat{\Omega} = diag(e_1^2, e_2^2, ..., e_n^2)$$
+
+White's variance-covariance matrix is now:
+
+$$HC.var(\boldsymbol{b|X}) = \boldsymbol{(X^T X)^{-1} \frac{1}{n} \sum_{i=1}^n e_i^2\ \boldsymbol{x_i x_i^T}  (X^T X)^{-1}}$$
+$$HC0.var(\boldsymbol{b|X}) = \boldsymbol{(X^T X)^{-1} \left( X^T\ diag[e_i^2] \ X \right) (X^T X)^{-1}}$$
+
+## Heteroscedasticity
+
+White (1980) shows that
+$\frac{1}{n} \Sigma e_i^2\ \boldsymbol{x_i x_i^2}$ is a consistent but
+biased estimator of
+$\frac{1}{n} \Sigma\ \sigma^2 \boldsymbol{x_i x_i^T}$.
+
+White is not the only method of generating heteroscedasticity consistent
+standard errors.
+
+It is now standard to employ a finite sample correction to White's
+estimator to the bias.
+
+A simple bias correcting heteroscedasticity consistent estimator is
+simply:
+$$HC1.var(\boldsymbol{b|X}) = \frac{n}{n-k} \boldsymbol{(X^T X)^{-1} \left( X^T\ diag[e_i^2] \ X \right) (X^T X)^{-1}}$$
+
+It should be clear that as $n$ becomes large, the bias correction
+approaches 1 for this estimator.
+
+These estimators are asymptotically consistent.
+
+## Homoscedastic Example
+
+```{r, message = FALSE, warnings = FALSE}
+
+rm(list = ls())
+set.seed(1234)
+
+library(broom)
+library(lmtest)
+library(sandwich)
+library(stargazer)
+library(nlme)
+
+nrows <- 10000
+ncols <- 5
+ 
+x <- matrix(0, nrows, ncols)
+      x[,1] <- 1
+      for (l in 2: ncols) {
+        x[,l] <- runif(nrows, min = 0, max = 20)
+        gc()
+      }
+
+beta <- c(1, 3, 5, 7, 12)
+
+y <- x %*% beta + rnorm(nrows, sd = 10)
+
+bhat_pop <- solve(t(x) %*% x) %*% t(x) %*% y
+
+I <- diag(nrows)
+M <- (I - x^T %*% solve(t(x) %*% x) %*% t(x))
+P <- x^T %*% solve(t(x) %*% x) %*% t(x)
+
+e <- M %*% y
+
+s2 <- as.numeric((t(e) %*% e)/(nrows - ncols))
+var_cov_b <- s2 * solve(t(x) %*% x)
+se_b <- sqrt(diag(var_cov_b))
+
+var_cov_b
+
+cbind(bhat_pop, matrix(se_b))
+
+summary(lm(y ~ x[,2] + x[,3] + x[,4] + x[,5]))
+
+```
+
+## Heteroscedastic Example
+
+```{r, message = FALSE, warnings = FALSE}
+
+rm(list = ls())
+set.seed(1234)
+
+library(broom)
+library(lmtest)
+library(sandwich)
+library(stargazer)
+library(nlme)
+
+nrows <- 10000
+ncols <- 5
+ 
+x <- matrix(0, nrows, ncols)
+      x[,1] <- 1
+      for (l in 2: ncols) {
+        x[,l] <- runif(nrows, min = 0, max = 20)
+        gc()
+      }
+
+beta <- c(1, 3, 5, 7, 12)
+
+epsilon_het <- rnorm(nrows, sd = x[,2])
+
+y <- x %*% beta + rnorm(nrows, sd = 10)
+
+y_het <- x %*% beta + epsilon_het
+
+bhat_het <- solve(t(x) %*% x) %*% t(x) %*% y_het
+
+I <- diag(nrows)
+M <- (I - x^T %*% solve(t(x) %*% x) %*% t(x))
+P <- x^T %*% solve(t(x) %*% x) %*% t(x)
+
+e <- M %*% y
+
+e_het <- M %*% y_het
+e_het2 <- e_het^2
+
+xex <- 0
+
+#We need to calculate X^T ehet^2 X but it is large (NxN)
+for(i in 1:nrow(x)) {
+xex <- xex + e_het2[i]*x[i,]%*%t(x[i,])
+}
+
+vcov_h0 <- solve(t(x) %*% x) %*% xex %*% solve(t(x) %*% x)
+se_h0 <- sqrt(diag(vcov_h0))
+
+vcov_h1 <- nrows/(nrows - ncols) * 
+           solve(t(x) %*% x) %*% xex %*% solve(t(x) %*% x)
+
+se_h1 <- sqrt(diag(vcov_h1))
+
+
+#Obtaining the variance-covariance matrix
+#HC1 providers the White standard errors
+
+model_1 <- lm(y_het ~ x[,2] + x[,3] + x[,4] + x[,5])
+vcov_h0 <- vcovHC(model_1, type = "HC0")
+vcov_h1 <- vcovHC(model_1, type = "HC1")
+
+model_1_h0 <- coeftest(model_1, vcov = vcov_h0)
+
+model_1_robust.se_h0 <- sqrt(diag(vcov_h0))
+model_1_robust.se_h1 <- sqrt(diag(vcov_h1))
+
+cbind(se_h0, model_1_robust.se_h0)
+
+cbind(se_h1, model_1_robust.se_h1)
+
+```
+
+## White's Test
+
+White (1980) proposed a test for heteroscedasticity that follows the
+logic of the Bruesch-Pagan test.
+
+White proposed to add the squares and cross-products of all the
+independent variables to the regression of the squared residuals on the
+independent variables.
+$$e^2_i = \hat{z_0} + \hat{\delta_1} z_{i1} + ... +\ \hat{\delta_k} z_{ik} + .. +\ \hat{\lambda_2} z_{i2}^2 + ...+ \hat{\lambda_k} z_{ik}^2 + \hat{\tau}z_{i1}z_{i2} + \hat{\tau}z_{i1}z_{i3} + ... + \hat{\upsilon_i}$$
+
+We should note that
+$\hat{y} = \hat{\delta_1} z_{i1} + \hat{\delta_2} z_{i2} + ... + \hat{\delta_k} z_{ik}$.
+
+The White test becomes
+$$e^2_i = \hat{\delta_0} + \delta_1 \hat{y} + \delta_2 \hat{y}^2 + \hat{\upsilon_i}$$
+
+Under the null (homoscedasticity), the sample size $N$ times $R^2$ is
+distributed $\chi^2$ with $K-1$ degrees of freedom or
+$\chi^2 = N \times R^2 \sim \chi^2_{K-1}$.
+
+## Example
+
+```{r, message = FALSE, warnings = FALSE}
+
+rm(list = ls())
+
+library(AER)
+data("CASchools")
+
+library(broom)
+library(lmtest)
+library(sandwich)
+library(stargazer)
+library(nlme)
+
+data("CASchools")
+
+schools <- CASchools %>%
+  mutate(STR         = students/teachers) %>%
+  mutate(math_read   = (math+read)/2) %>%
+  mutate(CompStu     = computer/students) %>%
+  mutate(NegComp     = 100 - CompStu) %>%
+  mutate(ExpenStu    = expenditure/students)
+
+model_1 <- lm(math_read ~ english + income +
+                ExpenStu, data = schools)
+model_1_resids <- resid(model_1)
+
+#Regress squared residuals on independent variables
+
+model_1_r2 <- lm(model_1_resids^2 ~ english + 
+                   income + ExpenStu, data = schools)
+
+n_model_1_r2 <- nobs(model_1_r2)
+
+g_model_1_r2 <- glance(model_1_r2)
+
+k_model_1_r2 <- g_model_1_r2$df
+
+r2_model_1_r2 <- g_model_1_r2$r.squared
+
+#Obtain Chi-Squared Test Statistic at 5% level of significance
+
+chi_test <- qchisq(.95, df = k_model_1_r2 - 1)
+
+#Manually calculate Breusch-Pagan Test Statistics
+
+#BP = Number of Observations times R-squared
+
+model_1_man_bptest <- n_model_1_r2*r2_model_1_r2
+
+#BP Test of Model 1
+
+bptest(model_1)
+
+model_1_man_bptest
+
+#Obtaining the variance-covariance matrix
+#HC0 providers the White standard errors
+
+vcov_1 <- vcovHC(model_1, type = "HC0")
+
+model_1_robust <- coeftest(model_1, vcov = vcov_1)
+
+model_1_robust.se <- sqrt(diag(vcov_1))
+
+
+#All One Step
+
+model_2 <- lm(math_read ~ english + income + ExpenStu, data = schools)
+
+model_2_bptest <- bptest(model_2)
+
+model_2_robust <- coeftest(model_2, vcov =  vcovHC(model_2, type = "HC0"))
+
+model_2_robust.se <- sqrt(diag(vcovHC(model_2, type = "HC0")))
+
+#White Test
+
+model_2_white <- lm(math_read ~ english + income + ExpenStu  
+                  + I(english^2) + I(income^2) + I(ExpenStu^2) 
+                  + I(english*income) + I(english*ExpenStu) + I(income*ExpenStu), data = schools)
+
+model_2_white_res <- resid(model_2_white)
+
+model_2_white_var <- lm(model_2_white_res^2 ~ english + income + ExpenStu  
+                  + I(english^2) + I(income^2) + I(ExpenStu^2) 
+                  + I(english*income) + I(english*ExpenStu) + I(income*ExpenStu), data = schools)
+
+bptest(model_2_white)
+```

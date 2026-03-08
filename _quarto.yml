@@ -46,6 +46,7 @@ book:
       chapters:
         - mod-7-0-overview.qmd
         - mod-7-1-heteroscedasticity.qmd
+        - mod-7-2-robust.qmd
 
 execute:
   webR: true            # enables WebR chunks for interactive R in the browser

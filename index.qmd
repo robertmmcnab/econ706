@@ -70,6 +70,7 @@ title: "ECON 706"
 <ul>
 <li><a href="mod-7-0-overview.qmd">Module 7 Overview</a></li>
 <li><a href="mod-7-1-heteroscedasticity.qmd">Heteroscedasticity</a></li>
+<li><a href="mod-7-2-robust.qmd">Robust Standard Errors</a></li>
 </ul>
 
 ------------------------------------------------------------------------
