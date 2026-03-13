@@ -224,8 +224,6 @@ kable_styling(font_size = 12,
 
 In this section, we list some common matrix properties which are useful in econometrics.
 
-For much more information, see "The Matrix Cookbook" at <http://matrixcookbook.com>
-
 Vectors are lowercase letters while capital letters represent matrices.
 
 The transpose operation reverses the order of an operation so that the transpose of a product of two matrices can be expressed as the product of the transposed matrices in reverse order.
@@ -247,7 +245,7 @@ The transpose of the addition of the vectors $a$ and $b$ pre-multiplies $C$ and 
 
 $$(a+b)^T C = a^T C + b^T C$$
 
-As noted previously, in almost every case, matrix multiplication is not communicative.
+As noted previously, in almost every case, matrix multiplication is not commutative.
 
 $$AB \ne BA$$
 
@@ -343,7 +341,7 @@ $M$ is the **residual maker** matrix.
 When $y$ is pre-multiplied by $M$, it produces the vector of least squares residuals, $e$.
 
 $$
-My = (I - X(X^TX)^{-1} X^T = y - X(X^TX)^{-1}X^Ty = y - Xb = e
+My = (I - X(X^TX)^{-1} X^T) \, y = y - X(X^TX)^{-1}X^Ty = y - Xb = e
 $$
 
 We also note that $MX = 0$ because the regression of $X$ on $X$ is a 'perfect fit' or:
@@ -543,7 +541,7 @@ kable_styling(font_size = 12,
 
 ## Projection Matrix
 
-While $My$ captures the **unexplained variation** in $y$, $Py$ captured the explained variation in $y$ or:
+While $My$ captures the **unexplained variation** in $y$, $Py$ captured the **explained variation** in $y$ or:
 
 $$M = I - X(X^T X)^{-1}X^T$$
 

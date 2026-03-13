@@ -279,8 +279,7 @@ $$
 When $R^2 = 0$ the predicted values of $y$ are $\bar{y}$ so
 $\boldsymbol{X}$ has no explanatory power.
 
-When $R^2 = 1$, the values of $y$ and $\boldsymbol{x}$ are such that the
-predicted values and actual values are the same.
+When $R^2 = 1$, the predicted values and actual values are the same.
 
 ## R-Squared in R
 
@@ -347,7 +346,7 @@ cbind(R2, R2_r)
 ## R-Squared Increases in X
 
 When we add a new variable $\boldsymbol{z}$ to a regression already
-containing \$\boldsymbol{X}, we can express the new residual sum of
+containing $\boldsymbol{X}$, we can express the new residual sum of
 squares in terms of the old residual sum of squares or:
 
 $$

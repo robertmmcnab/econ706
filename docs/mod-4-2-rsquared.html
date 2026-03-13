@@ -614,9 +614,9 @@ SST = SSE + SSR
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;">108716.2</td>
-<td style="text-align: center;">106935.2</td>
-<td style="text-align: center;">1781.02</td>
+<td style="text-align: center;">112290.6</td>
+<td style="text-align: center;">110275.8</td>
+<td style="text-align: center;">2014.8</td>
 </tr>
 </tbody>
 </table>
@@ -631,7 +631,7 @@ SST = SSE + SSR
 0 \le R^2 \le 1
 \]</span></p>
 <p>When <span class="math inline">\(R^2 = 0\)</span> the predicted values of <span class="math inline">\(y\)</span> are <span class="math inline">\(\bar{y}\)</span> so <span class="math inline">\(\boldsymbol{X}\)</span> has no explanatory power.</p>
-<p>When <span class="math inline">\(R^2 = 1\)</span>, the values of <span class="math inline">\(y\)</span> and <span class="math inline">\(\boldsymbol{x}\)</span> are such that the predicted values and actual values are the same.</p>
+<p>When <span class="math inline">\(R^2 = 1\)</span>, the predicted values and actual values are the same.</p>
 </section>
 <section id="r-squared-in-r" class="level2" data-number="16.7">
 <h2 data-number="16.7" class="anchored" data-anchor-id="r-squared-in-r"><span class="header-section-number">16.7</span> R-Squared in R</h2>
@@ -676,11 +676,11 @@ SST = SSE + SSR
 <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>e[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.002503164  1.658445372 -0.152977331  1.204523930</code></pre>
+<pre><code>[1]  0.49271847 -0.04802669 -0.45146670 -1.39879822</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>M0_e[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.002503164  1.658445372 -0.152977331  1.204523930</code></pre>
+<pre><code>[1]  0.49271847 -0.04802669 -0.45146670 -1.39879822</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>SST <span class="ot">&lt;-</span> <span class="fu">t</span>(y) <span class="sc">%*%</span> M0 <span class="sc">%*%</span> y</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>SSE <span class="ot">&lt;-</span> <span class="fu">t</span>(bhat) <span class="sc">%*%</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> M0 <span class="sc">%*%</span> x <span class="sc">%*%</span> bhat</span>
@@ -691,13 +691,13 @@ SST = SSE + SSR
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(R2, R2_r)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]      [,2]
-[1,] 0.9811956 0.9811956</code></pre>
+[1,] 0.9810822 0.9810822</code></pre>
 </div>
 </div>
 </section>
 <section id="r-squared-increases-in-x" class="level2" data-number="16.8">
 <h2 data-number="16.8" class="anchored" data-anchor-id="r-squared-increases-in-x"><span class="header-section-number">16.8</span> R-Squared Increases in X</h2>
-<p>When we add a new variable <span class="math inline">\(\boldsymbol{z}\)</span> to a regression already containing $, we can express the new residual sum of squares in terms of the old residual sum of squares or:</p>
+<p>When we add a new variable <span class="math inline">\(\boldsymbol{z}\)</span> to a regression already containing <span class="math inline">\(\boldsymbol{X}\)</span>, we can express the new residual sum of squares in terms of the old residual sum of squares or:</p>
 <p><span class="math display">\[
 u^T u = e^T e (1- r_{yz}^2)
 \]</span> where <span class="math inline">\(r_{yz}^2\)</span> is the squared correlation between <span class="math inline">\(\boldsymbol{y}\)</span> and <span class="math inline">\(\boldsymbol{z}\)</span> after both have been ‘purged’ of the influence of <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
@@ -754,25 +754,25 @@ R_{Xz}^2 = R_X^2 +(1-R_X^2)r_{yz}^2
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_dnbsebp0bsl1q54jbwlq = TinyTable.createTableFunctions("tinytable_dnbsebp0bsl1q54jbwlq");
+      const tableFns_7e4u6ouu662rrwwelh6e = TinyTable.createTableFunctions("tinytable_7e4u6ouu662rrwwelh6e");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '20', j: 2 }, { i: '20', j: 3 }, { i: '20', j: 4 } ], css_id: 'tinytable_css_9rzqfp6lvgx1vqh25kp8',}, 
-          { positions: [ { i: '12', j: 2 }, { i: '12', j: 3 }, { i: '12', j: 4 } ], css_id: 'tinytable_css_61toc1r7m23iyqzlaogi',}, 
-          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '16', j: 2 }, { i: '17', j: 2 }, { i: '18', j: 2 }, { i: '19', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '13', j: 3 }, { i: '14', j: 3 }, { i: '15', j: 3 }, { i: '16', j: 3 }, { i: '17', j: 3 }, { i: '18', j: 3 }, { i: '19', j: 3 }, { i: '1', j: 4 }, { i: '2', j: 4 }, { i: '3', j: 4 }, { i: '4', j: 4 }, { i: '5', j: 4 }, { i: '6', j: 4 }, { i: '7', j: 4 }, { i: '8', j: 4 }, { i: '9', j: 4 }, { i: '10', j: 4 }, { i: '11', j: 4 }, { i: '13', j: 4 }, { i: '14', j: 4 }, { i: '15', j: 4 }, { i: '16', j: 4 }, { i: '17', j: 4 }, { i: '18', j: 4 }, { i: '19', j: 4 } ], css_id: 'tinytable_css_sl2uissb36f5vnh9dfix',}, 
-          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 } ], css_id: 'tinytable_css_nup7gbhpo367jtchoqgs',}, 
-          { positions: [ { i: '20', j: 1 } ], css_id: 'tinytable_css_k1j3mtkh3nbznlkglrlf',}, 
-          { positions: [ { i: '12', j: 1 } ], css_id: 'tinytable_css_hw1fvhrc87zpxoq9wgo6',}, 
-          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 }, { i: '16', j: 1 }, { i: '17', j: 1 }, { i: '18', j: 1 }, { i: '19', j: 1 } ], css_id: 'tinytable_css_y24z57g5bsh6ieanj8h8',}, 
-          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_pl4k91l6p2wexbftm786',}, 
+          { positions: [ { i: '20', j: 2 }, { i: '20', j: 3 }, { i: '20', j: 4 } ], css_id: 'tinytable_css_b8mngcq1bhzz98q291l9',}, 
+          { positions: [ { i: '12', j: 2 }, { i: '12', j: 3 }, { i: '12', j: 4 } ], css_id: 'tinytable_css_tb80ezupy4ftpoed6qyk',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '16', j: 2 }, { i: '17', j: 2 }, { i: '18', j: 2 }, { i: '19', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '13', j: 3 }, { i: '14', j: 3 }, { i: '15', j: 3 }, { i: '16', j: 3 }, { i: '17', j: 3 }, { i: '18', j: 3 }, { i: '19', j: 3 }, { i: '1', j: 4 }, { i: '2', j: 4 }, { i: '3', j: 4 }, { i: '4', j: 4 }, { i: '5', j: 4 }, { i: '6', j: 4 }, { i: '7', j: 4 }, { i: '8', j: 4 }, { i: '9', j: 4 }, { i: '10', j: 4 }, { i: '11', j: 4 }, { i: '13', j: 4 }, { i: '14', j: 4 }, { i: '15', j: 4 }, { i: '16', j: 4 }, { i: '17', j: 4 }, { i: '18', j: 4 }, { i: '19', j: 4 } ], css_id: 'tinytable_css_2svzm7bfzscmexhcfk45',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 } ], css_id: 'tinytable_css_lh39h6qt66bo2lx9ptpb',}, 
+          { positions: [ { i: '20', j: 1 } ], css_id: 'tinytable_css_jur68ulw352cdjeinscz',}, 
+          { positions: [ { i: '12', j: 1 } ], css_id: 'tinytable_css_jenxdq77p0kxrbi77cha',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 }, { i: '16', j: 1 }, { i: '17', j: 1 }, { i: '18', j: 1 }, { i: '19', j: 1 } ], css_id: 'tinytable_css_v2cfwaxgfe9pxcgli6ct',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_guhmn4nfvgh8mqac3tmr',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_dnbsebp0bsl1q54jbwlq.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_7e4u6ouu662rrwwelh6e.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -781,17 +781,17 @@ R_{Xz}^2 = R_X^2 +(1-R_X^2)r_{yz}^2
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
     <style>
     /* tinytable css entries after */
-    #tinytable_dnbsebp0bsl1q54jbwlq td.tinytable_css_9rzqfp6lvgx1vqh25kp8, #tinytable_dnbsebp0bsl1q54jbwlq th.tinytable_css_9rzqfp6lvgx1vqh25kp8 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_dnbsebp0bsl1q54jbwlq td.tinytable_css_61toc1r7m23iyqzlaogi, #tinytable_dnbsebp0bsl1q54jbwlq th.tinytable_css_61toc1r7m23iyqzlaogi {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_dnbsebp0bsl1q54jbwlq td.tinytable_css_sl2uissb36f5vnh9dfix, #tinytable_dnbsebp0bsl1q54jbwlq th.tinytable_css_sl2uissb36f5vnh9dfix { text-align: center }
-    #tinytable_dnbsebp0bsl1q54jbwlq td.tinytable_css_nup7gbhpo367jtchoqgs, #tinytable_dnbsebp0bsl1q54jbwlq th.tinytable_css_nup7gbhpo367jtchoqgs {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_dnbsebp0bsl1q54jbwlq td.tinytable_css_k1j3mtkh3nbznlkglrlf, #tinytable_dnbsebp0bsl1q54jbwlq th.tinytable_css_k1j3mtkh3nbznlkglrlf {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_dnbsebp0bsl1q54jbwlq td.tinytable_css_hw1fvhrc87zpxoq9wgo6, #tinytable_dnbsebp0bsl1q54jbwlq th.tinytable_css_hw1fvhrc87zpxoq9wgo6 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_dnbsebp0bsl1q54jbwlq td.tinytable_css_y24z57g5bsh6ieanj8h8, #tinytable_dnbsebp0bsl1q54jbwlq th.tinytable_css_y24z57g5bsh6ieanj8h8 { text-align: left }
-    #tinytable_dnbsebp0bsl1q54jbwlq td.tinytable_css_pl4k91l6p2wexbftm786, #tinytable_dnbsebp0bsl1q54jbwlq th.tinytable_css_pl4k91l6p2wexbftm786 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_7e4u6ouu662rrwwelh6e td.tinytable_css_b8mngcq1bhzz98q291l9, #tinytable_7e4u6ouu662rrwwelh6e th.tinytable_css_b8mngcq1bhzz98q291l9 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_7e4u6ouu662rrwwelh6e td.tinytable_css_tb80ezupy4ftpoed6qyk, #tinytable_7e4u6ouu662rrwwelh6e th.tinytable_css_tb80ezupy4ftpoed6qyk {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_7e4u6ouu662rrwwelh6e td.tinytable_css_2svzm7bfzscmexhcfk45, #tinytable_7e4u6ouu662rrwwelh6e th.tinytable_css_2svzm7bfzscmexhcfk45 { text-align: center }
+    #tinytable_7e4u6ouu662rrwwelh6e td.tinytable_css_lh39h6qt66bo2lx9ptpb, #tinytable_7e4u6ouu662rrwwelh6e th.tinytable_css_lh39h6qt66bo2lx9ptpb {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_7e4u6ouu662rrwwelh6e td.tinytable_css_jur68ulw352cdjeinscz, #tinytable_7e4u6ouu662rrwwelh6e th.tinytable_css_jur68ulw352cdjeinscz {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_7e4u6ouu662rrwwelh6e td.tinytable_css_jenxdq77p0kxrbi77cha, #tinytable_7e4u6ouu662rrwwelh6e th.tinytable_css_jenxdq77p0kxrbi77cha {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_7e4u6ouu662rrwwelh6e td.tinytable_css_v2cfwaxgfe9pxcgli6ct, #tinytable_7e4u6ouu662rrwwelh6e th.tinytable_css_v2cfwaxgfe9pxcgli6ct { text-align: left }
+    #tinytable_7e4u6ouu662rrwwelh6e td.tinytable_css_guhmn4nfvgh8mqac3tmr, #tinytable_7e4u6ouu662rrwwelh6e th.tinytable_css_guhmn4nfvgh8mqac3tmr {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
     </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_dnbsebp0bsl1q54jbwlq" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_7e4u6ouu662rrwwelh6e" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>

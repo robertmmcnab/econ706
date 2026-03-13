@@ -467,8 +467,8 @@ window.Quarto = {
 min_{b_0} \, e^T e
 \]</span></p>
 <p>Conditional on the standard assumptions holding, we take the first derivative of the objective function and set the first derivative equal to 0 to obtain the <strong>normal equations</strong> and the vector of least squares coefficients:</p>
-<p>The <strong>normal equations</strong> and the vector of the least squares coefficients are: <span class="math display">\[\boldsymbol{X^T\ X\ b} = \boldsymbol{X^T\ y}\]</span></p>
-<p><span class="math display">\[\boldsymbol{b} = (\boldsymbol{X^T\ X})^{-1}\ \boldsymbol{X^T\ y}\]</span></p>
+<p>The <strong>normal equations</strong> and the vector of the least squares coefficients are: <span class="math display">\[\boldsymbol{X^T X\ b} = \boldsymbol{X^T\ y}\]</span></p>
+<p><span class="math display">\[\boldsymbol{b} = (\boldsymbol{X^T X})^{-1}\ \boldsymbol{X^T\ y}\]</span></p>
 <p>Using the <strong>sum of the squared residuals</strong> are a measure of performance, however, is a poor choice because the sum of the squared residuals can be manipulated by scaling the residuals.</p>
 <p>If we pre-multiply <span class="math inline">\(\boldsymbol{e}\)</span> by a scalar <span class="math inline">\(k\)</span> that the sum of the squared residuals becomes:</p>
 <p><span class="math display">\[\boldsymbol{e^T}\ k^Tk\ \boldsymbol{e} = (k^Tk)(\boldsymbol{e^T e} )= k^2 \boldsymbol{e^T e}\]</span></p>
@@ -531,24 +531,24 @@ min_{b_0} \, e^T e
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;">-1.3608503</td>
-<td style="text-align: center;">-2.721701</td>
+<td style="text-align: center;">-0.2343022</td>
+<td style="text-align: center;">-0.4686043</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">0.6527985</td>
-<td style="text-align: center;">1.305597</td>
+<td style="text-align: center;">1.1741813</td>
+<td style="text-align: center;">2.3483626</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">-0.8592567</td>
-<td style="text-align: center;">-1.718513</td>
+<td style="text-align: center;">-2.1000552</td>
+<td style="text-align: center;">-4.2001103</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">-1.6617446</td>
-<td style="text-align: center;">-3.323489</td>
+<td style="text-align: center;">1.3175734</td>
+<td style="text-align: center;">2.6351467</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">1.2858918</td>
-<td style="text-align: center;">2.571784</td>
+<td style="text-align: center;">-0.1541284</td>
+<td style="text-align: center;">-0.3082568</td>
 </tr>
 </tbody>
 </table>
@@ -608,7 +608,14 @@ min_{b_0} \, e^T e
 <p>The mean deviations of <span class="math inline">\(\boldsymbol{x}\)</span> would be</p>
 <p><span class="math display">\[(\boldsymbol{x_i}^T - \bar{\boldsymbol{x}}) = \boldsymbol{M^0 x} \]</span></p>
 <p>The sum of mean deviations should be approximately zero.</p>
-<p><span class="math display">\[\sum_{i=1}^{n} (\boldsymbol{x_i}^T - \bar{\boldsymbol{x}}) = \boldsymbol{M^0 x} = 0 \]</span></p>
+<p><span class="math display">\[\sum_{i=1}^{n} (\boldsymbol{x_i}^T - \bar{\boldsymbol{x}}) = \boldsymbol{i^T\ (M^0 \ x)} = 0 \]</span></p>
+<p>This works because:</p>
+<p><span class="math display">\[
+\boldsymbol{i^T M^0 = i^T(I - \frac{1}{n}i i^T) = i^T - \frac{1}{n}(i^T i)i^T}
+\]</span></p>
+<p><span class="math display">\[
+\boldsymbol{i^T M^0 = i^T - \frac{n}{n} i^T = 0}
+\]</span></p>
 </section>
 <section id="r-example-of-m0" class="level2" data-number="15.4">
 <h2 data-number="15.4" class="anchored" data-anchor-id="r-example-of-m0"><span class="header-section-number">15.4</span> R Example of M0</h2>
@@ -663,24 +670,24 @@ min_{b_0} \, e^T e
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;">-1.023</td>
-<td style="text-align: center;">-1.023</td>
+<td style="text-align: center;">-1.539</td>
+<td style="text-align: center;">-1.539</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">0.942</td>
-<td style="text-align: center;">0.942</td>
+<td style="text-align: center;">1.877</td>
+<td style="text-align: center;">1.877</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">-0.710</td>
-<td style="text-align: center;">-0.710</td>
+<td style="text-align: center;">0.687</td>
+<td style="text-align: center;">0.687</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">0.996</td>
-<td style="text-align: center;">0.996</td>
+<td style="text-align: center;">-0.442</td>
+<td style="text-align: center;">-0.442</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">-0.764</td>
-<td style="text-align: center;">-0.764</td>
+<td style="text-align: center;">0.961</td>
+<td style="text-align: center;">0.961</td>
 </tr>
 </tbody>
 </table>

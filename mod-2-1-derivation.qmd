@@ -54,12 +54,12 @@ y_1 \\ y_2 \\ \vdots \\ y_n
 x_{11} & x_{12} & \dots & x_{1K} \\
 x_{21} & x_{22} & \dots & x_{2K} \\
 \vdots & \vdots & \vdots & \vdots \\
-x_{n1} & x_{n2} & x_{n3} & x_{nK} 
+x_{n1} & x_{n2} & \dots & x_{nK} 
 \end{bmatrix}
 \begin{bmatrix}
 \beta_1 \\
 \beta_2 \\
-\beta_3 \\
+\vdots \\
 \beta_4
 \end{bmatrix} +
 \begin{bmatrix}
@@ -112,7 +112,7 @@ So, what is our **objective function**?
 We could try and minimize the sum of our mistakes or:
 
 $$
-\sum_{i=1}^n = y_i - \hat{y_i} = \sum_{i = 1}^n = e_i
+\sum_{i=1}^n y_i - \hat{y_i} = \sum_{i = 1}^n  e_i
 $$
 
 ***However, we assume that our errors are normally distributed with a mean of zero, so if we sum the residuals, we would add the positive and negative values together and they would be equal to zero.***
@@ -175,6 +175,10 @@ $$min_{b0}\ S(b_0) = \boldsymbol{e_0^T e_0} = (\boldsymbol{y - \hat{y}})^T\  (\b
 
 $$e_0^T e_0 = (\boldsymbol{y - X\ b_0})^T\  (\boldsymbol{y - X\ b_0})$$
 
+$$
+e_0^T e_0 = (\boldsymbol{y^T - b_0^T X^T}) \,  (\boldsymbol{y - X\ b_0})
+$$
+
 $$e_0^T e_0 = \boldsymbol{y^Ty - b_0^T\ X^T y - y^T\ Xb_0 + b_0^T X^T X b_0}$$ It is important to note that:
 
 $$\boldsymbol{b_0^T X^T y} \sim (1 \times K) \times (K \times n) \times (n \times 1) \sim (1 \times 1)$$ $$\boldsymbol{y^T X b_0} \sim (1 \times n) \times (n \times K) \times (K \times 1) \sim (1 \times 1)$$
@@ -201,7 +205,7 @@ We can now return to the task at hand. We need to take the first derivative of t
 
 $$\frac{\partial(\boldsymbol{e_0^T e_0 )}}{\partial\ \boldsymbol{b_0}} = 0$$
 
-$$\frac{\partial(\boldsymbol{e_0^T e_0 )}}{\partial\ \boldsymbol{b_0}} =\frac{\partial(\boldsymbol{y^Ty - 2b_0^T\ X^T\ y + b_0^T X^T X b_0})}{\boldsymbol{b_0}} = 0$$
+$$\frac{\partial(\boldsymbol{e_0^T e_0 )}}{\partial\ \boldsymbol{b_0}} =\frac{\partial(\boldsymbol{y^Ty - 2b_0^T\ X^T\ y + b_0^T X^T X b_0})}{\partial \boldsymbol{b_0}} = 0$$
 
 $$\frac{\partial(e_0^T e_0 )}{\partial\ b_0} =\frac{\partial \,y^Ty}{\partial{b_0}} +  \frac{\partial \, 2b_0^T\ X^T\ y}{\partial b_0} + \frac{\partial \, b_0^T X^T Xb_0}{\partial \, b_0} = 0$$
 
@@ -295,7 +299,7 @@ In other words, the predicted value of **y** on the floor is the projection of *
 
 What is the best projection of **y** on **X**? Think of the lines from the floor to the balloon. We have a line at a 10 degree angle, 25 degree angle, and so on until we have a line at a 90 degree angle from the floor to the balloon.\
 \
-We want the linear that minimizes the distance from our predicted value of y to the actual value of y.
+We want the line that minimizes the distance from our predicted value of y to the actual value of y.
 
 A straight line from the floor to the balloon minimizes the distance, in other words, a line at a 90 degree angle from the floor, that is, a **perpendicular line from y onto the floor**.
 

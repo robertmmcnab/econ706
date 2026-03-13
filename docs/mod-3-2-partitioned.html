@@ -511,11 +511,11 @@ window.Quarto = {
 <section id="residual-maker" class="level2" data-number="13.5">
 <h2 data-number="13.5" class="anchored" data-anchor-id="residual-maker"><span class="header-section-number">13.5</span> Residual Maker</h2>
 <p>Previously, we derived the <strong>residual maker</strong> matrix, <strong>M</strong>:</p>
-<p><span class="math display">\[\boldsymbol{I - X(X^T X)^{-1}X} = \boldsymbol{M}\]</span></p>
+<p><span class="math display">\[\boldsymbol{I - X(X^T X)^{-1}X^T} = \boldsymbol{M}\]</span></p>
 <p>Remember that <span class="math inline">\(\boldsymbol{M}\)</span> is the residual maker, that is, <span class="math inline">\(\boldsymbol{My} = \boldsymbol{e}\)</span>.</p>
 <p>In other words, <span class="math inline">\(\boldsymbol{My}\)</span> makes the residuals for the regressions of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
 <p>The counterpart of <strong>M</strong> when for the partition <span class="math inline">\(\boldsymbol{X_1}\)</span> is:</p>
-<p><span class="math display">\[\boldsymbol{I - X_1(X_1^T X_1)^{-1}X_1} = \boldsymbol{M_1}\]</span></p>
+<p><span class="math display">\[\boldsymbol{I - X_1(X_1^T X_1)^{-1}X_1^T} = \boldsymbol{M_1}\]</span></p>
 <p>This means that <span class="math inline">\(\boldsymbol{M_1}\)</span> is the residual maker for regressions on the <span class="math inline">\(\boldsymbol{X_1}\)</span> variables.</p>
 <p><span class="math inline">\(\boldsymbol{M_1 y}\)</span> are the residuals from regressing <span class="math inline">\(\boldsymbol{y}\)</span> on the <span class="math inline">\(\boldsymbol{X_1}\)</span> variables.</p>
 <p><span class="math inline">\(\boldsymbol{M_1 X_2}\)</span> are the column by column residuals from regressing each variable in <span class="math inline">\(\boldsymbol{X_2}\)</span> on all the variables in <span class="math inline">\(\boldsymbol{X_1}\)</span>.</p>
@@ -608,25 +608,25 @@ reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_te90biqiqdovu8cwj40h = TinyTable.createTableFunctions("tinytable_te90biqiqdovu8cwj40h");
+      const tableFns_fq5xahk4cguutkw4rv6d = TinyTable.createTableFunctions("tinytable_fq5xahk4cguutkw4rv6d");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '16', j: 2 }, { i: '16', j: 3 } ], css_id: 'tinytable_css_3cvs2nqhnbcnsz83jxhl',}, 
-          { positions: [ { i: '8', j: 2 }, { i: '8', j: 3 } ], css_id: 'tinytable_css_pnzeksa6fmoxnh3edyeh',}, 
-          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 }, { i: '13', j: 3 }, { i: '14', j: 3 }, { i: '15', j: 3 } ], css_id: 'tinytable_css_m1hcffskdgatpmlk8fvm',}, 
-          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_bk0pp0u5i2dqi7apsqn6',}, 
-          { positions: [ { i: '16', j: 1 } ], css_id: 'tinytable_css_d3npxtksf6goh00njz4u',}, 
-          { positions: [ { i: '8', j: 1 } ], css_id: 'tinytable_css_1wyzek3ciu8t9w4e9h80',}, 
-          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 } ], css_id: 'tinytable_css_87i629jb932pjqrc9ls1',}, 
-          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_wccxrgo0lzhysnvrf19c',}, 
+          { positions: [ { i: '16', j: 2 }, { i: '16', j: 3 } ], css_id: 'tinytable_css_w8qdl254wy8qbzpnkl4u',}, 
+          { positions: [ { i: '8', j: 2 }, { i: '8', j: 3 } ], css_id: 'tinytable_css_21bqri42dcoox3efswdd',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 }, { i: '13', j: 3 }, { i: '14', j: 3 }, { i: '15', j: 3 } ], css_id: 'tinytable_css_1ya1wna9fi092m960q60',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_vnu421j2r9348zy0vgw7',}, 
+          { positions: [ { i: '16', j: 1 } ], css_id: 'tinytable_css_7aaxjm6y2km8k7vt1geu',}, 
+          { positions: [ { i: '8', j: 1 } ], css_id: 'tinytable_css_13zs6pyjcqgkjdfmd84v',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 } ], css_id: 'tinytable_css_mzeaqa07qk1okyxlo2wa',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_h2hens9od69ozdri8af1',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_te90biqiqdovu8cwj40h.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_fq5xahk4cguutkw4rv6d.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -635,17 +635,17 @@ reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
     <style>
     /* tinytable css entries after */
-    #tinytable_te90biqiqdovu8cwj40h td.tinytable_css_3cvs2nqhnbcnsz83jxhl, #tinytable_te90biqiqdovu8cwj40h th.tinytable_css_3cvs2nqhnbcnsz83jxhl {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_te90biqiqdovu8cwj40h td.tinytable_css_pnzeksa6fmoxnh3edyeh, #tinytable_te90biqiqdovu8cwj40h th.tinytable_css_pnzeksa6fmoxnh3edyeh {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_te90biqiqdovu8cwj40h td.tinytable_css_m1hcffskdgatpmlk8fvm, #tinytable_te90biqiqdovu8cwj40h th.tinytable_css_m1hcffskdgatpmlk8fvm { text-align: center }
-    #tinytable_te90biqiqdovu8cwj40h td.tinytable_css_bk0pp0u5i2dqi7apsqn6, #tinytable_te90biqiqdovu8cwj40h th.tinytable_css_bk0pp0u5i2dqi7apsqn6 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_te90biqiqdovu8cwj40h td.tinytable_css_d3npxtksf6goh00njz4u, #tinytable_te90biqiqdovu8cwj40h th.tinytable_css_d3npxtksf6goh00njz4u {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_te90biqiqdovu8cwj40h td.tinytable_css_1wyzek3ciu8t9w4e9h80, #tinytable_te90biqiqdovu8cwj40h th.tinytable_css_1wyzek3ciu8t9w4e9h80 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_te90biqiqdovu8cwj40h td.tinytable_css_87i629jb932pjqrc9ls1, #tinytable_te90biqiqdovu8cwj40h th.tinytable_css_87i629jb932pjqrc9ls1 { text-align: left }
-    #tinytable_te90biqiqdovu8cwj40h td.tinytable_css_wccxrgo0lzhysnvrf19c, #tinytable_te90biqiqdovu8cwj40h th.tinytable_css_wccxrgo0lzhysnvrf19c {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_fq5xahk4cguutkw4rv6d td.tinytable_css_w8qdl254wy8qbzpnkl4u, #tinytable_fq5xahk4cguutkw4rv6d th.tinytable_css_w8qdl254wy8qbzpnkl4u {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_fq5xahk4cguutkw4rv6d td.tinytable_css_21bqri42dcoox3efswdd, #tinytable_fq5xahk4cguutkw4rv6d th.tinytable_css_21bqri42dcoox3efswdd {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_fq5xahk4cguutkw4rv6d td.tinytable_css_1ya1wna9fi092m960q60, #tinytable_fq5xahk4cguutkw4rv6d th.tinytable_css_1ya1wna9fi092m960q60 { text-align: center }
+    #tinytable_fq5xahk4cguutkw4rv6d td.tinytable_css_vnu421j2r9348zy0vgw7, #tinytable_fq5xahk4cguutkw4rv6d th.tinytable_css_vnu421j2r9348zy0vgw7 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_fq5xahk4cguutkw4rv6d td.tinytable_css_7aaxjm6y2km8k7vt1geu, #tinytable_fq5xahk4cguutkw4rv6d th.tinytable_css_7aaxjm6y2km8k7vt1geu {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_fq5xahk4cguutkw4rv6d td.tinytable_css_13zs6pyjcqgkjdfmd84v, #tinytable_fq5xahk4cguutkw4rv6d th.tinytable_css_13zs6pyjcqgkjdfmd84v {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_fq5xahk4cguutkw4rv6d td.tinytable_css_mzeaqa07qk1okyxlo2wa, #tinytable_fq5xahk4cguutkw4rv6d th.tinytable_css_mzeaqa07qk1okyxlo2wa { text-align: left }
+    #tinytable_fq5xahk4cguutkw4rv6d td.tinytable_css_h2hens9od69ozdri8af1, #tinytable_fq5xahk4cguutkw4rv6d th.tinytable_css_h2hens9od69ozdri8af1 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
     </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_te90biqiqdovu8cwj40h" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_fq5xahk4cguutkw4rv6d" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
@@ -785,16 +785,16 @@ reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(bhat[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>],bhat_1[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]     [,2]
-[1,] 2.020155 1.895673
-[2,] 2.990342 3.064047
-[3,] 3.999138 3.880212</code></pre>
+[1,] 1.997298 1.939687
+[2,] 2.987862 2.964044
+[3,] 4.005852 3.921991</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(bhat[<span class="dv">5</span><span class="sc">:</span><span class="dv">7</span>], bhat_2[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]     [,2]
-[1,] 4.990295 4.934765
-[2,] 6.004563 5.999307
-[3,] 6.998354 6.968773</code></pre>
+[1,] 5.001963 4.974796
+[2,] 6.003381 6.010707
+[3,] 7.006010 6.945356</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> y, <span class="at">x =</span> x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -825,11 +825,11 @@ reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>bhat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           [,1]
-[1,]  0.8723142
-[2,]  3.9549737
-[3,]  5.0142877
-[4,]  6.0206344
-[5,] 10.0211091</code></pre>
+[1,]  0.8988329
+[2,]  4.0098098
+[3,]  4.9301146
+[4,]  5.9920763
+[5,] 10.0653564</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -842,16 +842,16 @@ reading_i = \beta_0 + \beta_1 lunch_i + \beta_2income_i + \epsilon_i
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>bhat_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]
-[1,] 35.72320
-[2,] 11.82416
-[3,] 12.74490</code></pre>
+[1,] 35.66680
+[2,] 11.95302
+[3,] 12.68986</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bhat_2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]
-[1,] -15.74758
-[2,]  10.42519
-[3,]  14.36260</code></pre>
+[1,] -15.58751
+[2,]  10.39564
+[3,]  14.35428</code></pre>
 </div>
 </div>
 </section>

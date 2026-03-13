@@ -2611,7 +2611,6 @@ b = (X^T X)^{-1} X^T y
 <section id="matrix-properties" class="level2" data-number="9.5">
 <h2 data-number="9.5" class="anchored" data-anchor-id="matrix-properties"><span class="header-section-number">9.5</span> Matrix Properties</h2>
 <p>In this section, we list some common matrix properties which are useful in econometrics.</p>
-<p>For much more information, see “The Matrix Cookbook” at <a href="http://matrixcookbook.com" class="uri">http://matrixcookbook.com</a></p>
 <p>Vectors are lowercase letters while capital letters represent matrices.</p>
 <p>The transpose operation reverses the order of an operation so that the transpose of a product of two matrices can be expressed as the product of the transposed matrices in reverse order.</p>
 <p><span class="math display">\[(AB)^T = B^T A^T\]</span></p>
@@ -2623,7 +2622,7 @@ b = (X^T X)^{-1} X^T y
 <p><span class="math display">\[(A+B)C = AC + BC\]</span></p>
 <p>The transpose of the addition of the vectors <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> pre-multiplies <span class="math inline">\(C\)</span> and the multiplication can be distributed.</p>
 <p><span class="math display">\[(a+b)^T C = a^T C + b^T C\]</span></p>
-<p>As noted previously, in almost every case, matrix multiplication is not communicative.</p>
+<p>As noted previously, in almost every case, matrix multiplication is not commutative.</p>
 <p><span class="math display">\[AB \ne BA\]</span></p>
 <p>In the code below, we demonstrate each of these properties.</p>
 <div id="qwebr-insertion-location-1"></div>
@@ -2651,7 +2650,7 @@ b = (X^T X)^{-1} X^T y
 <p><span class="math inline">\(M\)</span> is the <strong>residual maker</strong> matrix.</p>
 <p>When <span class="math inline">\(y\)</span> is pre-multiplied by <span class="math inline">\(M\)</span>, it produces the vector of least squares residuals, <span class="math inline">\(e\)</span>.</p>
 <p><span class="math display">\[
-My = (I - X(X^TX)^{-1} X^T = y - X(X^TX)^{-1}X^Ty = y - Xb = e
+My = (I - X(X^TX)^{-1} X^T) \, y = y - X(X^TX)^{-1}X^Ty = y - Xb = e
 \]</span></p>
 <p>We also note that <span class="math inline">\(MX = 0\)</span> because the regression of <span class="math inline">\(X\)</span> on <span class="math inline">\(X\)</span> is a ‘perfect fit’ or:</p>
 <p><span class="math display">\[
@@ -3136,7 +3135,7 @@ M M = M
 </section>
 <section id="projection-matrix" class="level2" data-number="9.11">
 <h2 data-number="9.11" class="anchored" data-anchor-id="projection-matrix"><span class="header-section-number">9.11</span> Projection Matrix</h2>
-<p>While <span class="math inline">\(My\)</span> captures the <strong>unexplained variation</strong> in <span class="math inline">\(y\)</span>, <span class="math inline">\(Py\)</span> captured the explained variation in <span class="math inline">\(y\)</span> or:</p>
+<p>While <span class="math inline">\(My\)</span> captures the <strong>unexplained variation</strong> in <span class="math inline">\(y\)</span>, <span class="math inline">\(Py\)</span> captured the <strong>explained variation</strong> in <span class="math inline">\(y\)</span> or:</p>
 <p><span class="math display">\[M = I - X(X^T X)^{-1}X^T\]</span></p>
 <p><span class="math display">\[P = X(X^T X)^{-1}X^T\]</span></p>
 <p>The projection matrix <span class="math inline">\(P\)</span> is symmetric and idempotent.</p>

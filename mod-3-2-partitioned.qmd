@@ -148,7 +148,7 @@ $$\boldsymbol{b_2} = [\boldsymbol{X_2^T}(\boldsymbol{I} - \boldsymbol{X_1}  (\bo
 
 Previously, we derived the **residual maker** matrix, **M**:
 
-$$\boldsymbol{I - X(X^T X)^{-1}X} = \boldsymbol{M}$$
+$$\boldsymbol{I - X(X^T X)^{-1}X^T} = \boldsymbol{M}$$
 
 Remember that $\boldsymbol{M}$ is the residual maker, that is,
 $\boldsymbol{My} = \boldsymbol{e}$.
@@ -158,7 +158,7 @@ regressions of $\boldsymbol{y}$ on $\boldsymbol{X}$.
 
 The counterpart of **M** when for the partition $\boldsymbol{X_1}$ is:
 
-$$\boldsymbol{I - X_1(X_1^T X_1)^{-1}X_1} = \boldsymbol{M_1}$$
+$$\boldsymbol{I - X_1(X_1^T X_1)^{-1}X_1^T} = \boldsymbol{M_1}$$
 
 This means that $\boldsymbol{M_1}$ is the residual maker for regressions
 on the $\boldsymbol{X_1}$ variables.

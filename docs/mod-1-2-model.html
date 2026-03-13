@@ -429,7 +429,7 @@ window.Quarto = {
   <li><a href="#full-rank" id="toc-full-rank" class="nav-link" data-scroll-target="#full-rank"><span class="header-section-number">6.5</span> Full Rank</a></li>
   <li><a href="#zero-conditional-mean" id="toc-zero-conditional-mean" class="nav-link" data-scroll-target="#zero-conditional-mean"><span class="header-section-number">6.6</span> Zero Conditional Mean</a></li>
   <li><a href="#unbiasedness" id="toc-unbiasedness" class="nav-link" data-scroll-target="#unbiasedness"><span class="header-section-number">6.7</span> Unbiasedness</a></li>
-  <li><a href="#homosecdasticity" id="toc-homosecdasticity" class="nav-link" data-scroll-target="#homosecdasticity"><span class="header-section-number">6.8</span> Homosecdasticity</a></li>
+  <li><a href="#homoscedasticity" id="toc-homoscedasticity" class="nav-link" data-scroll-target="#homoscedasticity"><span class="header-section-number">6.8</span> Homoscedasticity</a></li>
   <li><a href="#data-generation" id="toc-data-generation" class="nav-link" data-scroll-target="#data-generation"><span class="header-section-number">6.9</span> Data Generation</a></li>
   <li><a href="#normal-disturbances" id="toc-normal-disturbances" class="nav-link" data-scroll-target="#normal-disturbances"><span class="header-section-number">6.10</span> Normal Disturbances</a></li>
   <li><a href="#linear-regression-model" id="toc-linear-regression-model" class="nav-link" data-scroll-target="#linear-regression-model"><span class="header-section-number">6.11</span> Linear Regression Model</a></li>
@@ -686,13 +686,13 @@ E[\epsilon_i | \epsilon_j] = 0 \quad \forall i \ne j
 <p>As the covariance between <span class="math inline">\(\epsilon\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span> increases, that is, as <span class="math inline">\(\boldsymbol{X}\)</span> contains more information about <span class="math inline">\(\epsilon\)</span>, the linear regression model will not produce ‘reliable’ estimates of the population parameters of interest.</p>
 <p>Simply put, if Zero Conditional Mean fails, the linear regression model produces <strong>biased estimates</strong> of the population parameters.</p>
 </section>
-<section id="homosecdasticity" class="level2" data-number="6.8">
-<h2 data-number="6.8" class="anchored" data-anchor-id="homosecdasticity"><span class="header-section-number">6.8</span> Homosecdasticity</h2>
+<section id="homoscedasticity" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="homoscedasticity"><span class="header-section-number">6.8</span> Homoscedasticity</h2>
 <p>The variance of the disturbances conditional on the independent variables is constant and the covariance among the disturbances conditional on the independent variables is equal to zero.</p>
 <p>The assumption of <strong>homoscedasticity</strong> is:</p>
 <p><span class="math display">\[var[\epsilon_i |\boldsymbol{X}] = \sigma^2 \quad \forall i\]</span></p>
 <p>The assumption of <strong>no autocorrelation</strong> is</p>
-<p><span class="math display">\[cov[\epsilon_i, \epsilon_j | \boldsymbol{X}] = 0 \quad \forall i,j\]</span></p>
+<p><span class="math display">\[cov[\epsilon_i, \epsilon_j | \boldsymbol{X}] = 0 \quad \forall i \ne j\]</span></p>
 <p>Homoscedasticity implies that the variance of the disturbances is independent of <span class="math inline">\(\boldsymbol{X}\)</span> and constant, that is, the independent variables contain no information about the dispersion of the disturbances.</p>
 <p>The assumption of no autocorrelation implies that the covariance of the disturbances, conditional on the independent variables, is equal to zero, that is, no disturbance contains information about any other disturbance.</p>
 <p>Together, the assumptions imply that the diagonal of the variance-covariance matrix for the disturbances consists of <span class="math inline">\(\sigma^2\)</span> and the off-diagonal terms are 0.</p>
@@ -730,7 +730,7 @@ E[\epsilon_i | \boldsymbol{X}] = 0
 \]</span></p>
 <p>Assumption 4 implies that the conditional variance of the disturbances is equal to <span class="math inline">\(\sigma^2 I\)</span> or</p>
 <p><span class="math display">\[
-E[\epsilon^T \epsilon | \boldsymbol{X}] = E[\epsilon^T \epsilon] = \sigma^2 I
+E[\epsilon \epsilon^T | \boldsymbol{X}] = E[\epsilon \epsilon^T] = \sigma^2 I
 \]</span></p>
 <p>Assumption 6 is that the disturbances are normally distributed or</p>
 <p><span class="math display">\[
@@ -765,8 +765,8 @@ E[\epsilon^T \epsilon | \boldsymbol{X}] = E[\epsilon^T \epsilon] = \sigma^2 I
 <p>In this course, we will focus on violations of the assumptions of the exogeneity of the regressors and homoscedasticity.</p>
 <p>If the regressors and the disturbances are independent but the variance of the disturbances is a function of the regressors, then the variance of the disturbances is no longer constant.</p>
 <p>If this occurs, the estimates of the standard errors of the parameter estimates are not reliable and we cannot make inferences about the statistical significance of the parameter estimates.</p>
-<p>We will show that if one or more regressors are <strong>endogenous</strong> then the parameter estimates do not, on average equal the population parameters.</p>
-<p>We will also show that if one or more regressors are endogenous that the parameter estimates do not converge to the population parameters.</p>
+<p>We will show that if one or more regressors are <strong>endogenous</strong>, then the parameter estimates do not, on average equal the population parameters.</p>
+<p>We will also show that if one or more regressors are endogenous, that the parameter estimates do not converge to the population parameters.</p>
 <p>We will need to modify our approach to account for endogeneity, heteroscedasticity, or both.</p>
 </section>
 <section id="next-steps" class="level2" data-number="6.13">

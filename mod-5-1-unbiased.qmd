@@ -235,7 +235,7 @@ What does this mean for a particular sample of the population?
 
 For any sample of the population, the least squares estimator has the expectation $\boldsymbol{\beta}$. $$\boldsymbol{E[b] = E_X[E[b\ |\ x]] = \beta}$$ When we average this expectation over all the possible values of $\boldsymbol{X}$, we obtain the unconditional mean is $\boldsymbol{\beta}$.
 
-$$\boldsymbol{E[b] = E_X[E[b\ |\ x]] = E_x[\beta] = \beta}$$
+$$\boldsymbol{E[b] = E_X[E[b\ |\ x]] = E_X[\beta] = \beta}$$
 
 Given that the expectation of $\boldsymbol{b}$ conditional on $\boldsymbol{X}$ is equal to $\boldsymbol{\beta}$, then the least squares estimator is unbiased in **every** sample.
 

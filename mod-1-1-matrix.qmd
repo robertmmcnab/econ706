@@ -65,7 +65,7 @@ The code chunk below does the following:
 
 3.  Using **d_2**, create a $(2 \times 2)$ matrix
 
-4.  Using **d_1**, create a \$(4 \times 1) matrix
+4.  Using **d_1**, create a $(4 \times 1)$ matrix
 
 5.  Use **kable** to output **m_1**
 

@@ -39,9 +39,9 @@ $$
 
 Conditional on the standard assumptions holding, we take the first derivative of the objective function and set the first derivative equal to 0 to obtain the **normal equations** and the vector of least squares coefficients:
 
-The **normal equations** and the vector of the least squares coefficients are: $$\boldsymbol{X^T\ X\ b} = \boldsymbol{X^T\ y}$$
+The **normal equations** and the vector of the least squares coefficients are: $$\boldsymbol{X^T X\ b} = \boldsymbol{X^T\ y}$$
 
-$$\boldsymbol{b} = (\boldsymbol{X^T\ X})^{-1}\ \boldsymbol{X^T\ y}$$
+$$\boldsymbol{b} = (\boldsymbol{X^T X})^{-1}\ \boldsymbol{X^T\ y}$$
 
 Using the **sum of the squared residuals** are a measure of performance, however, is a poor choice because the sum of the squared residuals can be manipulated by scaling the residuals.
 
@@ -195,7 +195,17 @@ $$(\boldsymbol{x_i}^T - \bar{\boldsymbol{x}}) = \boldsymbol{M^0 x} $$
 
 The sum of mean deviations should be approximately zero.
 
-$$\sum_{i=1}^{n} (\boldsymbol{x_i}^T - \bar{\boldsymbol{x}}) = \boldsymbol{M^0 x} = 0 $$
+$$\sum_{i=1}^{n} (\boldsymbol{x_i}^T - \bar{\boldsymbol{x}}) = \boldsymbol{i^T\ (M^0 \ x)} = 0 $$
+
+This works because:
+
+$$
+\boldsymbol{i^T M^0 = i^T(I - \frac{1}{n}i i^T) = i^T - \frac{1}{n}(i^T i)i^T}
+$$
+
+$$
+\boldsymbol{i^T M^0 = i^T - \frac{n}{n} i^T = 0}
+$$
 
 ## R Example of M0
 

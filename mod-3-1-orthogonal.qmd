@@ -53,7 +53,7 @@ In our example, the percent of students receiving free or reduced price lunch is
 
 We would only be able to omit the variables in $\boldsymbol{X_2}$ if and only if these variables were orthogonal to the variables in $\boldsymbol{X_1}$, which is very strong (and basically untenable) assumption.
 
-So, if we cannot omit the variables in $\boldsymbol{X_2}$, we need to develop the processes by which we can isolate the influence of $\boldsymbol{X_1}$ while controlling for the influence of the influence of the variables in $\boldsymbol{X_2}$.
+So, if we cannot omit the variables in $\boldsymbol{X_2}$, we need to develop the processes by which we can isolate the influence of $\boldsymbol{X_1}$ while controlling for the influence of the variables in $\boldsymbol{X_2}$.
 
 **Partitioned regression is that process**.
 
@@ -121,7 +121,7 @@ A block diagonal matrix is a square matrix such that the main-diagonal blocks ar
 
 ## Non-Block Diagonal Matrix
 
-What happens it a matrix is not block diagonal?
+What happens if a matrix is not block diagonal?
 
 We again can use direct multiplication to show:
 

@@ -438,7 +438,7 @@ window.Quarto = {
 <p>The control variables are independent variables that we believe significantly influence the dependent variable. If we excluded the control variables from the regression analysis, we would likely violate zero conditional mean and our parameter estimates would be biased (that is, deviate, on average, from the true parameter values).</p>
 <p>In our example, the percent of students receiving free or reduced price lunch is typically highly correlated with income, race, geographic location, and other variables. If we excluded these other variables from the regression analysis, the estimated coefficient for lunch would likely capture some of the influence of the <strong>omitted variables</strong>.</p>
 <p>We would only be able to omit the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span> if and only if these variables were orthogonal to the variables in <span class="math inline">\(\boldsymbol{X_1}\)</span>, which is very strong (and basically untenable) assumption.</p>
-<p>So, if we cannot omit the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span>, we need to develop the processes by which we can isolate the influence of <span class="math inline">\(\boldsymbol{X_1}\)</span> while controlling for the influence of the influence of the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span>.</p>
+<p>So, if we cannot omit the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span>, we need to develop the processes by which we can isolate the influence of <span class="math inline">\(\boldsymbol{X_1}\)</span> while controlling for the influence of the variables in <span class="math inline">\(\boldsymbol{X_2}\)</span>.</p>
 <p><strong>Partitioned regression is that process</strong>.</p>
 </section>
 <section id="partitioned-regression" class="level2" data-number="12.3">
@@ -484,7 +484,7 @@ A_{11}^{-1} &amp; 0 \\
 </section>
 <section id="non-block-diagonal-matrix" class="level2" data-number="12.6">
 <h2 data-number="12.6" class="anchored" data-anchor-id="non-block-diagonal-matrix"><span class="header-section-number">12.6</span> Non-Block Diagonal Matrix</h2>
-<p>What happens it a matrix is not block diagonal?</p>
+<p>What happens if a matrix is not block diagonal?</p>
 <p>We again can use direct multiplication to show:</p>
 <p><span class="math display">\[\begin{bmatrix}
 A_{11} &amp; A_{12} \\

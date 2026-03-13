@@ -317,7 +317,7 @@ As the covariance between $\epsilon$ and $\boldsymbol{X}$ increases, that is, as
 
 Simply put, if Zero Conditional Mean fails, the linear regression model produces **biased estimates** of the population parameters.
 
-## Homosecdasticity
+## Homoscedasticity
 
 The variance of the disturbances conditional on the independent variables is constant and the covariance among the disturbances conditional on the independent variables is equal to zero.
 
@@ -327,7 +327,7 @@ $$var[\epsilon_i |\boldsymbol{X}] = \sigma^2 \quad \forall i$$
 
 The assumption of **no autocorrelation** is
 
-$$cov[\epsilon_i, \epsilon_j | \boldsymbol{X}] = 0 \quad \forall i,j$$
+$$cov[\epsilon_i, \epsilon_j | \boldsymbol{X}] = 0 \quad \forall i \ne j$$
 
 Homoscedasticity implies that the variance of the disturbances is independent of $\boldsymbol{X}$ and constant, that is, the independent variables contain no information about the dispersion of the disturbances.
 
@@ -382,7 +382,7 @@ $$
 Assumption 4 implies that the conditional variance of the disturbances is equal to $\sigma^2 I$ or
 
 $$
-E[\epsilon^T \epsilon | \boldsymbol{X}] = E[\epsilon^T \epsilon] = \sigma^2 I
+E[\epsilon \epsilon^T | \boldsymbol{X}] = E[\epsilon \epsilon^T] = \sigma^2 I
 $$
 
 Assumption 6 is that the disturbances are normally distributed or
@@ -433,9 +433,9 @@ If the regressors and the disturbances are independent but the variance of the d
 
 If this occurs, the estimates of the standard errors of the parameter estimates are not reliable and we cannot make inferences about the statistical significance of the parameter estimates.
 
-We will show that if one or more regressors are **endogenous** then the parameter estimates do not, on average equal the population parameters.
+We will show that if one or more regressors are **endogenous**, then the parameter estimates do not, on average equal the population parameters.
 
-We will also show that if one or more regressors are endogenous that the parameter estimates do not converge to the population parameters.
+We will also show that if one or more regressors are endogenous, that the parameter estimates do not converge to the population parameters.
 
 We will need to modify our approach to account for endogeneity, heteroscedasticity, or both.
 

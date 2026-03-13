@@ -38,7 +38,7 @@ The **dot product** or **inner product** or **scalar product** is a way to multi
 Given two vectors, **a** and **b**, where $a = (a_1, a_2, \dots, a_n)$ and $b = (b_1, b_2, \dots, b_n)$, the dot product of **a** and **b** is equal to:
 
 $$
-a \cdot b = a_1 b_1 + a_2 b_2 + a_3 b3 + \dots + a_n b_n
+a \cdot b = a_1 b_1 + a_2 b_2 + a_3 b_3 + \dots + a_n b_n
 $$
 
 ## Orthogonality

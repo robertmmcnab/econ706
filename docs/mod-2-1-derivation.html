@@ -447,12 +447,12 @@ y_1 \\ y_2 \\ \vdots \\ y_n
 x_{11} &amp; x_{12} &amp; \dots &amp; x_{1K} \\
 x_{21} &amp; x_{22} &amp; \dots &amp; x_{2K} \\
 \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
-x_{n1} &amp; x_{n2} &amp; x_{n3} &amp; x_{nK}
+x_{n1} &amp; x_{n2} &amp; \dots &amp; x_{nK}
 \end{bmatrix}
 \begin{bmatrix}
 \beta_1 \\
 \beta_2 \\
-\beta_3 \\
+\vdots \\
 \beta_4
 \end{bmatrix} +
 \begin{bmatrix}
@@ -488,7 +488,7 @@ e = y - \hat{y} = y - Xb
 <p>So, what is our <strong>objective function</strong>?</p>
 <p>We could try and minimize the sum of our mistakes or:</p>
 <p><span class="math display">\[
-\sum_{i=1}^n = y_i - \hat{y_i} = \sum_{i = 1}^n = e_i
+\sum_{i=1}^n y_i - \hat{y_i} = \sum_{i = 1}^n  e_i
 \]</span></p>
 <p><strong><em>However, we assume that our errors are normally distributed with a mean of zero, so if we sum the residuals, we would add the positive and negative values together and they would be equal to zero.</em></strong></p>
 <p><span class="math display">\[
@@ -528,6 +528,9 @@ var(X) = \frac{1}{N}\sum_{i=1}^N (x_i - \mu_x)^2
 <p>We can now specific the objective function as:</p>
 <p><span class="math display">\[min_{b0}\ S(b_0) = \boldsymbol{e_0^T e_0} = (\boldsymbol{y - \hat{y}})^T\  (\boldsymbol{y - \hat{y}})\]</span></p>
 <p><span class="math display">\[e_0^T e_0 = (\boldsymbol{y - X\ b_0})^T\  (\boldsymbol{y - X\ b_0})\]</span></p>
+<p><span class="math display">\[
+e_0^T e_0 = (\boldsymbol{y^T - b_0^T X^T}) \,  (\boldsymbol{y - X\ b_0})
+\]</span></p>
 <p><span class="math display">\[e_0^T e_0 = \boldsymbol{y^Ty - b_0^T\ X^T y - y^T\ Xb_0 + b_0^T X^T X b_0}\]</span> It is important to note that:</p>
 <p><span class="math display">\[\boldsymbol{b_0^T X^T y} \sim (1 \times K) \times (K \times n) \times (n \times 1) \sim (1 \times 1)\]</span> <span class="math display">\[\boldsymbol{y^T X b_0} \sim (1 \times n) \times (n \times K) \times (K \times 1) \sim (1 \times 1)\]</span></p>
 <p><span class="math display">\[(\boldsymbol{b_0^T\ X^T y})^T = \boldsymbol{y^T\ X\ b_0}\]</span></p>
@@ -543,7 +546,7 @@ var(X) = \frac{1}{N}\sum_{i=1}^N (x_i - \mu_x)^2
 <p><span class="math display">\[\frac{\delta \boldsymbol{b^T A b}}{\delta \boldsymbol{b}} = 2 \boldsymbol{Ab} = 2 \boldsymbol{b^TA}\]</span></p>
 <p>We can now return to the task at hand. We need to take the first derivative of the objective function with respect to <span class="math inline">\(\boldsymbol{b_0}\)</span> and set the first derivative equal to zero or:</p>
 <p><span class="math display">\[\frac{\partial(\boldsymbol{e_0^T e_0 )}}{\partial\ \boldsymbol{b_0}} = 0\]</span></p>
-<p><span class="math display">\[\frac{\partial(\boldsymbol{e_0^T e_0 )}}{\partial\ \boldsymbol{b_0}} =\frac{\partial(\boldsymbol{y^Ty - 2b_0^T\ X^T\ y + b_0^T X^T X b_0})}{\boldsymbol{b_0}} = 0\]</span></p>
+<p><span class="math display">\[\frac{\partial(\boldsymbol{e_0^T e_0 )}}{\partial\ \boldsymbol{b_0}} =\frac{\partial(\boldsymbol{y^Ty - 2b_0^T\ X^T\ y + b_0^T X^T X b_0})}{\partial \boldsymbol{b_0}} = 0\]</span></p>
 <p><span class="math display">\[\frac{\partial(e_0^T e_0 )}{\partial\ b_0} =\frac{\partial \,y^Ty}{\partial{b_0}} +  \frac{\partial \, 2b_0^T\ X^T\ y}{\partial b_0} + \frac{\partial \, b_0^T X^T Xb_0}{\partial \, b_0} = 0\]</span></p>
 <p>Breaking the first derivative into its component parts yields:</p>
 <p><span class="math display">\[\frac{\partial \,y^Ty}{\partial{b_0}} = 0 \]</span></p>
@@ -602,7 +605,7 @@ var(X) = \frac{1}{N}\sum_{i=1}^N (x_i - \mu_x)^2
 <p><strong><em>The projection of y on X is the best linear approximation of y using the information in X.</em></strong></p>
 <p>What is the best projection of <strong>y</strong> on <strong>X</strong>? Think of the lines from the floor to the balloon. We have a line at a 10 degree angle, 25 degree angle, and so on until we have a line at a 90 degree angle from the floor to the balloon.<br>
 <br>
-We want the linear that minimizes the distance from our predicted value of y to the actual value of y.</p>
+We want the line that minimizes the distance from our predicted value of y to the actual value of y.</p>
 <p>A straight line from the floor to the balloon minimizes the distance, in other words, a line at a 90 degree angle from the floor, that is, a <strong>perpendicular line from y onto the floor</strong>.</p>
 <p>Why is the “perpendicular line” the same as “minimizing the sum of squares”?</p>
 <p>Think of the distance between the balloon, <span class="math inline">\(\boldsymbol{y}\)</span>, and any point on the floor, <span class="math inline">\(\boldsymbol{\hat{y}}\)</span>.</p>

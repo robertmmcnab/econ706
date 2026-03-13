@@ -14,8 +14,8 @@ The module also addresses the limitations of $R^2$, specifically its tendency to
 
 By the end of this module, you should be able to:
 
--   **MLO 1**: **Explain** the role of the **M0** matrix in measuring the total variation of a dependent variable within a regression framework.
--   **MLO 2**: **Calculate and interpret** the coefficient of determination (\$R\^2\$) to evaluate the explained variation of a least squares regression.
+-   **MLO 1**: **Explain** the role of the $\boldsymbol{M^0}$ matrix in measuring the total variation of a dependent variable within a regression framework.
+-   **MLO 2**: **Calculate and interpret** the coefficient of determination $R^2$ to evaluate the explained variation of a least squares regression.
 -   **MLO 3: Differentiate** between $R^2$ and Adjusted $R^2$, specifically regarding how each metric responds to the addition of statistically insignificant variables.
 -   **MLO 4: Analyze** standard statistical output to determine if the inclusion of a specific variable significantly improves the model's goodness of fit.
 -   **MLO 5: Implement** matrix calculations in R to derive the Total Sum of Squares (SST) and verify results against standard regression packages.
